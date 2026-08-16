@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ParticleBackground from '@/components/3d/ParticleBackground';
+import { CartProvider } from '@/components/store/CartContext';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} dark scroll-smooth`}>
       <body className="bg-[#0B0F17] text-gray-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden selection:bg-[#2563EB] selection:text-white">
-        <CustomCursor />
-        <ParticleBackground />
-        <div className="bg-grid-pattern" />
-        <Navbar />
-        <main className="flex-grow pt-24">{children}</main>
-        <Footer />
+        <CartProvider>
+          <CustomCursor />
+          <ParticleBackground />
+          <div className="bg-grid-pattern" />
+          <Navbar />
+          <main className="flex-grow pt-24">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
