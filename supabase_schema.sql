@@ -1,5 +1,5 @@
 -- ==========================================
--- AWIE LABS SUPABASE POSTGRESQL SCHEMA
+-- AWIE SUPABASE POSTGRESQL SCHEMA
 -- ==========================================
 
 -- 1. Contact Messages Table
