@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShieldCheck, Truck, Lock, Headphones, Globe } from 'lucide-react';
 
 export default function StoreFooter() {
@@ -54,8 +55,8 @@ export default function StoreFooter() {
 
         {/* Links & Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-[#2563EB] text-sm">AWIE STORE</span>
+          <div className="flex items-center gap-3">
+            <Image src="/store-logo.png" alt="AWIE STORE Logo" width={130} height={38} className="h-8 w-auto object-contain" />
             <span>— Electronics. Modules. Kits.</span>
           </div>
 

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search, ShoppingBag, User, ChevronDown, Menu, X } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
@@ -15,17 +16,16 @@ export default function StoreHeader() {
     <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
         
-        {/* Brand Logo matching Screenshot: AWIE with Orbital Blue Ring */}
-        <Link href="/store" className="flex items-center gap-2 group">
-          <div className="relative flex items-center justify-center">
-            <svg className="w-10 h-10 text-[#2563EB]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="50" cy="50" rx="42" ry="24" stroke="currentColor" strokeWidth="6" transform="rotate(-25 50 50)" />
-              <circle cx="50" cy="50" r="16" fill="#2563EB" />
-            </svg>
-          </div>
-          <span className="font-black text-2xl tracking-tighter text-[#2563EB] group-hover:text-[#1D4ED8] transition-colors">
-            AWIE
-          </span>
+        {/* Official AWIE STORE Logo */}
+        <Link href="/store" className="flex items-center group">
+          <Image
+            src="/store-logo.png"
+            alt="AWIE STORE Logo"
+            width={160}
+            height={48}
+            className="h-11 w-auto object-contain transition-transform group-hover:scale-105"
+            priority
+          />
         </Link>
 
         {/* Center Nav Links matching Screenshot */}
