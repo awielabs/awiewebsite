@@ -42,7 +42,7 @@ export default function Footer() {
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-sm">
               <Code2 className="w-4 h-4" />
             </a>
-            <a href="https://awielabs.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-sm">
+            <a href="https://awie.in" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-sm">
               <Globe className="w-4 h-4" />
             </a>
           </div>
@@ -89,7 +89,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
         <p>© {new Date().getFullYear()} AWIE. All rights reserved.</p>
         <p className="flex items-center gap-2">
-          <span>Domain target: awielabs.com</span>
+          <span>Domain target: awie.in</span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           <span>Vercel Hosted</span>
         </p>

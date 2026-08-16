@@ -35,7 +35,7 @@ export default function PrivacyPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-white">4. Contact Us</h2>
             <p>
-              For privacy-related inquiries or data removal requests, contact us at contact@awielabs.com.
+              For privacy-related inquiries or data removal requests, contact us at contact@awie.in.
             </p>
           </section>
         </div>

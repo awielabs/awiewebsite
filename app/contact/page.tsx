@@ -237,7 +237,7 @@ export default function ContactPage() {
                   <Mail className="w-4 h-4 text-[#06B6D4] shrink-0" />
                   <div>
                     <span className="text-slate-400 block text-[10px]">Email Inquiry</span>
-                    <span className="text-white font-mono">contact@awielabs.com</span>
+                    <span className="text-white font-mono">contact@awie.in</span>
                   </div>
                 </div>
 
@@ -252,8 +252,8 @@ export default function ContactPage() {
                 <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800">
                   <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
                   <div>
-                    <span className="text-slate-400 block text-[10px]">Future Domain Target</span>
-                    <span className="text-white font-mono">awielabs.com</span>
+                    <span className="text-slate-400 block text-[10px]">Official Domain Target</span>
+                    <span className="text-white font-mono">awie.in</span>
                   </div>
                 </div>
               </div>
