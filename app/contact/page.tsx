@@ -237,7 +237,7 @@ export default function ContactPage() {
                   <Mail className="w-4 h-4 text-[#06B6D4] shrink-0" />
                   <div>
                     <span className="text-slate-400 block text-[10px]">Email Inquiry</span>
-                    <span className="text-white font-mono">contact@awie.in</span>
+                    <span className="text-white font-mono">awielabs@gmail.com</span>
                   </div>
                 </div>
 

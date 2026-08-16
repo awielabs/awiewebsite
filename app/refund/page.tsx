@@ -35,7 +35,7 @@ export default function RefundPage() {
           <section className="space-y-2">
             <h2 className="text-lg font-bold text-white">4. Refund Process</h2>
             <p>
-              Approved refunds are processed to the original payment method within 5-7 business days. Contact support at contact@awie.in for assistance.
+              Approved refunds are processed to the original payment method within 5-7 business days. Contact support at awielabs@gmail.com for assistance.
             </p>
           </section>
         </div>
