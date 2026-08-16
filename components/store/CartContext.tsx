@@ -88,7 +88,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const totalOriginal = cart.reduce((acc, item) => acc + item.product.originalPrice * item.quantity, 0);
   const totalSavings = totalOriginal - subtotal;
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
+    try {
+      await fetch('/api/store/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: cart,
+          totalAmount: subtotal,
+          customerEmail: 'awielabs@gmail.com',
+          customerName: 'AWIE Store Visitor',
+        }),
+      });
+    } catch (e) {
+      console.warn('Checkout submission error:', e);
+    }
     setCheckoutSuccess(true);
     setTimeout(() => {
       clearCart();

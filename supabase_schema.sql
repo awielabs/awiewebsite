@@ -32,21 +32,44 @@ CREATE TABLE IF NOT EXISTS public.projects (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 3. Products Table
+-- 3. Products & Store Catalog Table
 CREATE TABLE IF NOT EXISTS public.products (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
     slug VARCHAR(255) UNIQUE NOT NULL,
+    sku VARCHAR(100),
+    category_slug VARCHAR(100),
+    sub_category VARCHAR(100),
     description TEXT NOT NULL,
     price DECIMAL(10, 2),
-    status VARCHAR(50) DEFAULT 'coming_soon' CHECK (status IN ('active', 'coming_soon', 'out_of_stock')),
+    original_price DECIMAL(10, 2),
+    discount_percent INT DEFAULT 0,
+    in_stock BOOLEAN DEFAULT true,
+    stock_count INT DEFAULT 10,
+    rating DECIMAL(3, 2) DEFAULT 5.0,
+    review_count INT DEFAULT 0,
+    status VARCHAR(50) DEFAULT 'active' CHECK (status IN ('active', 'coming_soon', 'out_of_stock')),
     image_url TEXT,
     features TEXT[] DEFAULT '{}',
+    specs JSONB DEFAULT '{}'::jsonb,
     featured BOOLEAN DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 4. Service Requests (Customer Dashboard) Table
+-- 4. Store Orders Table
+CREATE TABLE IF NOT EXISTS public.store_orders (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    customer_email VARCHAR(255) NOT NULL,
+    customer_name VARCHAR(255),
+    customer_phone VARCHAR(50),
+    shipping_address TEXT,
+    items JSONB NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending_confirmation' CHECK (status IN ('pending_confirmation', 'confirmed', 'dispatched', 'delivered', 'cancelled')),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 5. Service Requests (Customer Dashboard) Table
 CREATE TABLE IF NOT EXISTS public.service_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID,
@@ -59,7 +82,7 @@ CREATE TABLE IF NOT EXISTS public.service_requests (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- 5. Newsletter Subscribers Table
+-- 6. Newsletter Subscribers Table
 CREATE TABLE IF NOT EXISTS public.newsletter_subscribers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -70,12 +93,14 @@ CREATE TABLE IF NOT EXISTS public.newsletter_subscribers (
 CREATE INDEX IF NOT EXISTS idx_contact_messages_email ON public.contact_messages(email);
 CREATE INDEX IF NOT EXISTS idx_projects_slug ON public.projects(slug);
 CREATE INDEX IF NOT EXISTS idx_products_slug ON public.products(slug);
+CREATE INDEX IF NOT EXISTS idx_store_orders_email ON public.store_orders(customer_email);
 CREATE INDEX IF NOT EXISTS idx_service_requests_user ON public.service_requests(user_id);
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.store_orders ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.service_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 
@@ -84,13 +109,10 @@ GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres, anon, authenticated, servi
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO postgres, anon, authenticated, service_role;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
 
--- Allow public inserts for contact messages
-CREATE POLICY "Allow public contact message submissions" ON public.contact_messages
-    FOR INSERT WITH CHECK (true);
+-- Allow public inserts for contact messages & store orders
+CREATE POLICY "Allow public contact message submissions" ON public.contact_messages FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public store orders submissions" ON public.store_orders FOR INSERT WITH CHECK (true);
 
 -- Allow public read access to projects and products
-CREATE POLICY "Allow public read access to projects" ON public.projects
-    FOR SELECT USING (true);
-
-CREATE POLICY "Allow public read access to products" ON public.products
-    FOR SELECT USING (true);
+CREATE POLICY "Allow public read access to projects" ON public.projects FOR SELECT USING (true);
+CREATE POLICY "Allow public read access to products" ON public.products FOR SELECT USING (true);

@@ -149,56 +149,11 @@ export default function StorePage() {
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-6 pt-8 space-y-12">
         
-        {/* 3. Hero Promo Banner & Quick Services Side Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          
-          {/* Quick Manufacturing Services Panel */}
-          <div className="lg:col-span-3 space-y-3 flex flex-col justify-between">
-            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-[#2563EB] transition-colors cursor-pointer group">
-              <div className="flex items-center justify-between">
-                <span className="font-extrabold text-sm text-slate-900 group-hover:text-[#2563EB]">PCB Manufacturing</span>
-                <div className="p-2 rounded-xl bg-emerald-50 text-emerald-600">
-                  <Layers className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-[11px] text-slate-500">Fast PCB prototyping & assembly</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-[#2563EB] transition-colors cursor-pointer group">
-              <div className="flex items-center justify-between">
-                <span className="font-extrabold text-sm text-slate-900 group-hover:text-[#2563EB]">3D Printing</span>
-                <div className="p-2 rounded-xl bg-blue-50 text-[#2563EB]">
-                  <Printer className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-[11px] text-slate-500">PLA, ABS, Resin custom enclosures</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-[#2563EB] transition-colors cursor-pointer group">
-              <div className="flex items-center justify-between">
-                <span className="font-extrabold text-sm text-slate-900 group-hover:text-[#2563EB]">Laser Cutting</span>
-                <div className="p-2 rounded-xl bg-cyan-50 text-cyan-600">
-                  <Zap className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-[11px] text-slate-500">Acrylic & metal sheet cutting</p>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-[#2563EB] transition-colors cursor-pointer group">
-              <div className="flex items-center justify-between">
-                <span className="font-extrabold text-sm text-slate-900 group-hover:text-[#2563EB]">Custom Battery Pack</span>
-                <div className="p-2 rounded-xl bg-amber-50 text-amber-600">
-                  <BatteryCharging className="w-5 h-5" />
-                </div>
-              </div>
-              <p className="text-[11px] text-slate-500">Li-Ion & LiPo spot-welded packs</p>
-            </div>
-          </div>
-
-          {/* Main Promotional Banner */}
-          <div className="lg:col-span-9 rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#2563EB] p-8 sm:p-12 text-white relative overflow-hidden flex flex-col justify-between shadow-xl min-h-[340px]">
+        {/* 3. Hero Promo Banner */}
+        <div className="w-full">
+          <div className="w-full rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#2563EB] p-8 sm:p-12 text-white relative overflow-hidden flex flex-col justify-between shadow-xl min-h-[320px]">
             <div className="absolute right-0 top-0 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="relative z-10 space-y-4 max-w-xl">
+            <div className="relative z-10 space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-amber-300 backdrop-blur-md">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>OFFICIAL AWIE STORE LAUNCH</span>
