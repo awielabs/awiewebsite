@@ -162,9 +162,16 @@ export default function StorePage() {
           
           {/* Left Column Text & CTA */}
           <div className="lg:col-span-6 space-y-6 text-left">
-            <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-[#0F172A] leading-none">
-              AWIE <span className="text-[#2563EB]">STORE</span>
-            </h1>
+            <div className="relative inline-block max-w-lg">
+              <Image
+                src="/store-logo.png"
+                alt="AWIE STORE"
+                width={420}
+                height={140}
+                className="w-full max-w-sm sm:max-w-md h-auto object-contain drop-shadow-sm"
+                priority
+              />
+            </div>
 
             <p className="text-slate-600 text-lg sm:text-xl font-medium leading-relaxed max-w-md">
               Electronics. Modules. Kits.<br />
@@ -201,8 +208,8 @@ export default function StorePage() {
 
               {/* Card 2: OLED Display */}
               <div className="p-4 rounded-2xl bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center space-y-2 rotate-6 hover:rotate-0 transition-transform">
-                <div className="w-20 h-20 relative p-2 bg-slate-900 rounded-xl flex items-center justify-center">
-                  <span className="text-xs font-black text-[#2563EB] tracking-wider">AWIE</span>
+                <div className="w-20 h-20 relative p-2 bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden">
+                  <Image src="/store-logo.png" alt="AWIE OLED" width={60} height={30} className="object-contain filter brightness-125" />
                 </div>
                 <span className="text-[11px] font-bold text-slate-900">0.96" OLED I2C</span>
               </div>
