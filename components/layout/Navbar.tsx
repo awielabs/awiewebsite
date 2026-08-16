@@ -23,23 +23,23 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-white border border-slate-200 flex items-center justify-center p-1 shadow-sm group-hover:border-[#2563EB] transition-colors">
+        <Link href="/" className="flex items-center gap-3.5 group">
+          <div className="relative w-12 h-12 rounded-2xl overflow-hidden bg-white border border-slate-200/90 flex items-center justify-center p-1.5 shadow-md group-hover:border-[#2563EB] transition-all group-hover:shadow-lg">
             <Image
               src="/logo.jpeg"
               alt="AWIE Logo"
-              width={40}
-              height={40}
+              width={44}
+              height={44}
               className="object-contain"
               priority
             />
           </div>
 
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1 font-extrabold text-2xl tracking-wider leading-none">
-              <span className="text-slate-900">AWIE</span>
-            </div>
-            <span className="text-[9px] font-bold text-[#2563EB] tracking-widest uppercase mt-0.5">
+          <div className="flex flex-col justify-center">
+            <span className="font-black text-2xl tracking-tight text-[#0F172A] leading-tight">
+              AWIE
+            </span>
+            <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase">
               INNOVATE • BUILD • CONNECT
             </span>
           </div>
