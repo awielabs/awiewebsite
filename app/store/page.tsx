@@ -1,342 +1,400 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Search,
-  ShoppingBag,
-  Heart,
-  SlidersHorizontal,
-  ChevronRight,
-  Star,
-  CheckCircle2,
-  AlertCircle,
-  Sparkles,
-  Zap,
   ArrowRight,
-  Phone,
-  HelpCircle,
-  Layers,
+  ShieldCheck,
+  Truck,
+  Lock,
+  Headphones,
   Cpu,
-  Navigation,
-  Printer,
-  Radio,
-  Cog,
-  Monitor,
   Wifi,
-  Wrench,
-  Package,
+  Layers,
+  Monitor,
+  Cog,
   BatteryCharging,
-  Grid,
-  ListFilter
+  Package,
+  MoreHorizontal,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  ShoppingBag
 } from 'lucide-react';
-import { STORE_CATEGORIES, STORE_PRODUCTS, Product, StoreCategory } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
 
 export default function StorePage() {
-  const { addToCart, setIsCartOpen, totalItems } = useCart();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [activeTab, setActiveTab] = useState('all');
+  const { addToCart, setIsCartOpen } = useCart();
 
-  // Filter products by tab and search
-  const filteredProducts = STORE_PRODUCTS.filter((prod) => {
-    const matchesSearch =
-      prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      prod.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      prod.categoryName.toLowerCase().includes(searchQuery.toLowerCase());
+  const storeCategories = [
+    { name: 'Microcontrollers', icon: Cpu, slug: 'development-boards' },
+    { name: 'Sensors', icon: Wifi, slug: 'sensors' },
+    { name: 'Modules', icon: Layers, slug: 'electronic-modules-displays' },
+    { name: 'Displays', icon: Monitor, slug: 'electronic-modules-displays' },
+    { name: 'Motors & Drivers', icon: Cog, slug: 'motors-drivers-actuators' },
+    { name: 'Power & Battery', icon: BatteryCharging, slug: 'batteries-power' },
+    { name: 'Kits', icon: Package, slug: 'diy-maker-kits' },
+    { name: 'Others', icon: MoreHorizontal, slug: 'electronic-components' }
+  ];
 
-    if (activeTab === 'all') return matchesSearch;
-    return matchesSearch && prod.categorySlug === activeTab;
-  });
-
-  const getCategoryIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Cpu': return <Cpu className="w-6 h-6" />;
-      case 'Navigation': return <Navigation className="w-6 h-6" />;
-      case 'Zap': return <Zap className="w-6 h-6" />;
-      case 'Printer': return <Printer className="w-6 h-6" />;
-      case 'Radio': return <Radio className="w-6 h-6" />;
-      case 'Layers': return <Layers className="w-6 h-6" />;
-      case 'Cog': return <Cog className="w-6 h-6" />;
-      case 'Monitor': return <Monitor className="w-6 h-6" />;
-      case 'Wifi': return <Wifi className="w-6 h-6" />;
-      case 'Wrench': return <Wrench className="w-6 h-6" />;
-      case 'Package': return <Package className="w-6 h-6" />;
-      case 'BatteryCharging': return <BatteryCharging className="w-6 h-6" />;
-      default: return <Cpu className="w-6 h-6" />;
+  const featuredProducts: {
+    id: string;
+    name: string;
+    slug: string;
+    sku: string;
+    price: number;
+    originalPrice: number;
+    discountPercent: number;
+    rating: number;
+    reviewCount: number;
+    inStock: boolean;
+    image: string;
+    specs: Record<string, string>;
+  }[] = [
+    {
+      id: 'prod-esp32-devkit',
+      name: 'ESP32 DevKit V1',
+      slug: 'esp32-wroom-32u-wifi-ble-board',
+      sku: 'SKU-ESP32-V1',
+      price: 499,
+      originalPrice: 599,
+      discountPercent: 16,
+      rating: 4.8,
+      reviewCount: 28,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Processor': 'Dual-Core LX6', 'Connectivity': 'Wi-Fi + BLE' }
+    },
+    {
+      id: 'prod-[#0066FF] Ultrasonic',
+      name: 'HC-SR04 Ultrasonic Sensor',
+      slug: 'dht22-digital-temperature-humidity-sensor',
+      sku: 'SKU-HC-SR04',
+      price: 129,
+      originalPrice: 169,
+      discountPercent: 23,
+      rating: 4.7,
+      reviewCount: 42,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Range': '2cm - 400cm', 'Voltage': '5V DC' }
+    },
+    {
+      id: 'prod-oled-096',
+      name: '0.96" OLED Display (I2C)',
+      slug: 'electronic-modules-displays',
+      sku: 'SKU-OLED-096',
+      price: 199,
+      originalPrice: 249,
+      discountPercent: 20,
+      rating: 4.6,
+      reviewCount: 35,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Resolution': '128x64', 'Interface': 'I2C' }
+    },
+    {
+      id: 'prod-[#0066FF] Servo',
+      name: 'Servo Motor SG90',
+      slug: 'motors-drivers-actuators',
+      sku: 'SKU-SERVO-SG90',
+      price: 149,
+      originalPrice: 199,
+      discountPercent: 25,
+      rating: 4.5,
+      reviewCount: 19,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Torque': '1.8 kg/cm', 'Rotation': '180 Deg' }
+    },
+    {
+      id: 'prod-l298n-driver',
+      name: 'L298N Motor Driver Module',
+      slug: 'motors-drivers-actuators',
+      sku: 'SKU-L298N',
+      price: 199,
+      originalPrice: 249,
+      discountPercent: 20,
+      rating: 4.6,
+      reviewCount: 22,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Max Current': '2A per channel', 'Voltage': '5V - 35V' }
+    },
+    {
+      id: 'prod-18650-battery',
+      name: '18650 Li-ion Battery 2500mAh',
+      slug: 'batteries-power',
+      sku: 'SKU-BAT-18650',
+      price: 249,
+      originalPrice: 299,
+      discountPercent: 17,
+      rating: 4.7,
+      reviewCount: 31,
+      inStock: true,
+      image: '/logo.jpeg',
+      specs: { 'Capacity': '2500mAh', 'Voltage': '3.7V Nominal' }
     }
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 pb-20">
+    <div className="bg-slate-50 text-slate-800 pb-20">
       
-      {/* 1. Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-[#2563EB] via-[#0066FF] to-[#0284C7] text-white py-2 px-4 text-xs font-semibold text-center flex items-center justify-center gap-3 shadow-md">
-        <span>🔥 AWIE FREEDOM SALE IS LIVE | Up to 40% OFF on Development Boards, Sensors & Components</span>
-        <button
-          onClick={() => setIsCartOpen(true)}
-          className="px-2.5 py-0.5 rounded-full bg-white text-[#2563EB] hover:bg-slate-100 font-extrabold text-[11px] transition-colors"
-        >
-          SHOP NOW →
-        </button>
-      </div>
+      {/* 1. Dedicated Hero Banner matching user screenshot */}
+      <section className="relative bg-gradient-to-r from-blue-50/80 via-white to-slate-50 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
+        
+        {/* Subtle Circuit Line Background Pattern */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <pattern id="circuit" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M 10 10 L 30 10 L 40 20 L 70 20 L 80 10 L 90 10" fill="none" stroke="#2563EB" strokeWidth="1.5" />
+              <path d="M 20 50 L 50 50 L 60 40 L 90 40" fill="none" stroke="#2563EB" strokeWidth="1.5" />
+              <circle cx="30" cy="10" r="3" fill="#2563EB" />
+              <circle cx="70" cy="20" r="3" fill="#2563EB" />
+              <circle cx="50" cy="50" r="3" fill="#2563EB" />
+            </pattern>
+            <rect width="100%" height="100%" fill="url(#circuit)" />
+          </svg>
+        </div>
 
-      {/* 2. Secondary E-Commerce Store Bar */}
-      <div className="bg-white border-b border-slate-200 sticky top-20 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
           
-          {/* Logo & Category Selector */}
-          <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-            <Link href="/store" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shadow-sm">
-                <Image src="/logo.jpeg" alt="AWIE Store" width={32} height={32} className="object-contain" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-black text-lg tracking-tight text-slate-900 leading-none">AWIE STORE</span>
-                <span className="text-[9px] font-bold text-[#2563EB] tracking-wider uppercase">ELECTRONICS & COMPONENTS</span>
-              </div>
-            </Link>
+          {/* Left Column Text & CTA */}
+          <div className="lg:col-span-6 space-y-6 text-left">
+            <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-[#0F172A] leading-none">
+              AWIE <span className="text-[#2563EB]">STORE</span>
+            </h1>
 
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-2 rounded-xl bg-slate-100 border border-slate-300 text-xs font-semibold text-slate-700 focus:outline-none focus:border-[#2563EB]"
-            >
-              <option value="all">All Categories</option>
-              {STORE_CATEGORIES.map((cat) => (
-                <option key={cat.id} value={cat.slug}>{cat.name}</option>
-              ))}
-            </select>
+            <p className="text-slate-600 text-lg sm:text-xl font-medium leading-relaxed max-w-md">
+              Electronics. Modules. Kits.<br />
+              Everything you need to build.
+            </p>
+
+            <div className="pt-2">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/30 hover:shadow-xl hover:scale-105 flex items-center gap-3"
+              >
+                <span>SHOP NOW</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          {/* Search Box */}
-          <div className="relative w-full md:w-96">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search Raspberry Pi, ESP32, sensors, motors..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100 border border-slate-300 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#2563EB] focus:bg-white transition-all shadow-inner"
-            />
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+          {/* Right Column Component Showcase Floating Cards */}
+          <div className="lg:col-span-6 relative flex items-center justify-center">
+            
+            {/* Electric Blue Geometric Angle Backdrop */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-96 bg-gradient-to-bl from-[#2563EB] to-[#1D4ED8] rounded-3xl rotate-6 shadow-2xl opacity-90 pointer-events-none" />
+
+            {/* Showcase Floating Component Cards Grid */}
+            <div className="relative z-10 grid grid-cols-2 gap-4 p-4 max-w-md">
+              
+              {/* Card 1: ESP32 */}
+              <div className="p-4 rounded-2xl bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center space-y-2 -rotate-3 hover:rotate-0 transition-transform">
+                <div className="w-20 h-20 relative p-2 flex items-center justify-center">
+                  <Image src="/logo.jpeg" alt="ESP32 Board" width={70} height={70} className="object-contain" />
+                </div>
+                <span className="text-[11px] font-bold text-slate-900">ESP32 DevKit</span>
+              </div>
+
+              {/* Card 2: OLED Display */}
+              <div className="p-4 rounded-2xl bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center space-y-2 rotate-6 hover:rotate-0 transition-transform">
+                <div className="w-20 h-20 relative p-2 bg-slate-900 rounded-xl flex items-center justify-center">
+                  <span className="text-xs font-black text-[#2563EB] tracking-wider">AWIE</span>
+                </div>
+                <span className="text-[11px] font-bold text-slate-900">0.96" OLED I2C</span>
+              </div>
+
+              {/* Card 3: Ultrasonic Sensor */}
+              <div className="p-4 rounded-2xl bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center space-y-2 rotate-2 hover:rotate-0 transition-transform">
+                <div className="w-20 h-20 relative p-2 flex items-center justify-center">
+                  <Image src="/logo.jpeg" alt="Sensor" width={65} height={65} className="object-contain" />
+                </div>
+                <span className="text-[11px] font-bold text-slate-900">HC-SR04 Sensor</span>
+              </div>
+
+              {/* Card 4: Servo Motor */}
+              <div className="p-4 rounded-2xl bg-white shadow-xl border border-slate-100 flex flex-col items-center justify-center space-y-2 -rotate-6 hover:rotate-0 transition-transform">
+                <div className="w-20 h-20 relative p-2 flex items-center justify-center">
+                  <Image src="/logo.jpeg" alt="Servo" width={65} height={65} className="object-contain" />
+                </div>
+                <span className="text-[11px] font-bold text-slate-900">SG90 Servo</span>
+              </div>
+
+            </div>
+
           </div>
 
-          {/* User Quick Controls */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-end text-xs font-semibold text-slate-700">
-            <a href="tel:18002666123" className="hidden lg:flex items-center gap-1.5 hover:text-[#2563EB]">
-              <Phone className="w-4 h-4 text-[#2563EB]" />
-              <span>Support</span>
-            </a>
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 rounded-xl bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-all shadow-md flex items-center gap-2 px-4 font-bold"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              <span>Cart</span>
-              {totalItems > 0 && (
-                <span className="w-5 h-5 rounded-full bg-white text-[#2563EB] text-[10px] font-black flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
+        </div>
+
+      </section>
+
+      {/* 2. Trust Badges Strip matching user screenshot */}
+      <section className="bg-white border-b border-slate-200 py-6">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-extrabold text-slate-900">Quality Products</h4>
+              <p className="text-[11px] text-slate-500">Tested & Reliable</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100">
+              <Truck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-extrabold text-slate-900">Fast Shipping</h4>
+              <p className="text-[11px] text-slate-500">Pan India Delivery</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100">
+              <Lock className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-extrabold text-slate-900">Secure Payments</h4>
+              <p className="text-[11px] text-slate-500">100% Secure Checkout</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100">
+              <Headphones className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-xs font-extrabold text-slate-900">Support</h4>
+              <p className="text-[11px] text-slate-500">We're here to help</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. Shop by Category Grid matching user screenshot */}
+      <section className="max-w-7xl mx-auto px-6 pt-12 space-y-6">
+        
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Shop by Category</h2>
+          <div className="flex items-center gap-2">
+            <button className="p-2 rounded-full border border-slate-200 bg-white hover:bg-slate-100 text-slate-600">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button className="p-2 rounded-full border border-slate-200 bg-white hover:bg-slate-100 text-slate-600">
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-
-        </div>
-      </div>
-
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-6 pt-8 space-y-12">
-        
-        {/* 3. Hero Promo Banner */}
-        <div className="w-full">
-          <div className="w-full rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#2563EB] p-8 sm:p-12 text-white relative overflow-hidden flex flex-col justify-between shadow-xl min-h-[320px]">
-            <div className="absolute right-0 top-0 w-96 h-96 bg-[#2563EB]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="relative z-10 space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-amber-300 backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>OFFICIAL AWIE STORE LAUNCH</span>
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-none text-white">
-                AWIE'S FREEDOM SALE IS <span className="text-[#38BDF8]">LIVE!</span>
-              </h1>
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                Up to <span className="text-amber-400 font-extrabold text-base">40% OFF</span> on Raspberry Pi boards, microcontrollers, sensor kits, and electronic components. Genuine parts with fast all-India delivery.
-              </p>
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  onClick={() => setIsCartOpen(true)}
-                  className="px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-black text-xs transition-all shadow-lg shadow-[#2563EB]/40 flex items-center gap-2"
-                >
-                  <span>SHOP NOW</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <Link
-                  href="/products/gem-buddy"
-                  className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all backdrop-blur-md"
-                >
-                  Pre-Book GEM Buddy →
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative z-10 pt-6 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-300">
-              <span>LIVE DATES: 15TH – 17TH AUGUST</span>
-              <span className="font-bold text-emerald-400">✓ 100% Guaranteed Stock Staging</span>
-            </div>
-          </div>
-
         </div>
 
-        {/* 4. Store Categories Grid */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-            <div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Categories</h2>
-              <p className="text-xs text-slate-500">Explore components by engineering domain</p>
-            </div>
-            <Link href="/store/categories" className="px-4 py-2 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-xs font-bold text-slate-700 hover:text-[#2563EB] transition-all shadow-sm">
-              View All
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {STORE_CATEGORIES.map((cat) => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+          {storeCategories.map((cat) => {
+            const Icon = cat.icon;
+            return (
               <Link
-                key={cat.id}
+                key={cat.name}
                 href={`/store/category/${cat.slug}`}
-                className="group p-5 rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] hover:shadow-lg transition-all flex flex-col justify-between space-y-4"
+                className="group p-5 rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] hover:shadow-md transition-all flex flex-col items-center justify-center text-center space-y-3"
               >
-                <div className="p-3.5 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white w-fit shadow-md group-hover:scale-105 transition-transform">
-                  {getCategoryIcon(cat.icon)}
+                <div className="p-3 rounded-2xl bg-slate-50 group-hover:bg-blue-50 text-[#2563EB] transition-colors">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <div className="space-y-1">
-                  <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors line-clamp-2">
-                    {cat.name}
-                  </h3>
-                  <span className="text-[10px] font-semibold text-slate-500 block">{cat.itemCount} Items</span>
-                </div>
+                <span className="text-xs font-bold text-slate-800 group-hover:text-[#2563EB] transition-colors line-clamp-1">
+                  {cat.name}
+                </span>
               </Link>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        {/* 5. Featured Products Section */}
-        <div className="space-y-6 pt-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-            <div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Featured Products</h2>
-              <p className="text-xs text-slate-500">Top-rated microcontrollers and component kits</p>
-            </div>
+      </section>
 
-            {/* Filter Tabs */}
-            <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
-              {[
-                { label: 'All Products', value: 'all' },
-                { label: 'Dev Boards', value: 'development-boards' },
-                { label: 'IoT Modules', value: 'iot-wireless-modules' },
-                { label: 'Sensors', value: 'sensors' }
-              ].map((tab) => (
-                <button
-                  key={tab.value}
-                  onClick={() => setActiveTab(tab.value)}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                    activeTab === tab.value
-                      ? 'bg-[#2563EB] text-white shadow-md'
-                      : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* 4. Featured Products Row matching user screenshot */}
+      <section className="max-w-7xl mx-auto px-6 pt-16 space-y-6">
+        
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Featured Products</h2>
+          <Link
+            href="/store/category/development-boards"
+            className="px-4 py-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-xs font-extrabold text-slate-700 hover:text-[#2563EB] transition-all shadow-sm"
+          >
+            View All
+          </Link>
+        </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.map((prod) => (
-              <div
-                key={prod.id}
-                className="group rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden relative"
-              >
-                
-                {/* Discount Tag */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="px-2 py-1 rounded-md bg-emerald-600 text-white text-[10px] font-black shadow-sm">
-                    {prod.discountPercent}% OFF
-                  </span>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+          {featuredProducts.map((prod) => (
+            <div
+              key={prod.id}
+              className="group rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] hover:shadow-xl transition-all flex flex-col justify-between p-4 space-y-3"
+            >
+              
+              {/* Image Box */}
+              <Link href={`/store/product/${prod.slug}`} className="p-4 bg-slate-50 rounded-xl flex items-center justify-center h-36 group-hover:bg-blue-50/50 transition-colors">
+                <Image
+                  src={prod.image}
+                  alt={prod.name}
+                  width={80}
+                  height={80}
+                  className="object-contain group-hover:scale-110 transition-transform duration-300"
+                />
+              </Link>
 
-                {/* Stock Ribbon */}
-                {!prod.inStock && (
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="px-2 py-0.5 rounded-md bg-rose-100 border border-rose-200 text-rose-700 text-[10px] font-bold">
-                      Out of Stock
-                    </span>
-                  </div>
-                )}
-
-                {/* Image Container */}
-                <Link href={`/store/product/${prod.slug}`} className="p-6 bg-slate-50 flex items-center justify-center h-48 relative overflow-hidden group-hover:bg-slate-100/80 transition-colors">
-                  <div className="w-28 h-28 relative flex items-center justify-center">
-                    <Image
-                      src={prod.image}
-                      alt={prod.name}
-                      width={112}
-                      height={112}
-                      className="object-contain group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
+              {/* Title & Price */}
+              <div className="space-y-1 flex-1 flex flex-col justify-between">
+                <Link href={`/store/product/${prod.slug}`}>
+                  <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors line-clamp-2 leading-snug">
+                    {prod.name}
+                  </h3>
                 </Link>
 
-                {/* Info Container */}
-                <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono text-slate-400 block">{prod.sku}</span>
-                    <Link href={`/store/product/${prod.slug}`}>
-                      <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors line-clamp-2 leading-snug">
-                        {prod.name}
-                      </h3>
-                    </Link>
-                  </div>
-
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 text-[11px] text-amber-500 font-bold">
-                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                  <span className="text-sm font-black text-[#2563EB]">₹{prod.price}</span>
+                  <div className="flex items-center gap-1 text-[10px] font-bold text-amber-500">
+                    <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                     <span>{prod.rating}</span>
-                    <span className="text-slate-400 text-[10px]">({prod.reviewCount})</span>
                   </div>
-
-                  {/* Price Breakdown */}
-                  <div className="space-y-0.5 pt-2 border-t border-slate-100">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-base font-black text-slate-900">₹{prod.price.toLocaleString()}</span>
-                      <span className="text-xs text-slate-400 line-through">₹{prod.originalPrice.toLocaleString()}</span>
-                    </div>
-                    <span className="text-[10px] font-bold text-emerald-600 block">
-                      You save ({prod.discountPercent}%) ₹{(prod.originalPrice - prod.price).toLocaleString()} (Incl. GST)
-                    </span>
-                  </div>
-
-                  {/* Action Button */}
-                  <button
-                    onClick={() => addToCart(prod)}
-                    className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-[#2563EB] text-white font-extrabold text-xs transition-all flex items-center justify-center gap-2 shadow-sm mt-2"
-                  >
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    <span>{prod.inStock ? 'Add to Cart' : 'Pre-Book'}</span>
-                  </button>
-
                 </div>
-
               </div>
-            ))}
-          </div>
 
+              {/* Add to Cart Button */}
+              <button
+                onClick={() => addToCart({
+                  id: prod.id,
+                  name: prod.name,
+                  slug: prod.slug,
+                  sku: prod.sku,
+                  categorySlug: 'development-boards',
+                  categoryName: 'Electronics',
+                  price: prod.price,
+                  originalPrice: prod.originalPrice,
+                  discountPercent: prod.discountPercent,
+                  inStock: true,
+                  stockCount: 10,
+                  rating: prod.rating,
+                  reviewCount: prod.reviewCount,
+                  image: prod.image,
+                  description: 'High-performance electronic module.',
+                  specs: prod.specs,
+                  features: ['Genuine Component']
+                })}
+                className="w-full py-2 rounded-xl bg-slate-900 hover:bg-[#2563EB] text-white text-[11px] font-bold transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>Add to Cart</span>
+              </button>
+
+            </div>
+          ))}
         </div>
 
-      </div>
+      </section>
 
     </div>
   );

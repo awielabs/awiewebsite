@@ -2,9 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Code2, Globe } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/store')) {
+    return null;
+  }
   return (
     <footer className="bg-slate-50 border-t border-slate-200 text-slate-600 py-16 relative overflow-hidden">
       {/* Background Glow Accents */}
