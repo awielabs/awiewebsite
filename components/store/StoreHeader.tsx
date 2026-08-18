@@ -28,14 +28,14 @@ export default function StoreHeader() {
           />
         </Link>
 
-        {/* Center Nav Links matching Screenshot */}
+        {/* Center Nav Links */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
           <Link href="/" className="hover:text-[#2563EB] transition-colors">
             Home
           </Link>
 
           <Link href="/store" className="text-[#2563EB] font-bold relative py-1 border-b-2 border-[#2563EB]">
-            Shop
+            Shop Catalog
           </Link>
 
           {/* Categories Dropdown */}
@@ -64,8 +64,8 @@ export default function StoreHeader() {
             )}
           </div>
 
-          <Link href="/store/category/diy-maker-kits" className="hover:text-[#2563EB] transition-colors">
-            Kits
+          <Link href="/store/category/microcontrollers" className="hover:text-[#2563EB] transition-colors">
+            Microcontrollers
           </Link>
 
           <Link href="/about" className="hover:text-[#2563EB] transition-colors">
@@ -77,14 +77,14 @@ export default function StoreHeader() {
           </Link>
         </nav>
 
-        {/* Search & Actions matching Screenshot */}
+        {/* Search & Actions */}
         <div className="flex items-center gap-4">
           
           {/* Search Box */}
           <div className="relative hidden sm:block w-48 lg:w-64">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Search components..."
               className="w-full pl-4 pr-9 py-2 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#2563EB] transition-all"
             />
             <Search className="w-4 h-4 text-slate-400 absolute right-3 top-2.5" />
@@ -131,9 +131,12 @@ export default function StoreHeader() {
         <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 text-xs font-bold">
           <Link href="/" className="block py-2 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
           <Link href="/store" className="block py-2 text-[#2563EB]">AWIE Store Shop</Link>
-          <Link href="/store/category/development-boards" className="block py-2 text-slate-700">Development Boards</Link>
-          <Link href="/store/category/sensors" className="block py-2 text-slate-700">Sensors & Modules</Link>
-          <Link href="/store/category/diy-maker-kits" className="block py-2 text-slate-700">Kits</Link>
+          <Link href="/store/category/microcontrollers" className="block py-2 text-slate-700">Microcontrollers</Link>
+          <Link href="/store/category/sensors" className="block py-2 text-slate-700">Sensors</Link>
+          <Link href="/store/category/modules" className="block py-2 text-slate-700">Modules</Link>
+          <Link href="/store/category/displays" className="block py-2 text-slate-700">Displays</Link>
+          <Link href="/store/category/motors-drivers" className="block py-2 text-slate-700">Motors & Drivers</Link>
+          <Link href="/store/category/power-battery" className="block py-2 text-slate-700">Power & Battery</Link>
           <Link href="/about" className="block py-2 text-slate-700">About Us</Link>
           <Link href="/contact" className="block py-2 text-slate-700">Contact</Link>
         </div>

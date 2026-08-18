@@ -3,7 +3,7 @@
 import React, { useState, use } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Star, ShoppingBag, Truck, ShieldCheck, Mail, ArrowLeft, CheckCircle2, AlertCircle, Plus, Minus, Share2 } from 'lucide-react';
+import { ShoppingBag, Truck, ShieldCheck, Mail, ArrowLeft, CheckCircle2, AlertCircle, Plus, Minus, Cpu } from 'lucide-react';
 import { STORE_PRODUCTS, Product } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
 
@@ -11,11 +11,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const { slug } = use(params);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState<number>(1);
-  const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
   const product: Product = STORE_PRODUCTS.find((p) => p.slug === slug) || STORE_PRODUCTS[0];
-
-  const gallery = [product.image, '/logo.jpeg', '/logo.jpeg'];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 pb-20 pt-4">
@@ -35,103 +32,108 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         {/* Main Product Container */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left: Gallery View */}
-          <div className="lg:col-span-6 space-y-4">
+          {/* Left: Product Image Box */}
+          <div className="lg:col-span-5 space-y-4">
             <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex items-center justify-center h-96 relative">
               <Image
-                src={gallery[activeImageIndex]}
+                src={product.image}
                 alt={product.name}
-                width={280}
-                height={280}
+                width={260}
+                height={260}
                 className="object-contain max-h-80"
                 priority
               />
             </div>
 
-            {/* Thumbnail selector */}
-            <div className="flex gap-4">
-              {gallery.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`w-20 h-20 rounded-2xl bg-white border p-2 flex items-center justify-center transition-all ${
-                    activeImageIndex === idx
-                      ? 'border-[#2563EB] shadow-md ring-2 ring-[#2563EB]/20'
-                      : 'border-slate-200 hover:border-slate-300'
-                  }`}
-                >
-                  <Image src={img} alt="Thumbnail" width={60} height={60} className="object-contain" />
-                </button>
-              ))}
+            <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-[#2563EB] shrink-0" />
+              <div>
+                <span className="font-extrabold text-slate-900 block">AWIE Quality Assured</span>
+                <span className="text-slate-600 font-medium">100% genuine tested components directly sourced for lab use.</span>
+              </div>
             </div>
           </div>
 
-          {/* Right: Product Detail Panel */}
-          <div className="lg:col-span-6 space-y-6">
+          {/* Right: Product Details Panel */}
+          <div className="lg:col-span-7 space-y-6">
             
             <div className="space-y-2">
-              <span className="text-xs font-extrabold text-[#2563EB] tracking-wider uppercase">
-                {product.subCategory || product.categoryName}
-              </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+                <Cpu className="w-3.5 h-3.5" />
+                <span>{product.categoryName} • {product.subCategory || 'Hardware'}</span>
+              </div>
+
               <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                 {product.name}
               </h1>
 
-              <div className="flex items-center gap-3 text-xs pt-1">
-                <div className="flex items-center gap-1 text-amber-500 font-bold">
-                  <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                  <span>{product.rating}</span>
-                  <span className="text-slate-400">({product.reviewCount} reviews)</span>
-                </div>
-                <span className="text-slate-300">|</span>
-                <span className="font-mono text-slate-500">{product.sku}</span>
+              <div className="flex items-center gap-3 text-xs pt-1 font-mono text-slate-500">
+                <span>SKU: {product.sku}</span>
               </div>
             </div>
 
-            {/* Pricing Box */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+            {/* Pricing Card */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1">
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-black text-[#2563EB]">₹{product.price.toLocaleString()}.00</span>
-                <span className="text-sm font-semibold text-slate-400 line-through">₹{product.originalPrice.toLocaleString()}.00</span>
-                <span className="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-700 text-xs font-extrabold">
-                  Save {product.discountPercent}% (₹{(product.originalPrice - product.price).toLocaleString()})
+                <span className="text-3xl font-black text-slate-900">₹{product.price.toLocaleString()}</span>
+                <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                  GST Included
                 </span>
               </div>
-              <p className="text-xs text-slate-500">Includes all applicable GST & Taxes.</p>
+              <p className="text-xs text-slate-500 font-medium">Standard shipping calculated at checkout.</p>
             </div>
 
-            {/* Availability & B2B Inquiry */}
+            {/* Availability */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold">
-                <span>Availability:</span>
+                <span>Stock Status:</span>
                 {product.inStock ? (
                   <span className="text-emerald-600 flex items-center gap-1">
-                    <CheckCircle2 className="w-4 h-4" /> In Stock ({product.stockCount} units available)
+                    <CheckCircle2 className="w-4 h-4" /> Ready for Immediate Dispatch ({product.stockCount} in stock)
                   </span>
                 ) : (
                   <span className="text-rose-600 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> Pre-Booking Open (Dispatching soon)
+                    <AlertCircle className="w-4 h-4" /> Out of Stock (Pre-Booking Available)
                   </span>
                 )}
               </div>
 
-              <div className="p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs text-[#0F172A] space-y-1">
-                <div className="flex items-center gap-2 font-bold text-[#2563EB]">
-                  <Mail className="w-4 h-4" />
-                  <span>Bulk Order & B2B Inquiries</span>
+              {/* B2B Contact Box */}
+              <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs space-y-1">
+                <div className="flex items-center gap-2 font-bold text-slate-900">
+                  <Mail className="w-4 h-4 text-[#2563EB]" />
+                  <span>Bulk Order & Institutional Procurement</span>
                 </div>
-                <p className="text-slate-600">
-                  For bulk engineering orders or institutional pricing, email us at: <strong className="text-slate-900 font-mono">awielabs@gmail.com</strong>
+                <p className="text-slate-600 font-medium">
+                  Need bulk quantities for lab setup or institution? Contact us at <strong className="text-slate-900 font-mono">awielabs@gmail.com</strong>
                 </p>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              {product.description}
-            </p>
+            <div className="space-y-2">
+              <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Overview</h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+                {product.description}
+              </p>
+            </div>
 
-            {/* Quantity Selector & Action Button */}
+            {/* Features Bullet List */}
+            {product.features && product.features.length > 0 && (
+              <div className="space-y-2">
+                <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Key Highlights</h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                  {product.features.map((feat, idx) => (
+                    <li key={idx} className="flex items-center gap-2 font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Quantity Selector & Add to Cart */}
             <div className="pt-4 border-t border-slate-200 flex items-center gap-4">
               <div className="flex items-center gap-3 border border-slate-300 rounded-xl bg-white p-2">
                 <button
@@ -154,30 +156,18 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 className="flex-1 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>{product.inStock ? 'Add to Cart' : 'Pre-Book Now'}</span>
+                <span>Add to Cart</span>
               </button>
-            </div>
-
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 gap-4 pt-4 text-xs text-slate-600 border-t border-slate-200">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-[#2563EB]" />
-                <span>100% Genuine Tested Components</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Truck className="w-5 h-5 text-emerald-600" />
-                <span>Fast Dispatch via Bluedart / DTDC</span>
-              </div>
             </div>
 
             {/* Specifications Table */}
             <div className="pt-6 space-y-3 border-t border-slate-200">
-              <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">Specifications</h3>
+              <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">Technical Specifications</h3>
               <div className="rounded-xl border border-slate-200 overflow-hidden divide-y divide-slate-100 text-xs">
                 {Object.entries(product.specs).map(([key, value]) => (
                   <div key={key} className="flex p-3 bg-white hover:bg-slate-50">
                     <span className="w-1/3 font-bold text-slate-700">{key}</span>
-                    <span className="w-2/3 text-slate-600 font-mono">{value}</span>
+                    <span className="w-2/3 text-slate-600 font-mono font-semibold">{value}</span>
                   </div>
                 ))}
               </div>
