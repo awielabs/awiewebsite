@@ -22,7 +22,8 @@ import {
   XCircle,
   Check,
   Smartphone,
-  Zap
+  Zap,
+  Volume2
 } from 'lucide-react';
 
 export default function GemBuddyPage() {
@@ -33,6 +34,7 @@ export default function GemBuddyPage() {
     { label: 'Model', value: 'GEM v1 Standard Companion' },
     { label: 'Microcontroller', value: 'ESP32 Dual-Core 240MHz' },
     { label: 'Display', value: '0.96" Monochromatic OLED (128x64)' },
+    { label: 'Audio Feedback', value: 'Piezo Audio Buzzer (Touch Beeps & Chimes)' },
     { label: 'Ambient Lighting', value: '4 White LED Bulbs (Pure White)' },
     { label: 'Motion Detection', value: 'Not Included (Available in v2)' },
     { label: 'Heart Rate Monitoring', value: 'Not Included (Available in v2)' },
@@ -45,6 +47,7 @@ export default function GemBuddyPage() {
     { label: 'Model', value: 'GEM v2 Pro Biometric Edition' },
     { label: 'Microcontroller', value: 'ESP32 Dual-Core 240MHz' },
     { label: 'Display', value: '0.96" Monochromatic OLED (128x64)' },
+    { label: 'Audio Feedback', value: 'Piezo Audio Buzzer (Pulse & Touch Chimes)' },
     { label: 'Ambient Lighting', value: '4 White LED Bulbs (Pulse Synced)' },
     { label: 'Motion Detection', value: 'IR Proximity & Distance Sensor' },
     { label: 'Heart Rate & Pulse', value: 'MAX30102 PPG Optical Biometric Sensor' },
@@ -166,12 +169,12 @@ export default function GemBuddyPage() {
                 {selectedVersion === 'v1' ? (
                   <>
                     <Zap className="w-4 h-4 text-[#06B6D4]" />
-                    <span className="text-slate-300">1000mAh Battery • 4 White LED Bulbs • GEM App</span>
+                    <span className="text-slate-300">1000mAh • 4 White LEDs • Audio Buzzer • GEM App</span>
                   </>
                 ) : (
                   <>
                     <HeartPulse className="w-4 h-4 text-rose-500 animate-pulse" />
-                    <span className="text-rose-400 font-bold">1500mAh Battery • MAX30102 Heart Sensor & IR Motion</span>
+                    <span className="text-rose-400 font-bold">1500mAh • MAX30102 Heart Sensor, Motion & Audio Buzzer</span>
                   </>
                 )}
               </div>
@@ -209,7 +212,7 @@ export default function GemBuddyPage() {
                 <h1 className="text-4xl sm:text-5xl font-black text-white">GEM v1 (Standard)</h1>
                 <p className="text-[#06B6D4] text-lg font-semibold">Autonomous Desktop Companion • 1000mAh Battery & GEM App</p>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  GEM v1 is equipped with 4 crisp White LED bulbs, 1000mAh rechargeable LiPo battery power, capacitive touch sensors, animated OLED eyes, and full GEM Mobile App synchronization.
+                  GEM v1 is equipped with 4 crisp White LED bulbs, a piezo audio buzzer for sound alerts & touch feedback, 1000mAh rechargeable LiPo battery power, capacitive touch sensors, animated OLED eyes, and full GEM Mobile App synchronization.
                 </p>
               </>
             ) : (
@@ -221,7 +224,7 @@ export default function GemBuddyPage() {
                 <h1 className="text-4xl sm:text-5xl font-black text-white">GEM v2 Pro (Biometric)</h1>
                 <p className="text-rose-400 text-lg font-semibold">Pulse Oximeter, IR Motion Sensor & 1500mAh Battery</p>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  GEM v2 Pro features the MAX30102 optical PPG pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, 1500mAh LiPo battery, 4 White LED bulbs, and biometric telemetry on the GEM Mobile App.
+                  GEM v2 Pro features the MAX30102 optical PPG pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, 1500mAh LiPo battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
                 </p>
               </>
             )}
@@ -237,6 +240,14 @@ export default function GemBuddyPage() {
 
             {/* Feature Badges */}
             <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                <Volume2 className="w-5 h-5 text-[#06B6D4] shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-xs font-bold text-white block">Audio Buzzer</span>
+                  <span className="text-[11px] text-slate-400">Touch sound beeps & chimes</span>
+                </div>
+              </div>
+
               <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800">
                 <Sun className="w-5 h-5 text-white shrink-0 mt-0.5" />
                 <div>
@@ -258,14 +269,6 @@ export default function GemBuddyPage() {
                 <div>
                   <span className="text-xs font-bold text-white block">GEM Mobile App</span>
                   <span className="text-[11px] text-slate-400">Wi-Fi & Bluetooth sync</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-                <HeartPulse className={`w-5 h-5 shrink-0 mt-0.5 ${selectedVersion === 'v2' ? 'text-rose-500 animate-pulse' : 'text-slate-600'}`} />
-                <div>
-                  <span className="text-xs font-bold text-white block">Pulse & Motion Sensors</span>
-                  <span className="text-[11px] text-slate-400">{selectedVersion === 'v2' ? 'MAX30102 Heart Rate + IR Motion' : 'Available in GEM v2 Pro'}</span>
                 </div>
               </div>
             </div>
@@ -315,6 +318,11 @@ export default function GemBuddyPage() {
                   <td className="p-4 font-semibold text-slate-300">0.96" OLED Expression Screen (128x64)</td>
                   <td className="p-4 text-emerald-400 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                   <td className="p-4 text-emerald-400 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-300">Piezo Audio Buzzer (Beeps & Sound Alerts)</td>
+                  <td className="p-4 text-emerald-400 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
+                  <td className="p-4 text-emerald-400 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-300">4 White LED Bulbs (Pure White Lighting)</td>

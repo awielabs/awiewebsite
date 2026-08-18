@@ -7,20 +7,20 @@ import { Sparkles, ArrowRight, CheckCircle2, Layers, Clock, Zap, HeartPulse } fr
 export default function ProductsPage() {
   const gemV1Features = [
     { title: 'OLED Display', desc: 'High-contrast graphic face expressions' },
+    { title: 'Piezo Audio Buzzer', desc: 'Touch sound beeps & audio alerts' },
     { title: '4 White LED Bulbs', desc: 'Pure white crisp ambient illumination' },
     { title: '1000mAh Battery', desc: 'Rechargeable LiPo power via USB Type-C' },
     { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' },
-    { title: 'ESP32 Chipset', desc: '32-bit dual-core microcontroller core' },
     { title: 'Touch Interaction', desc: 'Capacitive touch sensors for mood feedback' }
   ];
 
   const gemV2Features = [
     { title: 'Heart Rate PPG Sensor', desc: 'MAX30102 Optical Biometric Pulse Sensor' },
     { title: 'IR Proximity Sensor', desc: 'IR distance & motion monitoring' },
+    { title: 'Piezo Audio Buzzer', desc: 'Pulse-synced audio chimes & alerts' },
     { title: '1500mAh Battery', desc: 'High capacity LiPo battery via Type-C' },
     { title: '4 White LED Bulbs', desc: 'Pulse-synced ambient lighting' },
-    { title: 'Biometric Telemetry', desc: 'Real-time SpO2 & BPM App Sync' },
-    { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' }
+    { title: 'Biometric Telemetry', desc: 'Real-time SpO2 & BPM App Sync' }
   ];
 
   return (
@@ -55,9 +55,9 @@ export default function ProductsPage() {
               </div>
 
               <h2 className="text-3xl font-black text-slate-900">GEM v1</h2>
-              <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • 1000mAh & GEM App</p>
+              <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
               <p className="text-slate-600 text-xs leading-relaxed">
-                Featuring 4 White LED ambient bulbs, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
+                Featuring 4 White LED ambient bulbs, piezo audio buzzer sound alerts, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
@@ -95,9 +95,9 @@ export default function ProductsPage() {
               </div>
 
               <h2 className="text-3xl font-black text-white">GEM v2 Pro</h2>
-              <p className="text-rose-400 text-sm font-bold">Biometric Telemetry, IR Motion & 1500mAh Battery</p>
+              <p className="text-rose-400 text-sm font-bold">Biometric Telemetry, Audio Buzzer, IR Motion & 1500mAh</p>
               <p className="text-slate-300 text-xs leading-relaxed">
-                Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, 1500mAh LiPo battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
+                Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, piezo audio buzzer sound feedback, 1500mAh LiPo battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
