@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#1E1B4B'/>
+  <rect x='40' y='40' width='120' height='120' rx='10' fill='#312E81' stroke='#6366F1' stroke-width='2.5'/>
+  <rect x='65' y='65' width='70' height='70' rx='6' fill='#4338CA'/>
+  <text x='100' y='105' font-family='sans-serif' font-weight='900' font-size='13' fill='#EEF2FF' text-anchor='middle'>MODULE</text>
+  <circle cx='55' cy='55' r='4' fill='#A5B4FC'/>
+  <circle cx='145' cy='55' r='4' fill='#A5B4FC'/>
+</svg>

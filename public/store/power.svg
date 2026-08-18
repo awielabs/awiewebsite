@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#7C2D12'/>
+  <rect x='40' y='40' width='120' height='120' rx='10' fill='#C2410C' stroke='#F97316' stroke-width='2.5'/>
+  <polygon points='105,60 85,110 100,110 95,145 120,95 105,95' fill='#FDE047'/>
+  <text x='100' y='172' font-family='sans-serif' font-weight='bold' font-size='10' fill='#FDBA74' text-anchor='middle'>POWER BUCK/BOOST</text>
+</svg>

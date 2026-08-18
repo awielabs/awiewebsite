@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#061A23'/>
+  <rect x='45' y='45' width='110' height='110' rx='12' fill='#0F766E' stroke='#14B8A6' stroke-width='2.5'/>
+  <circle cx='100' cy='100' r='30' fill='#115E59' stroke='#5EEAD4' stroke-width='3'/>
+  <circle cx='100' cy='100' r='12' fill='#5EEAD4'/>
+  <text x='100' y='170' font-family='sans-serif' font-weight='bold' font-size='11' fill='#2DD4BF' text-anchor='middle'>SENSOR</text>
+</svg>

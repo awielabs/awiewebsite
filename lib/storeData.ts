@@ -112,7 +112,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Dual-core 32-bit Tensilica LX6 microcontroller with integrated 2.4GHz Wi-Fi and Bluetooth v4.2 BR/EDR and BLE.',
     features: ['240 MHz clock speed', '520 KB SRAM', '4MB SPI Flash memory', 'Wi-Fi & BLE integrated'],
     specs: { 'Voltage': '3.3V', 'Processor': 'Dual-Core LX6', 'Flash': '4MB', 'Connectivity': 'Wi-Fi + BLE' }
@@ -132,7 +132,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 120,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Standard 30-pin ESP32 development board with CP2102 USB-to-UART converter and micro-USB port for rapid breadboard prototyping.',
     features: ['30 GPIO Pins', 'Micro-USB interface', 'Onboard EN & Boot switches', 'Dual Core 240MHz'],
     specs: { 'USB Bridge': 'CP2102', 'Pins': '30 GPIO', 'Operating Voltage': '5V via USB / 3.3V Pin' }
@@ -152,7 +152,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 80,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Ultra-compact RISC-V 32-bit single-core ESP32-C3 development board featuring USB Type-C and Wi-Fi + BLE 5.0.',
     features: ['RISC-V 32-bit Core @ 160MHz', 'USB Type-C port', 'BLE 5.0 mesh support', 'Ultra small form factor'],
     specs: { 'Core': 'RISC-V 160MHz', 'Bluetooth': 'BLE 5.0', 'Interface': 'USB Type-C' }
@@ -172,7 +172,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 95,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Miniature ESP32-C3 Wi-Fi and Bluetooth board tailored for wearable and space-constrained IoT nodes.',
     features: ['Low power consumption', 'Integrated PCB antenna', 'Type-C USB interface'],
     specs: { 'Architecture': 'RISC-V 32-Bit', 'Voltage': '3.3V - 5V' }
@@ -192,7 +192,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 60,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Dual-core Xtensa LX7 processor running at 240MHz with vector instructions for AI machine learning edge computation.',
     features: ['Vector acceleration for AI', 'Dual USB Type-C ports', '8MB PSRAM / 8MB Flash'],
     specs: { 'Processor': 'Xtensa Dual-Core LX7', 'PSRAM': '8MB', 'Flash': '8MB' }
@@ -212,7 +212,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 110,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'ESP32 Wi-Fi + Bluetooth board bundled with an OV2640 2MP camera module and MicroSD card slot for video streaming & surveillance.',
     features: ['OV2640 2MP camera included', 'MicroSD slot up to 4GB', 'Onboard high-brightness LED flash'],
     specs: { 'Camera': 'OV2640 2MP', 'PSRAM': '4MB', 'Storage': 'MicroSD Slot' }
@@ -232,7 +232,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/microcontroller.svg',
     description: 'Popular open-source Lua-based firmware development board powered by the ESP8266 80MHz Wi-Fi module.',
     features: ['802.11 b/g/n Wi-Fi', 'Integrated micro-USB', '10 GPIO pins with PWM & ADC'],
     specs: { 'Wi-Fi': '2.4GHz', 'Clock Speed': '80MHz', 'Flash': '4MB' }
@@ -252,7 +252,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/arduino.svg',
     description: 'Classic ATmega328P DIP-based microcontroller board with 14 digital I/O pins, 6 analog inputs, and 16MHz crystal.',
     features: ['14 Digital I/O Pins', '6 Analog Inputs', 'DIP socket ATmega328P IC', 'Standard USB Type-B'],
     specs: { 'Microcontroller': 'ATmega328P', 'Clock': '16MHz', 'Operating Voltage': '5V' }
@@ -272,7 +272,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/arduino.svg',
     description: 'Breadboard-friendly ATmega328P microcontroller board with mini-USB connection.',
     features: ['Compact breadboard layout', '8 Analog Inputs', '14 Digital I/O Pins'],
     specs: { 'Microcontroller': 'ATmega328P', 'Voltage': '5V', 'USB': 'Mini-USB / Type-C' }
@@ -292,7 +292,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 75,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/arduino.svg',
     description: 'High pin-count ATmega2560 microcontroller board featuring 54 digital I/O pins and 16 analog inputs for 3D printers and complex robotics.',
     features: ['54 Digital I/O Pins', '16 Analog Inputs', '4 Hardware UART serial ports', '256KB Flash memory'],
     specs: { 'Microcontroller': 'ATmega2560', 'Flash': '256KB', 'SRAM': '8KB' }
@@ -312,7 +312,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 130,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/raspberrypi.svg',
     description: 'Designed by Raspberry Pi, featuring the RP2040 dual-core ARM Cortex-M0+ processor running at 133MHz.',
     features: ['Dual-Core ARM Cortex-M0+ @ 133MHz', '264KB SRAM', '2MB QSPI Flash', 'Programmable I/O (PIO) state machines'],
     specs: { 'SoC': 'RP2040', 'Core': 'Dual ARM Cortex-M0+', 'Flash': '2MB' }
@@ -332,7 +332,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 110,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/raspberrypi.svg',
     description: 'RP2040 microcontroller board enhanced with an onboard Infineon CYW43439 2.4GHz 802.11n wireless chip for IoT connectivity.',
     features: ['Integrated 2.4GHz 802.11n Wi-Fi', 'Bluetooth 5.2 support', 'RP2040 Dual Core processor'],
     specs: { 'Wireless': 'Wi-Fi + BLE', 'Microcontroller': 'RP2040', 'Flash': '2MB' }
@@ -354,7 +354,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/ultrasonic.svg',
     description: 'Non-contact ultrasonic distance measuring module operating from 2cm to 400cm with 3mm precision.',
     features: ['2cm to 400cm range', '5V DC operation', '4-pin interface (VCC, Trig, Echo, GND)'],
     specs: { 'Operating Voltage': '5V DC', 'Ranging Distance': '2cm - 400cm', 'Measuring Angle': '15 degrees' }
@@ -374,7 +374,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Infrared reflective proximity obstacle detection module with adjustable detection range via onboard potentiometer.',
     features: ['Infrared transmitter & receiver', 'Adjustable sensitivity', 'Digital output pin'],
     specs: { 'Detection Distance': '2cm - 30cm', 'Operating Voltage': '3.3V - 5V' }
@@ -394,7 +394,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Passive Infrared (PIR) body motion detector module for human intrusion detection and automated lighting.',
     features: ['120 degree cone detection', 'Adjustable delay time & sensitivity', 'Up to 7 meters range'],
     specs: { 'Sensing Range': '3m - 7m', 'Delay Time': '0.3s - 18s' }
@@ -414,7 +414,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Light Dependent Resistor (LDR) photoresistor module with digital and analog outputs for ambient light tracking.',
     features: ['LM393 comparator chip', 'Analog & Digital signal output', 'Adjustable light threshold'],
     specs: { 'Operating Voltage': '3.3V - 5V', 'Output Type': 'DO & AO' }
@@ -434,7 +434,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Basic composite digital temperature and humidity sensor module with calibrated single-wire digital output.',
     features: ['20-90% RH humidity range', '0-50°C temperature range', '3-pin breakout board'],
     specs: { 'Humidity Accuracy': '±5% RH', 'Temperature Accuracy': '±2°C' }
@@ -454,7 +454,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'High-precision capacitive humidity and temperature digital sensor module for weather stations.',
     features: ['0-100% RH humidity range', '-40 to 80°C temperature range', '±0.5°C accuracy'],
     specs: { 'Sampling Period': '2 Seconds', 'Operating Voltage': '3.3V - 5.5V' }
@@ -474,7 +474,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Waterproof 1-Wire digital thermometer probe capable of measuring temperatures from -55°C to +125°C.',
     features: ['Waterproof stainless steel tube', '1-Wire interface protocol', '9 to 12-bit selectable resolution'],
     specs: { 'Temperature Range': '-55°C to +125°C', 'Accuracy': '±0.5°C' }
@@ -494,7 +494,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 130,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Combustible gas and smoke detector module suitable for detecting LPG, propane, methane, alcohol, and hydrogen.',
     features: ['High sensitivity to LPG and propane', 'Fast response time', 'Analog & Digital outputs'],
     specs: { 'Target Gases': 'LPG, Smoke, Methane', 'Operating Voltage': '5V DC' }
@@ -514,7 +514,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 110,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Air quality hazard sensor module designed for detecting NH3, NOx, alcohol, benzene, smoke, and CO2.',
     features: ['Wide detecting scope', 'Onboard potentiometer for threshold adjust', 'Dual signal output'],
     specs: { 'Target Gases': 'Ammonia, CO2, Smoke', 'Voltage': '5V' }
@@ -534,7 +534,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 170,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Infrared wavelength flame detection module sensitive to fire wavelengths between 760nm to 1100nm.',
     features: ['60-degree detection angle', 'Onboard LM393 comparator', 'Digital & Analog pins'],
     specs: { 'Wavelength Range': '760nm - 1100nm', 'Voltage': '3.3V - 5V' }
@@ -554,7 +554,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 190,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Raindrops detection board with nickel-plated weather tracking surface and control driver module.',
     features: ['Nickel plated anti-oxidation board', 'Adjustable sensitivity', 'DO and AO output pins'],
     specs: { 'Board Area': '5cm x 4cm', 'Operating Voltage': '3.3V - 5V' }
@@ -574,7 +574,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 210,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Pronged soil water content detection probe for smart agriculture and automatic plant watering systems.',
     features: ['Two conducting prongs', 'LM393 driver module', 'Digital & Analog outputs'],
     specs: { 'Voltage': '3.3V - 5V', 'Output': 'Digital DO & Analog AO' }
@@ -594,7 +594,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Electret microphone sound intensity detection module for acoustic trigger switches and clapping detectors.',
     features: ['High sensitivity microphone', 'LM393 signal amplifier', 'Adjustable Gain potentiometer'],
     specs: { 'Supply Voltage': '3.3V - 5V', 'Output': 'Digital High/Low' }
@@ -614,7 +614,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 230,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'TTP223 capacitive touch button module providing silent touch-activated digital switching.',
     features: ['TTP223 touch IC', 'Latching or momentary mode toggle', 'Low power idle state'],
     specs: { 'Operating Voltage': '2.0V - 5.5V', 'Response Time': '60ms' }
@@ -634,7 +634,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 90,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Plug-and-play optical heart rate sensor module for fingertip pulse telemetry and biometric monitoring.',
     features: ['Optical pulse amplification', 'Noise cancellation circuit', 'Fingertip clip strap included'],
     specs: { 'Operating Voltage': '3V - 5V', 'Output': 'Analog Waveform' }
@@ -654,7 +654,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: '6-DOF MotionTracking device combining a 3-axis gyroscope and 3-axis accelerometer with I2C interface.',
     features: ['Integrated Digital Motion Processor (DMP)', '16-bit ADC converters', 'I2C communication protocol'],
     specs: { 'Gyro Range': '±250 500 1000 2000 °/s', 'Accel Range': '±2 ±4 ±8 ±16g' }
@@ -674,7 +674,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Pyroelectric infrared human motion sensor module featuring automatic trigger control.',
     features: ['Adjustable sensitivity & hold time', 'Repeatable trigger mode', 'Low power drain'],
     specs: { 'Voltage': '4.5V - 20V', 'Sensing Range': 'Up to 7 meters' }
@@ -694,7 +694,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: 'Reflective optical sensor module for line-following robots and black/white surface discrimination.',
     features: ['Infrared emitter phototransistor', 'LM393 comparator driver', 'Digital & Analog outputs'],
     specs: { 'Sensing Distance': '0.2mm - 15mm', 'Voltage': '3.3V - 5V' }
@@ -714,7 +714,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 120,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/sensor.svg',
     description: '13.56MHz SPI RFID reader sensor module bundled with S50 key fob and IC card for access control.',
     features: ['SPI interface protocol', '13.56MHz contactless read/write', 'Includes card and key fob'],
     specs: { 'Frequency': '13.56MHz', 'Operating Current': '13-26mA @ 3.3V' }
@@ -736,7 +736,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 100,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'MFRC522 IC based 13.56MHz contactless smart card communication module with SPI bus interface.',
     features: ['High integration reader IC', 'Low voltage 3.3V power', 'Supports Mifare1 S50, S70 cards'],
     specs: { 'Communication': 'SPI', 'Frequency': '13.56 MHz', 'Voltage': '3.3V' }
@@ -756,7 +756,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 500,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: '1A Lithium battery charging module with dual protection IC and Micro-USB / Type-C input.',
     features: ['1A constant current charging', 'Overcharge & over-discharge protection', 'Status indicator LEDs'],
     specs: { 'Charge Current': '1A Adjustable', 'Input Interface': 'USB Type-C' }
@@ -776,7 +776,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: 'Linear Li-Ion battery charger board supporting high current thermal management.',
     features: ['Up to 1A programmable charge rate', 'Soft-start limits inrush current', 'LED status lights'],
     specs: { 'Input Voltage': '4.5V - 6V', 'Max Current': '1000mA' }
@@ -796,7 +796,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 280,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/relay.svg',
     description: 'Standard 5V single channel relay module with optocoupler isolation for switching AC 250V / DC 30V loads.',
     features: ['Optocoupler isolation', 'High current relay AC250V 10A', 'Status LED indicator'],
     specs: { 'Control Voltage': '5V DC', 'Max Load': 'AC 250V 10A / DC 30V 10A' }
@@ -816,7 +816,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/relay.svg',
     description: 'Single channel isolated relay switch for high voltage appliance control.',
     features: ['NO/NC terminal blocks', 'Low level trigger support'],
     specs: { 'Trigger Current': '5mA', 'Voltage': '5V' }
@@ -836,7 +836,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/relay.svg',
     description: 'Dual channel 5V relay board for controlling two separate electrical circuits independently.',
     features: ['Dual optocouplers', 'Independent control lines', 'Screw terminal blocks'],
     specs: { 'Channels': '2', 'Max Current': '10A per channel' }
@@ -856,7 +856,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/relay.svg',
     description: 'Quad channel relay board equipped with optical isolation for home automation systems.',
     features: ['4 independent relays', 'Red LED channel indicators', 'Microcontroller compatible trigger'],
     specs: { 'Channels': '4', 'Rating': '10A 250VAC / 10A 30VDC' }
@@ -876,7 +876,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 170,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Dual H-bridge motor driver module capable of driving two DC motors or one 4-wire stepper motor.',
     features: ['High power L298N IC', 'Aluminum heatsink onboard', '5V onboard regulator'],
     specs: { 'Motor Supply Voltage': '5V - 35V', 'Peak Current': '2A per bridge' }
@@ -896,7 +896,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Dual MOSFET H-bridge motor driver module featuring low power loss for battery-operated mini robots.',
     features: ['Dual H-bridge driver', 'Low RDS(on) MOSFETs', 'Built-in thermal shutdown'],
     specs: { 'Operating Voltage': '2.7V - 10.8V', 'Output Current': '1.5A per channel' }
@@ -916,7 +916,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'High-efficiency dual DC motor driver module based on Toshiba TB6612FNG MOSFET bridge.',
     features: ['Higher efficiency than L298N', '1.2A continuous current per channel', 'Standby mode for power saving'],
     specs: { 'Supply Voltage': '15V Max', 'Continuous Current': '1.2A per channel' }
@@ -936,7 +936,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 110,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Digital I2S Class-D mono audio amplifier module producing 3.2W output into a 4-ohm speaker for ESP32 sound projects.',
     features: ['Direct digital I2S input', '3.2W Class-D amplifier', 'No external MCLK required'],
     specs: { 'Output Power': '3.2W into 4Ω', 'Operating Voltage': '2.5V - 5.5V' }
@@ -956,7 +956,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'SPI interface MicroSD card reader board with onboard 3.3V level converter for microcontroller data logging.',
     features: ['SPI interface protocol', 'Onboard 3.3V regulator', 'Level shifting buffer IC'],
     specs: { 'Interface': 'SPI', 'Card Supported': 'Micro SD <= 2GB, Micro SDHC <= 32GB' }
@@ -976,7 +976,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Master/Slave SPP (Serial Port Protocol) Bluetooth 2.0 module for wireless serial UART communication.',
     features: ['Master & Slave mode switchable', 'Default baud rate 9600', 'Onboard button for AT commands'],
     specs: { 'Bluetooth Protocol': 'V2.0+EDR', 'Operating Voltage': '3.6V - 6V' }
@@ -996,7 +996,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Slave-only Bluetooth serial transceiver module ideal for smartphone-to-microcontroller wireless control.',
     features: ['Slave mode configuration', 'Simple UART serial interface', 'Signal status LED'],
     specs: { 'Frequency': '2.4GHz ISM', 'Voltage': '3.3V - 5V' }
@@ -1016,7 +1016,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 90,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/esp32.svg',
     description: 'Pre-flashed ESP32 development module configured for ultra-low latency connection-less ESP-NOW protocol peer-to-peer mesh.',
     features: ['Low latency peer-to-peer transmission', 'No router required', 'Pre-tested mesh firmware'],
     specs: { 'Protocol': 'ESP-NOW 2.4GHz', 'Range': 'Up to 200 meters line-of-sight' }
@@ -1036,7 +1036,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 350,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Active/Passive piezo buzzer driver board for audio tone generation and alert beeps.',
     features: ['S8050 transistor drive circuit', 'High sound pressure output', 'Digital pin activation'],
     specs: { 'Operating Voltage': '3.3V - 5V', 'Sound Frequency': '2.5kHz ± 300Hz' }
@@ -1056,7 +1056,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Extremely accurate I2C real-time clock (RTC) module with integrated TCXO crystal and coin cell backup socket.',
     features: ['Integrated TCXO temperature compensated crystal', 'Battery backup coin cell holder', 'I2C interface with AT24C32 EEPROM'],
     specs: { 'Accuracy': '±2ppm', 'Interface': 'I2C' }
@@ -1076,7 +1076,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Dual-axis X/Y analog thumb joystick module with integrated push-button switch.',
     features: ['Two 10k potentiometers for X/Y axes', 'Integrated tactile click button', 'Standard 5-pin header'],
     specs: { 'Output': 'Dual Analog + Digital Push Switch', 'Voltage': '3.3V - 5V' }
@@ -1096,7 +1096,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 260,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'Resistive voltage divider module that steps down input DC voltage up to 25V for 5V ADC microcontrollers.',
     features: ['5:1 voltage divider ratio', 'Measures up to 25V DC', 'Screw terminal blocks'],
     specs: { 'Max Input Voltage': '25V DC', 'Divider Ratio': '5:1' }
@@ -1116,7 +1116,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/module.svg',
     description: 'ACS712 linear Hall-effect current sensor module for measuring AC and DC electrical load current up to 20A.',
     features: ['Hall-effect current sensing', 'Galvanic isolation', 'Low noise analog signal path'],
     specs: { 'Current Range': '20A Max', 'Sensitivity': '100mV/A' }
@@ -1136,7 +1136,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 240,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'LM2596 DC-DC adjustable step-down buck power module converting high input voltages down to 1.25V-30V.',
     features: ['LM2596 IC switcher', 'Trimmer potentiometer adjustment', 'Up to 3A output capability'],
     specs: { 'Input Voltage': '4V - 35V', 'Output Voltage': '1.23V - 30V' }
@@ -1156,7 +1156,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'MT3608 2A DC-DC step-up voltage boost converter board for stepping battery voltage up to 28V.',
     features: ['High 1.2MHz switching frequency', 'Compact footprint', 'Up to 93% conversion efficiency'],
     specs: { 'Input Voltage': '2V - 24V', 'Max Output Voltage': '28V DC' }
@@ -1178,7 +1178,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/oled.svg',
     description: 'High-contrast monochrome I2C OLED display module with 128x64 resolution powered by SSD1306 driver chip.',
     features: ['SSD1306 driver controller', 'No backlight needed (self-illuminating)', 'I2C address 0x3C'],
     specs: { 'Resolution': '128x64', 'Interface': 'I2C', 'Color': 'Blue / White / Yellow-Blue' }
@@ -1198,7 +1198,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/oled.svg',
     description: 'Larger 1.3-inch graphic OLED display module with SH1106 controller and I2C serial interface.',
     features: ['SH1106 driver IC', 'Wide viewing angle > 160 degrees', 'Low power drain'],
     specs: { 'Screen Size': '1.3 Inch', 'Resolution': '128x64', 'Interface': 'I2C' }
@@ -1218,7 +1218,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 90,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/oled.svg',
     description: '1.54-inch full graphic OLED display module with SPI/I2C option for crisp UI dashboards.',
     features: ['SSD1309 controller', '128x64 high contrast display', 'SPI / I2C jumper selectable'],
     specs: { 'Size': '1.54 Inch', 'Driver': 'SSD1309' }
@@ -1238,7 +1238,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 120,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/tft.svg',
     description: '128x160 color TFT SPI LCD display module based on ST7735 driver with MicroSD card slot.',
     features: ['18-bit 262,000 full color spectrum', 'SPI bus interface', 'MicroSD slot on back'],
     specs: { 'Resolution': '128x160', 'Driver': 'ST7735', 'Interface': 'SPI' }
@@ -1258,7 +1258,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 95,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/tft.svg',
     description: '240x320 resolution SPI color TFT touchscreen LCD panel powered by ILI9341 controller.',
     features: ['ILI9341 controller IC', '240x320 RGB pixels', 'Resistive touch screen panel'],
     specs: { 'Resolution': '240x320', 'Driver': 'ILI9341' }
@@ -1278,7 +1278,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 80,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/tft.svg',
     description: '2.8-inch Arduino Uno shield format color TFT touchscreen module with SD slot.',
     features: ['Arduino Uno shield form factor', 'Built-in touch panel controller', 'MicroSD storage'],
     specs: { 'Screen Size': '2.8 Inch', 'Interface': '8-bit parallel / SPI' }
@@ -1298,7 +1298,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 65,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/tft.svg',
     description: '320x480 pixel high resolution 3.5-inch color TFT touchscreen display panel for ESP32 & Arduino Mega.',
     features: ['320x480 HD resolution', 'ILI9486 driver', 'Full color RGB 65K colors'],
     specs: { 'Resolution': '320x480', 'Driver': 'ILI9486' }
@@ -1318,7 +1318,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/lcd.svg',
     description: 'Blue backlight character 16x2 LCD display pre-soldered with PCF8574 I2C adapter backpack.',
     features: ['Pre-soldered I2C backpack module', 'Contrast trim potentiometer', 'Blue background white text'],
     specs: { 'Characters': '16 Cols x 2 Rows', 'Interface': 'I2C (Address 0x27 / 0x3F)' }
@@ -1338,7 +1338,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/lcd.svg',
     description: 'Large 20 column by 4 row character LCD module bundled with I2C bus backpack converter.',
     features: ['20x4 character matrix', '4-wire I2C interface connection', 'LED backlight switch jumper'],
     specs: { 'Matrix': '20x4 Characters', 'Backlight': 'Blue/Yellow-Green' }
@@ -1358,7 +1358,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 350,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/display.svg',
     description: '0.56-inch 4-digit 7-segment red LED display module with decimal points for digital clocks and counters.',
     features: ['4 digit multiplexed display', 'High brightness red LEDs', 'Common Cathode / Anode'],
     specs: { 'Digits': '4', 'Color': 'Red' }
@@ -1378,7 +1378,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/display.svg',
     description: 'MAX7219 serial input LED driver module connected to an 8x8 dot matrix display for scrolling text.',
     features: ['SPI serial communication', 'Cascadable modular design', 'Individual LED pixel control'],
     specs: { 'Matrix': '8x8 Pixels', 'Driver IC': 'MAX7219' }
@@ -1398,7 +1398,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/display.svg',
     description: '1-meter 60 LEDs WS2812B addressable RGB LED strip with individual Neopixel pixel control over single wire data pin.',
     features: ['Addressable Neopixel control', '5V DC operation', 'Integrated 5050 RGB LEDs'],
     specs: { 'Density': '60 LEDs/m', 'Voltage': '5V DC', 'Data Protocol': 'Single wire NZR' }
@@ -1418,7 +1418,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 280,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/display.svg',
     description: 'Full color 5050 SMD RGB LED breakout module with current limiting resistors for PWM color mixing.',
     features: ['Red, Green, Blue PWM channels', 'Common Cathode connection', 'Onboard limit resistors'],
     specs: { 'LED Type': '5050 SMD RGB', 'Voltage': '3.3V - 5V' }
@@ -1440,7 +1440,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/servo.svg',
     description: '9g lightweight micro servo motor with 180-degree rotation, plastic gears, and mounting horns.',
     features: ['180 degree rotation angle', '1.8 kg/cm holding torque', 'Includes 3 servo horns'],
     specs: { 'Torque': '1.8 kg-cm @ 4.8V', 'Weight': '9 grams', 'Speed': '0.12 sec/60 deg' }
@@ -1460,7 +1460,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/servo.svg',
     description: 'Micro metal gear 9g servo motor offering increased durability and torque for robotic arms.',
     features: ['Full metal gear train', '2.2 kg/cm torque at 6V', 'Dual ball bearing'],
     specs: { 'Gears': 'Metal', 'Torque': '2.2 kg-cm' }
@@ -1480,7 +1480,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/servo.svg',
     description: 'High-torque standard size digital metal gear servo motor providing up to 11 kg/cm torque.',
     features: ['Metal internal gears', 'Heavy-duty 11 kg/cm torque', 'Double ball bearing shaft'],
     specs: { 'Torque': '11 kg-cm @ 6V', 'Rotation': '180 Degrees' }
@@ -1500,7 +1500,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Ultra-fast 8.5x20mm micro coreless DC motor designed for micro quadcopters and lightweight RC models.',
     features: ['High speed 45,000 RPM @ 3.7V', 'Lightweight coreless design', 'Pre-wired leads'],
     specs: { 'Size': '8.5mm x 20mm', 'Voltage': '3.7V DC', 'Speed': '45000 RPM' }
@@ -1520,7 +1520,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 500,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Dual-axis plastic gearbox DC motor for smart robot car chassis with 1:48 gear ratio.',
     features: ['1:48 reduction gear ratio', 'EMC anti-interference magnetic core', 'Dual output shaft'],
     specs: { 'Voltage': '3V - 6V DC', 'Ratio': '1:48' }
@@ -1540,7 +1540,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Miniature precision metal gearbox DC motor providing high torque in a compact 12mm profile.',
     features: ['All-metal micro spur gearbox', 'D-shaped output shaft', 'Operating voltage 3V-12V'],
     specs: { 'Speed': '100 RPM / 300 RPM', 'Voltage': '6V DC' }
@@ -1560,7 +1560,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 600,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Standard 130-size hobby DC motor running from 3V to 6V for school projects and fan propellers.',
     features: ['130 form factor', 'High RPM rotation', 'Universal hobby motor'],
     specs: { 'Voltage': '3V - 6V DC', 'RPM': '9000 RPM' }
@@ -1580,7 +1580,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/stepper.svg',
     description: '5V 4-phase geared 28BYJ-48 stepper motor bundled with ULN2003 driver board.',
     features: ['5V DC 4-phase stepper motor', 'Includes ULN2003 driver PCB', '1/64 gear reduction ratio'],
     specs: { 'Step Angle': '5.625 x 1/64', 'Voltage': '5V DC' }
@@ -1600,7 +1600,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 110,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/stepper.svg',
     description: 'High torque 1.8-degree bipolar NEMA 17 stepper motor for 3D printers and CNC routers.',
     features: ['4.2 kg-cm holding torque', '1.8 degree step angle', '4-wire bipolar connection'],
     specs: { 'Step Angle': '1.8°', 'Holding Torque': '42 N.cm', 'Rated Current': '1.5A' }
@@ -1620,7 +1620,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Dual H-Bridge power driver module suitable for driving heavy DC gear motors and steppers.',
     features: ['Up to 2A per channel', 'Integrated 5V regulator logic supply', 'Robust terminal blocks'],
     specs: { 'Max Voltage': '35V', 'Peak Current': '2A' }
@@ -1640,7 +1640,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Arduino Uno motor driver shield capable of driving 4 DC motors or 2 stepper motors simultaneously.',
     features: ['4 H-bridges L293D chipset', '0.6A per bridge', 'Dedicated 2-pin terminal block for external power'],
     specs: { 'Drive Capacity': '4 DC Motors or 2 Steppers', 'Voltage': '4.5V - 25V' }
@@ -1660,7 +1660,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Low-voltage dual H-bridge motor driver breakout module with current limiting.',
     features: ['1.5A per channel', 'Over-current protection', 'Low standby current'],
     specs: { 'Voltage': '2.7V - 10.8V', 'Current': '1.5A' }
@@ -1680,7 +1680,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Toshiba dual channel MOSFET motor driver offering low heat dissipation.',
     features: ['1.2A continuous current', 'PWM frequency up to 100kHz', 'Decoupling capacitors included'],
     specs: { 'Operating Current': '1.2A', 'Max Peak': '3.2A' }
@@ -1700,7 +1700,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/stepper.svg',
     description: 'Microstepping bipolar stepper motor driver module with translator and aluminum heatsink for 3D printers.',
     features: ['Five step resolutions down to 1/16 microstepping', 'Adjustable current control', 'Thermal shutdown'],
     specs: { 'Max Current': '2A with heatsink', 'Microstep Resolutions': 'Full, 1/2, 1/4, 1/8, 1/16' }
@@ -1720,7 +1720,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 450,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: '65mm diameter rubber tire with D-hole center hub designed for TT gear motors.',
     features: ['High traction rubber tread', '65mm diameter', 'Center D-shaft coupler'],
     specs: { 'Diameter': '65mm', 'Width': '27mm' }
@@ -1740,7 +1740,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 130,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Transparent acrylic 2WD smart robot car chassis platform with TT motors, wheels, and caster wheel.',
     features: ['Laser cut acrylic frame', 'Includes 2 TT motors & 65mm wheels', 'Omnidirectional caster wheel'],
     specs: { 'Platform': '2WD', 'Material': 'Acrylic' }
@@ -1760,7 +1760,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 350,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/motor.svg',
     description: 'Solid brass motor shaft coupling connector for linking N20 / DC motor shafts to wheels.',
     features: ['Solid brass alloy', 'Includes grub screws and hex wrench key', 'Precise shaft fit'],
     specs: { 'Shaft Bore': '3mm / 4mm / 5mm' }
@@ -1782,7 +1782,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Standard 3.7V rechargeable 18650 cylindrical lithium-ion cell with 2200mAh capacity for power banks and electronics.',
     features: ['High energy density', '3.7V nominal voltage', 'Rechargeable up to 500 cycles'],
     specs: { 'Capacity': '2200mAh', 'Nominal Voltage': '3.7V', 'Full Charge Voltage': '4.2V' }
@@ -1802,7 +1802,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Ultra-thin lithium polymer pouch battery cell for embedded wearables and compact microcontrollers.',
     features: ['Flat pouch form factor', 'Integrated PCM protection board', 'JST-PH connector'],
     specs: { 'Voltage': '3.7V', 'Capacity': '500mAh' }
@@ -1822,7 +1822,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: '3.7V 750mAh high-discharge Li-Po battery pack fitted with protection circuit module.',
     features: ['750mAh power capacity', 'Over-current protection', 'JST connector lead'],
     specs: { 'Capacity': '750mAh', 'Voltage': '3.7V' }
@@ -1842,7 +1842,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Rechargeable 3.7V 1200mAh lithium polymer battery suitable for portable companion devices like GEM.',
     features: ['Long operating runtime', 'High reliability pouch cell', 'Pre-soldered JST leads'],
     specs: { 'Capacity': '1200mAh', 'Voltage': '3.7V' }
@@ -1862,7 +1862,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'High capacity 2200mAh 3.7V Li-Po battery pack providing extended power autonomy.',
     features: ['2200mAh heavy duty capacity', 'Integrated short-circuit protection'],
     specs: { 'Capacity': '2200mAh', 'Voltage': '3.7V' }
@@ -1882,7 +1882,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'Dual USB 5V 2A power bank motherboard module with charging status digital LED indicators.',
     features: ['Dual 5V 2.1A USB outputs', 'Type-C / Micro-USB input charging', 'Overload & thermal protection'],
     specs: { 'Output': '5V 2.1A', 'Input': '5V 1A' }
@@ -1902,7 +1902,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 450,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: 'Single-cell 1A lithium battery charging module with Type-C connector and protection IC.',
     features: ['1A charging current', 'Type-C port input', 'Red/Blue status LEDs'],
     specs: { 'Charge Current': '1A', 'Port': 'USB Type-C' }
@@ -1922,7 +1922,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 280,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: 'High efficiency linear Li-Ion charger board with thermal foldback protection.',
     features: ['Thermal regulation', 'Programmable charging current', 'Compact PCB footprint'],
     specs: { 'Voltage': '4.5V - 6.5V', 'Current': '1000mA' }
@@ -1942,7 +1942,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 350,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: '1S 3.7V 3A lithium battery Battery Management System (BMS) protection PCB.',
     features: ['Overcharge cut-off 4.25V', 'Over-discharge cut-off 2.54V', 'Short circuit protection'],
     specs: { 'Series': '1S (3.7V)', 'Max Current': '3A' }
@@ -1962,7 +1962,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: '2S 7.4V 8A BMS protection board for dual 18650 Li-Ion battery pack balancing.',
     features: ['Cell voltage balancing', '8A continuous discharge limit', 'Low heat MOSFETs'],
     specs: { 'Series': '2S (7.4V / 8.4V)', 'Max Current': '8A' }
@@ -1982,7 +1982,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 190,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/bms.svg',
     description: '3S 12V 20A Li-Ion battery BMS protection PCB board for power tools and 12V packs.',
     features: ['20A peak load discharge', 'Overcharge, overdischarge & short circuit cutoffs'],
     specs: { 'Series': '3S (11.1V / 12.6V)', 'Current': '20A' }
@@ -2002,7 +2002,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Single-slot 18650 battery holder case with wire leads for easy breadboard connection.',
     features: ['High quality ABS plastic', 'Pre-stripped red/black wire leads', 'Metal leaf spring contacts'],
     specs: { 'Slots': '1 x 18650 Cell' }
@@ -2022,7 +2022,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Dual-slot 2x18650 battery holder socket case wired in series for 7.4V power supply.',
     features: ['Holds two 18650 cells', 'Series output wiring', 'M3 mounting holes'],
     specs: { 'Slots': '2 x 18650 Cells' }
@@ -2042,7 +2042,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/battery.svg',
     description: 'Quad-slot 4x18650 battery holder enclosure case for heavy duty 14.8V power packs.',
     features: ['4 slot 18650 enclosure', 'Robust spring contacts', 'Wire leads included'],
     specs: { 'Slots': '4 x 18650 Cells' }
@@ -2062,7 +2062,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 260,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'LM2596 adjustable DC-DC step down voltage regulator module providing stable output voltage.',
     features: ['Input up to 35V DC', 'Output adjustable 1.25V-30V', 'High conversion efficiency'],
     specs: { 'Max Current': '3A', 'Efficiency': '92%' }
@@ -2082,7 +2082,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 240,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'MT3608 micro 2A DC-DC step up voltage booster board.',
     features: ['Steps 2V up to 28V', 'Compact 36mm x 17mm size', 'Trimmer pot adjustment'],
     specs: { 'Max Current': '2A' }
@@ -2102,7 +2102,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'LM7805 TO-220 3-terminal positive 5V 1.5A fixed linear voltage regulator IC.',
     features: ['Fixed 5V output', 'Thermal overload protection', 'Short-circuit current limit'],
     specs: { 'Output Voltage': '5V DC', 'Max Current': '1.5A' }
@@ -2122,7 +2122,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'AMS1117-3.3 SOT-223 low dropout (LDO) 3.3V 800mA linear regulator IC module.',
     features: ['Fixed 3.3V LDO output', '800mA output current capability', 'Onboard filter capacitors'],
     specs: { 'Output Voltage': '3.3V DC', 'Max Output Current': '800mA' }
@@ -2142,7 +2142,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 350,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'USB Type-C female connector breakout board with DIP pins for 5V power input connection.',
     features: ['Standard Type-C receptacle', 'VBUS, GND, CC1, CC2 breakout pins', 'FR-4 PCB'],
     specs: { 'Interface': 'USB Type-C Female' }
@@ -2162,7 +2162,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 600,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'SPST 2-pin mini ON/OFF power toggle switch for electronic projects.',
     features: ['Snap-in mounting', 'AC 250V 3A / DC 12V 6A rating', 'Tactile latching click'],
     specs: { 'Switch Type': 'SPST ON-OFF' }
@@ -2182,7 +2182,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 500,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'JST-PH 2.0mm 2-pin male and female connector cable pair with 10cm pre-stripped wires.',
     features: ['2.0mm pitch spacing', 'Includes male plug & female socket cable', '22AWG copper wire'],
     specs: { 'Pitch': '2.0mm JST-PH', 'Length': '10cm' }
@@ -2202,7 +2202,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 500,
     rating: 5.0,
     reviewCount: 0,
-    image: '/logo.jpeg',
+    image: '/store/power.svg',
     description: 'Standard 5.5mm x 2.1mm DC power female jack socket connector for wall adapter plugs.',
     features: ['5.5x2.1mm standard DC dimensions', 'Panel mount / PCB mount pins', 'Durable metal contacts'],
     specs: { 'Dimensions': '5.5mm x 2.1mm' }

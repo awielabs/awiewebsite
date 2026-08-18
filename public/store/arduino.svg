@@ -1,0 +1,9 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#0B192C'/>
+  <rect x='35' y='45' width='130' height='110' rx='10' fill='#0284C7' stroke='#38BDF8' stroke-width='2.5'/>
+  <rect x='45' y='35' width='35' height='25' fill='#94A3B8' rx='3'/>
+  <rect x='110' y='90' width='40' height='40' rx='4' fill='#1E293B'/>
+  <text x='100' y='80' font-family='sans-serif' font-weight='900' font-size='16' fill='#FFFFFF' text-anchor='middle'>ARDUINO</text>
+  <circle cx='70' cy='120' r='10' fill='#0284C7' stroke='#FFFFFF' stroke-width='2'/>
+  <text x='70' y='124' font-family='sans-serif' font-weight='bold' font-size='12' fill='#FFFFFF' text-anchor='middle'>∞</text>
+</svg>

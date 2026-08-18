@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#111827'/>
+  <rect x='45' y='45' width='110' height='110' rx='8' fill='#374151' stroke='#6B7280' stroke-width='2.5'/>
+  <circle cx='100' cy='100' r='32' fill='#4B5563' stroke='#9CA3AF' stroke-width='2'/>
+  <circle cx='100' cy='100' r='10' fill='#D1D5DB'/>
+  <text x='100' y='170' font-family='sans-serif' font-weight='bold' font-size='10' fill='#9CA3AF' text-anchor='middle'>NEMA 17</text>
+</svg>

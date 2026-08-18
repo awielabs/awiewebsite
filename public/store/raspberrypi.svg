@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#14061F'/>
+  <rect x='45' y='35' width='110' height='130' rx='10' fill='#065F46' stroke='#10B981' stroke-width='2.5'/>
+  <rect x='70' y='75' width='60' height='50' rx='6' fill='#047857' stroke='#A7F3D0' stroke-width='1.5'/>
+  <text x='100' y='105' font-family='sans-serif' font-weight='900' font-size='13' fill='#FFFFFF' text-anchor='middle'>RP2040</text>
+  <circle cx='100' cy='52' r='6' fill='#F43F5E'/>
+  <text x='100' y='145' font-family='sans-serif' font-weight='bold' font-size='10' fill='#A7F3D0' text-anchor='middle'>PICO</text>
+</svg>

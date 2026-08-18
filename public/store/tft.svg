@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#0F172A'/>
+  <rect x='35' y='35' width='130' height='130' rx='8' fill='#1E293B' stroke='#818CF8' stroke-width='2'/>
+  <rect x='45' y='45' width='110' height='110' rx='4' fill='#4338CA'/>
+  <text x='100' y='105' font-family='sans-serif' font-weight='900' font-size='15' fill='#FFFFFF' text-anchor='middle'>TFT COLOR</text>
+</svg>

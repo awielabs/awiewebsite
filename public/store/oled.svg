@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#020617'/>
+  <rect x='35' y='45' width='130' height='110' rx='6' fill='#0F172A' stroke='#38BDF8' stroke-width='2'/>
+  <rect x='45' y='55' width='110' height='75' rx='3' fill='#000000'/>
+  <text x='100' y='98' font-family='sans-serif' font-weight='900' font-size='14' fill='#38BDF8' text-anchor='middle'>OLED 128x64</text>
+  <text x='100' y='115' font-family='sans-serif' font-size='9' fill='#E0F2FE' text-anchor='middle'>SSD1306 I2C</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'>
+  <rect width='200' height='200' rx='24' fill='#020617'/>
+  <rect x='35' y='45' width='130' height='110' rx='8' fill='#0F172A' stroke='#0EA5E9' stroke-width='2.5'/>
+  <rect x='45' y='55' width='110' height='90' rx='4' fill='#0284C7'/>
+  <text x='100' y='105' font-family='sans-serif' font-weight='900' font-size='15' fill='#FFFFFF' text-anchor='middle'>DISPLAY</text>
+</svg>
