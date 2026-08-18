@@ -17,11 +17,11 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Solutions', href: '/solutions' },
     { name: 'Products', href: '/products' },
-    { name: 'Store', href: '/store' },
     { name: 'Projects', href: '/projects' },
     { name: 'Students', href: '/students' },
     { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'Contact', href: '/contact' },
+    { name: 'AWIE Store', href: '/store', isStore: true }
   ];
 
   return (
@@ -52,12 +52,16 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center gap-7">
+        <div className="hidden lg:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-xs font-bold text-slate-700 hover:text-[#2563EB] transition-colors tracking-wide"
+              className={
+                link.isStore
+                  ? "px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-black text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all shadow-sm flex items-center gap-1.5"
+                  : "text-xs font-bold text-slate-700 hover:text-[#2563EB] transition-colors tracking-wide"
+              }
             >
               {link.name}
             </Link>
