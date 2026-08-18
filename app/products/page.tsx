@@ -2,25 +2,25 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, CheckCircle2, Layers, Clock, Radar, HeartPulse } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, Layers, Clock, Zap, HeartPulse } from 'lucide-react';
 
 export default function ProductsPage() {
   const gemV1Features = [
     { title: 'OLED Display', desc: 'High-contrast graphic face expressions' },
-    { title: 'IR Proximity Sensor', desc: 'IR distance & motion monitoring' },
+    { title: '4 White LED Bulbs', desc: 'Pure white crisp ambient illumination' },
+    { title: '1000mAh Battery', desc: 'Rechargeable LiPo power via USB Type-C' },
+    { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' },
     { title: 'ESP32 Chipset', desc: '32-bit dual-core microcontroller core' },
-    { title: 'Touch Interaction', desc: 'Capacitive touch sensors for mood feedback' },
-    { title: 'LiPo Battery', desc: 'Rechargeable battery for portable placement' },
-    { title: 'Wi-Fi & App Sync', desc: 'Seamless companion app configuration' }
+    { title: 'Touch Interaction', desc: 'Capacitive touch sensors for mood feedback' }
   ];
 
   const gemV2Features = [
     { title: 'Heart Rate PPG Sensor', desc: 'MAX30102 Optical Biometric Pulse Sensor' },
     { title: 'IR Proximity Sensor', desc: 'IR distance & motion monitoring' },
+    { title: '1500mAh Battery', desc: 'High capacity LiPo battery via Type-C' },
+    { title: '4 White LED Bulbs', desc: 'Pulse-synced ambient lighting' },
     { title: 'Biometric Telemetry', desc: 'Real-time SpO2 & BPM App Sync' },
-    { title: 'Pulse-Synced RGB LEDs', desc: 'Heartbeat animated LED mood lighting' },
-    { title: 'OLED Display', desc: 'High-contrast graphic face expressions' },
-    { title: 'Wi-Fi & App Sync', desc: 'Seamless companion app configuration' }
+    { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' }
   ];
 
   return (
@@ -48,16 +48,16 @@ export default function ProductsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
-                  <Radar className="w-3.5 h-3.5" />
+                  <Zap className="w-3.5 h-3.5" />
                   <span>STANDARD EDITION</span>
                 </div>
                 <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
               <h2 className="text-3xl font-black text-slate-900">GEM v1</h2>
-              <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion with IR Motion Monitoring</p>
+              <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • 1000mAh & GEM App</p>
               <p className="text-slate-600 text-xs leading-relaxed">
-                Featuring an IR distance proximity sensor, animated OLED eyes, capacitive touch reactions, and addressable RGB LED mood lighting.
+                Featuring 4 White LED ambient bulbs, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
@@ -89,15 +89,15 @@ export default function ProductsPage() {
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-500/20 border border-rose-500/40 text-xs font-bold text-rose-400">
                   <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
-                  <span>PRO HEALTH EDITION</span>
+                  <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
                 <span className="text-xs font-bold text-rose-400">PRE-BOOKING OPEN SOON</span>
               </div>
 
               <h2 className="text-3xl font-black text-white">GEM v2 Pro</h2>
-              <p className="text-rose-400 text-sm font-bold">Biometric Telemetry & Heart Rate Sensing Companion</p>
+              <p className="text-rose-400 text-sm font-bold">Biometric Telemetry, IR Motion & 1500mAh Battery</p>
               <p className="text-slate-300 text-xs leading-relaxed">
-                Includes an integrated MAX30102 PPG optical pulse sensor for real-time heart rate (BPM) monitoring, biometric health telemetry, and heartbeat-synced RGB lighting.
+                Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, 1500mAh LiPo battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
