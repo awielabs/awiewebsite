@@ -18,8 +18,6 @@ export default function Navbar() {
   const showLoginButton = pathname?.startsWith('/products') || pathname?.startsWith('/store');
 
   const navLinks = [
-    { name: 'Solutions', href: '/solutions' },
-    { name: 'Projects', href: '/projects' },
     { name: 'Students', href: '/students' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },

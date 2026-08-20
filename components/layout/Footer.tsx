@@ -58,11 +58,9 @@ export default function Footer() {
           <h3 className="text-slate-900 text-sm font-bold tracking-wider uppercase mb-4">Navigation</h3>
           <ul className="space-y-2.5 text-sm">
             <li><Link href="/" className="hover:text-[#2563EB] transition-colors">Home</Link></li>
-            <li><Link href="/solutions" className="hover:text-[#2563EB] transition-colors">Custom Solutions</Link></li>
             <li><Link href="/products" className="hover:text-[#2563EB] transition-colors">AWIE Products</Link></li>
             <li><Link href="/products/gem-buddy" className="hover:text-[#2563EB] transition-colors text-xs text-[#2563EB] font-bold">↳ GEM Buddy</Link></li>
             <li><Link href="/store" className="hover:text-[#2563EB] transition-colors">Electronics Store</Link></li>
-            <li><Link href="/projects" className="hover:text-[#2563EB] transition-colors">Projects & Proof</Link></li>
             <li><Link href="/students" className="hover:text-[#2563EB] transition-colors">Student Mentorship</Link></li>
           </ul>
         </div>
