@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   Clock
 } from 'lucide-react';
-import PinScrollShowcase from '@/components/ui/PinScrollShowcase';
 
 export default function Home() {
   const whatWeDoCards = [
@@ -232,9 +231,6 @@ export default function Home() {
           })}
         </div>
       </section>
-
-      {/* PIN SCROLL ANIMATION SHOWCASE SECTION */}
-      <PinScrollShowcase />
 
       {/* Featured Products Section: GEM Buddy */}
       <section className="py-20 px-6 max-w-7xl mx-auto relative z-10">
