@@ -136,17 +136,17 @@ export default function Home() {
 
         <div className="max-w-6xl mx-auto text-center space-y-6 relative z-10">
           
-          {/* Main Hero Header: Official AWIE Graphical Logo (Replaces plain text AWIE & badge) */}
+          {/* Main Hero Header: Official Logobg Brand Logo */}
           <div className="space-y-4 flex flex-col items-center">
             
-            {/* Prominent Official AWIE Logo Display */}
+            {/* Prominent Official Logobg Emblem Display */}
             <div className="relative py-2 flex justify-center">
               <Image
-                src="/logo.png"
-                alt="AWIE Official Logo"
-                width={520}
-                height={320}
-                className="w-auto h-36 sm:h-48 md:h-56 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+                src="/logobg.png"
+                alt="AWIE Brand Emblem Logo"
+                width={560}
+                height={360}
+                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
                 priority
               />
             </div>
@@ -175,17 +175,17 @@ export default function Home() {
           {/* Action CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
-              href="/products"
+              href="/solutions"
               className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-base transition-all hover:bg-[#1D4ED8] shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02] w-full sm:w-auto"
             >
-              <span>Explore Products</span>
+              <span>Explore Solutions</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/contact"
+              href="/projects"
               className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-base transition-all hover:bg-slate-200 w-full sm:w-auto"
             >
-              <span>Start a Project</span>
+              <span>View Our Work</span>
               <ChevronRight className="w-5 h-5 text-slate-500" />
             </Link>
           </div>
@@ -330,10 +330,10 @@ export default function Home() {
 
         <div className="mt-12 text-center">
           <Link
-            href="/contact?interest=Custom+Solution"
+            href="/solutions"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-[#2563EB] text-white font-bold text-xs transition-all shadow-md"
           >
-            <span>Request a Custom Solution</span>
+            <span>View Complete Solutions Catalog</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -348,10 +348,10 @@ export default function Home() {
             <p className="text-slate-600 text-sm font-medium">Real-world case studies demonstrating our technical problem solving across hardware and web.</p>
           </div>
           <Link
-            href="/contact"
+            href="/projects"
             className="px-5 py-2.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 text-xs font-bold transition-all shrink-0"
           >
-            Discuss Your Project →
+            View All Projects →
           </Link>
         </div>
 

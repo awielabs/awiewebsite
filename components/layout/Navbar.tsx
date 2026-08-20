@@ -35,7 +35,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-11 w-auto flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
             <Image
-              src="/logo.png"
+              src="/logobg.png"
               alt="AWIE Logo"
               width={160}
               height={50}
