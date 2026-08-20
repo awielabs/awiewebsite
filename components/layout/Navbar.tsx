@@ -19,12 +19,12 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Solutions', href: '/solutions' },
-    { name: 'Products', href: '/products' },
     { name: 'Projects', href: '/projects' },
     { name: 'Students', href: '/students' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'AWIE Store', href: '/store', isStore: true }
+    { name: 'AWIE Store', href: '/store', isPill: true },
+    { name: 'AWIE Products', href: '/products', isPill: true }
   ];
 
   return (
@@ -55,13 +55,13 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               className={
-                link.isStore
+                link.isPill
                   ? "px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-black text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all shadow-sm flex items-center gap-1.5"
                   : "text-xs font-bold text-slate-700 hover:text-[#2563EB] transition-colors tracking-wide"
               }
@@ -111,7 +111,11 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-sm font-bold text-slate-700 hover:text-[#2563EB] py-1 transition-colors"
+                className={
+                  link.isPill
+                    ? "px-3.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-sm font-bold text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all inline-block"
+                    : "text-sm font-bold text-slate-700 hover:text-[#2563EB] py-1 transition-colors"
+                }
               >
                 {link.name}
               </Link>
