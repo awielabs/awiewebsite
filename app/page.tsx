@@ -66,52 +66,6 @@ export default function Home() {
     'Dynamic LED Moods'
   ];
 
-  const solutionsList = [
-    { title: 'Web Applications', desc: 'Custom SaaS, web portals, and fast responsive web platforms.' },
-    { title: 'Mobile Applications', desc: 'Cross-platform mobile apps for iOS and Android built with React Native/Flutter.' },
-    { title: 'Business Management Systems', desc: 'Custom internal tools, inventory tracking, dashboards, and automated workflows.' },
-    { title: 'IoT & Automation', desc: 'Smart hardware integrations, sensor monitoring, and remote micro-controller control.' },
-    { title: 'Embedded Systems', desc: 'ESP32, STM32, ARM firmware architecture, custom sensors, and real-time OS.' },
-    { title: 'AI Integration', desc: 'Integrating LLMs, computer vision, and machine learning models into client hardware/web.' },
-    { title: 'Custom Electronics', desc: 'Schematic design, PCB layout design, component selection, and prototype assembly.' },
-    { title: 'API & Backend Development', desc: 'Secure REST/GraphQL APIs, relational database design, and cloud deployments.' }
-  ];
-
-  const projectCases = [
-    {
-      title: 'GEM Buddy v1',
-      badge: 'Hardware + Embedded',
-      problem: 'Desktop companion devices lack personality, physical interaction, and ambient mood sync.',
-      tech: 'ESP32 • OLED • Touch Sensors • RGB LEDs • Custom Firmware',
-      built: 'Autonomous desktop companion with expressive face animations, lamp controls, and smart app sync.',
-      result: 'Fully operational physical prototype — Pre-booking open soon.'
-    },
-    {
-      title: 'LAC-R',
-      badge: 'Robotics + IoT',
-      problem: 'Industrial monitoring rovers require robust wireless telemetry in hostile local environments.',
-      tech: 'ESP32-CAM • Telemetry Sensors • Motor Controllers • Web Socket Gateway',
-      built: 'Rugged robotic platform with live video stream, sensor telemetry, and obstacle avoidance.',
-      result: 'Real-time telemetry streaming at <100ms latency with multi-sensor feedback.'
-    },
-    {
-      title: 'Arcular+',
-      badge: 'Healthcare Application',
-      problem: 'Medical practitioners need centralized patient parameter monitoring with instant alerts.',
-      tech: 'Next.js • TypeScript • Supabase PostgreSQL • WebSockets • Tailwind CSS',
-      built: 'Healthcare web platform with real-time patient status dashboards, data visualization, and role access.',
-      result: 'Deployed system handling live patient state tracking with audit logging.'
-    },
-    {
-      title: 'IoT Rover',
-      badge: 'ESP32 + Sensors + Automation',
-      problem: 'Autonomous micro-rovers need reliable wireless control and environmental sampling.',
-      tech: 'ESP32 • Ultrasonic • DHT22 Temp/Humidity • Custom Android App',
-      built: 'Micro-rover platform equipped with obstacle mapping, Bluetooth/Wi-Fi remote mode, and app control.',
-      result: 'Successfully demonstrated autonomous obstacle navigation and telemetry data logging.'
-    }
-  ];
-
   const studentMentorshipPerks = [
     'Project Guidance & Topic Validation',
     'System Architecture Planning',
@@ -175,17 +129,17 @@ export default function Home() {
           {/* Action CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
-              href="/solutions"
+              href="/products"
               className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-base transition-all hover:bg-[#1D4ED8] shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02] w-full sm:w-auto"
             >
-              <span>Explore Solutions</span>
+              <span>Explore AWIE Products</span>
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/projects"
+              href="/store"
               className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-base transition-all hover:bg-slate-200 w-full sm:w-auto"
             >
-              <span>View Our Work</span>
+              <span>Visit Electronics Store</span>
               <ChevronRight className="w-5 h-5 text-slate-500" />
             </Link>
           </div>
@@ -204,8 +158,9 @@ export default function Home() {
           {whatWeDoCards.map((card) => {
             const Icon = card.icon;
             return (
-              <div
+              <Link
                 key={card.title}
+                href="/products"
                 className={`p-6 rounded-2xl bg-white border ${card.borderColor} shadow-sm relative overflow-hidden group hover:translate-y-[-4px] transition-all duration-300 flex flex-col justify-between`}
               >
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-b ${card.gradient} rounded-full blur-2xl pointer-events-none`} />
@@ -226,10 +181,10 @@ export default function Home() {
                 </div>
 
                 <div className="pt-6 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB] group-hover:text-[#1D4ED8] transition-colors">
-                  <span>Learn details</span>
+                  <span>Explore products</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -305,89 +260,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Solutions Overview Section */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">End-to-End Capabilities</h2>
-          <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">Tailored Digital & Hardware Solutions</p>
-          <p className="text-slate-600 text-sm font-medium">From individual custom software applications to complex multi-layered IoT hardware architecture.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {solutionsList.map((item, idx) => (
-            <div key={item.title} className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] shadow-sm hover:shadow-lg transition-all space-y-3 group">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-xs font-mono font-bold text-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
-                0{idx + 1}
-              </div>
-              <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors">{item.title}</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-medium">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            href="/solutions"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-[#2563EB] text-white font-bold text-xs transition-all shadow-md"
-          >
-            <span>View Complete Solutions Catalog</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Projects Proof Section */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-4">
-          <div className="space-y-3 max-w-2xl">
-            <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Proven Track Record</h2>
-            <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">Featured Engineering Projects</p>
-            <p className="text-slate-600 text-sm font-medium">Real-world case studies demonstrating our technical problem solving across hardware and web.</p>
-          </div>
-          <Link
-            href="/projects"
-            className="px-5 py-2.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 text-xs font-bold transition-all shrink-0"
-          >
-            View All Projects →
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projectCases.map((proj) => (
-            <div key={proj.title} className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-[#2563EB] shadow-sm hover:shadow-xl transition-all space-y-5 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-extrabold text-[#2563EB] bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                    {proj.badge}
-                  </span>
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">{proj.title}</h3>
-                
-                <div className="space-y-2 text-xs">
-                  <div>
-                    <span className="font-extrabold text-slate-900 block">Problem Addressed:</span>
-                    <span className="text-slate-600 font-medium">{proj.problem}</span>
-                  </div>
-                  <div>
-                    <span className="font-extrabold text-slate-900 block">Technology Stack:</span>
-                    <span className="text-slate-700 font-mono font-bold">{proj.tech}</span>
-                  </div>
-                  <div>
-                    <span className="font-extrabold text-slate-900 block">What Was Built:</span>
-                    <span className="text-slate-600 font-medium">{proj.built}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-emerald-700 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-                <span>Result: {proj.result}</span>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
