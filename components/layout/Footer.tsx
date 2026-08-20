@@ -81,11 +81,6 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
         <p>© {new Date().getFullYear()} AWIE. All rights reserved.</p>
-        <p className="flex items-center gap-2">
-          <span>Domain target: awie.in</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Vercel Hosted</span>
-        </p>
       </div>
     </footer>
   );
