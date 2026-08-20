@@ -130,35 +130,38 @@ export default function Home() {
       <div className="bg-grid-pattern opacity-80" />
 
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center px-6 py-16">
+      <section className="relative min-h-[85vh] flex items-center justify-center px-6 py-12">
         {/* Subtle Ambient Backlight */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#2563EB]/10 via-[#0284C7]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto text-center space-y-8 relative z-10">
+        <div className="max-w-6xl mx-auto text-center space-y-6 relative z-10">
           
-          {/* Official Brand Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 shadow-sm text-xs font-bold text-slate-700">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse" />
-            <span className="text-[#2563EB] font-bold">AWIE ENGINEERING</span>
-            <span className="text-slate-400">•</span>
-            <span>INNOVATE • BUILD • CONNECT</span>
-          </div>
+          {/* Main Hero Header: Official AWIE Graphical Logo (Replaces plain text AWIE & badge) */}
+          <div className="space-y-4 flex flex-col items-center">
+            
+            {/* Prominent Official AWIE Logo Display */}
+            <div className="relative py-2 flex justify-center">
+              <Image
+                src="/logo.png"
+                alt="AWIE Official Logo"
+                width={520}
+                height={320}
+                className="w-auto h-36 sm:h-48 md:h-56 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+                priority
+              />
+            </div>
 
-          {/* Main Title */}
-          <div className="space-y-4">
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-tight">
-              AWIE
-            </h1>
             <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight">
               Ideas Engineered Into Reality.
             </p>
-            <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-semibold leading-relaxed pt-2">
+            
+            <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-semibold leading-relaxed pt-1">
               Building practical technology solutions across <span className="text-slate-900 font-extrabold">APPS • WEB • IoT • ELECTRONICS</span>
             </p>
           </div>
 
           {/* Official Banner Image Display */}
-          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-xl group transition-all duration-300 hover:border-[#2563EB] bg-white">
+          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-xl group transition-all duration-300 hover:border-[#2563EB] bg-white mt-4">
             <Image
               src="/banner.png"
               alt="AWIE Banner - Apps, Web, IoT, Electronics"
