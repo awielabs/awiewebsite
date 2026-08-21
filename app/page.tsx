@@ -233,11 +233,6 @@ export default function Home() {
                         {card.description}
                       </p>
                     </div>
-
-                    <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
-                      <span>Hover to inspect</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
                   </div>
 
                   {/* BACK FACE (Dark Theme with rich domain details on hover) */}
