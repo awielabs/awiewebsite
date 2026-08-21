@@ -224,19 +224,21 @@
   animation: fade-in-out 3s ease-in-out infinite;
 }
 
-/* Pop In / Pop Out Animation - Slow & Smooth */
+/* Pop In / Pop Out Animation - Ultra-Smooth GPU-accelerated */
 @keyframes pop-in-out {
 
   0%,
   100% {
-    transform: scale(0.975);
+    transform: scale(0.985) translateZ(0);
   }
 
   50% {
-    transform: scale(1.03);
+    transform: scale(1.02) translateZ(0);
   }
 }
 
 .animate-pop-in-out {
-  animation: pop-in-out 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: pop-in-out 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
