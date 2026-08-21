@@ -22,6 +22,14 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'AWIE | Apps • Web • IoT • Electronics',
   description: 'Building premium digital products, embedded systems, IoT platforms, and smart engineering solutions.',
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/icon.jpeg', type: 'image/jpeg' },
+    ],
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
 };
 
 export default function RootLayout({
