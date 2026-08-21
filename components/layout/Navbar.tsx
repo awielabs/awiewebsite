@@ -21,8 +21,8 @@ export default function Navbar() {
     { name: 'Students', href: '/students' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'AWIE Store', href: '/store', isPill: true },
-    { name: 'Products', href: '/products', isPill: true }
+    { name: 'AWIE Products', href: '/products', isPill: true },
+    { name: 'AWIE Store', href: '/store', isPill: true }
   ];
 
   return (

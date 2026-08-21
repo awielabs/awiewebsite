@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-poppins: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   :root {
     --bg-primary: #FFFFFF;
@@ -27,13 +33,44 @@
     scroll-behavior: smooth;
     background-color: #FFFFFF;
     color: #1E293B;
+    font-family: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   body {
     background-color: #FFFFFF;
     color: #1E293B;
+    font-family: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 500; /* Poppins Medium as clean, legible default body weight */
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Poppins Typographic Hierarchy */
+  h1 {
+    font-family: var(--font-poppins), "Poppins", sans-serif;
+    font-weight: 900; /* Poppins Black */
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-family: var(--font-poppins), "Poppins", sans-serif;
+    font-weight: 800; /* Poppins ExtraBold */
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-family: var(--font-poppins), "Poppins", sans-serif;
+    font-weight: 700; /* Poppins Bold */
+    letter-spacing: -0.015em;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-poppins), "Poppins", sans-serif;
+    font-weight: 600; /* Poppins SemiBold */
+  }
+
+  p {
+    font-weight: 500; /* Poppins Medium */
   }
 }
 
@@ -93,4 +130,26 @@
 .btn-glow-blue:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45);
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.group:hover .group-hover-flip {
+  transform: rotateY(180deg);
 }
