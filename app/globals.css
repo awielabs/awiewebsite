@@ -153,3 +153,66 @@
 .group:hover .group-hover-flip {
   transform: rotateY(180deg);
 }
+
+/* Floating Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed-1 {
+  animation: float 4s ease-in-out 0.4s infinite;
+}
+
+.animate-float-delayed-2 {
+  animation: float 4s ease-in-out 0.8s infinite;
+}
+
+/* Fade In/Out Animation */
+@keyframes fade-in-out {
+  0%, 100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 3s ease-in-out infinite;
+}
+
+/* Pop In / Pop Out Animation - Slow & Smooth */
+@keyframes pop-in-out {
+  0%, 100% {
+    transform: scale(0.975);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-pop-in-out {
+  animation: pop-in-out 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

@@ -2,15 +2,15 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  Smartphone, 
-  Globe, 
-  Cpu, 
-  Layers, 
-  ArrowRight, 
-  CheckCircle2, 
-  CircuitBoard, 
-  GraduationCap, 
+import {
+  Smartphone,
+  Globe,
+  Cpu,
+  Layers,
+  ArrowRight,
+  CheckCircle2,
+  CircuitBoard,
+  GraduationCap,
   Sparkles,
   ChevronRight,
   ShieldCheck,
@@ -129,10 +129,10 @@ export default function Home() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#2563EB]/10 via-[#0284C7]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center space-y-6 relative z-10">
-          
+
           {/* Main Hero Header: Official Logobg Brand Logo */}
           <div className="space-y-4 flex flex-col items-center">
-            
+
             {/* Prominent Official Logobg Emblem Display */}
             <div className="relative py-2 flex justify-center">
               <Image
@@ -148,7 +148,7 @@ export default function Home() {
             <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight">
               Ideas Engineered Into Reality.
             </p>
-            
+
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap">
               Building practical technology solutions across <span className="text-slate-900 font-extrabold whitespace-nowrap">APPS • WEB • IoT • ELECTRONICS</span>
             </p>
@@ -189,7 +189,7 @@ export default function Home() {
       {/* What AWIE Does Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Core Engineering Domains</h2>
+          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Core Projects Domains</h2>
           <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">What AWIE Does</p>
           <p className="text-slate-600 text-sm font-medium">Four focused pillars of modern digital and hardware engineering. Hover over any domain to inspect capabilities.</p>
         </div>
@@ -205,7 +205,7 @@ export default function Home() {
               >
                 {/* Flippable 3D Card Inner Wrapper that flips on hover */}
                 <div className="w-full h-full relative transition-transform duration-700 transform-style-3d group-hover-flip">
-                  
+
                   {/* FRONT FACE (Light Theme) */}
                   <div className="absolute inset-0 w-full h-full backface-hidden p-6 rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none" />
@@ -379,7 +379,7 @@ export default function Home() {
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50 via-white to-slate-50 border border-slate-200 shadow-xl space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
+
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 text-xs font-bold text-[#2563EB]">
                 <GraduationCap className="w-4 h-4" />
@@ -408,7 +408,7 @@ export default function Home() {
               <span className="text-xs font-extrabold text-[#2563EB] uppercase">Ready for Project Coaching?</span>
               <h3 className="text-lg font-black text-slate-900">Get Expert Guidance</h3>
               <p className="text-xs text-slate-500 font-medium">Submit your project idea or request topic recommendations.</p>
-              
+
               <Link
                 href="/students"
                 className="w-full py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-md shadow-[#2563EB]/25"
