@@ -13,7 +13,7 @@ export default function StoreHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
         
         {/* Official AWIE STORE Logo */}
