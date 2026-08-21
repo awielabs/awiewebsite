@@ -26,7 +26,17 @@ export default function Home() {
       icon: Smartphone,
       gradient: 'from-[#2563EB]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#2563EB]',
-      badge: 'iOS & Android'
+      badge: 'iOS & Android',
+      details: {
+        subtitle: 'Full-Stack Mobile Engineering',
+        highlights: [
+          'Cross-Platform iOS & Android apps (Flutter / React Native)',
+          'Hardware sync via Bluetooth Low Energy (BLE)',
+          'Real-time cloud sync & offline-first data engines',
+          'Modern UI/UX with smooth micro-interactions'
+        ],
+        techStack: 'Flutter • React Native • BLE • Supabase'
+      }
     },
     {
       title: 'Web',
@@ -35,7 +45,17 @@ export default function Home() {
       icon: Globe,
       gradient: 'from-[#0284C7]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#0284C7]',
-      badge: 'Full-Stack'
+      badge: 'Full-Stack',
+      details: {
+        subtitle: 'High-Performance Web Platforms',
+        highlights: [
+          'Server-rendered & static apps with Next.js 16',
+          'Interactive IoT telemetry & analytics portals',
+          'Enterprise database design & secure APIs',
+          'SEO-engineered, accessible & ultra-fast UX'
+        ],
+        techStack: 'Next.js 16 • TypeScript • Tailwind • PostgreSQL'
+      }
     },
     {
       title: 'IoT',
@@ -44,7 +64,17 @@ export default function Home() {
       icon: Cpu,
       gradient: 'from-[#2563EB]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#2563EB]',
-      badge: 'Hardware Sync'
+      badge: 'Hardware Sync',
+      details: {
+        subtitle: 'Real-Time Telemetry & Automation',
+        highlights: [
+          'Wireless sensor networks (Wi-Fi, BLE, ESP-NOW, LoRa)',
+          'Low-latency bidirectional MQTT & WebSockets streaming',
+          'Over-the-Air (OTA) remote firmware deployment',
+          'Automated trigger rules & smart actuator control'
+        ],
+        techStack: 'ESP32 • FreeRTOS • MQTT • InfluxDB • Grafana'
+      }
     },
     {
       title: 'Electronics',
@@ -53,7 +83,17 @@ export default function Home() {
       icon: CircuitBoard,
       gradient: 'from-[#6366F1]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#6366F1]',
-      badge: 'Microcontrollers'
+      badge: 'Microcontrollers',
+      details: {
+        subtitle: 'Custom Schematics & Embedded PCB',
+        highlights: [
+          'Custom multi-layer schematic & precision PCB routing',
+          'Embedded firmware in C/C++, ARM Cortex & STM32',
+          'Analog/digital sensor conditioning & motor drivers',
+          'Bench prototyping through production assembly'
+        ],
+        techStack: 'KiCad • STM32 • ESP32 • C/C++ • MicroPython'
+      }
     }
   ];
 
@@ -109,8 +149,8 @@ export default function Home() {
               Ideas Engineered Into Reality.
             </p>
             
-            <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-semibold leading-relaxed pt-1">
-              Building practical technology solutions across <span className="text-slate-900 font-extrabold">APPS • WEB • IoT • ELECTRONICS</span>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap">
+              Building practical technology solutions across <span className="text-slate-900 font-extrabold whitespace-nowrap">APPS • WEB • IoT • ELECTRONICS</span>
             </p>
           </div>
 
@@ -151,40 +191,112 @@ export default function Home() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Core Engineering Domains</h2>
           <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">What AWIE Does</p>
-          <p className="text-slate-600 text-sm font-medium">Four focused pillars of modern digital and hardware engineering.</p>
+          <p className="text-slate-600 text-sm font-medium">Four focused pillars of modern digital and hardware engineering. Hover over any domain to inspect capabilities.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {whatWeDoCards.map((card) => {
             const Icon = card.icon;
-            return (
-              <Link
-                key={card.title}
-                href="/products"
-                className={`p-6 rounded-2xl bg-white border ${card.borderColor} shadow-sm relative overflow-hidden group hover:translate-y-[-4px] transition-all duration-300 flex flex-col justify-between`}
-              >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-b ${card.gradient} rounded-full blur-2xl pointer-events-none`} />
-                <div className="space-y-4 relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:scale-110 transition-transform">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                      {card.badge}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-extrabold text-slate-900 mb-1">{card.title}</h3>
-                    <span className="text-xs text-[#2563EB] font-bold">{card.category}</span>
-                  </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{card.description}</p>
-                </div>
 
-                <div className="pt-6 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB] group-hover:text-[#1D4ED8] transition-colors">
-                  <span>Explore products</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            return (
+              <div
+                key={card.title}
+                className="group h-[385px] w-full perspective-1000 select-none"
+              >
+                {/* Flippable 3D Card Inner Wrapper that flips on hover */}
+                <div className="w-full h-full relative transition-transform duration-700 transform-style-3d group-hover-flip">
+                  
+                  {/* FRONT FACE (Light Theme) */}
+                  <div className="absolute inset-0 w-full h-full backface-hidden p-6 rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between transition-all duration-300">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+
+                    <div className="space-y-4 relative z-10">
+                      <div className="flex items-center justify-between">
+                        <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB]">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                          {card.badge}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-2xl font-extrabold text-slate-900 mb-1">
+                          {card.title}
+                        </h3>
+                        <span className="text-xs text-[#2563EB] font-bold">
+                          {card.category}
+                        </span>
+                      </div>
+
+                      <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                        {card.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB]">
+                      <span>Hover to inspect</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+
+                  {/* BACK FACE (Dark Theme with rich domain details on hover) */}
+                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 p-6 rounded-2xl bg-slate-950 border border-[#2563EB]/70 shadow-2xl shadow-blue-500/25 text-white flex flex-col justify-between overflow-hidden">
+                    {/* Glowing corner gradient accent */}
+                    <div className="absolute top-0 right-0 w-36 h-36 bg-[#2563EB]/25 rounded-full blur-2xl pointer-events-none" />
+
+                    <div className="space-y-3 relative z-10">
+                      {/* Back Header */}
+                      <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                        <div className="flex items-center gap-2">
+                          <Icon className="w-5 h-5 text-blue-400" />
+                          <h4 className="text-base font-black text-white">{card.title} Architecture</h4>
+                        </div>
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-800">
+                          {card.badge}
+                        </span>
+                      </div>
+
+                      {/* Capabilities Highlights */}
+                      <div className="space-y-1.5 pt-0.5">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-400 block">
+                          Capabilities:
+                        </span>
+                        <ul className="space-y-1.5 text-[11px] text-slate-300">
+                          {card.details.highlights.map((item, idx) => (
+                            <li key={idx} className="flex items-start gap-1.5 leading-tight font-medium">
+                              <CheckCircle2 className="w-3 h-3 text-blue-400 shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Tech Stack Info */}
+                      <div className="pt-2 border-t border-slate-800/80">
+                        <span className="text-[10px] font-bold text-slate-400 block mb-0.5">
+                          Technologies:
+                        </span>
+                        <span className="text-[11px] font-mono text-blue-300 font-semibold leading-tight block">
+                          {card.details.techStack}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Back Action CTA Button */}
+                    <div className="pt-2.5 border-t border-slate-800 relative z-10">
+                      <Link
+                        href="/products"
+                        className="w-full py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-md shadow-blue-500/25 flex items-center justify-center gap-1.5"
+                      >
+                        <span>Explore {card.title} Products</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

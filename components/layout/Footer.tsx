@@ -59,7 +59,6 @@ export default function Footer() {
           <ul className="space-y-2.5 text-sm">
             <li><Link href="/" className="hover:text-[#2563EB] transition-colors">Home</Link></li>
             <li><Link href="/products" className="hover:text-[#2563EB] transition-colors">AWIE Products</Link></li>
-            <li><Link href="/products/gem-buddy" className="hover:text-[#2563EB] transition-colors text-xs text-[#2563EB] font-bold">↳ GEM Buddy</Link></li>
             <li><Link href="/store" className="hover:text-[#2563EB] transition-colors">Electronics Store</Link></li>
             <li><Link href="/students" className="hover:text-[#2563EB] transition-colors">Student Mentorship</Link></li>
           </ul>
