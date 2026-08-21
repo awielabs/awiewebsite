@@ -106,18 +106,6 @@ export default function Home() {
     'Dynamic LED Moods'
   ];
 
-  const studentMentorshipPerks = [
-    'Project Guidance & Topic Validation',
-    'System Architecture Planning',
-    'Hardware Component Selection',
-    'Software Coding Assistance & Code Reviews',
-    'Circuit Debugging & Hardware Troubleshooting',
-    'IoT Prototyping & Sensor Calibration',
-    'Project Documentation & Report Guidance',
-    'System Testing & Performance Tuning',
-    'Viva Preparation & Technical Q&A Coaching'
-  ];
-
   return (
     <div className="relative pt-24 bg-white text-slate-800 overflow-hidden">
       {/* Light Circuit Grid Background Pattern */}
@@ -140,16 +128,16 @@ export default function Home() {
                 alt="AWIE Brand Emblem Logo"
                 width={560}
                 height={360}
-                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md inline-block animate-float hover:scale-105 transition-transform duration-300 select-none cursor-pointer"
                 priority
               />
             </div>
 
-            <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight">
+            <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight inline-block animate-float-delayed-1 hover:scale-105 transition-transform duration-300 select-none py-1">
               Ideas Engineered Into Reality.
             </p>
 
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap inline-block animate-float-delayed-2 hover:scale-105 transition-transform duration-300 select-none">
               Building practical technology solutions across <span className="text-slate-900 font-extrabold whitespace-nowrap">APPS • WEB • IoT • ELECTRONICS</span>
             </p>
           </div>
@@ -372,43 +360,35 @@ export default function Home() {
 
       {/* Student Mentorship Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50 via-white to-slate-50 border border-slate-200 shadow-xl space-y-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden">
+          {/* Subtle Ambient Corner Glow on Hover */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
 
             <div className="lg:col-span-8 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 text-xs font-bold text-[#2563EB]">
-                <GraduationCap className="w-4 h-4" />
-                <span>STUDENT MENTORSHIP & TECHNICAL GUIDANCE</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 group-hover:bg-blue-950 group-hover:border group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-300">
+                <GraduationCap className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
+                <span>STUDENT PROJECT GUIDANCE</span>
               </div>
 
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300 animate-pop-in-out select-none py-1 origin-left inline-block">
                 Academic & Final Year Project Guidance
               </h2>
 
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
+              <p className="text-slate-600 group-hover:text-slate-300 text-sm sm:text-base leading-relaxed font-medium transition-colors duration-300">
                 We empower computer science, electronics, and engineering students to turn ambitious project concepts into fully functional, high-scoring final year capstones.
               </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 pt-2">
-                {studentMentorshipPerks.map((perk) => (
-                  <div key={perk} className="flex items-center gap-2 text-xs font-bold text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
-                    <span>{perk}</span>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div className="lg:col-span-4 flex flex-col gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center">
-              <span className="text-xs font-extrabold text-[#2563EB] uppercase">Ready for Project Coaching?</span>
-              <h3 className="text-lg font-black text-slate-900">Get Expert Guidance</h3>
-              <p className="text-xs text-slate-500 font-medium">Submit your project idea or request topic recommendations.</p>
-
+            <div className="lg:col-span-4 flex items-center justify-center lg:justify-end">
               <Link
                 href="/students"
-                className="w-full py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-md shadow-[#2563EB]/25"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02] w-full sm:w-auto"
               >
-                Explore Student Mentorship
+                <span>Explore Student Mentorship</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 

@@ -65,23 +65,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-11 w-auto flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
-            <Image
-              src="/logobg.png"
-              alt="AWIE Logo"
-              width={160}
-              height={50}
-              className="h-10 w-auto object-contain"
-              priority
-            />
-          </div>
-
-          <div className="flex flex-col justify-center border-l border-slate-200 pl-3">
-            <span className="text-[10px] font-black text-[#2563EB] tracking-wider uppercase leading-none">
-              INNOVATE • BUILD • CONNECT
-            </span>
-          </div>
+        <Link href="/" className="flex items-center h-full group py-1">
+          <Image
+            src="/logobg.png"
+            alt="AWIE Logo"
+            width={240}
+            height={80}
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-opacity group-hover:opacity-85"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation Links */}
