@@ -18,17 +18,17 @@ export default function Navbar() {
   const showLoginButton = pathname?.startsWith('/products') || pathname?.startsWith('/store');
 
   const navLinks = [
-    { name: 'Products', href: '/products' },
     { name: 'Students', href: '/students' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'AWIE Store', href: '/store', isStore: true }
+    { name: 'AWIE Store', href: '/store', isPill: true },
+    { name: 'Products', href: '/products', isPill: true }
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-sm transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        
+
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative h-11 w-auto flex items-center justify-center p-1 group-hover:scale-105 transition-transform">
@@ -50,13 +50,13 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               className={
-                link.isStore
+                link.isPill
                   ? "px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-black text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all shadow-sm flex items-center gap-1.5"
                   : "text-xs font-bold text-slate-700 hover:text-[#2563EB] transition-colors tracking-wide"
               }
@@ -106,7 +106,11 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-sm font-bold text-slate-700 hover:text-[#2563EB] py-1 transition-colors"
+                className={
+                  link.isPill
+                    ? "px-3.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-sm font-bold text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all inline-block w-fit"
+                    : "text-sm font-bold text-slate-700 hover:text-[#2563EB] py-1 transition-colors"
+                }
               >
                 {link.name}
               </Link>
