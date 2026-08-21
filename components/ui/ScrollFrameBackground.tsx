@@ -122,10 +122,10 @@ export default function ScrollFrameBackground() {
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-cover transition-opacity duration-500 opacity-75"
+        className="w-full h-full object-cover transition-opacity duration-700 opacity-100"
       />
-      {/* Light Gradient Overlay for crisp text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/20 to-white/40" />
+      {/* Very thin vignette only — maximum frame visibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/15" />
     </div>
   );
 }
