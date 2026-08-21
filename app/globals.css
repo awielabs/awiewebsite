@@ -195,6 +195,10 @@
   animation: float 6s ease-in-out infinite;
 }
 
+.animate-float-gentle {
+  animation: float-gentle 5s ease-in-out infinite;
+}
+
 .animate-float-delayed-1 {
   animation: float 4s ease-in-out 0.4s infinite;
 }

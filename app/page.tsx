@@ -140,16 +140,16 @@ export default function Home() {
                 alt="AWIE Brand Emblem Logo"
                 width={560}
                 height={360}
-                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md inline-block animate-float hover:scale-105 transition-transform duration-300 select-none cursor-pointer"
                 priority
               />
             </div>
 
-            <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight">
+            <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight inline-block animate-float-delayed-1 hover:scale-105 transition-transform duration-300 select-none py-1">
               Ideas Engineered Into Reality.
             </p>
 
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap inline-block animate-float-delayed-2 hover:scale-105 transition-transform duration-300 select-none">
               Building practical technology solutions across <span className="text-slate-900 font-extrabold whitespace-nowrap">APPS • WEB • IoT • ELECTRONICS</span>
             </p>
           </div>
