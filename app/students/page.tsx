@@ -56,7 +56,7 @@ export default function StudentsPage() {
           <div className="space-y-8 pt-4 sm:pt-8 text-left transition-all duration-700">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-xs sm:text-sm font-bold text-[#2563EB] shadow-sm">
               <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563EB]" />
-              <span>STUDENT MENTORSHIP PROGRAM</span>
+              <span>STUDENT PROJECT GUIDANCE</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-1.5 select-none py-1">
@@ -77,7 +77,7 @@ export default function StudentsPage() {
               </p>
 
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium">
-                AWIE provides technical mentorship, hardware guidance, architecture planning, and debugging assistance for engineering and computer science students.
+                AWIE provides technical guidance, hardware advice, architecture planning, and debugging assistance for engineering and computer science students.
               </p>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function StudentsPage() {
                   <span className="bg-gradient-to-b from-blue-600 via-[#1D4ED8] to-indigo-950 bg-clip-text text-transparent">I</span>
                   <span>E</span>
                 </span>{' '}
-                Mentorship Provides
+                STUDENT PROJECT GUIDANCE Provides
               </h3>
             </div>
 
@@ -104,7 +104,7 @@ export default function StudentsPage() {
                 return (
                   <Link 
                     key={item.title} 
-                    href="/contact?interest=Student+Mentoring"
+                    href="/contact?interest=Student+Project+Guidance"
                     className="p-5 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-md relative overflow-hidden flex flex-col justify-start hover:bg-slate-950/95 hover:border-[#2563EB] hover:shadow-xl hover:shadow-[#2563EB]/20 hover:translate-y-[-3px] transition-all duration-300 group min-h-[170px] cursor-pointer"
                   >
                     <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/30 transition-all duration-300" />
@@ -128,7 +128,7 @@ export default function StudentsPage() {
             
             <div className="space-y-3 relative z-10">
               <h2 className="text-xl sm:text-3xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">
-                Need Mentorship for Your Project?
+                Need Guidance for Your Project?
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-200 font-medium leading-relaxed transition-colors duration-300">
                 Tell us about your project topic, university guidelines, and where you need technical assistance.
@@ -137,7 +137,7 @@ export default function StudentsPage() {
             
             <div className="relative z-10 pt-1">
               <Link
-                href="/contact?interest=Student+Mentoring"
+                href="/contact?interest=Student+Project+Guidance"
                 className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02]"
               >
                 <span>Get Project Guidance</span>
