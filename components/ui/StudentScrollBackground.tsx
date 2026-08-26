@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const PART_CONFIGS = [
   { prefix: 'p1', count: 85, align: 'right' as const },
   { prefix: 'p2', count: 90, align: 'left' as const },
-  { prefix: 'p3', count: 90, align: 'right' as const },
+  { prefix: 'p3', count: 90, align: 'left' as const },
   { prefix: 'p4', count: 90, align: 'left' as const },
   { prefix: 'p5', count: 80, align: 'right' as const }
 ];
