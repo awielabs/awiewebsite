@@ -117,8 +117,8 @@ export default function ComingSoon() {
         }
 
         @keyframes glowPulse {
-          0%, 100% { box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.22), 0 0 20px rgba(37, 99, 235, 0.2); }
-          50%      { box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.40), 0 0 30px rgba(37, 99, 235, 0.35); }
+          0%, 100% { box-shadow: 0 12px 35px -5px rgba(37, 99, 235, 0.25), 0 0 25px rgba(37, 99, 235, 0.15); }
+          50%      { box-shadow: 0 18px 45px -5px rgba(37, 99, 235, 0.40), 0 0 35px rgba(37, 99, 235, 0.30); }
         }
 
         .countdown-card {
@@ -181,11 +181,14 @@ export default function ComingSoon() {
         }
       `}</style>
 
-      <div className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-12">
+      <div className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-12">
 
-        {/* TOP CENTER LIVE GLOWING COUNTDOWN TIMER */}
+        {/* TOP CENTER LIVE GLOWING GLASS COUNTDOWN TIMER */}
         <div className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 z-20 countdown-card hover-pop">
-          <div className="bg-white/90 backdrop-blur-md border border-blue-200/90 rounded-2xl px-5 sm:px-8 py-3 sm:py-4 shadow-xl flex flex-col items-center gap-1.5 min-w-[280px] sm:min-w-[420px]">
+          {/* Ambient subtle glow ring */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-blue-400/20 rounded-[28px] blur-md opacity-80" />
+          
+          <div className="relative bg-white/45 backdrop-blur-xl border border-white/80 rounded-3xl px-6 sm:px-9 py-3.5 sm:py-4.5 shadow-2xl flex flex-col items-center gap-1.5 min-w-[280px] sm:min-w-[430px]">
             {/* Header Badge */}
             <div className="flex items-center gap-2 text-[10px] sm:text-xs font-black tracking-widest text-[#2563EB] uppercase">
               <span className="relative flex h-2 w-2">
@@ -196,36 +199,36 @@ export default function ComingSoon() {
             </div>
 
             {/* Metric Blocks */}
-            <div className="flex items-center gap-3 sm:gap-5 text-slate-900 font-extrabold pt-0.5">
+            <div className="flex items-center gap-3.5 sm:gap-6 text-slate-900 font-extrabold pt-0.5">
               <div className="flex flex-col items-center">
-                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                <span className="text-2xl sm:text-3xl text-[#1D4ED8] font-black tracking-tight drop-shadow-sm">
                   {String(timeLeft.days).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Days</span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-600 tracking-wider">Days</span>
               </div>
-              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+              <span className="text-xl sm:text-2xl text-blue-400 font-light -mt-2.5">:</span>
 
               <div className="flex flex-col items-center">
-                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                <span className="text-2xl sm:text-3xl text-[#1D4ED8] font-black tracking-tight drop-shadow-sm">
                   {String(timeLeft.hours).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Hours</span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-600 tracking-wider">Hours</span>
               </div>
-              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+              <span className="text-xl sm:text-2xl text-blue-400 font-light -mt-2.5">:</span>
 
               <div className="flex flex-col items-center">
-                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                <span className="text-2xl sm:text-3xl text-[#1D4ED8] font-black tracking-tight drop-shadow-sm">
                   {String(timeLeft.minutes).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Mins</span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-600 tracking-wider">Mins</span>
               </div>
-              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+              <span className="text-xl sm:text-2xl text-blue-400 font-light -mt-2.5">:</span>
 
               <div className="flex flex-col items-center">
-                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                <span className="text-2xl sm:text-3xl text-[#1D4ED8] font-black tracking-tight drop-shadow-sm">
                   {String(timeLeft.seconds).padStart(2, '0')}
                 </span>
-                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Secs</span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-600 tracking-wider">Secs</span>
               </div>
             </div>
           </div>
