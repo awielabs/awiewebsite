@@ -25,7 +25,7 @@ export default function ComingSoon() {
     imagesRef.current = imgs;
   }, []);
 
-  // Draw a frame on canvas — no parallax, just cover fit
+  // Draw a frame on canvas
   const drawFrame = (index: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -60,7 +60,7 @@ export default function ComingSoon() {
     return () => cancelAnimationFrame(rafRef.current);
   }, [loadedCount]);
 
-  // Resize canvas to fill screen
+  // Resize canvas
   useEffect(() => {
     const resize = () => {
       const canvas = canvasRef.current;
@@ -77,7 +77,7 @@ export default function ComingSoon() {
   return (
     <>
       <style>{`
-        /* Staggered pop-in animations */
+        /* ── Staggered pop-in on load ── */
         @keyframes fadeSlideUp {
           from { opacity: 0; transform: translateY(28px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -87,28 +87,42 @@ export default function ComingSoon() {
         .pop-3 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.0s forwards; }
         .pop-4 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.4s forwards; }
 
-        /* Gradient text: white → blue */
-        .gradient-text {
-          background: linear-gradient(90deg, #ffffff 0%, #93C5FD 50%, #3B82F6 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+        /* ── Continuous gentle floating ── */
+        @keyframes floatY {
+          0%, 100% { transform: translateY(0px);   }
+          50%       { transform: translateY(-8px);  }
         }
-        .gradient-text-sub {
-          background: linear-gradient(90deg, #e2e8f0 0%, #60A5FA 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+        .float-1 { animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards,
+                               floatY 5s ease-in-out 1.2s infinite; }
+        .float-2 { animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s forwards,
+                               floatY 6s ease-in-out 1.6s infinite; }
+        .float-3 { animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.0s forwards,
+                               floatY 5.5s ease-in-out 2.0s infinite; }
+        .float-4 { animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.4s forwards,
+                               floatY 4.5s ease-in-out 2.4s infinite; }
+
+        /* ── Hover: pop scale + white glow fade ── */
+        .hover-pop {
+          transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                      text-shadow 0.35s ease,
+                      filter 0.35s ease;
+          cursor: default;
+        }
+        .hover-pop:hover {
+          transform: scale(1.06) translateY(-4px);
+          text-shadow: 0 0 24px rgba(255,255,255,0.6),
+                       0 0 48px rgba(147,197,253,0.4);
+          filter: brightness(1.2);
         }
 
-        /* Dashed loading line animation */
+        /* ── Dashed loading line ── */
         @keyframes dashSweep {
-          0%   { width: 0%; opacity: 1; }
+          0%   { width: 0%;   opacity: 1; }
           80%  { width: 100%; opacity: 1; }
           90%  { width: 100%; opacity: 0.3; }
-          100% { width: 0%;  opacity: 1; }
+          100% { width: 0%;   opacity: 1; }
         }
-        .dash-line-track {
+        .dash-track {
           position: relative;
           width: 220px;
           height: 3px;
@@ -116,34 +130,32 @@ export default function ComingSoon() {
           border-radius: 999px;
           overflow: hidden;
         }
-        .dash-line-fill {
+        .dash-fill {
           position: absolute;
           top: 0; left: 0;
           height: 100%;
           border-radius: 999px;
-          background: linear-gradient(90deg, #3B82F6, #93C5FD, #3B82F6);
+          background: linear-gradient(90deg, #3B82F6, #93C5FD, #ffffff);
           animation: dashSweep 2.4s ease-in-out infinite;
         }
       `}</style>
 
       <div className="relative min-h-screen text-white flex flex-col justify-center overflow-hidden">
 
-        {/* Full-screen animated frame background — clearly visible */}
+        {/* Animated frame background — clearly visible */}
         <div className="fixed inset-0 z-0 pointer-events-none">
           <canvas ref={canvasRef} className="w-full h-full" />
-          {/* Very thin overlay — just enough to make text readable */}
           <div className="absolute inset-0 bg-black/25" />
         </div>
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12">
 
-          {/* Left Side */}
           <div className="space-y-8">
             <div className="space-y-6">
 
-              {/* Logo — pop 1 */}
-              <div className="pop-1 relative h-32 sm:h-40 w-auto flex items-start justify-start">
+              {/* Logo — float + hover pop */}
+              <div className="float-1 opacity-0 hover-pop inline-block">
                 <Image
                   src="/logobg.png"
                   alt="AWIE Logo"
@@ -154,31 +166,30 @@ export default function ComingSoon() {
                 />
               </div>
 
-              {/* Heading — pop 2 — white to blue gradient */}
-              <h1 className="pop-2 text-4xl sm:text-6xl font-black tracking-tight leading-tight drop-shadow-lg gradient-text">
+              {/* Heading — float + hover pop */}
+              <h1 className="float-2 opacity-0 hover-pop text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
                 We are building <br />
-                something amazing.
+                something <span className="text-[#60A5FA]">amazing.</span>
               </h1>
 
-              {/* Sub text — pop 3 — gradient text */}
-              <div className="pop-3 pt-2 space-y-1">
-                <p className="text-xl sm:text-2xl font-medium gradient-text-sub">
+              {/* Sub text — float + hover pop */}
+              <div className="float-3 opacity-0 hover-pop pt-2 space-y-1">
+                <p className="text-xl sm:text-2xl text-white/80 font-medium">
                   Our website is under construction.
                 </p>
-                <p className="text-2xl sm:text-3xl font-bold gradient-text-sub">
+                <p className="text-2xl sm:text-3xl font-bold text-[#60A5FA]">
                   We&apos;ll be live soon!
                 </p>
               </div>
 
-              {/* Animated dashed loading line — pop 4 */}
-              <div className="pop-4 dash-line-track">
-                <div className="dash-line-fill" />
+              {/* Animated dashed loading line */}
+              <div className="float-4 opacity-0 dash-track">
+                <div className="dash-fill" />
               </div>
 
             </div>
           </div>
 
-          {/* Right Side: empty */}
           <div className="hidden lg:block" />
 
         </div>
