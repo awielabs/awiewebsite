@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 const TOTAL_FRAMES = 85;
+const TARGET_DATE = new Date('2026-09-05T00:00:00').getTime();
 
 export default function ComingSoon() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -11,6 +12,27 @@ export default function ComingSoon() {
   const [loadedCount, setLoadedCount] = useState(0);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
+
+  // Live Countdown Timer state
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const diff = Math.max(0, TARGET_DATE - now);
+
+      setTimeLeft({
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60)
+      });
+    };
+
+    updateTimer();
+    const timer = setInterval(updateTimer, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Preload all frames
   useEffect(() => {
@@ -82,33 +104,50 @@ export default function ComingSoon() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes popInGlow {
+          0%   { opacity: 0; transform: translateX(-50%) scale(0.85) translateY(-20px); }
+          60%  { opacity: 1; transform: translateX(-50%) scale(1.05) translateY(0); }
+          100% { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
+        }
+
         /* ── Continuous gentle floating ── */
         @keyframes floatY {
           0%, 100% { transform: translateY(0px);  }
           50%       { transform: translateY(-8px); }
         }
+
+        @keyframes glowPulse {
+          0%, 100% { box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.22), 0 0 20px rgba(37, 99, 235, 0.2); }
+          50%      { box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.40), 0 0 30px rgba(37, 99, 235, 0.35); }
+        }
+
+        .countdown-card {
+          animation: popInGlow 0.9s cubic-bezier(0.22,1,0.36,1) 0.1s forwards,
+                     glowPulse 3.5s ease-in-out 1.0s infinite;
+        }
+
         .float-1 {
           opacity: 0;
-          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards,
-                     floatY 5s ease-in-out 1.2s infinite;
+          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards,
+                     floatY 5s ease-in-out 1.3s infinite;
         }
         .float-2 {
           opacity: 0;
-          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s forwards,
-                     floatY 6s ease-in-out 1.6s infinite;
+          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.7s forwards,
+                     floatY 6s ease-in-out 1.7s infinite;
         }
         .float-3 {
           opacity: 0;
-          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.0s forwards,
-                     floatY 5.5s ease-in-out 2.0s infinite;
+          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.1s forwards,
+                     floatY 5.5s ease-in-out 2.1s infinite;
         }
         .float-4 {
           opacity: 0;
-          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.4s forwards,
-                     floatY 4.5s ease-in-out 2.4s infinite;
+          animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.5s forwards,
+                     floatY 4.5s ease-in-out 2.5s infinite;
         }
 
-        /* ── Hover: clean scale pop only, no glow ── */
+        /* ── Hover: clean scale pop ── */
         .hover-pop {
           transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
           cursor: default;
@@ -142,16 +181,63 @@ export default function ComingSoon() {
         }
       `}</style>
 
-      <div className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+      <div className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20 pb-12">
 
-        {/* Full-screen animated frame background — fully vivid, no heavy overlay */}
+        {/* TOP CENTER LIVE GLOWING COUNTDOWN TIMER */}
+        <div className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 z-20 countdown-card hover-pop">
+          <div className="bg-white/90 backdrop-blur-md border border-blue-200/90 rounded-2xl px-5 sm:px-8 py-3 sm:py-4 shadow-xl flex flex-col items-center gap-1.5 min-w-[280px] sm:min-w-[420px]">
+            {/* Header Badge */}
+            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-black tracking-widest text-[#2563EB] uppercase">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+              <span>LAUNCH COUNTDOWN • SEPT 5, 2026</span>
+            </div>
+
+            {/* Metric Blocks */}
+            <div className="flex items-center gap-3 sm:gap-5 text-slate-900 font-extrabold pt-0.5">
+              <div className="flex flex-col items-center">
+                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                  {String(timeLeft.days).padStart(2, '0')}
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Days</span>
+              </div>
+              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Hours</span>
+              </div>
+              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Mins</span>
+              </div>
+              <span className="text-xl sm:text-2xl text-blue-300 font-light -mt-2.5">:</span>
+
+              <div className="flex flex-col items-center">
+                <span className="text-xl sm:text-3xl text-[#2563EB] font-black tracking-tight">
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 tracking-wider">Secs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Full-screen animated frame background — fully vivid */}
         <div className="fixed inset-0 z-0 pointer-events-none">
           <canvas ref={canvasRef} className="w-full h-full" />
-          {/* Very light white tint — keeps frames crystal clear */}
           <div className="absolute inset-0 bg-white/10" />
         </div>
 
-        {/* Content */}
+        {/* Main Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12">
 
           <div className="space-y-8">
@@ -169,7 +255,7 @@ export default function ComingSoon() {
                 />
               </div>
 
-              {/* Heading — dark navy for max visibility on light bg */}
+              {/* Heading */}
               <h1 className="float-2 hover-pop text-4xl sm:text-6xl font-black text-[#0F172A] tracking-tight leading-tight">
                 We are building <br />
                 something <span className="text-[#2563EB]">amazing.</span>
