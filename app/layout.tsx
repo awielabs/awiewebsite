@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { Poppins, Outfit } from 'next/font/google';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ParticleBackground from '@/components/3d/ParticleBackground';
 import { CartProvider } from '@/components/store/CartContext';
@@ -44,9 +42,7 @@ export default function RootLayout({
           <CustomCursor />
           <ParticleBackground />
           <div className="bg-grid-pattern" />
-          <Navbar />
           <main className="flex-grow">{children}</main>
-          <Footer />
         </CartProvider>
       </body>
     </html>
