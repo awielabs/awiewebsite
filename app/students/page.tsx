@@ -44,17 +44,17 @@ export default function StudentsPage() {
 
       <div className="max-w-7xl mx-auto px-6 space-y-20 sm:space-y-28 relative z-10">
         
-        {/* Dynamic Opposite Content Wrapper: When Frame is RIGHT, Content moves LEFT. When Frame is LEFT, Content moves RIGHT */}
+        {/* Smooth Fade-In & Sliding Content Wrapper: Shifts opposite to animation frame position */}
         <div 
-          className={`space-y-16 transition-all duration-700 ease-out ${
+          className={`space-y-16 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] transform ${
             frameAlign === 'right' 
-              ? 'lg:max-w-[50%] lg:mr-auto lg:ml-0' 
-              : 'lg:max-w-[50%] lg:ml-auto lg:mr-0'
+              ? 'lg:max-w-[48%] lg:mr-auto lg:ml-0 opacity-100 translate-x-0' 
+              : 'lg:max-w-[48%] lg:ml-auto lg:mr-0 opacity-100 translate-x-0'
           }`}
         >
           {/* Hero Header */}
-          <div className="space-y-8 pt-4 sm:pt-8 text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-xs sm:text-sm font-bold text-[#2563EB]">
+          <div className="space-y-8 pt-4 sm:pt-8 text-left transition-all duration-700">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200 text-xs sm:text-sm font-bold text-[#2563EB] shadow-sm">
               <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563EB]" />
               <span>STUDENT MENTORSHIP PROGRAM</span>
             </div>

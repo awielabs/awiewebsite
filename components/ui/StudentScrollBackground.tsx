@@ -20,6 +20,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
   const [isLoaded, setIsLoaded] = useState(false);
   const currentPartRef = useRef(0);
   const currentFrameRef = useRef(0);
+  const partProgressRef = useRef(0);
   const lastEmittedPartRef = useRef(-1);
 
   // Smooth position interpolation (0 = fully left, 1 = fully right)
@@ -102,10 +103,20 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
 
     const cornerRadius = 28; // Smooth modern rounded rectangle corners
 
+    // Smooth sequence boundary cross-dissolve fade (fade in at start, fade out near end of part)
+    const pProg = partProgressRef.current;
+    let fadeAlpha = 1.0;
+    if (pProg < 0.10) {
+      fadeAlpha = pProg / 0.10;
+    } else if (pProg > 0.90) {
+      fadeAlpha = (1.0 - pProg) / 0.10;
+    }
+    fadeAlpha = Math.min(Math.max(fadeAlpha, 0.25), 1.0);
+
     ctx.save();
 
-    // Subtle drop shadow behind the rounded frame card
-    ctx.shadowColor = 'rgba(37, 99, 235, 0.22)';
+    // Subtle drop shadow behind rounded frame card
+    ctx.shadowColor = `rgba(37, 99, 235, ${0.22 * fadeAlpha})`;
     ctx.shadowBlur = 32;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 12;
@@ -129,7 +140,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
 
     // Clip image inside rounded rectangle
     ctx.clip();
-    ctx.globalAlpha = 1.0;
+    ctx.globalAlpha = fadeAlpha;
     ctx.drawImage(img, targetX, targetY, targetWidth, targetHeight);
 
     ctx.restore();
@@ -147,7 +158,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
       ctx.arcTo(targetX, targetY, targetX + targetWidth, targetY, cornerRadius);
       ctx.closePath();
     }
-    ctx.strokeStyle = 'rgba(37, 99, 235, 0.35)';
+    ctx.strokeStyle = `rgba(37, 99, 235, ${0.35 * fadeAlpha})`;
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
@@ -188,6 +199,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
       if (partIdx >= partCount) partIdx = partCount - 1;
 
       const partProgress = scaledVal - partIdx;
+      partProgressRef.current = partProgress;
       const cfg = PART_CONFIGS[partIdx];
 
       const frameIdx = Math.min(
@@ -206,7 +218,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
       }
 
       const targetAlign = cfg.align === 'right' ? 1 : 0;
-      alignProgressRef.current += (targetAlign - alignProgressRef.current) * 0.15;
+      alignProgressRef.current += (targetAlign - alignProgressRef.current) * 0.10;
 
       drawCanvas();
     };
@@ -228,7 +240,7 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-cover opacity-100"
+        className="w-full h-full object-cover opacity-100 transition-opacity duration-300"
       />
     </div>
   );
