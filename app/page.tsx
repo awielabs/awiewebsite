@@ -11,8 +11,6 @@ export default function ComingSoon() {
   const [loadedCount, setLoadedCount] = useState(0);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const offsetRef = useRef({ x: 0, y: 0 });
 
   // Preload all frames
   useEffect(() => {
@@ -27,70 +25,37 @@ export default function ComingSoon() {
     imagesRef.current = imgs;
   }, []);
 
-  // Track mouse position (right half of screen only → parallax)
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      const nx = (e.clientX / window.innerWidth - 0.5) * 2;   // -1 to 1
-      const ny = (e.clientY / window.innerHeight - 0.5) * 2;  // -1 to 1
-      mouseRef.current = { x: nx, y: ny };
-    };
-    window.addEventListener('mousemove', handleMouse);
-    return () => window.removeEventListener('mousemove', handleMouse);
-  }, []);
-
-  // Draw a frame on canvas with parallax offset
-  const drawFrame = (index: number, ox: number, oy: number) => {
+  // Draw a frame on canvas — no parallax, just cover fit
+  const drawFrame = (index: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const img = imagesRef.current[index];
     if (!img?.complete) return;
-
     const cw = canvas.width, ch = canvas.height;
     ctx.clearRect(0, 0, cw, ch);
-
-    // Cover fit with parallax padding
-    const PADDING = 40; // extra px each side for parallax movement
-    const ir = img.width / img.height;
-    const cr = cw / ch;
-    let dw = cw + PADDING * 2;
-    let dh = ch + PADDING * 2;
-    if (cr > ir) {
-      dh = dw / ir;
-    } else {
-      dw = dh * ir;
-    }
-    const basex = (cw - dw) / 2;
-    const basey = (ch - dh) / 2;
-
-    ctx.drawImage(img, basex + ox, basey + oy, dw, dh);
+    const ir = img.width / img.height, cr = cw / ch;
+    let dw = cw, dh = ch, ox = 0, oy = 0;
+    if (cr > ir) { dh = cw / ir; oy = (ch - dh) / 2; }
+    else { dw = ch * ir; ox = (cw - dw) / 2; }
+    ctx.drawImage(img, ox, oy, dw, dh);
   };
 
-  // Auto-play at 30fps + smooth parallax interpolation
+  // Auto-play at 30fps
   useEffect(() => {
     if (loadedCount < TOTAL_FRAMES) return;
     const FPS = 30;
     const interval = 1000 / FPS;
     let last = 0;
-
     const tick = (now: number) => {
-      // Advance frame at 30fps
       if (now - last >= interval) {
         last = now;
         currentFrameRef.current = (currentFrameRef.current + 1) % TOTAL_FRAMES;
+        drawFrame(currentFrameRef.current);
       }
-
-      // Smoothly interpolate parallax offset
-      const targetX = mouseRef.current.x * 30;
-      const targetY = mouseRef.current.y * 20;
-      offsetRef.current.x += (targetX - offsetRef.current.x) * 0.05;
-      offsetRef.current.y += (targetY - offsetRef.current.y) * 0.05;
-
-      drawFrame(currentFrameRef.current, offsetRef.current.x, offsetRef.current.y);
       rafRef.current = requestAnimationFrame(tick);
     };
-
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [loadedCount]);
@@ -102,7 +67,7 @@ export default function ComingSoon() {
       if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      drawFrame(currentFrameRef.current, offsetRef.current.x, offsetRef.current.y);
+      drawFrame(currentFrameRef.current);
     };
     resize();
     window.addEventListener('resize', resize);
@@ -112,23 +77,62 @@ export default function ComingSoon() {
   return (
     <>
       <style>{`
+        /* Staggered pop-in animations */
         @keyframes fadeSlideUp {
           from { opacity: 0; transform: translateY(28px); }
-          to   { opacity: 1; transform: translateY(0);    }
+          to   { opacity: 1; transform: translateY(0); }
         }
         .pop-1 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards; }
         .pop-2 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s forwards; }
         .pop-3 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.0s forwards; }
         .pop-4 { opacity: 0; animation: fadeSlideUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.4s forwards; }
+
+        /* Gradient text: white → blue */
+        .gradient-text {
+          background: linear-gradient(90deg, #ffffff 0%, #93C5FD 50%, #3B82F6 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .gradient-text-sub {
+          background: linear-gradient(90deg, #e2e8f0 0%, #60A5FA 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* Dashed loading line animation */
+        @keyframes dashSweep {
+          0%   { width: 0%; opacity: 1; }
+          80%  { width: 100%; opacity: 1; }
+          90%  { width: 100%; opacity: 0.3; }
+          100% { width: 0%;  opacity: 1; }
+        }
+        .dash-line-track {
+          position: relative;
+          width: 220px;
+          height: 3px;
+          background: rgba(255,255,255,0.15);
+          border-radius: 999px;
+          overflow: hidden;
+        }
+        .dash-line-fill {
+          position: absolute;
+          top: 0; left: 0;
+          height: 100%;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #3B82F6, #93C5FD, #3B82F6);
+          animation: dashSweep 2.4s ease-in-out infinite;
+        }
       `}</style>
 
       <div className="relative min-h-screen text-white flex flex-col justify-center overflow-hidden">
 
-        {/* Full-screen animated frame background with parallax */}
+        {/* Full-screen animated frame background — clearly visible */}
         <div className="fixed inset-0 z-0 pointer-events-none">
           <canvas ref={canvasRef} className="w-full h-full" />
-          {/* Lighter overlay — keeps text readable but background clearly visible */}
-          <div className="absolute inset-0 bg-black/20" />
+          {/* Very thin overlay — just enough to make text readable */}
+          <div className="absolute inset-0 bg-black/25" />
         </div>
 
         {/* Content */}
@@ -150,25 +154,31 @@ export default function ComingSoon() {
                 />
               </div>
 
-              {/* Heading — pop 2 */}
-              <h1 className="pop-2 text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
+              {/* Heading — pop 2 — white to blue gradient */}
+              <h1 className="pop-2 text-4xl sm:text-6xl font-black tracking-tight leading-tight drop-shadow-lg gradient-text">
                 We are building <br />
-                something <span className="text-[#60A5FA]">amazing.</span>
+                something amazing.
               </h1>
 
-              {/* Sub text — pop 3 */}
-              <div className="pop-3 pt-2">
-                <p className="text-xl sm:text-2xl text-white/80 font-medium mb-1">Our website is under construction.</p>
-                <p className="text-2xl sm:text-3xl font-bold text-[#60A5FA]">We&apos;ll be live soon!</p>
+              {/* Sub text — pop 3 — gradient text */}
+              <div className="pop-3 pt-2 space-y-1">
+                <p className="text-xl sm:text-2xl font-medium gradient-text-sub">
+                  Our website is under construction.
+                </p>
+                <p className="text-2xl sm:text-3xl font-bold gradient-text-sub">
+                  We&apos;ll be live soon!
+                </p>
               </div>
 
-              {/* Blue line — pop 4 */}
-              <div className="pop-4 w-16 h-1 bg-[#60A5FA] rounded-full" />
+              {/* Animated dashed loading line — pop 4 */}
+              <div className="pop-4 dash-line-track">
+                <div className="dash-line-fill" />
+              </div>
 
             </div>
           </div>
 
-          {/* Right Side: empty — mouse movement drives background parallax */}
+          {/* Right Side: empty */}
           <div className="hidden lg:block" />
 
         </div>
