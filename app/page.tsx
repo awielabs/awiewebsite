@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function ComingSoon() {
   return (
-    <div className="relative min-h-screen bg-white text-slate-800 flex flex-col justify-center overflow-hidden pt-20">
+    <div className="relative min-h-screen bg-white text-slate-800 flex flex-col justify-center overflow-hidden">
       
       {/* Light Circuit Grid Background Pattern */}
       <div className="bg-grid-pattern opacity-60 absolute inset-0 pointer-events-none" />
@@ -12,18 +12,17 @@ export default function ComingSoon() {
       <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
         {/* Left Side: Content & Logo */}
-        <div className="space-y-8 py-12">
+        <div className="space-y-8 py-4">
           
-
           <div className="space-y-6">
             {/* Logo */}
-            <div className="relative h-24 w-auto flex items-start justify-start">
+            <div className="relative h-32 sm:h-40 w-auto flex items-start justify-start">
               <Image
                 src="/logobg.png"
                 alt="AWIE Logo"
-                width={300}
-                height={100}
-                className="h-24 w-auto object-contain"
+                width={500}
+                height={200}
+                className="h-32 sm:h-40 w-auto object-contain"
                 priority
               />
             </div>
