@@ -18,7 +18,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'AWIE | Apps • Web • IoT • Electronics',
+  title: 'AWIE',
   description: 'Building premium digital products, embedded systems, IoT platforms, and smart engineering solutions.',
   icons: {
     icon: [
