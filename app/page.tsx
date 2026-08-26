@@ -14,9 +14,6 @@ export default function ComingSoon() {
         {/* Left Side: Content & Logo */}
         <div className="space-y-8 py-12">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-black text-[#2563EB] tracking-widest uppercase">
-            <span>Website Upgrade in Progress</span>
-          </div>
 
           <div className="space-y-6">
             {/* Logo */}
@@ -36,15 +33,11 @@ export default function ComingSoon() {
               something <span className="text-[#2563EB]">amazing.</span>
             </h1>
             
-            <p className="text-lg text-slate-600 font-medium max-w-lg leading-relaxed">
-              Our new website is currently under construction. We are preparing a seamless experience for you to explore our Apps, Web systems, IoT platforms, and Electronics hardware.
-            </p>
-          </div>
-
-          <div className="pt-4 border-t border-slate-200">
-            <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">
-              AWIE LABS • Innovate • Build • Connect
-            </p>
+            <div className="pt-2">
+              <p className="text-xl sm:text-2xl text-slate-600 font-medium mb-1">Our website is under construction.</p>
+              <p className="text-2xl sm:text-3xl font-bold text-[#2563EB]">We'll be live soon!</p>
+              <div className="w-16 h-1 bg-[#2563EB] mt-4 rounded-full"></div>
+            </div>
           </div>
           
         </div>
