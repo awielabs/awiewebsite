@@ -13,6 +13,7 @@ import {
   HelpCircle,
   Sparkles
 } from 'lucide-react';
+import StudentScrollBackground from '@/components/ui/StudentScrollBackground';
 
 export default function StudentsPage() {
   const offerings = [
@@ -29,6 +30,9 @@ export default function StudentsPage() {
 
   return (
     <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
+      {/* Scroll-Driven Alternating 5-Part Student Background */}
+      <StudentScrollBackground />
+
       {/* Light Circuit Grid Background Pattern */}
       <div className="bg-grid-pattern opacity-80" />
 
@@ -90,7 +94,7 @@ export default function StudentsPage() {
                 <Link 
                   key={item.title} 
                   href="/contact?interest=Student+Mentoring"
-                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-start hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 hover:translate-y-[-4px] transition-all duration-300 group min-h-[190px] cursor-pointer"
+                  className="p-6 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-md relative overflow-hidden flex flex-col justify-start hover:bg-slate-950/95 hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 hover:translate-y-[-4px] transition-all duration-300 group min-h-[190px] cursor-pointer"
                 >
                   {/* Glowing corner gradient accent on hover */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/30 transition-all duration-300" />
@@ -109,7 +113,7 @@ export default function StudentsPage() {
         </div>
 
         {/* CTA */}
-        <div className="p-10 sm:p-14 rounded-3xl bg-white border border-slate-200 text-center space-y-6 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-300 group relative overflow-hidden">
+        <div className="p-10 sm:p-14 rounded-3xl bg-white/85 backdrop-blur-md border border-slate-200/90 text-center space-y-6 shadow-xl hover:bg-[#0B1528]/95 hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-300 group relative overflow-hidden">
           {/* Subtle Ambient Corner Glow on Hover */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
