@@ -10,12 +10,17 @@ const PART_CONFIGS = [
   { prefix: 'p5', count: 80, align: 'right' as const }
 ];
 
-export default function StudentScrollBackground() {
+interface StudentScrollBackgroundProps {
+  onAlignChange?: (align: 'left' | 'right', partIndex: number) => void;
+}
+
+export default function StudentScrollBackground({ onAlignChange }: StudentScrollBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const imagesMapRef = useRef<{ [key: string]: HTMLImageElement[] }>({});
   const [isLoaded, setIsLoaded] = useState(false);
   const currentPartRef = useRef(0);
   const currentFrameRef = useRef(0);
+  const lastEmittedPartRef = useRef(-1);
 
   // Smooth position interpolation (0 = fully left, 1 = fully right)
   const alignProgressRef = useRef(1);
@@ -193,6 +198,13 @@ export default function StudentScrollBackground() {
       currentPartRef.current = partIdx;
       currentFrameRef.current = frameIdx;
 
+      if (lastEmittedPartRef.current !== partIdx) {
+        lastEmittedPartRef.current = partIdx;
+        if (onAlignChange) {
+          onAlignChange(cfg.align, partIdx);
+        }
+      }
+
       const targetAlign = cfg.align === 'right' ? 1 : 0;
       alignProgressRef.current += (targetAlign - alignProgressRef.current) * 0.15;
 
@@ -210,7 +222,7 @@ export default function StudentScrollBackground() {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isLoaded]);
+  }, [isLoaded, onAlignChange]);
 
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
