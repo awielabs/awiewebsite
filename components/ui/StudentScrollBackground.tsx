@@ -20,7 +20,7 @@ export default function StudentScrollBackground() {
   // Smooth position interpolation (0 = fully left, 1 = fully right)
   const alignProgressRef = useRef(1);
 
-  // Preload all 5 sequence sets into memory
+  // Preload sequence sets
   useEffect(() => {
     let totalImagesToLoad = 0;
     let loadedImagesCount = 0;
@@ -41,7 +41,6 @@ export default function StudentScrollBackground() {
         img.onload = () => {
           loadedImagesCount++;
           if (loadedImagesCount >= Math.floor(totalImagesToLoad * 0.15)) {
-            // Enable rendering as soon as 15% images are ready
             setIsLoaded(true);
           }
         };
@@ -79,25 +78,73 @@ export default function StudentScrollBackground() {
     // Frame aspect ratio
     const imgRatio = img.width / img.height;
 
-    // Draw size: fill larger portion of screen (~70% width or height constrained)
-    let targetWidth = Math.min(cw * 0.72, 1100);
+    // Draw size: compact & sleek (~46% viewport width or height constrained)
+    let targetWidth = Math.min(cw * 0.46, 680);
     let targetHeight = targetWidth / imgRatio;
 
-    if (targetHeight > ch * 0.90) {
-      targetHeight = ch * 0.90;
+    if (targetHeight > ch * 0.68) {
+      targetHeight = ch * 0.68;
       targetWidth = targetHeight * imgRatio;
     }
 
     // Interpolate horizontal position based on alignProgressRef (0 = left, 1 = right)
     const isMobile = cw < 768;
-    const leftX = isMobile ? (cw - targetWidth) / 2 : cw * 0.01;
-    const rightX = isMobile ? (cw - targetWidth) / 2 : cw - targetWidth - cw * 0.01;
+    const marginX = Math.max(cw * 0.03, 24);
+    const leftX = isMobile ? (cw - targetWidth) / 2 : marginX;
+    const rightX = isMobile ? (cw - targetWidth) / 2 : cw - targetWidth - marginX;
     const targetX = leftX + (rightX - leftX) * alignProgressRef.current;
     const targetY = (ch - targetHeight) / 2;
 
+    const cornerRadius = 28; // Smooth modern rounded rectangle corners
+
     ctx.save();
-    ctx.globalAlpha = 1.0; // 100% Crisp Visibility
+
+    // Subtle drop shadow behind the rounded frame card
+    ctx.shadowColor = 'rgba(37, 99, 235, 0.22)';
+    ctx.shadowBlur = 32;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 12;
+
+    // Create Rounded Rect Path
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(targetX, targetY, targetWidth, targetHeight, cornerRadius);
+    } else {
+      ctx.moveTo(targetX + cornerRadius, targetY);
+      ctx.arcTo(targetX + targetWidth, targetY, targetX + targetWidth, targetY + targetHeight, cornerRadius);
+      ctx.arcTo(targetX + targetWidth, targetY + targetHeight, targetX, targetY + targetHeight, cornerRadius);
+      ctx.arcTo(targetX, targetY + targetHeight, targetX, targetY, cornerRadius);
+      ctx.arcTo(targetX, targetY, targetX + targetWidth, targetY, cornerRadius);
+      ctx.closePath();
+    }
+
+    // Fill shadow base
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+
+    // Clip image inside rounded rectangle
+    ctx.clip();
+    ctx.globalAlpha = 1.0;
     ctx.drawImage(img, targetX, targetY, targetWidth, targetHeight);
+
+    ctx.restore();
+
+    // Draw thin elegant border ring over rounded corners
+    ctx.save();
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(targetX, targetY, targetWidth, targetHeight, cornerRadius);
+    } else {
+      ctx.moveTo(targetX + cornerRadius, targetY);
+      ctx.arcTo(targetX + targetWidth, targetY, targetX + targetWidth, targetY + targetHeight, cornerRadius);
+      ctx.arcTo(targetX + targetWidth, targetY + targetHeight, targetX, targetY + targetHeight, cornerRadius);
+      ctx.arcTo(targetX, targetY + targetHeight, targetX, targetY, cornerRadius);
+      ctx.arcTo(targetX, targetY, targetX + targetWidth, targetY, cornerRadius);
+      ctx.closePath();
+    }
+    ctx.strokeStyle = 'rgba(37, 99, 235, 0.35)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
     ctx.restore();
   };
 
@@ -129,7 +176,7 @@ export default function StudentScrollBackground() {
 
       const overallProgress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
 
-      // Map overall scroll (0..1) across the 5 parts
+      // Map overall scroll across 5 parts
       const partCount = PART_CONFIGS.length;
       const scaledVal = overallProgress * partCount;
       let partIdx = Math.floor(scaledVal);
@@ -146,9 +193,7 @@ export default function StudentScrollBackground() {
       currentPartRef.current = partIdx;
       currentFrameRef.current = frameIdx;
 
-      // Target alignment ratio: left = 0, right = 1
       const targetAlign = cfg.align === 'right' ? 1 : 0;
-      // Smoothly interpolate current alignment position towards target
       alignProgressRef.current += (targetAlign - alignProgressRef.current) * 0.15;
 
       drawCanvas();
