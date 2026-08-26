@@ -61,6 +61,22 @@ export default function ComingSoon() {
     if (cr > ir) { dh = cw / ir; oy = (ch - dh) / 2; }
     else { dw = ch * ir; ox = (cw - dw) / 2; }
     ctx.drawImage(img, ox, oy, dw, dh);
+
+    // Subtle light seam transition at loop boundary (end of sequence)
+    const loopPos = index / TOTAL_FRAMES;
+    let flashAlpha = 0;
+    if (loopPos > 0.90) {
+      flashAlpha = ((loopPos - 0.90) / 0.10) * 0.22;
+    } else if (loopPos < 0.08) {
+      flashAlpha = (1.0 - loopPos / 0.08) * 0.22;
+    }
+
+    if (flashAlpha > 0) {
+      ctx.save();
+      ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha})`;
+      ctx.fillRect(0, 0, cw, ch);
+      ctx.restore();
+    }
   };
 
   // Auto-play at 30fps
