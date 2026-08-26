@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Clock
 } from 'lucide-react';
+import ScrollFrameBackground from '@/components/ui/ScrollFrameBackground';
 
 export default function Home() {
   const whatWeDoCards = [
@@ -108,6 +109,9 @@ export default function Home() {
 
   return (
     <div className="relative pt-24 bg-white text-slate-800 overflow-hidden">
+      {/* Scroll-Driven Interactive 30fps Frame Background */}
+      <ScrollFrameBackground />
+
       {/* Light Circuit Grid Background Pattern */}
       <div className="bg-grid-pattern opacity-80" />
 
