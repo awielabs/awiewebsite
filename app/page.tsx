@@ -127,8 +127,8 @@ export default function ComingSoon() {
         {/* Full-screen animated frame background with parallax */}
         <div className="fixed inset-0 z-0 pointer-events-none">
           <canvas ref={canvasRef} className="w-full h-full" />
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/50" />
+          {/* Lighter overlay — keeps text readable but background clearly visible */}
+          <div className="absolute inset-0 bg-black/20" />
         </div>
 
         {/* Content */}
