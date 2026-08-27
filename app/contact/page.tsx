@@ -18,7 +18,13 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) => void }) {
+function ContactFormContent({ 
+  onTypingChange,
+  onKeystroke 
+}: { 
+  onTypingChange: (v: boolean) => void;
+  onKeystroke: () => void;
+}) {
   const searchParams = useSearchParams();
   const initialService = searchParams.get('interest') || 'Web Development';
 
@@ -71,6 +77,7 @@ function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) =
   const SelectedIcon = selectedService.icon;
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onKeystroke();
     const text = e.target.value;
     const words = text.trim() ? text.trim().split(/\s+/) : [];
     if (words.length > MAX_WORDS) {
@@ -163,7 +170,10 @@ function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) =
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, name: e.target.value });
+                  }}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   placeholder="Your full name"
@@ -186,7 +196,10 @@ function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) =
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, email: e.target.value });
+                  }}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   placeholder="yourname@domain.com"
@@ -211,7 +224,10 @@ function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) =
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, phone: e.target.value });
+                  }}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   placeholder="+1 or +91 phone number"
@@ -346,11 +362,16 @@ function ContactFormContent({ onTypingChange }: { onTypingChange: (v: boolean) =
 
 export default function ContactPage() {
   const [isTyping, setIsTyping] = useState(false);
+  const [keystrokeCount, setKeystrokeCount] = useState(0);
+
+  const handleKeystroke = useCallback(() => {
+    setKeystrokeCount((c) => c + 1);
+  }, []);
 
   return (
-    <div className="pt-28 pb-20 text-slate-800 min-h-screen relative overflow-hidden">
+    <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
       {/* Scroll-driven call animation background */}
-      <ContactScrollBackground isTyping={isTyping} />
+      <ContactScrollBackground isTyping={isTyping} keystrokeCount={keystrokeCount} />
 
       <div className="max-w-7xl mx-auto px-6 space-y-16 relative z-10">
         
@@ -454,7 +475,7 @@ export default function ContactPage() {
           {/* Right Contact Form in Suspense */}
           <div className="lg:col-span-7">
             <Suspense fallback={<div className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl text-center text-xs text-slate-500">Loading form...</div>}>
-              <ContactFormContent onTypingChange={setIsTyping} />
+              <ContactFormContent onTypingChange={setIsTyping} onKeystroke={handleKeystroke} />
             </Suspense>
           </div>
 

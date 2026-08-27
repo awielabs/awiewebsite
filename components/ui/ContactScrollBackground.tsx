@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Frame filenames in sorted order (034–109, with gaps)
 const FRAME_NAMES = [
   'frame_034','frame_035','frame_039','frame_040','frame_041','frame_042','frame_043',
   'frame_044','frame_045','frame_046','frame_047','frame_048','frame_049','frame_050',
@@ -15,22 +14,27 @@ const FRAME_NAMES = [
   'frame_093','frame_094','frame_095','frame_096','frame_097','frame_098','frame_099',
   'frame_100','frame_101','frame_103','frame_105','frame_106','frame_108','frame_109',
 ];
-const TOTAL_FRAMES = FRAME_NAMES.length; // 70
-const AUTOPLAY_FPS = 18; // fps while typing
+const TOTAL_FRAMES = FRAME_NAMES.length;
 
 interface ContactScrollBackgroundProps {
   isTyping?: boolean;
+  /** Increment this by 1 for each keystroke to advance frame by 1 */
+  keystrokeCount?: number;
 }
 
-export default function ContactScrollBackground({ isTyping = false }: ContactScrollBackgroundProps) {
+export default function ContactScrollBackground({
+  isTyping = false,
+  keystrokeCount = 0,
+}: ContactScrollBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
 
-  const scrollFrameRef = useRef(0);   // target frame from scroll position
+  const scrollFrameRef = useRef(0);   // target frame from scroll
   const displayFrameRef = useRef(0);  // currently rendered frame
   const rafRef = useRef<number>(0);
   const isTypingRef = useRef(isTyping);
+  const prevScrollFrameRef = useRef(0); // detect scroll changes
 
   useEffect(() => { isTypingRef.current = isTyping; }, [isTyping]);
 
@@ -47,38 +51,67 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     imagesRef.current = imgs;
   }, []);
 
-  // Draw frame as FULL-SCREEN cover (object-fit: cover behaviour)
+  // Draw frame filling ONLY the RIGHT HALF of the screen (full height)
   const drawFrame = (idx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const img = imagesRef.current[idx];
+    const img = imagesRef.current[Math.max(0, Math.min(idx, TOTAL_FRAMES - 1))];
     if (!img) return;
 
     const cw = canvas.width;
     const ch = canvas.height;
     ctx.clearRect(0, 0, cw, ch);
 
-    // Cover: scale image so it fills the entire canvas
-    const imgRatio = img.width / img.height;
-    const canvasRatio = cw / ch;
-    let dw: number, dh: number, dx: number, dy: number;
-    if (canvasRatio > imgRatio) {
-      // Canvas is wider → fit width, crop height
-      dw = cw;
-      dh = cw / imgRatio;
-      dx = 0;
-      dy = (ch - dh) / 2;
-    } else {
-      // Canvas is taller → fit height, crop width
-      dh = ch;
-      dw = ch * imgRatio;
-      dx = (cw - dw) / 2;
-      dy = 0;
-    }
+    const isMobile = cw < 768;
 
-    ctx.drawImage(img, dx, dy, dw, dh);
+    if (isMobile) {
+      // On mobile: full screen cover (no split)
+      const ir = img.width / img.height;
+      const cr = cw / ch;
+      let dw: number, dh: number, dx: number, dy: number;
+      if (cr > ir) { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
+      else { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
+      ctx.drawImage(img, dx, dy, dw, dh);
+    } else {
+      // Desktop: fill RIGHT half only (x = cw/2 → cw), full height
+      const halfW = cw / 2;
+      const ir = img.width / img.height;
+      const halfRatio = halfW / ch;
+
+      let dw: number, dh: number, sx: number, sy: number, sw: number, sh: number;
+
+      if (halfRatio > ir) {
+        // Right half is wider than image ratio → fill width, crop top/bottom
+        dw = halfW;
+        dh = halfW / ir;
+        const cropY = (dh - ch) / 2;
+        const scaleX = img.width / dw;
+        sx = 0;
+        sy = cropY * scaleX;
+        sw = img.width;
+        sh = ch * scaleX;
+      } else {
+        // Right half is taller than image ratio → fill height, crop sides
+        dh = ch;
+        dw = ch * ir;
+        const cropX = (dw - halfW) / 2;
+        const scaleY = img.height / dh;
+        sx = cropX * scaleY;
+        sy = 0;
+        sw = halfW * scaleY;
+        sh = img.height;
+      }
+
+      // Clip to right half only
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(halfW, 0, halfW, ch);
+      ctx.clip();
+      ctx.drawImage(img, sx, sy, sw, sh, halfW, 0, halfW, ch);
+      ctx.restore();
+    }
   };
 
   // Resize canvas
@@ -95,7 +128,7 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     return () => window.removeEventListener('resize', resize);
   }, [loadedCount]);
 
-  // Scroll listener — maps scroll progress → target frame
+  // Scroll listener → update target frame
   useEffect(() => {
     const onScroll = () => {
       const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
@@ -106,32 +139,38 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // rAF loop:
-  // • Scrolling → smoothly chase scroll-driven target frame (1 step/tick)
-  // • Typing   → auto-play forward at AUTOPLAY_FPS
+  // Keystroke → advance exactly 1 frame per keystroke (not auto-play)
+  useEffect(() => {
+    if (keystrokeCount === 0) return;
+    displayFrameRef.current = (displayFrameRef.current + 1) % TOTAL_FRAMES;
+    drawFrame(displayFrameRef.current);
+    // Sync scroll target to current so resuming scroll doesn't jump
+    scrollFrameRef.current = displayFrameRef.current;
+  }, [keystrokeCount]);
+
+  // rAF loop — only runs when NOT typing
+  // Smoothly chases scroll target; freezes when scroll stops
   useEffect(() => {
     if (loadedCount < TOTAL_FRAMES * 0.5) return;
 
     let lastTime = 0;
-    const interval = 1000 / AUTOPLAY_FPS;
+    const FPS = 24;
+    const interval = 1000 / FPS;
 
     const tick = (now: number) => {
       if (now - lastTime >= interval) {
         lastTime = now;
 
-        if (isTypingRef.current) {
-          // Auto-play forward while user is typing (looping)
-          displayFrameRef.current = (displayFrameRef.current + 1) % TOTAL_FRAMES;
-          drawFrame(displayFrameRef.current);
-        } else {
-          // Chase scroll target frame
+        if (!isTypingRef.current) {
           const target = scrollFrameRef.current;
           const current = displayFrameRef.current;
           if (current !== target) {
             displayFrameRef.current = current + (target > current ? 1 : -1);
             drawFrame(displayFrameRef.current);
           }
+          // If target === current → freeze, no redraw needed
         }
+        // While typing → keystroke effect handles drawing; rAF does nothing
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -143,7 +182,7 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <canvas ref={canvasRef} className="w-full h-full" />
-      {/* Minimal tint so frames stay crystal clear */}
+      {/* Minimal tint for legibility */}
       <div className="absolute inset-0 bg-white/10" />
     </div>
   );
