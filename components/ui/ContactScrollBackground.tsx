@@ -34,7 +34,6 @@ export default function ContactScrollBackground({
   const displayFrameRef = useRef(0);  // currently rendered frame
   const rafRef = useRef<number>(0);
   const isTypingRef = useRef(isTyping);
-  const prevScrollFrameRef = useRef(0); // detect scroll changes
 
   useEffect(() => { isTypingRef.current = isTyping; }, [isTyping]);
 
@@ -51,7 +50,7 @@ export default function ContactScrollBackground({
     imagesRef.current = imgs;
   }, []);
 
-  // Draw frame filling ONLY the RIGHT HALF of the screen (full height)
+  // Draw frame centered on canvas (object-fit: cover)
   const drawFrame = (idx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -64,54 +63,23 @@ export default function ContactScrollBackground({
     const ch = canvas.height;
     ctx.clearRect(0, 0, cw, ch);
 
-    const isMobile = cw < 768;
+    const ir = img.width / img.height;
+    const cr = cw / ch;
+    let dw: number, dh: number, dx: number, dy: number;
 
-    if (isMobile) {
-      // On mobile: full screen cover (no split)
-      const ir = img.width / img.height;
-      const cr = cw / ch;
-      let dw: number, dh: number, dx: number, dy: number;
-      if (cr > ir) { dw = cw; dh = cw / ir; dx = 0; dy = (ch - dh) / 2; }
-      else { dh = ch; dw = ch * ir; dx = (cw - dw) / 2; dy = 0; }
-      ctx.drawImage(img, dx, dy, dw, dh);
+    if (cr > ir) {
+      dw = cw;
+      dh = cw / ir;
+      dx = 0;
+      dy = (ch - dh) / 2;
     } else {
-      // Desktop: fill RIGHT half only (x = cw/2 → cw), full height
-      const halfW = cw / 2;
-      const ir = img.width / img.height;
-      const halfRatio = halfW / ch;
-
-      let dw: number, dh: number, sx: number, sy: number, sw: number, sh: number;
-
-      if (halfRatio > ir) {
-        // Right half is wider than image ratio → fill width, crop top/bottom
-        dw = halfW;
-        dh = halfW / ir;
-        const cropY = (dh - ch) / 2;
-        const scaleX = img.width / dw;
-        sx = 0;
-        sy = cropY * scaleX;
-        sw = img.width;
-        sh = ch * scaleX;
-      } else {
-        // Right half is taller than image ratio → fill height, crop sides
-        dh = ch;
-        dw = ch * ir;
-        const cropX = (dw - halfW) / 2;
-        const scaleY = img.height / dh;
-        sx = cropX * scaleY;
-        sy = 0;
-        sw = halfW * scaleY;
-        sh = img.height;
-      }
-
-      // Clip to right half only
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(halfW, 0, halfW, ch);
-      ctx.clip();
-      ctx.drawImage(img, sx, sy, sw, sh, halfW, 0, halfW, ch);
-      ctx.restore();
+      dh = ch;
+      dw = ch * ir;
+      dx = (cw - dw) / 2;
+      dy = 0;
     }
+
+    ctx.drawImage(img, dx, dy, dw, dh);
   };
 
   // Resize canvas
@@ -148,8 +116,7 @@ export default function ContactScrollBackground({
     scrollFrameRef.current = displayFrameRef.current;
   }, [keystrokeCount]);
 
-  // rAF loop — only runs when NOT typing
-  // Smoothly chases scroll target; freezes when scroll stops
+  // rAF loop — smooth chase on scroll, freezes when idle or typing
   useEffect(() => {
     if (loadedCount < TOTAL_FRAMES * 0.5) return;
 
@@ -168,9 +135,7 @@ export default function ContactScrollBackground({
             displayFrameRef.current = current + (target > current ? 1 : -1);
             drawFrame(displayFrameRef.current);
           }
-          // If target === current → freeze, no redraw needed
         }
-        // While typing → keystroke effect handles drawing; rAF does nothing
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -182,8 +147,8 @@ export default function ContactScrollBackground({
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <canvas ref={canvasRef} className="w-full h-full" />
-      {/* Minimal tint for legibility */}
-      <div className="absolute inset-0 bg-white/10" />
+      {/* Light translucent overlay for text readability while preserving vivid frame aesthetics */}
+      <div className="absolute inset-0 bg-white/20" />
     </div>
   );
 }
