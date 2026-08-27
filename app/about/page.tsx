@@ -113,14 +113,14 @@ export default function AboutPage() {
         </div>
 
         {/* Intro Visual Showcase — AWIE Engineering Hub */}
-        <div className="max-w-xl mx-auto rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-lg hover:shadow-xl hover:border-[#2563EB] transition-all duration-300 p-4 sm:p-6 text-center relative group">
-          <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/20 transition-all duration-300" />
+        <div className="max-w-md mx-auto rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-md hover:shadow-lg hover:border-[#2563EB] transition-all duration-300 p-3 sm:p-4 text-center relative group">
+          <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/20 transition-all duration-300" />
           <Image
             src="/intro.png"
             alt="AWIE Engineering Hub - Hardware, Software, IoT Ecosystem"
-            width={480}
-            height={360}
-            className="w-full h-auto max-w-xs sm:max-w-md mx-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+            width={320}
+            height={240}
+            className="w-full h-auto max-w-[200px] sm:max-w-[240px] mx-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
             priority
           />
         </div>
