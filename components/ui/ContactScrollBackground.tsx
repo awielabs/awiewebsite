@@ -16,9 +16,9 @@ const FRAME_NAMES = [
   'frame_100','frame_101','frame_103','frame_105','frame_106','frame_108','frame_109',
 ];
 const TOTAL_FRAMES = FRAME_NAMES.length; // 70
+const AUTOPLAY_FPS = 18; // fps while typing
 
 interface ContactScrollBackgroundProps {
-  /** Called by the page so form inputs/textareas can pause the animation */
   isTyping?: boolean;
 }
 
@@ -27,9 +27,8 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
 
-  // Refs used inside rAF loop (avoid stale closures)
-  const scrollFrameRef = useRef(0);   // frame driven by scroll
-  const displayFrameRef = useRef(0);  // frame currently shown (can be frozen)
+  const scrollFrameRef = useRef(0);   // target frame from scroll position
+  const displayFrameRef = useRef(0);  // currently rendered frame
   const rafRef = useRef<number>(0);
   const isTypingRef = useRef(isTyping);
 
@@ -42,17 +41,13 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     FRAME_NAMES.forEach((name, idx) => {
       const img = document.createElement('img');
       img.src = `/contact-frames/${name}.jpg`;
-      img.onload = () => {
-        imgs[idx] = img;
-        count++;
-        setLoadedCount(count);
-      };
+      img.onload = () => { imgs[idx] = img; count++; setLoadedCount(count); };
       img.onerror = () => { count++; setLoadedCount(count); };
     });
     imagesRef.current = imgs;
   }, []);
 
-  // Draw a single frame on canvas (fill right half on desktop, centered on mobile)
+  // Draw frame as FULL-SCREEN cover (object-fit: cover behaviour)
   const drawFrame = (idx: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -65,69 +60,28 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     const ch = canvas.height;
     ctx.clearRect(0, 0, cw, ch);
 
-    const isMobile = cw < 768;
+    // Cover: scale image so it fills the entire canvas
     const imgRatio = img.width / img.height;
-
-    // Size: ~52% of screen width on desktop, 78% on mobile
-    let tW = isMobile ? Math.min(cw * 0.78, 360) : Math.min(cw * 0.52, 780);
-    let tH = tW / imgRatio;
-    const maxH = isMobile ? ch * 0.42 : ch * 0.72;
-    if (tH > maxH) { tH = maxH; tW = tH * imgRatio; }
-
-    // Position: right-aligned desktop, centered mobile
-    const marginX = Math.max(cw * 0.025, 20);
-    const tX = isMobile ? (cw - tW) / 2 : cw - tW - marginX;
-    const tY = (ch - tH) / 2;
-
-    const r = isMobile ? 18 : 26;
-    const alpha = isMobile ? 0.72 : 0.90;
-
-    ctx.save();
-    ctx.globalAlpha = alpha;
-
-    // Subtle drop-shadow
-    ctx.shadowColor = 'rgba(37,99,235,0.18)';
-    ctx.shadowBlur = 28;
-    ctx.shadowOffsetY = 10;
-
-    // Rounded-rect clip path
-    ctx.beginPath();
-    if (typeof ctx.roundRect === 'function') {
-      ctx.roundRect(tX, tY, tW, tH, r);
+    const canvasRatio = cw / ch;
+    let dw: number, dh: number, dx: number, dy: number;
+    if (canvasRatio > imgRatio) {
+      // Canvas is wider → fit width, crop height
+      dw = cw;
+      dh = cw / imgRatio;
+      dx = 0;
+      dy = (ch - dh) / 2;
     } else {
-      ctx.moveTo(tX + r, tY);
-      ctx.arcTo(tX + tW, tY, tX + tW, tY + tH, r);
-      ctx.arcTo(tX + tW, tY + tH, tX, tY + tH, r);
-      ctx.arcTo(tX, tY + tH, tX, tY, r);
-      ctx.arcTo(tX, tY, tX + tW, tY, r);
-      ctx.closePath();
+      // Canvas is taller → fit height, crop width
+      dh = ch;
+      dw = ch * imgRatio;
+      dx = (cw - dw) / 2;
+      dy = 0;
     }
-    ctx.clip();
-    ctx.drawImage(img, tX, tY, tW, tH);
 
-    ctx.restore();
-
-    // Thin blue border ring
-    ctx.save();
-    ctx.globalAlpha = 0.30;
-    ctx.strokeStyle = 'rgba(37,99,235,0.45)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    if (typeof ctx.roundRect === 'function') {
-      ctx.roundRect(tX, tY, tW, tH, r);
-    } else {
-      ctx.moveTo(tX + r, tY);
-      ctx.arcTo(tX + tW, tY, tX + tW, tY + tH, r);
-      ctx.arcTo(tX + tW, tY + tH, tX, tY + tH, r);
-      ctx.arcTo(tX, tY + tH, tX, tY, r);
-      ctx.arcTo(tX, tY, tX + tW, tY, r);
-      ctx.closePath();
-    }
-    ctx.stroke();
-    ctx.restore();
+    ctx.drawImage(img, dx, dy, dw, dh);
   };
 
-  // Resize canvas on mount and window resize
+  // Resize canvas
   useEffect(() => {
     const resize = () => {
       const canvas = canvasRef.current;
@@ -141,41 +95,43 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
     return () => window.removeEventListener('resize', resize);
   }, [loadedCount]);
 
-  // Scroll listener — maps scroll progress → frame index
+  // Scroll listener — maps scroll progress → target frame
   useEffect(() => {
     const onScroll = () => {
-      const scrollTop = window.scrollY;
       const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(scrollTop / maxScroll, 1);
+      const progress = Math.min(window.scrollY / maxScroll, 1);
       scrollFrameRef.current = Math.floor(progress * (TOTAL_FRAMES - 1));
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // rAF animation loop: advance display frame toward scroll frame (unless typing)
+  // rAF loop:
+  // • Scrolling → smoothly chase scroll-driven target frame (1 step/tick)
+  // • Typing   → auto-play forward at AUTOPLAY_FPS
   useEffect(() => {
-    if (loadedCount < TOTAL_FRAMES * 0.5) return; // start when half loaded
+    if (loadedCount < TOTAL_FRAMES * 0.5) return;
 
     let lastTime = 0;
-    const FPS = 24;
-    const interval = 1000 / FPS;
+    const interval = 1000 / AUTOPLAY_FPS;
 
     const tick = (now: number) => {
       if (now - lastTime >= interval) {
         lastTime = now;
 
-        if (!isTypingRef.current) {
-          // Smoothly chase the scroll target frame
+        if (isTypingRef.current) {
+          // Auto-play forward while user is typing (looping)
+          displayFrameRef.current = (displayFrameRef.current + 1) % TOTAL_FRAMES;
+          drawFrame(displayFrameRef.current);
+        } else {
+          // Chase scroll target frame
           const target = scrollFrameRef.current;
           const current = displayFrameRef.current;
           if (current !== target) {
-            // Step 1 frame toward target per tick for smooth chase
             displayFrameRef.current = current + (target > current ? 1 : -1);
             drawFrame(displayFrameRef.current);
           }
         }
-        // While typing: frame is frozen — no draw call needed
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -187,8 +143,8 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <canvas ref={canvasRef} className="w-full h-full" />
-      {/* Very light white overlay for text legibility */}
-      <div className="absolute inset-0 bg-white/18" />
+      {/* Subtle white tint for text legibility — keep frames vivid */}
+      <div className="absolute inset-0 bg-white/30" />
     </div>
   );
 }
