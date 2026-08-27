@@ -146,17 +146,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Official Banner Image Display */}
-          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-xl group transition-all duration-300 hover:border-[#2563EB] bg-white mt-4">
-            <Image
-              src="/banner.png"
-              alt="AWIE Banner - Apps, Web, IoT, Electronics"
-              width={1200}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
-          </div>
 
           {/* Action CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
