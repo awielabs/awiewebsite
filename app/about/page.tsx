@@ -3,85 +3,98 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-  Zap, 
-  ShieldCheck, 
-  Award, 
+  Lightbulb, 
+  Wrench, 
+  Target, 
   ArrowRight, 
   Sparkles, 
   Cpu, 
   Globe, 
   Smartphone, 
   CircuitBoard,
+  Building2,
+  FlaskConical,
   ChevronRight
 } from 'lucide-react';
 
 export default function AboutPage() {
   const corePillars = [
     {
-      id: 'vision',
-      title: 'Our Engineering Vision',
-      tagline: 'Hardware + Software Bridge',
-      desc: 'To bridge the gap between embedded hardware and scalable cloud/mobile software, engineering functional technology that delivers real-world impact.',
-      icon: Zap,
+      id: 'understand',
+      title: 'Understand the Problem',
+      desc: 'We start with the actual requirement, whether it is a software platform, electronic product, IoT system, or something completely different.',
+      icon: Lightbulb,
       accent: 'text-[#2563EB]',
       badgeBg: 'bg-blue-50 border-blue-100',
       hoverAccent: 'group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-400',
       imgSrc: '/intro.png',
-      imgAlt: 'AWIE Engineering Vision - Hardware and Software Bridge'
+      imgAlt: 'AWIE Understand the Problem - Analyzing project requirements'
     },
     {
-      id: 'standards',
-      title: 'Rigorous Standards',
-      tagline: 'Test & Validate',
-      desc: 'Every line of code and microcontroller firmware is subjected to signal integrity, thermal stability, and edge-case error testing.',
-      icon: ShieldCheck,
+      id: 'purpose',
+      title: 'Build With Purpose',
+      desc: 'We select the right technologies, components, and architecture based on what the project actually needs — not simply because a technology is available.',
+      icon: Wrench,
       accent: 'text-[#0284C7]',
       badgeBg: 'bg-sky-50 border-sky-100',
       hoverAccent: 'group-hover:bg-sky-950 group-hover:border-sky-700/60 group-hover:text-sky-400',
       imgSrc: '/intro.png',
-      imgAlt: 'AWIE Rigorous Standards - Testing PCB & Firmware'
+      imgAlt: 'AWIE Build With Purpose - Purposeful engineering architecture'
     },
     {
-      id: 'innovation',
-      title: 'Practical Innovation',
-      tagline: 'Prototype → Working Product',
-      desc: 'We focus on building functional, reliable systems — avoiding over-hyped vaporware in favor of working physical and digital proof.',
-      icon: Award,
+      id: 'work',
+      title: 'Make It Work',
+      desc: 'Our focus is on functional, reliable solutions that can be tested, improved, and used in the real world.',
+      icon: Target,
       accent: 'text-indigo-600',
       badgeBg: 'bg-indigo-50 border-indigo-100',
       hoverAccent: 'group-hover:bg-indigo-950 group-hover:border-indigo-700/60 group-hover:text-indigo-400',
       imgSrc: '/intro.png',
-      imgAlt: 'AWIE Practical Innovation - Idea to Physical Product'
+      imgAlt: 'AWIE Make It Work - Working physical and digital solutions'
     }
   ];
 
   const domains = [
     {
       id: 'mobile',
-      title: 'Mobile Apps',
-      desc: 'Intuitive iOS & Android apps synced with cloud & hardware sensors.',
+      title: 'Mobile Applications',
+      desc: 'Modern mobile applications designed for businesses, services, products, and custom ideas.',
       icon: Smartphone,
       imgSrc: '/intro.png'
     },
     {
       id: 'web',
       title: 'Web Platforms',
-      desc: 'Ultra-fast Next.js portals, IoT telemetry dashboards, and cloud APIs.',
+      desc: 'Websites, dashboards, portals, internal tools, APIs, and full-stack applications built around specific requirements.',
       icon: Globe,
       imgSrc: '/intro.png'
     },
     {
       id: 'iot',
-      title: 'IoT Networks',
-      desc: 'Connected sensor nodes, low-latency MQTT brokers, and telemetry.',
+      title: 'IoT & Connected Systems',
+      desc: 'Sensor-based systems, monitoring solutions, wireless devices, MQTT systems, and connected hardware for real-world applications.',
       icon: Cpu,
       imgSrc: '/intro.png'
     },
     {
-      id: 'pcb',
-      title: 'Embedded PCB',
-      desc: 'Custom schematics, multi-layer circuit boards, and microcontrollers.',
+      id: 'embedded',
+      title: 'Embedded & Electronics',
+      desc: 'Custom PCBs, microcontroller systems, electronic circuits, sensor modules, prototypes, and purpose-built hardware.',
       icon: CircuitBoard,
+      imgSrc: '/intro.png'
+    },
+    {
+      id: 'business',
+      title: 'Business & Industry Solutions',
+      desc: 'Technology solutions for real-world environments such as hotels, businesses, institutions, automation, monitoring, and other specialized applications.',
+      icon: Building2,
+      imgSrc: '/intro.png'
+    },
+    {
+      id: 'prototyping',
+      title: 'Prototyping & Development',
+      desc: 'From an early concept or circuit idea to a working prototype that can be tested and refined.',
+      icon: FlaskConical,
       imgSrc: '/intro.png'
     }
   ];
@@ -108,16 +121,16 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium max-w-2xl mx-auto">
-            AWIE brings hardware engineering and modern software together, turning ambitious technical ideas into reliable, working systems.
+            AWIE builds practical technology across software, electronics, IoT, and digital systems — turning ideas into reliable solutions designed around the needs of each project.
           </p>
         </div>
 
-        {/* Intro Visual Showcase — AWIE Engineering Hub */}
+        {/* Intro Visual Showcase */}
         <div className="max-w-md mx-auto rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-md hover:shadow-lg hover:border-[#2563EB] transition-all duration-300 p-3 sm:p-4 text-center relative group">
           <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/20 transition-all duration-300" />
           <Image
             src="/intro.png"
-            alt="AWIE Engineering Hub - Hardware, Software, IoT Ecosystem"
+            alt="AWIE engineering team working across software, electronics and IoT projects"
             width={320}
             height={240}
             className="w-full h-auto max-w-[200px] sm:max-w-[240px] mx-auto object-contain transition-transform duration-300 group-hover:scale-[1.01]"
@@ -125,7 +138,7 @@ export default function AboutPage() {
           />
         </div>
 
-        {/* Core Principles Section with 3D Illustration Slots */}
+        {/* Core Principles Section */}
         <div className="space-y-10 pt-4">
           <div className="text-center space-y-3">
             <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Core Principles</h2>
@@ -145,13 +158,8 @@ export default function AboutPage() {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-2xl pointer-events-none group-hover:from-[#2563EB]/30 transition-all duration-300" />
                   
                   <div className="space-y-4 relative z-10">
-                    <div className="flex items-center justify-between">
-                      <div className={`p-3 rounded-xl ${pillar.badgeBg} border ${pillar.accent} ${pillar.hoverAccent} group-hover:scale-110 transition-all duration-300 w-fit`}>
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-slate-100 text-slate-500 group-hover:bg-slate-900 group-hover:text-blue-400 border border-slate-200 group-hover:border-slate-800 transition-colors">
-                        {pillar.tagline}
-                      </span>
+                    <div className={`p-3 rounded-xl ${pillar.badgeBg} border ${pillar.accent} ${pillar.hoverAccent} group-hover:scale-110 transition-all duration-300 w-fit`}>
+                      <Icon className="w-6 h-6" />
                     </div>
 
                     <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-white transition-colors duration-300">
@@ -163,15 +171,15 @@ export default function AboutPage() {
                     </p>
                   </div>
 
-                  {/* 3D Illustration Slot */}
+                  {/* Illustration Slot */}
                   <div className="pt-4 relative z-10">
-                    <div className="w-full h-36 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-3 overflow-hidden transition-colors duration-300">
+                    <div className="w-full h-32 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-3 overflow-hidden transition-colors duration-300">
                       <Image
                         src={pillar.imgSrc}
                         alt={pillar.imgAlt}
                         width={200}
                         height={140}
-                        className="w-auto h-full object-contain max-h-32 group-hover:scale-105 transition-transform duration-300"
+                        className="w-auto h-full object-contain max-h-28 group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   </div>
@@ -181,37 +189,37 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* 4 Domains Overview with Miniature Engineering Scenes */}
+        {/* What We Build / Multi-Disciplinary Expertise */}
         <div className="space-y-10 pt-8 border-t border-slate-200">
           <div className="text-center space-y-3">
-            <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Multi-Disciplinary Expertise</h2>
+            <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">What We Build</h2>
             <h3 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Full Spectrum Capabilities
+              Different Technologies. One Engineering Mindset.
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {domains.map((dom) => {
               const Icon = dom.icon;
               return (
                 <div
                   key={dom.id}
-                  className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-xl hover:shadow-[#2563EB]/20 hover:translate-y-[-3px] transition-all duration-300 group"
+                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-xl hover:shadow-[#2563EB]/20 hover:translate-y-[-3px] transition-all duration-300 group"
                 >
-                  <div className="space-y-3 relative z-10">
+                  <div className="space-y-4 relative z-10">
                     <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-400 transition-all duration-300 w-fit">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
+                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
                       {dom.title}
                     </h4>
-                    <p className="text-xs text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-300">
+                    <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-300">
                       {dom.desc}
                     </p>
                   </div>
 
                   {/* Scene Image Container */}
-                  <div className="pt-4 relative z-10">
+                  <div className="pt-6 relative z-10">
                     <div className="w-full h-28 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-2 overflow-hidden transition-colors duration-300">
                       <Image
                         src={dom.imgSrc}
@@ -228,7 +236,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* CTA — Let's Build Something Real */}
+        {/* CTA — Have an Idea? Let's Build It. */}
         <div className="p-10 sm:p-14 rounded-3xl bg-white border border-slate-200 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-300 group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -237,10 +245,10 @@ export default function AboutPage() {
             {/* CTA Text */}
             <div className="lg:col-span-8 space-y-4 text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">
-                Let's Build Something Real
+                Have an Idea? Let's Build It.
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-200 font-medium max-w-xl leading-relaxed transition-colors duration-300">
-                Have an idea for software, IoT hardware, or custom electronics? Let's turn it into something that works.
+                Whether you need a web platform, mobile application, IoT solution, custom electronics, or something entirely different, AWIE can help turn your concept into a working product.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
