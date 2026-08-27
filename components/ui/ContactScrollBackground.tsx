@@ -143,8 +143,8 @@ export default function ContactScrollBackground({ isTyping = false }: ContactScr
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <canvas ref={canvasRef} className="w-full h-full" />
-      {/* Subtle white tint for text legibility — keep frames vivid */}
-      <div className="absolute inset-0 bg-white/30" />
+      {/* Minimal tint so frames stay crystal clear */}
+      <div className="absolute inset-0 bg-white/10" />
     </div>
   );
 }

@@ -348,14 +348,9 @@ export default function ContactPage() {
   const [isTyping, setIsTyping] = useState(false);
 
   return (
-    <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
-      {/* Scroll-driven call animation background (pauses when user types) */}
+    <div className="pt-28 pb-20 text-slate-800 min-h-screen relative overflow-hidden">
+      {/* Scroll-driven call animation background */}
       <ContactScrollBackground isTyping={isTyping} />
-      {/* Light Circuit Grid Background Pattern */}
-      <div className="bg-grid-pattern opacity-80" />
-
-      {/* Subtle Ambient Top Glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 space-y-16 relative z-10">
         
