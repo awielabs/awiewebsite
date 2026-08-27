@@ -30,9 +30,7 @@ export default function ContactScrollBackground({
   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
 
-  const scrollFrameRef = useRef(0);   // target frame from scroll
   const displayFrameRef = useRef(0);  // currently rendered frame
-  const rafRef = useRef<number>(0);
   const isTypingRef = useRef(isTyping);
 
   useEffect(() => { isTypingRef.current = isTyping; }, [isTyping]);
@@ -96,53 +94,45 @@ export default function ContactScrollBackground({
     return () => window.removeEventListener('resize', resize);
   }, [loadedCount]);
 
-  // Scroll listener → update target frame
+  // Scroll & Wheel listeners → immediately map scroll position to frame
   useEffect(() => {
-    const onScroll = () => {
-      const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(window.scrollY / maxScroll, 1);
-      scrollFrameRef.current = Math.floor(progress * (TOTAL_FRAMES - 1));
+    const updateScrollFrame = () => {
+      const scrollTop = window.scrollY || window.pageYOffset || 0;
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      const winHeight = window.innerHeight;
+      const maxScroll = Math.max(docHeight - winHeight, 1);
+      const progress = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
+      
+      const newFrame = Math.floor(progress * (TOTAL_FRAMES - 1));
+      if (newFrame !== displayFrameRef.current) {
+        displayFrameRef.current = newFrame;
+        drawFrame(newFrame);
+      }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
-  // Keystroke → advance exactly 1 frame per keystroke (not auto-play)
+    window.addEventListener('scroll', updateScrollFrame, { passive: true });
+    window.addEventListener('wheel', updateScrollFrame, { passive: true });
+
+    // Initial check
+    updateScrollFrame();
+
+    return () => {
+      window.removeEventListener('scroll', updateScrollFrame);
+      window.removeEventListener('wheel', updateScrollFrame);
+    };
+  }, [loadedCount]);
+
+  // Keystroke → advance exactly 1 frame per keystroke
   useEffect(() => {
     if (keystrokeCount === 0) return;
     displayFrameRef.current = (displayFrameRef.current + 1) % TOTAL_FRAMES;
     drawFrame(displayFrameRef.current);
-    // Sync scroll target to current so resuming scroll doesn't jump
-    scrollFrameRef.current = displayFrameRef.current;
   }, [keystrokeCount]);
-
-  // rAF loop — smooth chase on scroll, freezes when idle or typing
-  useEffect(() => {
-    if (loadedCount < TOTAL_FRAMES * 0.5) return;
-
-    let lastTime = 0;
-    const FPS = 24;
-    const interval = 1000 / FPS;
-
-    const tick = (now: number) => {
-      if (now - lastTime >= interval) {
-        lastTime = now;
-
-        if (!isTypingRef.current) {
-          const target = scrollFrameRef.current;
-          const current = displayFrameRef.current;
-          if (current !== target) {
-            displayFrameRef.current = current + (target > current ? 1 : -1);
-            drawFrame(displayFrameRef.current);
-          }
-        }
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [loadedCount]);
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
