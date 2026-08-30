@@ -45,8 +45,8 @@ export default function StorePage() {
             key={`${prefixKey}-c-${wIdx}-${cIdx}`}
             className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-3 hover:scale-125 ${
               isHighlighted
-                ? 'text-[#2563EB] hover:text-indigo-900 hover:drop-shadow-[0_8px_16px_rgba(30,58,138,0.5)]'
-                : 'text-slate-900 hover:text-[#2563EB] hover:drop-shadow-[0_8px_16px_rgba(37,99,235,0.4)]'
+                ? 'text-blue-400 hover:text-blue-200 hover:drop-shadow-[0_8px_16px_rgba(96,165,250,0.6)]'
+                : 'text-white hover:text-blue-400 hover:drop-shadow-[0_8px_16px_rgba(37,99,235,0.6)]'
             }`}
           >
             {char}
@@ -60,33 +60,34 @@ export default function StorePage() {
     <div className="bg-slate-50 text-slate-800 pb-20">
 
       {/* 1. Store Hero Section */}
-      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-32 lg:py-40 overflow-hidden bg-slate-900">
+      <section className="relative z-10 border-b border-slate-800 py-16 sm:py-24 lg:py-28 overflow-hidden bg-slate-950">
         {/* 24 Video Frames Interactive Scroll Background (Hero Section Only) */}
         <StoreScrollBackground />
 
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/15 blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 flex justify-start relative z-10">
           
           {/* Free-Floating Left-Aligned Content (No box/card) */}
-          <div className="max-w-4xl space-y-8 text-left flex flex-col items-start">
+          <div className="max-w-3xl space-y-6 text-left flex flex-col items-start">
 
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/85 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-900/60 backdrop-blur-md border border-blue-500/40 text-xs font-black text-blue-300 shadow-lg shadow-blue-950/50 hover:-translate-y-1 hover:bg-blue-600 hover:text-white transition-all duration-300">
               <Cpu className="w-4 h-4" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
-            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-slate-900">
+            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop (Slightly Smaller) */}
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.2] text-white">
               {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
               <br className="hidden sm:inline" />
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
             </h1>
 
           </div>
+
 
 
 
