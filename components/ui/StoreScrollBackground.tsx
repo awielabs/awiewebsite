@@ -52,7 +52,7 @@ export default function StoreScrollBackground() {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // Object-fit: cover implementation
+    // Object-fit: contain implementation (show 100% full frame with zero cropping)
     const imgRatio = img.width / img.height;
     const canvasRatio = canvasWidth / canvasHeight;
 
@@ -62,11 +62,11 @@ export default function StoreScrollBackground() {
     let offsetY = 0;
 
     if (canvasRatio > imgRatio) {
-      drawHeight = canvasWidth / imgRatio;
-      offsetY = 0; // Top-align frame to ensure 100% visibility of full head/helmet
-    } else {
       drawWidth = canvasHeight * imgRatio;
       offsetX = (canvasWidth - drawWidth) / 2;
+    } else {
+      drawHeight = canvasWidth / imgRatio;
+      offsetY = (canvasHeight - drawHeight) / 2;
     }
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
@@ -121,12 +121,11 @@ export default function StoreScrollBackground() {
   }, [loadedCount]);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100">
-      <canvas ref={canvasRef} className="w-full h-full object-cover object-top" />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 via-slate-50/10 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50/90" />
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100 bg-[#eef2f6]">
+      <canvas ref={canvasRef} className="w-full h-full object-contain" />
     </div>
   );
+
 
 }
 
