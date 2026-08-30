@@ -68,11 +68,10 @@ export default function StorePage() {
         {/* Background Ambient Glow */}
         <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/15 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 flex justify-start relative z-10">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
           
-          {/* Free-Floating Left-Aligned Content (No box/card) */}
-          <div className="max-w-3xl space-y-6 text-left flex flex-col items-start">
-
+          {/* Left Column: Title & Badge */}
+          <div className="lg:col-span-7 space-y-6 text-left flex flex-col items-start">
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-900/60 backdrop-blur-md border border-blue-500/40 text-xs font-black text-blue-300 shadow-lg shadow-blue-950/50 hover:-translate-y-1 hover:bg-blue-600 hover:text-white transition-all duration-300">
@@ -81,7 +80,7 @@ export default function StorePage() {
             </div>
 
             {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop (Slightly Smaller) */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.2] text-white">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-[1.2] text-white">
               {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
               <br className="hidden sm:inline" />
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
@@ -89,10 +88,21 @@ export default function StorePage() {
 
           </div>
 
-
-
+          {/* Right Column: AWIE Store Logo Branding */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md">
+              {/* Subtle ambient glow behind logo */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/30 to-indigo-600/30 rounded-3xl blur-2xl opacity-50 group-hover:opacity-80 transition duration-500" />
+              <img
+                src="/storebg.png"
+                alt="AWIE Store"
+                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] transition-all duration-500 group-hover:scale-105"
+              />
+            </div>
+          </div>
 
         </div>
+
       </section>
 
 
