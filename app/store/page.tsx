@@ -86,12 +86,8 @@ export default function StorePage() {
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-slate-700 text-base sm:text-lg lg:text-xl font-semibold leading-relaxed max-w-2xl transition-all duration-300 hover:text-slate-900 hover:-translate-y-1">
-              Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
-            </p>
-
           </div>
+
 
 
         </div>
