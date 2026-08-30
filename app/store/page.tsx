@@ -61,7 +61,8 @@ export default function StorePage() {
     <div className="bg-slate-50 text-slate-800 pb-20">
 
       {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
-      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-28 lg:py-32 overflow-hidden bg-slate-50">
+      <section className="relative z-10 border-b border-slate-200 py-20 sm:py-28 lg:py-32 overflow-hidden bg-white">
+
         {/* Video Frames Interactive Scroll Background (Hero Section Only) */}
         <StoreScrollBackground />
 

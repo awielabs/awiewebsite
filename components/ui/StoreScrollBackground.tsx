@@ -52,8 +52,24 @@ export default function StoreScrollBackground() {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // Stretch frame to fill 100% of canvas width & height with full visibility
-    ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+    // Object-fit: cover implementation (fills 100% of hero width & height edge-to-edge, zero side bars)
+    const imgRatio = img.width / img.height;
+    const canvasRatio = canvasWidth / canvasHeight;
+
+    let drawWidth = canvasWidth;
+    let drawHeight = canvasHeight;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (canvasRatio > imgRatio) {
+      drawHeight = canvasWidth / imgRatio;
+      offsetY = (canvasHeight - drawHeight) / 2;
+    } else {
+      drawWidth = canvasHeight * imgRatio;
+      offsetX = (canvasWidth - drawWidth) / 2;
+    }
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
 
 
@@ -106,10 +122,11 @@ export default function StoreScrollBackground() {
   }, [loadedCount]);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100 bg-[#eef2f6]">
-      <canvas ref={canvasRef} className="w-full h-full object-contain" />
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100 bg-white">
+      <canvas ref={canvasRef} className="w-full h-full object-cover" />
     </div>
   );
+
 
 
 }
