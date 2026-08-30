@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-const TOTAL_FRAMES = 107;
+const TOTAL_FRAMES = 192;
 
 export default function StoreScrollBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
