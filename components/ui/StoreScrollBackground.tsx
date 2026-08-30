@@ -123,10 +123,11 @@ export default function StoreScrollBackground() {
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100">
       <canvas ref={canvasRef} className="w-full h-full object-cover object-top" />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/20 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-50/50 via-slate-50/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50/90" />
     </div>
   );
+
 }
 
 

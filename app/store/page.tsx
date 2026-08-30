@@ -45,8 +45,8 @@ export default function StorePage() {
             key={`${prefixKey}-c-${wIdx}-${cIdx}`}
             className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-1 hover:scale-110 ${
               isHighlighted
-                ? 'text-[#3B82F6] hover:text-white hover:drop-shadow-[0_6px_14px_rgba(255,255,255,0.8)]'
-                : 'text-white hover:text-[#1D4ED8] hover:drop-shadow-[0_6px_14px_rgba(29,78,216,0.9)]'
+                ? 'text-[#2563EB] hover:text-indigo-900 hover:drop-shadow-[0_4px_12px_rgba(30,58,138,0.5)]'
+                : 'text-slate-900 hover:text-[#1E40AF] hover:drop-shadow-[0_4px_12px_rgba(30,58,138,0.4)]'
             }`}
           >
             {char}
@@ -60,13 +60,13 @@ export default function StorePage() {
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
 
-      {/* 1. Store Hero Section */}
-      <section className="relative z-10 border-b border-slate-800 py-16 sm:py-24 lg:py-28 overflow-hidden bg-slate-950">
-        {/* 24 Video Frames Interactive Scroll Background (Hero Section Only) */}
+      {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
+      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-28 lg:py-32 overflow-hidden bg-slate-50">
+        {/* Video Frames Interactive Scroll Background (Hero Section Only) */}
         <StoreScrollBackground />
 
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/15 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
           
@@ -74,13 +74,13 @@ export default function StorePage() {
           <div className="lg:col-span-7 space-y-6 text-left flex flex-col items-start">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-900/60 backdrop-blur-md border border-blue-500/40 text-xs font-black text-blue-300 shadow-lg shadow-blue-950/50 hover:-translate-y-1 hover:bg-blue-600 hover:text-white transition-all duration-300">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
               <Cpu className="w-4 h-4" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
-            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop (Slightly Smaller) */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-[1.2] text-white">
+            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop */}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-[1.2] text-slate-900">
               {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
               <br className="hidden sm:inline" />
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
@@ -88,21 +88,21 @@ export default function StorePage() {
 
           </div>
 
-          {/* Right Column: AWIE Store Logo Branding (Seamless Transparent, No Black Box) */}
+          {/* Right Column: AWIE Store Logo Branding (Solid Clean White Background Card) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md">
-              {/* Vibrant blue ambient glow behind logo */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/40 to-indigo-500/40 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition duration-500" />
+            <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md bg-white p-6 sm:p-8 rounded-3xl shadow-2xl shadow-blue-900/10 border border-slate-200/80 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-blue-900/20">
+              {/* Subtle ambient glow behind white card */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-[28px] blur-xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none" />
               <img
-                src="/storebg.png"
+                src="/store-logo.png"
                 alt="AWIE Store"
-                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] mix-blend-screen filter drop-shadow-[0_10px_25px_rgba(59,130,246,0.8)] transition-all duration-500 group-hover:scale-105"
+                className="relative w-full h-auto object-contain max-h-[180px] sm:max-h-[220px]"
               />
             </div>
           </div>
 
-
         </div>
+
 
       </section>
 
