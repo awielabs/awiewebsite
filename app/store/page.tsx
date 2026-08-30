@@ -88,18 +88,19 @@ export default function StorePage() {
 
           </div>
 
-          {/* Right Column: AWIE Store Logo Branding */}
+          {/* Right Column: AWIE Store Logo Branding (Seamless Transparent, No Black Box) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md">
-              {/* Subtle ambient glow behind logo */}
-              <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/30 to-indigo-600/30 rounded-3xl blur-2xl opacity-50 group-hover:opacity-80 transition duration-500" />
+              {/* Vibrant blue ambient glow behind logo */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/40 to-indigo-500/40 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition duration-500" />
               <img
                 src="/storebg.png"
                 alt="AWIE Store"
-                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] transition-all duration-500 group-hover:scale-105"
+                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] mix-blend-screen filter drop-shadow-[0_10px_25px_rgba(59,130,246,0.8)] transition-all duration-500 group-hover:scale-105"
               />
             </div>
           </div>
+
 
         </div>
 

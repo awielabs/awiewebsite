@@ -63,7 +63,7 @@ export default function StoreScrollBackground() {
 
     if (canvasRatio > imgRatio) {
       drawHeight = canvasWidth / imgRatio;
-      offsetY = (canvasHeight - drawHeight) / 2;
+      offsetY = 0; // Top-align frame to ensure 100% visibility of full head/helmet
     } else {
       drawWidth = canvasHeight * imgRatio;
       offsetX = (canvasWidth - drawWidth) / 2;
@@ -122,11 +122,11 @@ export default function StoreScrollBackground() {
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100">
-      <canvas ref={canvasRef} className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-900" />
+      <canvas ref={canvasRef} className="w-full h-full object-cover object-top" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
     </div>
   );
-
 }
+
 
