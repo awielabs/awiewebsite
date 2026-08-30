@@ -39,37 +39,38 @@ export default function StorePage() {
     <div className="bg-slate-50 text-slate-800 pb-20">
       
       {/* 1. Store Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-50/80 via-white to-slate-50 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col items-start justify-center">
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 flex justify-end">
           
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-              <Cpu className="w-4 h-4 text-[#2563EB]" />
+          {/* Floating Right-Aligned Content Card */}
+          <div className="max-w-2xl space-y-6 text-right flex flex-col items-end group p-8 sm:p-10 rounded-3xl bg-white/75 backdrop-blur-xl border border-slate-200/80 shadow-xl shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-600/20 hover:border-blue-500/40 hover:-translate-y-2 transition-all duration-500 ease-out relative">
+            
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-900 to-blue-700 text-white text-xs font-black shadow-md shadow-blue-900/20 group-hover:scale-105 transition-transform">
+              <Cpu className="w-4 h-4 text-blue-300" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
+            {/* Main Heading */}
             <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              Genuine Microcontrollers, Sensors & <span className="text-[#2563EB]">Hardware Components</span>
+              Genuine Microcontrollers, Sensors &{' '}
+              <span className="bg-gradient-to-r from-[#2563EB] via-blue-700 to-indigo-900 bg-clip-text text-transparent">
+                Hardware Components
+              </span>
             </h1>
 
-            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed max-w-2xl">
+            {/* Subtitle */}
+            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed max-w-xl">
               Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
             </p>
 
-            <div className="pt-2">
-              <a
-                href="#catalog"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25"
-              >
-                <span>Explore Full Catalog</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
           </div>
 
         </div>
       </section>
-
 
       {/* 2. Store Features Row */}
       <section className="py-8 bg-white border-b border-slate-200">
