@@ -45,8 +45,8 @@ export default function StorePage() {
             key={`${prefixKey}-c-${wIdx}-${cIdx}`}
             className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-1 hover:scale-110 ${
               isHighlighted
-                ? 'text-[#2563EB] hover:text-indigo-900 hover:drop-shadow-[0_4px_12px_rgba(30,58,138,0.5)]'
-                : 'text-slate-900 hover:text-[#1E40AF] hover:drop-shadow-[0_4px_12px_rgba(30,58,138,0.4)]'
+                ? 'text-[#2563EB] hover:text-slate-900 hover:drop-shadow-[0_6px_14px_rgba(15,23,42,0.5)]'
+                : 'text-slate-900 hover:text-[#2563EB] hover:drop-shadow-[0_6px_14px_rgba(37,99,235,0.7)]'
             }`}
           >
             {char}
@@ -67,12 +67,12 @@ export default function StorePage() {
         <StoreScrollBackground />
 
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 w-full flex justify-start relative z-10">
+        <div className="max-w-7xl mx-auto px-6 w-full flex justify-end relative z-10">
           
-          {/* Free-Floating Left-Aligned Content (Compact max-w-xl so astronaut on right is 100% clear) */}
-          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-left flex flex-col items-start">
+          {/* Right-Aligned Content (Positioned on the Right Side of the Screen) */}
+          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-right flex flex-col items-end">
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
@@ -80,8 +80,8 @@ export default function StorePage() {
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
-            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop */}
-            <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight leading-[1.25] text-slate-900">
+            {/* Interactive Main Heading with Clean Line Spacing & Hover Color Effects */}
+            <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight leading-[1.3] text-slate-900">
               {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
               <br className="hidden sm:inline" />
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
@@ -90,6 +90,7 @@ export default function StorePage() {
           </div>
 
         </div>
+
 
 
 

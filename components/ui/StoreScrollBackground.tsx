@@ -66,12 +66,13 @@ export default function StoreScrollBackground() {
       offsetY = (canvasHeight - drawHeight) / 2;
     } else {
       drawWidth = canvasHeight * imgRatio;
-      // Position astronaut frame towards right side so text on left is unblocked
-      offsetX = (canvasWidth - drawWidth) * 0.7;
+      // Position astronaut frame towards left side so text on right is 100% clear
+      offsetX = (canvasWidth - drawWidth) * 0.15;
     }
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
+
 
 
 
