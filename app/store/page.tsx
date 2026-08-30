@@ -33,16 +33,16 @@ export default function StorePage() {
     'power-battery': BatteryCharging
   };
 
-  const featuredProducts = STORE_PRODUCTS.filter((p) => p.inStock).slice(0, 12);
+  const featuredProducts = STORE_PRODUCTS.filter((p) => p.inStock).slice(0, 10);
 
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
       
       {/* 1. Store Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-50/80 via-white to-slate-50 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col items-start justify-center">
           
-          <div className="lg:col-span-7 space-y-6">
+          <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
               <Cpu className="w-4 h-4 text-[#2563EB]" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
@@ -56,45 +56,20 @@ export default function StorePage() {
               Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="pt-2">
               <a
                 href="#catalog"
-                className="px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center gap-2"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25"
               >
                 <span>Explore Full Catalog</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
-
-              <Link
-                href="/contact?interest=B2B+Bulk+Hardware+Quote"
-                className="px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:border-[#2563EB] text-slate-700 font-extrabold text-xs transition-all shadow-sm flex items-center gap-2"
-              >
-                <span>B2B Bulk Quote</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4 max-w-sm w-full">
-              <div className="w-full h-48 rounded-2xl bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-                <Image
-                  src="/logo.jpeg"
-                  alt="AWIE Electronics Store"
-                  width={140}
-                  height={140}
-                  className="object-contain"
-                />
-              </div>
-              <div className="space-y-1">
-                <span className="text-xs font-extrabold text-[#2563EB] uppercase block">100% Genuine Tested</span>
-                <h3 className="text-lg font-black text-slate-900">Lab Tested Microcontrollers & Modules</h3>
-                <p className="text-xs text-slate-500 font-medium">All components undergo quality check before dispatch.</p>
-              </div>
             </div>
           </div>
 
         </div>
       </section>
+
 
       {/* 2. Store Features Row */}
       <section className="py-8 bg-white border-b border-slate-200">
@@ -116,8 +91,8 @@ export default function StorePage() {
           <div className="flex items-center gap-3 p-2">
             <Lock className="w-6 h-6 text-indigo-600 shrink-0" />
             <div>
-              <span className="font-extrabold text-slate-900 block">Secure Checkout</span>
-              <span className="text-slate-500 font-medium">UPI, Cards & Net Banking</span>
+              <span className="font-extrabold text-slate-900 block">Pre-Book & Enquiry</span>
+              <span className="text-slate-500 font-medium">Order via WhatsApp & Email</span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2">

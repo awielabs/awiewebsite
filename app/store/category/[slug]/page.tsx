@@ -19,7 +19,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   };
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
-  const [maxPrice, setMaxPrice] = useState<number>(2000);
+  const [maxPrice, setMaxPrice] = useState<number>(10000);
 
   const products = STORE_PRODUCTS.filter((p) => {
     const matchesCategory = p.categorySlug === slug;
@@ -92,9 +92,9 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
             <span className="text-slate-500 whitespace-nowrap">Filter max price:</span>
             <input
               type="range"
-              min={20}
-              max={2000}
-              step={20}
+              min={100}
+              max={10000}
+              step={100}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
               className="accent-[#2563EB] cursor-pointer"
