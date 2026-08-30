@@ -61,18 +61,19 @@ export default function StorePage() {
     <div className="bg-slate-50 text-slate-800 pb-20">
 
       {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
-      <section className="relative z-10 border-b border-slate-200 py-24 sm:py-36 lg:py-40 min-h-[550px] sm:min-h-[640px] flex items-center overflow-hidden bg-white">
+      <section className="relative z-10 border-b border-slate-200 pt-12 sm:pt-16 lg:pt-20 pb-32 min-h-[550px] sm:min-h-[640px] flex items-start overflow-hidden bg-white">
 
         {/* Video Frames Interactive Scroll Background (Hero Section Only) */}
         <StoreScrollBackground />
 
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 left-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/4 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 w-full flex justify-end relative z-10">
           
-          {/* Right-Aligned Content (Positioned on the Right Side of the Screen) */}
-          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-right flex flex-col items-end">
+          {/* Right-Aligned Content (Shifted Upwards into Clear White Space) */}
+          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-right flex flex-col items-end -mt-2 sm:-mt-4 lg:-mt-6">
+
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
