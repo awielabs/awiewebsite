@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { STORE_CATEGORIES, STORE_PRODUCTS } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
+import StoreScrollBackground from '@/components/ui/StoreScrollBackground';
 
 export default function StorePage() {
   const { addToCart } = useCart();
@@ -35,49 +36,57 @@ export default function StorePage() {
 
   const featuredProducts = STORE_PRODUCTS.filter((p) => p.inStock).slice(0, 10);
 
+  // Helper to render words intact while allowing letter-by-letter hover pop effect
+  const renderInteractiveText = (text: string, isHighlighted: boolean = false, prefixKey: string = '') => {
+    return text.split(' ').map((word, wIdx) => (
+      <span key={`${prefixKey}-w-${wIdx}`} className="inline-block whitespace-nowrap mr-[0.35em] my-[0.1em]">
+        {word.split('').map((char, cIdx) => (
+          <span
+            key={`${prefixKey}-c-${wIdx}-${cIdx}`}
+            className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-3 hover:scale-125 ${
+              isHighlighted
+                ? 'text-[#2563EB] hover:text-indigo-900 hover:drop-shadow-[0_8px_16px_rgba(30,58,138,0.5)]'
+                : 'text-slate-900 hover:text-[#2563EB] hover:drop-shadow-[0_8px_16px_rgba(37,99,235,0.4)]'
+            }`}
+          >
+            {char}
+          </span>
+        ))}
+      </span>
+    ));
+  };
+
   return (
-    <div className="bg-slate-50 text-slate-800 pb-20">
+    <div className="relative bg-slate-50 text-slate-800 pb-20">
       
+      {/* 24 Video Frames Interactive Scroll Background */}
+      <StoreScrollBackground />
+
       {/* 1. Store Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
+      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-32 lg:py-40 overflow-hidden">
         {/* Background Ambient Glow */}
-        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 flex justify-end">
           
-          {/* Free-Floating Right-Aligned Content (No white box/card) */}
-          <div className="max-w-3xl space-y-6 text-right flex flex-col items-end">
+          {/* Free-Floating Right-Aligned Content */}
+          <div className="max-w-4xl space-y-8 text-right flex flex-col items-end">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-black text-[#2563EB] shadow-sm hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/80 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
               <Cpu className="w-4 h-4" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
-            {/* Interactive Main Heading with Floating Letter-by-Letter Pop Effect */}
-            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight select-none">
-              {'Genuine Microcontrollers, Sensors & '.split('').map((char, index) => (
-                <span
-                  key={`h1-${index}`}
-                  className="inline-block transition-all duration-300 ease-out cursor-default hover:-translate-y-3 hover:scale-125 hover:text-[#2563EB] hover:drop-shadow-[0_8px_16px_rgba(37,99,235,0.4)]"
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-              <span className="inline-block">
-                {'Hardware Components'.split('').map((char, index) => (
-                  <span
-                    key={`h2-${index}`}
-                    className="inline-block transition-all duration-300 ease-out cursor-default text-[#2563EB] hover:-translate-y-3 hover:scale-125 hover:text-indigo-900 hover:drop-shadow-[0_8px_16px_rgba(30,58,138,0.5)]"
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </span>
-                ))}
-              </span>
+            {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-slate-900">
+              {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
+              <br className="hidden sm:inline" />
+              {renderInteractiveText('Hardware Components', true, 'heading-part2')}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed max-w-xl transition-all duration-300 hover:text-slate-900 hover:-translate-y-1">
+            <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium leading-relaxed max-w-2xl transition-all duration-300 hover:text-slate-900 hover:-translate-y-1">
               Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
             </p>
 
@@ -85,6 +94,7 @@ export default function StorePage() {
 
         </div>
       </section>
+
 
 
       {/* 2. Store Features Row */}
