@@ -61,7 +61,7 @@ export default function StorePage() {
     <div className="bg-slate-50 text-slate-800 pb-20">
 
       {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
-      <section className="relative z-10 border-b border-slate-200 py-20 sm:py-28 lg:py-32 overflow-hidden bg-white">
+      <section className="relative z-10 border-b border-slate-200 py-24 sm:py-36 lg:py-40 min-h-[550px] sm:min-h-[640px] flex items-center overflow-hidden bg-white">
 
         {/* Video Frames Interactive Scroll Background (Hero Section Only) */}
         <StoreScrollBackground />
@@ -69,10 +69,10 @@ export default function StorePage() {
         {/* Background Ambient Glow */}
         <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 flex justify-start relative z-10">
+        <div className="max-w-7xl mx-auto px-6 w-full flex justify-start relative z-10">
           
-          {/* Free-Floating Left-Aligned Content */}
-          <div className="max-w-3xl space-y-6 text-left flex flex-col items-start">
+          {/* Free-Floating Left-Aligned Content (Compact max-w-xl so astronaut on right is 100% clear) */}
+          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-left flex flex-col items-start">
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
@@ -81,7 +81,7 @@ export default function StorePage() {
             </div>
 
             {/* Interactive Main Heading with Fixed Word Wrapping & Floating Letter Pop */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-[1.2] text-slate-900">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight leading-[1.25] text-slate-900">
               {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
               <br className="hidden sm:inline" />
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
@@ -90,6 +90,7 @@ export default function StorePage() {
           </div>
 
         </div>
+
 
 
       </section>
