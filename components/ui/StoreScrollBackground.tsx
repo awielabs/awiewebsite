@@ -52,25 +52,10 @@ export default function StoreScrollBackground() {
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    // Object-fit: contain implementation (show 100% full frame with zero cropping)
-    const imgRatio = img.width / img.height;
-    const canvasRatio = canvasWidth / canvasHeight;
-
-    let drawWidth = canvasWidth;
-    let drawHeight = canvasHeight;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    if (canvasRatio > imgRatio) {
-      drawWidth = canvasHeight * imgRatio;
-      offsetX = (canvasWidth - drawWidth) / 2;
-    } else {
-      drawHeight = canvasWidth / imgRatio;
-      offsetY = (canvasHeight - drawHeight) / 2;
-    }
-
-    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    // Stretch frame to fill 100% of canvas width & height with full visibility
+    ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
   };
+
 
   // Resize listener
   useEffect(() => {

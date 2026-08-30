@@ -88,16 +88,17 @@ export default function StorePage() {
 
           </div>
 
-          {/* Right Column: AWIE Store Logo Branding (Floating clean logo, no white box) */}
+          {/* Right Column: AWIE Store Logo Branding (Floating clean logo with zero white box) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md">
               <img
                 src="/store-logo.png"
                 alt="AWIE Store"
-                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] filter drop-shadow-[0_10px_25px_rgba(37,99,235,0.4)] transition-all duration-500 group-hover:scale-105"
+                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] mix-blend-multiply filter drop-shadow-[0_10px_25px_rgba(37,99,235,0.4)] transition-all duration-500 group-hover:scale-105"
               />
             </div>
           </div>
+
 
 
         </div>
