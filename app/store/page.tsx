@@ -39,14 +39,14 @@ export default function StorePage() {
   // Helper to render words intact while allowing letter-by-letter hover pop effect
   const renderInteractiveText = (text: string, isHighlighted: boolean = false, prefixKey: string = '') => {
     return text.split(' ').map((word, wIdx) => (
-      <span key={`${prefixKey}-w-${wIdx}`} className="inline-block whitespace-nowrap mr-[0.35em] my-[0.1em]">
+      <span key={`${prefixKey}-w-${wIdx}`} className="inline-block whitespace-nowrap mr-[0.35em] my-[0.1em] align-bottom">
         {word.split('').map((char, cIdx) => (
           <span
             key={`${prefixKey}-c-${wIdx}-${cIdx}`}
-            className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-3 hover:scale-125 ${
+            className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-1 hover:scale-110 ${
               isHighlighted
-                ? 'text-blue-400 hover:text-blue-200 hover:drop-shadow-[0_8px_16px_rgba(96,165,250,0.6)]'
-                : 'text-white hover:text-blue-400 hover:drop-shadow-[0_8px_16px_rgba(37,99,235,0.6)]'
+                ? 'text-[#3B82F6] hover:text-white hover:drop-shadow-[0_6px_14px_rgba(255,255,255,0.8)]'
+                : 'text-white hover:text-[#1D4ED8] hover:drop-shadow-[0_6px_14px_rgba(29,78,216,0.9)]'
             }`}
           >
             {char}
@@ -55,6 +55,7 @@ export default function StorePage() {
       </span>
     ));
   };
+
 
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
