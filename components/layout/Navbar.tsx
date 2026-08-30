@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight, User } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -40,8 +40,7 @@ export default function Navbar() {
     return null;
   }
 
-  // Show Login button ONLY on AWIE Products or AWIE Store pages
-  const showLoginButton = pathname?.startsWith('/products') || pathname?.startsWith('/store');
+
 
   const navLinks = [
     { name: 'Students', href: '/students' },
@@ -114,17 +113,7 @@ export default function Navbar() {
         </div>
 
         {/* Action Buttons */}
-        <div className="hidden sm:flex items-center gap-3">
-          {showLoginButton && (
-            <Link
-              href="/login"
-              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-800 transition-all flex items-center gap-1.5"
-            >
-              <User className="w-3.5 h-3.5 text-[#2563EB]" />
-              <span>Login</span>
-            </Link>
-          )}
-
+        <div className="flex items-center gap-3">
           <Link
             href="/contact"
             className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-1.5"
@@ -133,6 +122,7 @@ export default function Navbar() {
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
+
 
         {/* Mobile Hamburger Toggle */}
         <button
@@ -170,17 +160,6 @@ export default function Navbar() {
           </div>
 
           <div className="pt-4 border-t border-slate-200 flex flex-col gap-2">
-            {showLoginButton && (
-              <Link
-                href="/login"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-xl bg-slate-100 border border-slate-300 text-slate-800 text-xs font-bold text-center flex items-center justify-center gap-2"
-              >
-                <User className="w-4 h-4 text-[#2563EB]" />
-                <span>Client Login</span>
-              </Link>
-            )}
-
             <Link
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
