@@ -57,20 +57,21 @@ export default function StorePage() {
   };
 
   return (
-    <div className="relative bg-slate-50 text-slate-800 pb-20">
-      
-      {/* 24 Video Frames Interactive Scroll Background */}
-      <StoreScrollBackground />
+    <div className="bg-slate-50 text-slate-800 pb-20">
 
       {/* 1. Store Hero Section */}
-      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-32 lg:py-40 overflow-hidden">
+      <section className="relative z-10 border-b border-slate-200/80 py-20 sm:py-32 lg:py-40 overflow-hidden bg-slate-900">
+        {/* 24 Video Frames Interactive Scroll Background (Hero Section Only) */}
+        <StoreScrollBackground />
+
         {/* Background Ambient Glow */}
         <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 flex justify-start">
+        <div className="max-w-7xl mx-auto px-6 flex justify-start relative z-10">
           
           {/* Free-Floating Left-Aligned Content (No box/card) */}
           <div className="max-w-4xl space-y-8 text-left flex flex-col items-start">
+
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/85 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">

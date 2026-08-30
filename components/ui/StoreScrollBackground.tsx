@@ -93,7 +93,7 @@ export default function StoreScrollBackground() {
 
     const updateFrameOnScroll = () => {
       const scrollY = window.scrollY;
-      const heroHeight = window.innerHeight * 1.5;
+      const heroHeight = Math.max(window.innerHeight * 0.8, 400);
 
       const progress = Math.min(Math.max(scrollY / heroHeight, 0), 1);
       const frameIndex = Math.min(
@@ -121,9 +121,11 @@ export default function StoreScrollBackground() {
   }, [loadedCount]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85 transition-opacity duration-700">
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100">
       <canvas ref={canvasRef} className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-slate-50/40 to-slate-50/95" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-slate-50" />
     </div>
   );
 }
+
