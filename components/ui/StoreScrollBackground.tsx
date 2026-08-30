@@ -121,9 +121,9 @@ export default function StoreScrollBackground() {
   }, [loadedCount]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-35 transition-opacity duration-700">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-85 transition-opacity duration-700">
       <canvas ref={canvasRef} className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/70 via-white/50 to-slate-50/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-slate-50/40 to-slate-50/95" />
     </div>
   );
 }

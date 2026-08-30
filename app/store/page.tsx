@@ -67,13 +67,13 @@ export default function StorePage() {
         {/* Background Ambient Glow */}
         <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 flex justify-end">
+        <div className="max-w-7xl mx-auto px-6 flex justify-start">
           
-          {/* Free-Floating Right-Aligned Content */}
-          <div className="max-w-4xl space-y-8 text-right flex flex-col items-end">
+          {/* Free-Floating Left-Aligned Content (No box/card) */}
+          <div className="max-w-4xl space-y-8 text-left flex flex-col items-start">
             
             {/* Top Badge */}
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/80 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/85 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
               <Cpu className="w-4 h-4" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
@@ -86,11 +86,12 @@ export default function StorePage() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-slate-600 text-base sm:text-lg lg:text-xl font-medium leading-relaxed max-w-2xl transition-all duration-300 hover:text-slate-900 hover:-translate-y-1">
+            <p className="text-slate-700 text-base sm:text-lg lg:text-xl font-semibold leading-relaxed max-w-2xl transition-all duration-300 hover:text-slate-900 hover:-translate-y-1">
               Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
             </p>
 
           </div>
+
 
         </div>
       </section>
