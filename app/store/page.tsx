@@ -68,10 +68,10 @@ export default function StorePage() {
         {/* Background Ambient Glow */}
         <div className="absolute top-1/2 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 flex justify-start relative z-10">
           
-          {/* Left Column: Title & Badge */}
-          <div className="lg:col-span-7 space-y-6 text-left flex flex-col items-start">
+          {/* Free-Floating Left-Aligned Content */}
+          <div className="max-w-3xl space-y-6 text-left flex flex-col items-start">
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
@@ -87,19 +87,6 @@ export default function StorePage() {
             </h1>
 
           </div>
-
-          {/* Right Column: AWIE Store Logo Branding (Floating clean logo with zero white box) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative group max-w-xs sm:max-w-sm lg:max-w-md">
-              <img
-                src="/store-logo.png"
-                alt="AWIE Store"
-                className="relative w-full h-auto object-contain max-h-[220px] sm:max-h-[260px] mix-blend-multiply filter drop-shadow-[0_10px_25px_rgba(37,99,235,0.4)] transition-all duration-500 group-hover:scale-105"
-              />
-            </div>
-          </div>
-
-
 
         </div>
 
