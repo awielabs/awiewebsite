@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { STORE_CATEGORIES, STORE_PRODUCTS } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
+import StoreScrollBackground from '@/components/ui/StoreScrollBackground';
 
 export default function StorePage() {
   const { addToCart } = useCart();
@@ -33,68 +34,70 @@ export default function StorePage() {
     'power-battery': BatteryCharging
   };
 
-  const featuredProducts = STORE_PRODUCTS.filter((p) => p.inStock).slice(0, 12);
+  const featuredProducts = STORE_PRODUCTS.filter((p) => p.inStock).slice(0, 10);
+
+  // Helper to render words intact while allowing letter-by-letter hover pop effect
+  const renderInteractiveText = (text: string, isHighlighted: boolean = false, prefixKey: string = '') => {
+    return text.split(' ').map((word, wIdx) => (
+      <span key={`${prefixKey}-w-${wIdx}`} className="inline-block whitespace-nowrap mr-[0.35em] my-[0.1em] align-bottom">
+        {word.split('').map((char, cIdx) => (
+          <span
+            key={`${prefixKey}-c-${wIdx}-${cIdx}`}
+            className={`inline-block transition-all duration-300 ease-out cursor-default select-none hover:-translate-y-1 hover:scale-110 ${
+              isHighlighted
+                ? 'text-[#2563EB] hover:text-slate-900 hover:drop-shadow-[0_6px_14px_rgba(15,23,42,0.5)]'
+                : 'text-slate-900 hover:text-[#2563EB] hover:drop-shadow-[0_6px_14px_rgba(37,99,235,0.7)]'
+            }`}
+          >
+            {char}
+          </span>
+        ))}
+      </span>
+    ));
+  };
+
 
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
-      
-      {/* 1. Store Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-50/80 via-white to-slate-50 border-b border-slate-200 overflow-hidden py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
+      <section className="relative z-10 border-b border-slate-200 pt-12 sm:pt-16 lg:pt-20 pb-32 min-h-[550px] sm:min-h-[640px] flex items-start overflow-hidden bg-white">
+
+        {/* Video Frames Interactive Scroll Background (Hero Section Only) */}
+        <StoreScrollBackground />
+
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/4 right-10 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 blur-[140px] rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 w-full flex justify-end relative z-10">
           
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-              <Cpu className="w-4 h-4 text-[#2563EB]" />
+          {/* Right-Aligned Content (Shifted Upwards into Clear White Space) */}
+          <div className="max-w-md sm:max-w-lg lg:max-w-xl space-y-5 text-right flex flex-col items-end -mt-2 sm:-mt-4 lg:-mt-6">
+
+            
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-blue-200 text-xs font-black text-[#2563EB] shadow-md shadow-blue-900/5 hover:-translate-y-1 hover:bg-[#2563EB] hover:text-white transition-all duration-300">
+              <Cpu className="w-4 h-4" />
               <span>AWIE OFFICIAL ELECTRONICS & HARDWARE STORE</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              Genuine Microcontrollers, Sensors & <span className="text-[#2563EB]">Hardware Components</span>
+            {/* Interactive Main Heading with Clean Line Spacing & Hover Color Effects */}
+            <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-black tracking-tight leading-[1.3] text-slate-900">
+              {renderInteractiveText('Genuine Microcontrollers, Sensors &', false, 'heading-part1')}
+              <br className="hidden sm:inline" />
+              {renderInteractiveText('Hardware Components', true, 'heading-part2')}
             </h1>
 
-            <p className="text-slate-600 text-sm sm:text-base font-medium leading-relaxed max-w-2xl">
-              Verified electronics components, development boards, sensors, and power modules for engineers, makers, and students.
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-2">
-              <a
-                href="#catalog"
-                className="px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center gap-2"
-              >
-                <span>Explore Full Catalog</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-
-              <Link
-                href="/contact?interest=B2B+Bulk+Hardware+Quote"
-                className="px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:border-[#2563EB] text-slate-700 font-extrabold text-xs transition-all shadow-sm flex items-center gap-2"
-              >
-                <span>B2B Bulk Quote</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4 max-w-sm w-full">
-              <div className="w-full h-48 rounded-2xl bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-                <Image
-                  src="/logo.jpeg"
-                  alt="AWIE Electronics Store"
-                  width={140}
-                  height={140}
-                  className="object-contain"
-                />
-              </div>
-              <div className="space-y-1">
-                <span className="text-xs font-extrabold text-[#2563EB] uppercase block">100% Genuine Tested</span>
-                <h3 className="text-lg font-black text-slate-900">Lab Tested Microcontrollers & Modules</h3>
-                <p className="text-xs text-slate-500 font-medium">All components undergo quality check before dispatch.</p>
-              </div>
-            </div>
           </div>
 
         </div>
+
+
+
+
       </section>
+
+
 
       {/* 2. Store Features Row */}
       <section className="py-8 bg-white border-b border-slate-200">
@@ -116,8 +119,8 @@ export default function StorePage() {
           <div className="flex items-center gap-3 p-2">
             <Lock className="w-6 h-6 text-indigo-600 shrink-0" />
             <div>
-              <span className="font-extrabold text-slate-900 block">Secure Checkout</span>
-              <span className="text-slate-500 font-medium">UPI, Cards & Net Banking</span>
+              <span className="font-extrabold text-slate-900 block">Pre-Book & Enquiry</span>
+              <span className="text-slate-500 font-medium">Order via WhatsApp & Email</span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2">

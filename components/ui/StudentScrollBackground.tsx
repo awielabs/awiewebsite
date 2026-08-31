@@ -84,24 +84,28 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
     // Frame aspect ratio
     const imgRatio = img.width / img.height;
 
-    // Draw size: compact & sleek (~46% viewport width or height constrained)
-    let targetWidth = Math.min(cw * 0.46, 680);
+    // Draw size: compact & sleek (~46% viewport width desktop, ~72% mobile)
+    const isMobile = cw < 768;
+    let targetWidth = isMobile ? Math.min(cw * 0.72, 340) : Math.min(cw * 0.46, 680);
     let targetHeight = targetWidth / imgRatio;
 
-    if (targetHeight > ch * 0.68) {
-      targetHeight = ch * 0.68;
+    const maxMobileH = ch * 0.45;
+    const maxDesktopH = ch * 0.68;
+    const maxH = isMobile ? maxMobileH : maxDesktopH;
+
+    if (targetHeight > maxH) {
+      targetHeight = maxH;
       targetWidth = targetHeight * imgRatio;
     }
 
     // Interpolate horizontal position based on alignProgressRef (0 = left, 1 = right)
-    const isMobile = cw < 768;
     const marginX = Math.max(cw * 0.03, 24);
     const leftX = isMobile ? (cw - targetWidth) / 2 : marginX;
     const rightX = isMobile ? (cw - targetWidth) / 2 : cw - targetWidth - marginX;
     const targetX = leftX + (rightX - leftX) * alignProgressRef.current;
     const targetY = (ch - targetHeight) / 2;
 
-    const cornerRadius = 28; // Smooth modern rounded rectangle corners
+    const cornerRadius = isMobile ? 20 : 28; // Smooth modern rounded rectangle corners
 
     // Smooth sequence boundary cross-dissolve fade (fade in at start, fade out near end of part)
     const pProg = partProgressRef.current;
@@ -111,7 +115,8 @@ export default function StudentScrollBackground({ onAlignChange }: StudentScroll
     } else if (pProg > 0.90) {
       fadeAlpha = (1.0 - pProg) / 0.10;
     }
-    fadeAlpha = Math.min(Math.max(fadeAlpha, 0.25), 1.0);
+    const maxAlpha = isMobile ? 0.75 : 1.0;
+    fadeAlpha = Math.min(Math.max(fadeAlpha, 0.25), maxAlpha);
 
     ctx.save();
 

@@ -1,0 +1,58 @@
+============================================================
+AWIE — TERMS & CONDITIONS
+============================================================
+Last updated: August 2026
+Applicable to: All AWIE services, products, and web platform (awie.in)
+Official Contact: awielabs@gmail.com
+============================================================
+
+1. ACCEPTANCE OF TERMS
+By accessing or using the AWIE website (awie.in), AWIE Store, engineering services, hardware products, or student mentorship programs, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree to any of these terms, please discontinue use of our platform immediately.
+
+2. ABOUT AWIE
+AWIE is an engineering studio providing software development, web applications, mobile applications, IoT systems, custom electronics design, PCB development, and student project mentorship. AWIE also operates an online electronics component store at awie.in/store.
+
+3. STORE & PRODUCT ORDERS
+All products listed on the AWIE Store are sourced, tested, and dispatched directly by AWIE. Orders placed through the store are subject to stock availability. AWIE reserves the right to cancel or modify any order in the event of stock unavailability, pricing errors, or verification failure.
+
+All prices displayed are inclusive of applicable GST unless otherwise stated. Shipping charges, if any, will be communicated during order confirmation. Delivery timelines are estimates and may vary based on courier partners and location.
+
+4. PAYMENTS
+AWIE processes payments through Razorpay, a PCI DSS-compliant payment gateway. Accepted payment methods include UPI, credit/debit cards, net banking, and wallets. AWIE does not store any card or financial credentials. All payment data is handled securely by Razorpay.
+
+In the current pre-launch phase, certain orders may be fulfilled through manual bank transfer or UPI, communicated directly via WhatsApp or email.
+
+5. REFUNDS & REPLACEMENTS
+AWIE offers a 7-day replacement policy for defective or damaged components. To initiate a replacement, contact us at awielabs@gmail.com within 7 days of delivery with your order ID and photos of the defective item.
+
+Refunds will be processed to the original payment method within 5-7 business days after replacement eligibility is confirmed. Components that have been physically damaged, modified, or misused are not eligible for refund or replacement.
+
+6. ENGINEERING SERVICES
+All custom engineering project engagements — including software, hardware, IoT, and PCB development — are governed by individual project agreements issued by AWIE. Timelines, deliverables, payment milestones, and intellectual property terms will be defined per project.
+
+AWIE is not liable for project delays caused by client unavailability, incomplete requirements, or third-party infrastructure failures beyond AWIE's control.
+
+7. INTELLECTUAL PROPERTY
+All AWIE-owned products, frameworks, source code, firmware, designs, and brand assets (including AWIE, GEM Buddy) remain the exclusive intellectual property of AWIE and may not be reproduced, resold, or reverse-engineered without prior written consent.
+
+For client-contracted projects, ownership transfer of deliverables will be specified in the individual project agreement.
+
+8. STUDENT MENTORSHIP
+AWIE's student engineering support program is strictly educational and advisory in nature. Students remain individually responsible for understanding, implementing, testing, and defending their own academic work. AWIE does not submit, upload, or directly participate in academic assessments on behalf of students.
+
+9. PRIVACY & DATA
+AWIE collects only the minimum information required to process orders and enquiries — including name, email, phone number, and shipping address. This information is stored securely and never shared with third parties for marketing purposes.
+
+10. LIMITATION OF LIABILITY
+AWIE shall not be held liable for any indirect, incidental, or consequential damages arising from the use of our products, services, or website. AWIE's maximum liability in any claim is limited to the value of the transaction in question.
+
+11. GOVERNING LAW
+These Terms & Conditions are governed by the laws of India. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of courts located in Tamil Nadu, India.
+
+12. CONTACT INFORMATION
+For any questions regarding these Terms & Conditions, orders, or services, please reach out to us at:
+
+Brand: AWIE
+Email: awielabs@gmail.com
+Website: https://awie.in
+============================================================

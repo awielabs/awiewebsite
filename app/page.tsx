@@ -6,105 +6,182 @@ import {
   Smartphone,
   Globe,
   Cpu,
-  Layers,
   ArrowRight,
   CheckCircle2,
   CircuitBoard,
   GraduationCap,
   Sparkles,
   ChevronRight,
-  ShieldCheck,
-  Clock
+  Search,
+  PenTool,
+  Hammer,
+  CheckCheck,
+  RefreshCw,
+  Sliders,
+  Terminal
 } from 'lucide-react';
 import ScrollFrameBackground from '@/components/ui/ScrollFrameBackground';
 
 export default function Home() {
   const whatWeDoCards = [
     {
+      num: '01',
       title: 'Apps',
-      category: 'Mobile & Digital',
-      description: 'Mobile applications and digital experiences crafted for performance, scalability, and intuitive UX.',
+      category: 'Mobile Applications & Digital Products',
+      description: 'Modern mobile applications designed around usability, performance, and dependable data management.',
       icon: Smartphone,
       gradient: 'from-[#2563EB]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#2563EB]',
-      badge: 'iOS & Android',
+      badge: 'MOBILE DEVELOPMENT',
       details: {
-        subtitle: 'Full-Stack Mobile Engineering',
+        subtitle: 'Mobile Capabilities',
         highlights: [
-          'Cross-Platform iOS & Android apps (Flutter / React Native)',
-          'Hardware sync via Bluetooth Low Energy (BLE)',
-          'Real-time cloud sync & offline-first data engines',
-          'Modern UI/UX with smooth micro-interactions'
+          'Cross-platform iOS & Android development',
+          'Flutter & React Native applications',
+          'REST & real-time API integration',
+          'Authentication and role-based access',
+          'Offline-first data handling',
+          'Bluetooth Low Energy (BLE) integration',
+          'Push notifications & background services',
+          'Modern UI/UX and responsive interaction'
         ],
-        techStack: 'Flutter • React Native • BLE • Supabase'
+        techStack: 'Flutter • React Native • Dart • TypeScript • REST APIs • BLE • Supabase'
       }
     },
     {
+      num: '02',
       title: 'Web',
-      category: 'Websites & Systems',
-      description: 'Websites, web applications, and enterprise business systems engineered for reliability.',
+      category: 'Websites, Platforms & Business Systems',
+      description: 'High-performance websites and full-stack applications engineered for businesses, organizations, and digital products.',
       icon: Globe,
       gradient: 'from-[#0284C7]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#0284C7]',
-      badge: 'Full-Stack',
+      badge: 'FULL-STACK DEVELOPMENT',
       details: {
-        subtitle: 'High-Performance Web Platforms',
+        subtitle: 'Web Capabilities',
         highlights: [
-          'Server-rendered & static apps with Next.js 16',
-          'Interactive IoT telemetry & analytics portals',
-          'Enterprise database design & secure APIs',
-          'SEO-engineered, accessible & ultra-fast UX'
+          'Modern responsive websites',
+          'Full-stack web applications',
+          'Server-side & static rendering',
+          'REST APIs & backend services',
+          'Database architecture',
+          'Authentication & authorization',
+          'Admin dashboards & analytics',
+          'SEO, accessibility & performance optimization'
         ],
-        techStack: 'Next.js 16 • TypeScript • Tailwind • PostgreSQL'
+        techStack: 'Next.js • React • TypeScript • Tailwind CSS • Node.js • PostgreSQL • Supabase'
       }
     },
     {
+      num: '03',
       title: 'IoT',
-      category: 'Connected Devices',
-      description: 'Connected devices, environmental monitoring, smart automation, and real-time sensor pipelines.',
+      category: 'IoT, Automation & Sensor Systems',
+      description: 'Connected devices and monitoring systems that collect, process, and communicate real-world data.',
       icon: Cpu,
       gradient: 'from-[#2563EB]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#2563EB]',
-      badge: 'Hardware Sync',
+      badge: 'CONNECTED SYSTEMS',
       details: {
-        subtitle: 'Real-Time Telemetry & Automation',
+        subtitle: 'IoT Capabilities',
         highlights: [
-          'Wireless sensor networks (Wi-Fi, BLE, ESP-NOW, LoRa)',
-          'Low-latency bidirectional MQTT & WebSockets streaming',
-          'Over-the-Air (OTA) remote firmware deployment',
-          'Automated trigger rules & smart actuator control'
+          'Wireless sensor nodes',
+          'Environmental monitoring',
+          'Device-to-device communication',
+          'Wi-Fi, BLE, ESP-NOW & LoRa',
+          'MQTT & WebSocket communication',
+          'Real-time telemetry',
+          'Remote device monitoring',
+          'OTA firmware updates',
+          'Automated triggers & actuator control'
         ],
-        techStack: 'ESP32 • FreeRTOS • MQTT • InfluxDB • Grafana'
+        techStack: 'ESP32 • FreeRTOS • MQTT • WebSockets • InfluxDB • Grafana • Wi-Fi • BLE • LoRa'
       }
     },
     {
+      num: '04',
       title: 'Electronics',
-      category: 'Embedded Engineering',
-      description: 'Embedded systems, custom PCB prototypes, hardware kits, and turnkey electronics solutions.',
+      category: 'PCB Design & Embedded Systems',
+      description: 'From circuit concepts to working prototypes, we develop practical electronics around real hardware requirements.',
       icon: CircuitBoard,
       gradient: 'from-[#6366F1]/10 to-transparent',
       borderColor: 'border-slate-200 hover:border-[#6366F1]',
-      badge: 'Microcontrollers',
+      badge: 'EMBEDDED ENGINEERING',
       details: {
-        subtitle: 'Custom Schematics & Embedded PCB',
+        subtitle: 'Electronics Capabilities',
         highlights: [
-          'Custom multi-layer schematic & precision PCB routing',
-          'Embedded firmware in C/C++, ARM Cortex & STM32',
-          'Analog/digital sensor conditioning & motor drivers',
-          'Bench prototyping through production assembly'
+          'Circuit & schematic design',
+          'Custom PCB development',
+          'Multi-layer PCB layout',
+          'Microcontroller-based systems',
+          'Sensor & actuator interfacing',
+          'Power management & motor control',
+          'Embedded firmware (C/C++, MicroPython)',
+          'Prototype assembly, testing & debugging'
         ],
-        techStack: 'KiCad • STM32 • ESP32 • C/C++ • MicroPython'
+        techStack: 'KiCad • ESP32 • STM32 • ARM Cortex • C/C++ • MicroPython • UART • SPI • I²C'
       }
     }
   ];
 
-  const gemBuddyFeatures = [
-    'OLED Display Face',
-    'ESP32 Microcontroller',
-    'Touch Interaction',
+  const engineeringSteps = [
+    {
+      num: '01',
+      title: 'Understand',
+      sub: 'Requirements • Architecture • Constraints',
+      desc: 'We first define what needs to be built, how it should behave, and what technical constraints need to be considered.',
+      icon: Search
+    },
+    {
+      num: '02',
+      title: 'Design',
+      sub: 'Architecture • Schematics • UI/UX • System Planning',
+      desc: 'We turn the requirements into practical software architecture, hardware designs, interfaces, and implementation plans.',
+      icon: PenTool
+    },
+    {
+      num: '03',
+      title: 'Build',
+      sub: 'Development • PCB • Firmware • Integration',
+      desc: 'Software, firmware, electronics, and physical prototypes are developed according to the project\'s actual requirements.',
+      icon: Hammer
+    },
+    {
+      num: '04',
+      title: 'Test',
+      sub: 'Debugging • Validation • Performance',
+      desc: 'We test functionality, communication, hardware behavior, edge cases, and system performance before considering the solution complete.',
+      icon: CheckCheck
+    },
+    {
+      num: '05',
+      title: 'Refine',
+      sub: 'Optimization • Reliability • Iteration',
+      desc: 'Real-world testing reveals what can be improved. We refine the design until the result is practical and dependable.',
+      icon: RefreshCw
+    }
+  ];
+
+  const gemFeatures = [
+    'OLED Expressive Display',
+    'ESP32 Architecture',
+    'Capacitive Touch',
     'Rechargeable Battery',
     'Wi-Fi Connectivity',
-    'Dynamic LED Moods'
+    'Dynamic RGB Lighting',
+    'Device Control',
+    'Mobile Companion Support'
+  ];
+
+  const studentSupportList = [
+    'Project concept development',
+    'System architecture',
+    'Hardware selection',
+    'Circuit & PCB guidance',
+    'Embedded firmware support',
+    'Web & mobile development',
+    'IoT implementation',
+    'Debugging & testing',
+    'Documentation & technical presentation'
   ];
 
   return (
@@ -125,37 +202,35 @@ export default function Home() {
           {/* Main Hero Header: Official Logobg Brand Logo */}
           <div className="space-y-4 flex flex-col items-center">
 
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-extrabold text-[#2563EB] tracking-wider uppercase">
+              <Sliders className="w-3.5 h-3.5 text-[#2563EB]" />
+              <span>ENGINEERING • SOFTWARE • HARDWARE</span>
+            </div>
+
             {/* Prominent Official Logobg Emblem Display */}
-            <div className="relative py-2 flex justify-center">
+            <div className="relative py-1 flex justify-center">
               <Image
                 src="/logobg.png"
                 alt="AWIE Brand Emblem Logo"
                 width={560}
                 height={360}
-                className="w-auto h-40 sm:h-52 md:h-64 object-contain drop-shadow-md inline-block animate-float hover:scale-105 transition-transform duration-300 select-none cursor-pointer"
+                className="w-auto h-36 sm:h-48 md:h-60 object-contain drop-shadow-md inline-block animate-float hover:scale-105 transition-transform duration-300 select-none cursor-pointer"
                 priority
               />
             </div>
 
-            <p className="text-2xl sm:text-4xl font-black text-[#2563EB] tracking-tight inline-block animate-float-delayed-1 hover:scale-105 transition-transform duration-300 select-none py-1">
+            <h1 className="text-3xl sm:text-5xl font-black text-[#2563EB] tracking-tight inline-block animate-float-delayed-1 hover:scale-105 transition-transform duration-300 select-none py-1">
               Ideas Engineered Into Reality.
+            </h1>
+
+            <p className="text-sm sm:text-base md:text-lg text-slate-700 max-w-4xl mx-auto font-semibold leading-relaxed pt-1 inline-block animate-float-delayed-2 hover:scale-105 transition-transform duration-300 select-none">
+              Building practical technology across <span className="text-slate-900 font-extrabold">Apps • Web • IoT • Electronics</span> — from digital products and business systems to connected devices and custom hardware.
             </p>
 
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-5xl mx-auto font-semibold leading-relaxed pt-1 md:whitespace-nowrap inline-block animate-float-delayed-2 hover:scale-105 transition-transform duration-300 select-none">
-              Building practical technology solutions across <span className="text-slate-900 font-extrabold whitespace-nowrap">APPS • WEB • IoT • ELECTRONICS</span>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+              We design, develop, prototype, and refine technology solutions with a focus on performance, reliability, and real-world usability.
             </p>
-          </div>
-
-          {/* Official Banner Image Display */}
-          <div className="max-w-5xl mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-xl group transition-all duration-300 hover:border-[#2563EB] bg-white mt-4">
-            <Image
-              src="/banner.png"
-              alt="AWIE Banner - Apps, Web, IoT, Electronics"
-              width={1200}
-              height={400}
-              className="w-full h-auto object-cover"
-              priority
-            />
           </div>
 
           {/* Action CTA Buttons */}
@@ -181,9 +256,11 @@ export default function Home() {
       {/* What AWIE Does Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">Core Projects Domains</h2>
-          <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">What AWIE Does</p>
-          <p className="text-slate-600 text-sm font-medium">Four focused pillars of modern digital and hardware engineering. Hover over any domain to inspect capabilities.</p>
+          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">CORE ENGINEERING DOMAINS</h2>
+          <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">Technology Built Around the Problem</p>
+          <p className="text-slate-600 text-sm font-medium leading-relaxed">
+            AWIE works across four focused engineering domains. Each solution is developed around its actual requirements — whether it is a standalone application, a business platform, a connected device, or custom electronics.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -193,7 +270,7 @@ export default function Home() {
             return (
               <div
                 key={card.title}
-                className="group h-[385px] w-full perspective-1000 select-none"
+                className="group h-[400px] w-full perspective-1000 select-none"
               >
                 {/* Flippable 3D Card Inner Wrapper that flips on hover */}
                 <div className="w-full h-full relative transition-transform duration-700 transform-style-3d group-hover-flip">
@@ -207,49 +284,55 @@ export default function Home() {
                         <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB]">
                           <Icon className="w-6 h-6" />
                         </div>
-                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                        <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-slate-100 text-[#2563EB] border border-blue-100 uppercase tracking-wider">
                           {card.badge}
                         </span>
                       </div>
 
                       <div>
+                        <span className="text-xs font-mono font-bold text-slate-400 block mb-0.5">{card.num} —</span>
                         <h3 className="text-2xl font-extrabold text-slate-900 mb-1">
                           {card.title}
                         </h3>
-                        <span className="text-xs text-[#2563EB] font-bold">
+                        <span className="text-xs text-[#2563EB] font-bold block">
                           {card.category}
                         </span>
                       </div>
 
-                      <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                         {card.description}
                       </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#2563EB] relative z-10">
+                      <span>Hover to inspect capabilities</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </div>
                   </div>
 
                   {/* BACK FACE (Dark Theme with rich domain details on hover) */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 p-6 rounded-2xl bg-slate-950 border border-[#2563EB]/70 shadow-2xl shadow-blue-500/25 text-white flex flex-col justify-between overflow-hidden">
+                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 p-5 rounded-2xl bg-slate-950 border border-[#2563EB]/70 shadow-2xl shadow-blue-500/25 text-white flex flex-col justify-between overflow-hidden">
                     {/* Glowing corner gradient accent */}
                     <div className="absolute top-0 right-0 w-36 h-36 bg-[#2563EB]/25 rounded-full blur-2xl pointer-events-none" />
 
-                    <div className="space-y-3 relative z-10">
+                    <div className="space-y-2.5 relative z-10">
                       {/* Back Header */}
-                      <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                      <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                         <div className="flex items-center gap-2">
-                          <Icon className="w-5 h-5 text-blue-400" />
-                          <h4 className="text-base font-black text-white">{card.title} Architecture</h4>
+                          <Icon className="w-4 h-4 text-blue-400" />
+                          <h4 className="text-sm font-black text-white">{card.details.subtitle}</h4>
                         </div>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-800">
+                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-800">
                           {card.badge}
                         </span>
                       </div>
 
                       {/* Capabilities Highlights */}
-                      <div className="space-y-1.5 pt-0.5">
+                      <div className="space-y-1">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-blue-400 block">
-                          Capabilities:
+                          Technical Capabilities:
                         </span>
-                        <ul className="space-y-1.5 text-[11px] text-slate-300">
+                        <ul className="space-y-1 text-[10px] text-slate-300">
                           {card.details.highlights.map((item, idx) => (
                             <li key={idx} className="flex items-start gap-1.5 leading-tight font-medium">
                               <CheckCircle2 className="w-3 h-3 text-blue-400 shrink-0 mt-0.5" />
@@ -260,24 +343,23 @@ export default function Home() {
                       </div>
 
                       {/* Tech Stack Info */}
-                      <div className="pt-2 border-t border-slate-800/80">
-                        <span className="text-[10px] font-bold text-slate-400 block mb-0.5">
-                          Technologies:
+                      <div className="pt-1.5 border-t border-slate-800/80">
+                        <span className="text-[9px] font-bold text-slate-400 block mb-0.5">
+                          Technology:
                         </span>
-                        <span className="text-[11px] font-mono text-blue-300 font-semibold leading-tight block">
+                        <span className="text-[10px] font-mono text-blue-300 font-semibold leading-tight block">
                           {card.details.techStack}
                         </span>
                       </div>
                     </div>
 
                     {/* Back Action CTA Button */}
-                    <div className="pt-2.5 border-t border-slate-800 relative z-10">
+                    <div className="pt-2 border-t border-slate-800 relative z-10">
                       <Link
                         href="/products"
                         className="w-full py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-md shadow-blue-500/25 flex items-center justify-center gap-1.5"
                       >
-                        <span>Explore {card.title} Products</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span>Explore {card.title} →</span>
                       </Link>
                     </div>
                   </div>
@@ -289,8 +371,53 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section: GEM Buddy */}
-      <section className="py-20 px-6 max-w-7xl mx-auto relative z-10">
+      {/* How We Engineer Section */}
+      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <h2 className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">ENGINEERING APPROACH</h2>
+          <p className="text-3xl sm:text-4xl font-extrabold text-slate-900">From Concept to Working System</p>
+          <p className="text-slate-600 text-sm font-medium leading-relaxed">
+            Good engineering is more than making something work once. We design systems that can be tested, improved, maintained, and eventually taken further.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {engineeringSteps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={step.num}
+                className="bg-white border border-slate-200 p-6 rounded-2xl space-y-3 shadow-sm hover:border-[#2563EB] hover:bg-slate-950 hover:text-white hover:shadow-xl hover:translate-y-[-4px] transition-all duration-300 group flex flex-col justify-between"
+              >
+                <div className="space-y-3 relative z-10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-black text-[#2563EB] group-hover:text-blue-400">{step.num} —</span>
+                    <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-800 group-hover:text-blue-400 transition-colors">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-black text-slate-900 group-hover:text-white transition-colors">
+                      {step.title}
+                    </h3>
+                    <span className="text-[10px] font-bold text-slate-400 group-hover:text-slate-400 block mt-0.5 leading-tight">
+                      {step.sub}
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-slate-600 group-hover:text-slate-300 font-medium leading-relaxed transition-colors">
+                    {step.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Featured Product Section: GEM v1 */}
+      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden">
           {/* Glow Backdrop */}
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
@@ -298,28 +425,41 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
                 <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-                <span>LAUNCHING SOON — PRE-BOOKING OPEN SOON</span>
+                <span>AWIE PRODUCT • PROTOTYPE</span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-                GEM v1
-              </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-                An autonomous desktop companion built on ESP32 micro-controller architecture. Features touch interactions, OLED expressive faces, smart lamp control, dynamic mood LED sync, and companion mobile app support.
+              <div>
+                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                  GEM v1
+                </h2>
+                <span className="text-xs sm:text-sm font-bold text-[#2563EB] block mt-1">
+                  Desktop Companion, Engineered for Interaction
+                </span>
+              </div>
+              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
               </p>
 
               {/* Feature Pills */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2">
-                {gemBuddyFeatures.map((feat) => (
-                  <div key={feat} className="flex items-center gap-2 text-xs font-bold text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                {gemFeatures.map((feat) => (
+                  <div key={feat} className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700 bg-white p-2 rounded-xl border border-slate-200">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-4 flex flex-wrap gap-4">
+              {/* Technical Platform */}
+              <div className="pt-2">
+                <span className="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Technical Platform:</span>
+                <span className="text-xs font-mono font-bold text-[#2563EB]">
+                  ESP32 • OLED • Capacitive Touch • Li-ion Power • Wi-Fi • BLE • RGB LEDs
+                </span>
+              </div>
+
+              <div className="pt-2 flex flex-wrap gap-4">
                 <Link
                   href="/products/gem-buddy"
                   className="px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-2"
@@ -352,9 +492,9 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="space-y-1 text-left">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">PHYSICAL HARDWARE PROTOTYPE</span>
+                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE PROTOTYPE</span>
                   <h3 className="text-lg font-black text-slate-900">GEM Desktop Companion</h3>
-                  <p className="text-xs text-slate-500 font-medium">Standard Edition & Biometric Pro Edition coming soon.</p>
+                  <p className="text-xs text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
                 </div>
               </div>
             </div>
@@ -362,7 +502,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Student Mentorship Section */}
+      {/* Student Engineering Support Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden">
           {/* Subtle Ambient Corner Glow on Hover */}
@@ -374,16 +514,29 @@ export default function Home() {
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 group-hover:bg-blue-950 group-hover:border group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-300">
                 <GraduationCap className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
-                <span>STUDENT PROJECT GUIDANCE</span>
+                <span>STUDENT ENGINEERING SUPPORT</span>
               </div>
 
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300 animate-pop-in-out select-none py-1 origin-left inline-block">
-                Academic & Final Year Project Guidance
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">
+                Turn Your Project Idea Into a Working Prototype
               </h2>
 
               <p className="text-slate-600 group-hover:text-slate-300 text-sm sm:text-base leading-relaxed font-medium transition-colors duration-300">
-                We empower computer science, electronics, and engineering students to turn ambitious project concepts into fully functional, high-scoring final year capstones.
+                Technical guidance for computer science, electronics, and engineering students developing academic, final-year, and prototype projects.
               </p>
+
+              {/* Support Includes List */}
+              <div className="pt-2">
+                <span className="text-xs font-extrabold text-slate-400 group-hover:text-blue-400 block mb-2 uppercase tracking-wider">Support includes:</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {studentSupportList.map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-xs font-semibold text-slate-700 group-hover:text-slate-200">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="lg:col-span-4 flex items-center justify-center lg:justify-end">
@@ -391,8 +544,7 @@ export default function Home() {
                 href="/students"
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02] w-full sm:w-auto"
               >
-                <span>Explore Student Mentorship</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Explore Student Guidance →</span>
               </Link>
             </div>
 
@@ -403,24 +555,31 @@ export default function Home() {
       {/* Final Bottom Call-to-Action */}
       <section className="py-20 px-6 max-w-5xl mx-auto text-center space-y-6 relative z-10 border-t border-slate-200">
         <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-          Ready to Build Your Next Solution?
+          Have a Problem Worth Building?
         </h2>
-        <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto font-medium">
-          Whether you need a custom web platform, a mobile application, IoT micro-controller firmware, or genuine electronics hardware components — AWIE is ready.
+        <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+          From a digital product or business platform to an embedded system, IoT device, or custom electronics project — we turn technical requirements into practical solutions.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Link
             href="/contact"
-            className="px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 flex items-center gap-2"
+            className="px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 flex items-center gap-2 w-full sm:w-auto justify-center"
           >
             <span>Start a Project</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
 
           <Link
+            href="/products"
+            className="px-8 py-3.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 font-extrabold text-sm transition-all w-full sm:w-auto justify-center"
+          >
+            <span>Explore AWIE Products</span>
+          </Link>
+
+          <Link
             href="/store"
-            className="px-8 py-3.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 font-extrabold text-sm transition-all"
+            className="px-8 py-3.5 rounded-xl bg-slate-100 border border-slate-300 hover:border-[#2563EB] text-slate-800 font-extrabold text-sm transition-all w-full sm:w-auto justify-center"
           >
             <span>Visit Electronics Store</span>
           </Link>

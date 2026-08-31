@@ -1,0 +1,106 @@
+============================================================
+AWIE STORE — PRODUCT PHOTO LIST (10 per category)
+============================================================
+Provide a photo for each product below.
+Recommended: 800x800px, white/transparent background, PNG/JPG/WebP
+Place all photos in: Website/public/store/products/
+Naming format: [slug].jpg  (e.g. esp32-wroom-32.jpg)
+============================================================
+
+──────────────────────────────────────────────
+CATEGORY 1: MICROCONTROLLERS (10 products)
+──────────────────────────────────────────────
+ 1. ESP32-WROOM-32             → esp32-wroom-32.jpg           (₹299)
+ 2. ESP32 DevKit V1            → esp32-devkit-v1.jpg          (₹349)
+ 3. ESP32-C3 SuperMini         → esp32-c3-supermini.jpg       (₹199)
+ 4. ESP32-C3 Mini              → esp32-c3-mini.jpg            (₹189)
+ 5. ESP32-S3 DevKit            → esp32-s3-devkit.jpg          (₹449)
+ 6. ESP32-CAM                  → esp32-cam.jpg                (₹399)
+ 7. ESP8266 NodeMCU            → esp8266-nodemcu.jpg          (₹219)
+ 8. Arduino UNO R3             → arduino-uno-r3.jpg           (₹399)
+ 9. Arduino Nano               → arduino-nano.jpg             (₹199)
+10. Arduino Mega 2560          → arduino-mega-2560.jpg        (₹749)
+
+──────────────────────────────────────────────
+CATEGORY 2: SENSORS (10 products)
+──────────────────────────────────────────────
+ 1. HC-SR04 Ultrasonic Sensor        → hc-sr04-ultrasonic-sensor.jpg      (₹99)
+ 2. IR Obstacle Sensor               → ir-obstacle-sensor.jpg             (₹49)
+ 3. PIR Motion Sensor                → pir-motion-sensor.jpg              (₹89)
+ 4. LDR Sensor Module                → ldr-sensor-module.jpg              (₹39)
+ 5. DHT11 Temperature & Humidity     → dht11-sensor.jpg                   (₹99)
+ 6. DHT22 Temperature & Humidity     → dht22-sensor.jpg                   (₹249)
+ 7. DS18B20 Temperature Sensor       → ds18b20-temperature-sensor.jpg     (₹119)
+ 8. MQ-2 Gas Sensor                  → mq-2-gas-sensor.jpg                (₹129)
+ 9. MPU-6050 Gyroscope + Accel       → mpu-6050-gyroscope.jpg             (₹149)
+10. SW-420 Vibration Sensor          → sw-420-vibration-sensor.jpg        (₹59)
+
+──────────────────────────────────────────────
+CATEGORY 3: MODULES (10 products)
+──────────────────────────────────────────────
+ 1. 5V Single Channel Relay Module   → relay-5v-single.jpg                (₹69)
+ 2. 5V 4-Channel Relay Module        → relay-5v-4ch.jpg                   (₹149)
+ 3. TP4056 Li-Ion Charger Module     → tp4056-charger.jpg                 (₹49)
+ 4. NRF24L01 Wireless Module         → nrf24l01-wireless.jpg              (₹99)
+ 5. HC-05 Bluetooth Module           → hc-05-bluetooth.jpg                (₹179)
+ 6. NEO-6M GPS Module                → neo-6m-gps.jpg                     (₹599)
+ 7. DS3231 RTC Module                → ds3231-rtc.jpg                     (₹149)
+ 8. PAM8403 Audio Amplifier          → pam8403-audio.jpg                  (₹89)
+ 9. MAX485 RS485 Module              → max485-rs485.jpg                   (₹79)
+10. Logic Level Converter 3.3/5V     → logic-level-converter.jpg          (₹69)
+
+──────────────────────────────────────────────
+CATEGORY 4: DISPLAYS (10 products)
+──────────────────────────────────────────────
+ 1. 0.96" OLED Display 128x64        → oled-096-128x64.jpg               (₹149)
+ 2. 1.3" OLED Display 128x64         → oled-13-128x64.jpg                (₹199)
+ 3. 0.91" OLED Display 128x32        → oled-091-128x32.jpg               (₹129)
+ 4. 2.4" TFT LCD Touch Display       → tft-24-touch.jpg                  (₹349)
+ 5. 3.5" TFT LCD Touch Display       → tft-35-touch.jpg                  (₹699)
+ 6. 16x2 LCD Display (Blue)          → lcd-16x2-blue.jpg                 (₹89)
+ 7. 16x2 LCD with I2C Adapter        → lcd-16x2-i2c.jpg                  (₹119)
+ 8. 20x4 LCD Display with I2C        → lcd-20x4-i2c.jpg                  (₹199)
+ 9. WS2812B LED Strip (30 LED/m)     → ws2812b-led-strip.jpg             (₹249)
+10. 8x8 LED Matrix with MAX7219      → led-matrix-8x8.jpg                (₹199)
+
+──────────────────────────────────────────────
+CATEGORY 5: MOTORS & DRIVERS (10 products)
+──────────────────────────────────────────────
+ 1. SG90 9g Micro Servo Motor        → sg90-servo.jpg                    (₹129)
+ 2. MG996R High Torque Servo         → mg996r-servo.jpg                  (₹299)
+ 3. 28BYJ-48 Stepper + ULN2003       → 28byj48-stepper.jpg               (₹149)
+ 4. NEMA17 Stepper Motor             → nema17-stepper.jpg                (₹599)
+ 5. L298N Dual H-Bridge Driver       → l298n-motor-driver.jpg            (₹149)
+ 6. L293D Motor Driver IC            → l293d-motor-driver.jpg            (₹79)
+ 7. A4988 Stepper Driver Module      → a4988-stepper-driver.jpg          (₹199)
+ 8. DRV8825 Stepper Driver           → drv8825-stepper-driver.jpg        (₹249)
+ 9. 300RPM DC Gear Motor             → dc-gear-motor-300rpm.jpg          (₹199)
+10. Smart Robot Car Chassis (2WD)    → robot-chassis-2wd.jpg             (₹499)
+
+──────────────────────────────────────────────
+CATEGORY 6: POWER & BATTERY (10 products)
+──────────────────────────────────────────────
+ 1. Samsung 18650 Li-Ion Cell 3.7V   → samsung-18650-cell.jpg            (₹299)
+ 2. 3.7V 2000mAh Li-Po Battery       → lipo-3v7-2000mah.jpg              (₹299)
+ 3. 3.7V 6000mAh Li-Ion Pack         → liion-6000mah-pack.jpg            (₹599)
+ 4. 3S BMS 11.1V Protection Board    → bms-3s-protection.jpg             (₹149)
+ 5. TP4056 Micro USB Charger w/ BMS  → tp4056-bms-charger.jpg            (₹69)
+ 6. LM2596 Buck Converter            → lm2596-buck-converter.jpg         (₹99)
+ 7. MT3608 Boost Converter           → mt3608-boost-converter.jpg        (₹79)
+ 8. 18650 Battery Holder (2-Cell)    → 18650-holder-2cell.jpg            (₹79)
+ 9. DC Barrel Jack (Male + Female)   → dc-barrel-jack.jpg                (₹49)
+10. Rocker Switch SPST 250V          → rocker-switch-spst.jpg            (₹39)
+
+============================================================
+PHOTO REQUIREMENTS
+============================================================
+- Format: JPG or PNG (WebP also accepted)
+- Size: 800x800px recommended
+- Background: White or transparent preferred
+- Naming: Use EXACTLY the filename listed (slug.jpg)
+- Folder: Place all in Website/public/store/products/
+
+After placing photos, tell Antigravity to update
+the image paths in lib/storeData.ts from the
+current /store/*.svg to /store/products/[slug].jpg
+============================================================

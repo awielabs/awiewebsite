@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Send, CheckCircle2, AlertCircle, Mail, MapPin, ChevronDown, Check, Code2, Smartphone, Cpu, Zap, Terminal, Sparkles, User, Phone, MessageSquare } from 'lucide-react';
+import ContactScrollBackground from '@/components/ui/ContactScrollBackground';
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -17,9 +18,18 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-function ContactFormContent() {
+function ContactFormContent({ 
+  onTypingChange,
+  onKeystroke 
+}: { 
+  onTypingChange: (v: boolean) => void;
+  onKeystroke: () => void;
+}) {
   const searchParams = useSearchParams();
   const initialService = searchParams.get('interest') || 'Web Development';
+
+  const handleFocus = useCallback(() => onTypingChange(true), [onTypingChange]);
+  const handleBlur = useCallback(() => onTypingChange(false), [onTypingChange]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -67,6 +77,7 @@ function ContactFormContent() {
   const SelectedIcon = selectedService.icon;
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onKeystroke();
     const text = e.target.value;
     const words = text.trim() ? text.trim().split(/\s+/) : [];
     if (words.length > MAX_WORDS) {
@@ -159,7 +170,12 @@ function ContactFormContent() {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, name: e.target.value });
+                  }}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   placeholder="Your full name"
                   className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 group-hover:bg-slate-950 group-hover:border-slate-800 group-hover:text-white group-hover:placeholder-slate-500 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/25 focus:bg-white group-hover:focus:bg-slate-950 transition-all font-medium shadow-sm"
                 />
@@ -180,7 +196,12 @@ function ContactFormContent() {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, email: e.target.value });
+                  }}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   placeholder="yourname@domain.com"
                   className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 group-hover:bg-slate-950 group-hover:border-slate-800 group-hover:text-white group-hover:placeholder-slate-500 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/25 focus:bg-white group-hover:focus:bg-slate-950 transition-all font-medium shadow-sm"
                 />
@@ -203,7 +224,12 @@ function ContactFormContent() {
                 <input
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) => {
+                    onKeystroke();
+                    setFormData({ ...formData, phone: e.target.value });
+                  }}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
                   placeholder="+1 or +91 phone number"
                   className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 group-hover:bg-slate-950 group-hover:border-slate-800 group-hover:text-white group-hover:placeholder-slate-500 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/25 focus:bg-white group-hover:focus:bg-slate-950 transition-all font-medium shadow-sm"
                 />
@@ -306,6 +332,8 @@ function ContactFormContent() {
               rows={5}
               value={formData.message}
               onChange={handleMessageChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Describe your project goals, key requirements, technical challenges, or timeline (Maximum 300 words)..."
               className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder-slate-400 group-hover:bg-slate-950 group-hover:border-slate-800 group-hover:text-white group-hover:placeholder-slate-500 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/25 focus:bg-white group-hover:focus:bg-slate-950 transition-all resize-none font-medium leading-relaxed shadow-sm"
             />
@@ -333,13 +361,17 @@ function ContactFormContent() {
 }
 
 export default function ContactPage() {
+  const [isTyping, setIsTyping] = useState(false);
+  const [keystrokeCount, setKeystrokeCount] = useState(0);
+
+  const handleKeystroke = useCallback(() => {
+    setKeystrokeCount((c) => c + 1);
+  }, []);
+
   return (
     <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
-      {/* Light Circuit Grid Background Pattern */}
-      <div className="bg-grid-pattern opacity-80" />
-
-      {/* Subtle Ambient Top Glow */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-gradient-to-b from-[#2563EB]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Scroll-driven call animation background */}
+      <ContactScrollBackground isTyping={isTyping} keystrokeCount={keystrokeCount} />
 
       <div className="max-w-7xl mx-auto px-6 space-y-16 relative z-10">
         
@@ -443,7 +475,7 @@ export default function ContactPage() {
           {/* Right Contact Form in Suspense */}
           <div className="lg:col-span-7">
             <Suspense fallback={<div className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl text-center text-xs text-slate-500">Loading form...</div>}>
-              <ContactFormContent />
+              <ContactFormContent onTypingChange={setIsTyping} onKeystroke={handleKeystroke} />
             </Suspense>
           </div>
 

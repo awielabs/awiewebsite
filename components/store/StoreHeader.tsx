@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ShoppingBag, User, ChevronDown, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, ChevronDown, Menu, X } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
 
@@ -106,13 +106,6 @@ export default function StoreHeader() {
             <span className="hidden sm:inline">Cart</span>
           </button>
 
-          {/* User Profile Button */}
-          <Link
-            href="/login"
-            className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-          >
-            <User className="w-4 h-4" />
-          </Link>
 
           {/* Mobile Drawer Trigger */}
           <button
