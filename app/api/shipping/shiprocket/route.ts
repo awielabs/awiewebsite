@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 const SHIPROCKET_API_BASE = 'https://apiv2.shiprocket.in/v1/external';
 const SHIPROCKET_EMAIL = process.env.SHIPROCKET_EMAIL || 'shovinmicheldavidxc@gmail.com';
-const SHIPROCKET_PASSWORD = process.env.SHIPROCKET_PASSWORD || 'g%^m^%5yx!tlMcEs16%@PEDL48OZUP$R';
+const SHIPROCKET_PASSWORD = process.env.SHIPROCKET_PASSWORD || '6%0hM24nfgj%Xp7jE^%GKDwXCTA!70cT';
 const DEFAULT_PICKUP_PINCODE = '400706'; // Nerul, Navi Mumbai
 
 // In-memory token cache
