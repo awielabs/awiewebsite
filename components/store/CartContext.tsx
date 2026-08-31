@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import RazorpayCheckoutButton from './RazorpayCheckoutButton';
 import { ShoppingBag, X, Plus, Minus, Trash2, ArrowRight, CheckCircle2, ShieldCheck, Truck } from 'lucide-react';
 import { Product } from '@/lib/storeData';
 
@@ -245,13 +246,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleCheckout}
-                    className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2"
-                  >
-                    <span>Proceed to Pre-Order / Checkout</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  <RazorpayCheckoutButton
+                    amountInRupees={subtotal}
+                    buttonText={`Pay ₹${subtotal.toLocaleString()} via Razorpay`}
+                    onSuccess={(details) => {
+                      handleCheckout();
+                    }}
+                  />
+
 
                   <div className="flex justify-around pt-2 text-[10px] text-slate-500 border-t border-slate-200">
                     <span className="flex items-center gap-1">
