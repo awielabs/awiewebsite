@@ -67,7 +67,8 @@ export default function RazorpayCheckoutButton({
         throw new Error('Razorpay SDK script failed to load. Please check your internet connection.');
       }
 
-      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_TWNfk2GxuVeJCD';
+      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_TWO8VUNaNB8s92';
+
 
       // 4. Configure Razorpay Standard Checkout options
       const options = {
