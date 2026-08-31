@@ -54,21 +54,54 @@ export default function StoreFooter() {
         </div>
 
         {/* Links & Copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div className="flex items-center gap-3">
-            <Image src="/store-logo.png" alt="AWIE STORE Logo" width={130} height={38} className="h-8 w-auto object-contain" />
-            <span>— Electronics. Modules. Kits.</span>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pt-4 text-xs text-slate-500">
+          <div className="space-y-2 md:col-span-1">
+            <div className="flex items-center gap-2">
+              <Image src="/store-logo.png" alt="AWIE STORE Logo" width={120} height={35} className="h-7 w-auto object-contain" />
+            </div>
+            <p className="text-[11px] leading-relaxed text-slate-500">
+              AWIE Store — Genuine Microcontrollers, Sensors & Hardware Components. Udyam Registered Micro Enterprise.
+            </p>
           </div>
 
-          <div className="flex items-center gap-6">
-            <Link href="/" className="hover:text-[#2563EB]">Main Website</Link>
-            <Link href="/privacy" className="hover:text-[#2563EB]">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-[#2563EB]">Terms of Service</Link>
-            <Link href="/refund" className="hover:text-[#2563EB]">Refund Policy</Link>
+          <div>
+            <h5 className="font-extrabold text-slate-900 uppercase tracking-wider text-[11px] mb-2.5">Legal Policies</h5>
+            <ul className="space-y-1.5 font-medium">
+              <li><Link href="/terms" className="hover:text-[#2563EB]">Terms & Conditions</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#2563EB]">Privacy Policy</Link></li>
+              <li><Link href="/refund" className="hover:text-[#2563EB]">Refund & Cancellation</Link></li>
+              <li><Link href="/shipping" className="hover:text-[#2563EB]">Shipping & Delivery</Link></li>
+              <li><Link href="/store-terms" className="hover:text-[#2563EB]">AWIE Store Terms</Link></li>
+            </ul>
           </div>
 
-          <p>© {new Date().getFullYear()} AWIE Store (awie.in)</p>
+          <div>
+            <h5 className="font-extrabold text-slate-900 uppercase tracking-wider text-[11px] mb-2.5">Services & Support</h5>
+            <ul className="space-y-1.5 font-medium">
+              <li><Link href="/services-terms" className="hover:text-[#2563EB]">Technology Services</Link></li>
+              <li><Link href="/student-terms" className="hover:text-[#2563EB]">Student Projects</Link></li>
+              <li><Link href="/repair-policy" className="hover:text-[#2563EB]">Product Service & Repair</Link></li>
+              <li><Link href="/contact" className="hover:text-[#2563EB]">Contact Us</Link></li>
+              <li><Link href="/grievance" className="hover:text-[#2563EB]">Grievance Redressal</Link></li>
+            </ul>
+          </div>
+
+          <div className="space-y-2">
+            <h5 className="font-extrabold text-slate-900 uppercase tracking-wider text-[11px] mb-2.5">Contact AWIE</h5>
+            <p className="text-[11px] text-slate-600 font-mono">awielabs@gmail.com</p>
+            <p className="text-[11px] text-slate-500">Navi Mumbai, Maharashtra – 400706, India</p>
+            <Link href="/" className="inline-block pt-1 font-bold text-[#2563EB] hover:underline">
+              ← Return to AWIE Main Site
+            </Link>
+          </div>
         </div>
+
+        <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+          <p>© {new Date().getFullYear()} AWIE. All rights reserved.</p>
+          <p>Udyam Registered Micro Enterprise</p>
+        </div>
+
+
 
       </div>
     </footer>

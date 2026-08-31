@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function TermsPage() {
   return (
     <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen">
@@ -7,70 +9,93 @@ export default function TermsPage() {
 
         {/* Header */}
         <div className="border-b border-slate-200 pb-6 space-y-2">
-          <span className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">LEGAL</span>
+          <span className="text-xs font-extrabold text-[#2563EB] uppercase tracking-widest">LEGAL POLICY</span>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900">Terms & Conditions</h1>
-          <p className="text-xs text-slate-500 font-medium">Last updated: August 2026 · Applicable to all AWIE services and products</p>
+          <p className="text-xs text-slate-500 font-medium">
+            Effective Date: August 2026 · Last Updated: August 2026
+          </p>
         </div>
 
         <div className="space-y-8 text-sm leading-relaxed text-slate-700">
 
           {/* 1 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">1. Acceptance of Terms</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">1. About AWIE</h2>
             <p>
-              By accessing or using the AWIE website (<strong>awie.in</strong>), AWIE Store, engineering services, hardware products, or student mentorship programs, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree to any of these terms, please discontinue use of our platform immediately.
+              AWIE is a proprietary enterprise operating as a technology and electronics business. AWIE provides technology development services, student project development and technical support, AWIE-developed products, and electronics/components through AWIE Store.
             </p>
+            <p>
+              AWIE is registered under the Udyam Registration framework as a Micro Enterprise.
+            </p>
+            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 font-mono text-xs text-slate-800 space-y-1 my-2">
+              <p><strong>Enterprise Name:</strong> AWIE</p>
+              <p><strong>Udyam Registration Number:</strong> UDYAM-MH-33-0820594</p>
+              <p><strong>Official Email:</strong> awielabs@gmail.com</p>
+            </div>
           </section>
 
           {/* 2 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">2. About AWIE</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">2. Acceptance</h2>
             <p>
-              AWIE is an engineering studio providing software development, web applications, mobile applications, IoT systems, custom electronics design, PCB development, and student project mentorship. AWIE also operates an online electronics component store at <strong>awie.in/store</strong>.
+              By accessing or using the AWIE website, creating an account, submitting an enquiry, purchasing a product, or engaging AWIE for services, you agree to these Terms and the policies linked from this website.
+            </p>
+            <p>
+              If you do not agree, please do not use the relevant service.
             </p>
           </section>
 
           {/* 3 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">3. Store & Product Orders</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">3. AWIE Services</h2>
             <p>
-              All products listed on the AWIE Store are sourced, tested, and dispatched directly by AWIE. Orders placed through the store are subject to stock availability. AWIE reserves the right to cancel or modify any order in the event of stock unavailability, pricing errors, or verification failure.
+              AWIE may provide:
             </p>
+            <ul className="list-disc pl-5 space-y-1 text-slate-600">
+              <li>Web development</li>
+              <li>Mobile application development</li>
+              <li>Software development</li>
+              <li>AI integration</li>
+              <li>IoT development</li>
+              <li>Embedded systems</li>
+              <li>Electronics development & PCB prototyping</li>
+              <li>Automation & System integration</li>
+              <li>Software support and maintenance</li>
+              <li>Technical consulting</li>
+              <li>Student project development and support</li>
+            </ul>
             <p>
-              All prices displayed are inclusive of applicable GST unless otherwise stated. Shipping charges, if any, will be communicated during order confirmation. Delivery timelines are estimates and may vary based on courier partners and location.
+              The actual scope, price, timeline and deliverables are determined by the applicable quotation, proposal, project agreement or order.
             </p>
           </section>
 
           {/* 4 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">4. Payments</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">4. Project Enquiries</h2>
             <p>
-              AWIE processes payments through <strong>Razorpay</strong>, a PCI DSS–compliant payment gateway. Accepted payment methods include UPI, credit/debit cards, net banking, and wallets. AWIE does not store any card or financial credentials. All payment data is handled securely by Razorpay.
+              Submitting a project enquiry does not automatically create a contract or guarantee that AWIE will accept the project. AWIE may review requirements, technical feasibility, budget, resources, timeline, complexity, and availability.
             </p>
             <p>
-              In the current pre-launch phase, certain orders may be fulfilled through manual bank transfer or UPI, communicated directly via WhatsApp or email.
+              A project becomes binding only after the applicable commercial terms are accepted and any required payment is received.
             </p>
           </section>
 
           {/* 5 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">5. Refunds & Replacements</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">5. Pricing</h2>
             <p>
-              AWIE offers a <strong>7-day replacement policy</strong> for defective or damaged components. To initiate a replacement, contact us at <strong>awielabs@gmail.com</strong> within 7 days of delivery with your order ID and photos of the defective item.
-            </p>
-            <p>
-              Refunds will be processed to the original payment method within 5–7 business days after replacement eligibility is confirmed. Components that have been physically damaged, modified, or misused are not eligible for refund or replacement.
+              Prices shown on the website may change without prior notice unless a price has already been confirmed in an accepted quotation, order or agreement. Additional work outside the agreed scope may result in additional charges.
             </p>
           </section>
 
           {/* 6 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">6. Engineering Services</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">6. Payments</h2>
             <p>
-              All custom engineering project engagements — including software, hardware, IoT, and PCB development — are governed by individual project agreements issued by AWIE. Timelines, deliverables, payment milestones, and intellectual property terms will be defined per project.
+              Payments may be made through the payment methods made available by AWIE, including third-party payment processors such as Razorpay.
             </p>
             <p>
-              AWIE is not liable for project delays caused by client unavailability, incomplete requirements, or third-party infrastructure failures beyond AWIE's control.
+              AWIE does not store customers' complete card, UPI, banking or payment-instrument credentials on its own systems. Payment processing is subject to the terms and privacy policies of the applicable payment provider.
             </p>
           </section>
 
@@ -78,56 +103,103 @@ export default function TermsPage() {
           <section className="space-y-2">
             <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">7. Intellectual Property</h2>
             <p>
-              All AWIE-owned products, frameworks, source code, firmware, designs, and brand assets (including AWIE, GEM Buddy) remain the exclusive intellectual property of AWIE and may not be reproduced, resold, or reverse-engineered without prior written consent.
+              Unless otherwise agreed in writing, AWIE retains ownership of AWIE's pre-existing software, frameworks, libraries, reusable components, templates, tools, internal systems, development methods, technical know-how, generic modules, pre-existing designs, and AWIE branding.
             </p>
             <p>
-              For client-contracted projects, ownership transfer of deliverables will be specified in the individual project agreement.
+              Client-specific deliverables and ownership/licensing arrangements will be governed by the applicable quotation, project agreement or written confirmation. Where a project specifically provides for transfer of ownership of custom-developed deliverables, such transfer will generally take effect only after full payment of the applicable project fees.
+            </p>
+            <p>
+              Third-party software, APIs, libraries, fonts, datasets, platforms and other components remain subject to their respective licenses and terms.
             </p>
           </section>
 
           {/* 8 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">8. Student Mentorship</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">8. Client Materials</h2>
             <p>
-              AWIE's student engineering support program is strictly educational and advisory in nature. Students remain individually responsible for understanding, implementing, testing, and defending their own academic work. AWIE does not submit, upload, or directly participate in academic assessments on behalf of students.
+              The client remains responsible for ensuring that any content, images, data, trademarks, documents, code or other materials supplied to AWIE may legally be used. The client grants AWIE the permission necessary to use those materials for performing the agreed services.
             </p>
           </section>
 
           {/* 9 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">9. Privacy & Data</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">9. Confidentiality</h2>
             <p>
-              AWIE collects only the minimum information required to process orders and enquiries — including name, email, phone number, and shipping address. This information is stored securely and never shared with third parties for marketing purposes. For details, refer to our <a href="/privacy" className="text-[#2563EB] font-bold underline underline-offset-2">Privacy Policy</a>.
+              AWIE will take reasonable measures to protect confidential information received from clients. Confidential information does not include information that is publicly available, was already lawfully known, is independently developed, is lawfully received from another source, or must be disclosed by law or lawful authority.
             </p>
           </section>
 
           {/* 10 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">10. Limitation of Liability</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">10. Changes to Projects</h2>
             <p>
-              AWIE shall not be held liable for any indirect, incidental, or consequential damages arising from the use of our products, services, or website. AWIE's maximum liability in any claim is limited to the value of the transaction in question.
+              Changes to requirements after approval may affect cost, timeline, deliverables, and technical implementation. Additional work may be quoted separately.
             </p>
           </section>
 
           {/* 11 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">11. Governing Law</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">11. Delivery and Acceptance</h2>
             <p>
-              These Terms & Conditions are governed by the laws of India. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of courts located in Tamil Nadu, India.
+              Deliverables will be provided according to the agreed project scope and delivery arrangement. The client is responsible for reviewing delivered work and reporting material issues within a reasonable period.
             </p>
           </section>
 
           {/* 12 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">12. Contact</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">12. Third-Party Services</h2>
             <p>
-              For any questions regarding these Terms & Conditions, orders, or services, please reach out to us at:
+              AWIE may use third-party services such as cloud hosting, payment gateways, APIs, AI services, software libraries, domain providers, and communication services. Third-party services are subject to their own terms, availability and pricing.
             </p>
-            <div className="mt-2 p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium space-y-1">
-              <p><strong>AWIE</strong></p>
-              <p>Email: <a href="mailto:awielabs@gmail.com" className="text-[#2563EB] font-bold">awielabs@gmail.com</a></p>
-              <p>Website: <a href="https://awie.in" className="text-[#2563EB] font-bold">awie.in</a></p>
-            </div>
+          </section>
+
+          {/* 13, 14, 15 */}
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">13. Student Projects, Products & Store Policies</h2>
+            <p>
+              Student projects are governed additionally by the <Link href="/student-terms" className="text-[#2563EB] font-bold underline">Student Project Terms</Link>.
+            </p>
+            <p>
+              Products developed or branded by AWIE are governed by the applicable product page and <Link href="/repair-policy" className="text-[#2563EB] font-bold underline">Product Service & Repair Policy</Link>.
+            </p>
+            <p>
+              Third-party electronics/components sold through AWIE Store are governed by the <Link href="/store-terms" className="text-[#2563EB] font-bold underline">AWIE Store Terms</Link> and applicable product-specific conditions.
+            </p>
+          </section>
+
+          {/* 16 */}
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">14. Account Credentials & Security</h2>
+            <p>
+              Users are responsible for maintaining the confidentiality of their account credentials. Users must provide accurate information and must not misuse another person's account. AWIE may suspend or terminate accounts where necessary for security, fraud prevention, legal compliance or violation of these Terms.
+            </p>
+          </section>
+
+          {/* 17 */}
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">15. Website Use</h2>
+            <p>
+              You must not attempt unauthorized access, introduce malicious software, scrape or abuse the website, interfere with website operation, misrepresent your identity, or use AWIE systems for unlawful activity.
+            </p>
+          </section>
+
+          {/* 18, 19 */}
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">16. Disclaimer & Limitation of Liability</h2>
+            <p>
+              AWIE makes reasonable efforts to provide accurate information, but website information may contain errors, omissions or changes. Technical services and products are subject to feasibility, availability and applicable third-party dependencies.
+            </p>
+            <p>
+              To the extent permitted by applicable law, AWIE will not be responsible for indirect, incidental, special or consequential losses arising from use of the website, products or services. Nothing in these Terms excludes liability that cannot legally be excluded.
+            </p>
+          </section>
+
+          {/* 20, 21 */}
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">17. Governing Law & Updates</h2>
+            <p>
+              These Terms are governed by the laws applicable in India. AWIE may update these Terms from time to time. The latest version published on the website will apply to future use, subject to applicable law and any contractual rights already established.
+            </p>
           </section>
 
         </div>

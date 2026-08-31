@@ -452,25 +452,26 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-200 group-hover:bg-slate-950/80 group-hover:border-slate-800 transition-all duration-300">
+                <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-50 border border-slate-200 group-hover:bg-slate-950/80 group-hover:border-slate-800 transition-all duration-300">
                   <div className="p-2.5 rounded-xl bg-emerald-100/80 text-emerald-600 group-hover:bg-emerald-950 group-hover:border group-hover:border-emerald-700/60 group-hover:text-emerald-400 transition-all duration-300 shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
-                  <div>
-                    <span className="text-slate-500 group-hover:text-slate-400 block text-[11px] font-semibold transition-colors duration-300">Official Domain</span>
-                    <a 
-                      href="https://awie.in" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-slate-900 group-hover:text-white font-mono font-bold text-xs hover:text-[#2563EB] transition-colors"
-                    >
-                      awie.in
-                    </a>
+                  <div className="space-y-1">
+                    <span className="text-slate-500 group-hover:text-slate-400 block text-[11px] font-semibold transition-colors duration-300">Registered Business Address</span>
+                    <p className="text-slate-900 group-hover:text-white font-sans font-bold text-xs leading-tight">
+                      AWIE Micro Enterprise
+                    </p>
+
+                    <p className="text-[11px] text-slate-500 group-hover:text-slate-400 leading-snug">
+                      Nerul, Navi Mumbai, Maharashtra – 400706, India
+                    </p>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/* Right Contact Form in Suspense */}
           <div className="lg:col-span-7">

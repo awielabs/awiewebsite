@@ -144,40 +144,66 @@ export default function StorePage() {
           {STORE_CATEGORIES.map((cat) => {
             const IconComp = categoryIcons[cat.slug] || Cpu;
             const categoryCount = STORE_PRODUCTS.filter(p => p.categorySlug === cat.slug).length;
+            const categoryImages: Record<string, string> = {
+              'microcontrollers': '/categories/microcontrollers.png',
+              'sensors': '/categories/sensors.png',
+              'modules': '/categories/modules.png',
+              'displays': '/categories/displays.png',
+              'motors-drivers': '/categories/motors-drivers.png',
+              'power-battery': '/categories/power-battery.png',
+            };
+            const catImage = categoryImages[cat.slug];
 
             return (
               <Link
                 key={cat.id}
                 href={`/store/category/${cat.slug}`}
-                className="group p-6 rounded-3xl bg-white border border-slate-200 hover:border-[#2563EB] shadow-sm hover:shadow-xl transition-all flex flex-col justify-between space-y-4"
+                className="group relative p-6 rounded-3xl bg-white border border-slate-200 hover:border-slate-700 hover:bg-slate-900 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between space-y-4 overflow-visible"
               >
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white transition-colors">
+                {/* Floating Category Image — pops out of card container on hover */}
+                {catImage && (
+                  <div className="absolute -right-3 -bottom-3 pointer-events-none opacity-0 group-hover:opacity-100 translate-y-4 group-hover:-translate-y-2 scale-90 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 ease-out z-20">
+                    <img
+                      src={catImage}
+                      alt={cat.name}
+                      className="h-[140px] sm:h-[155px] w-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.5)]"
+                      style={{ animation: 'float 3s ease-in-out infinite' }}
+                    />
+                  </div>
+                )}
+
+
+                {/* Icon & Count Row */}
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white group-hover:border-transparent transition-all duration-300">
                     <IconComp className="w-6 h-6" />
                   </div>
-                  <span className="text-xs font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full font-mono">
+                  <span className="text-xs font-bold text-slate-400 group-hover:text-slate-300 bg-slate-100 group-hover:bg-slate-700 px-2.5 py-1 rounded-full font-mono transition-colors duration-300">
                     {categoryCount} Products
                   </span>
                 </div>
 
-                <div className="space-y-1">
-                  <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors">
+                {/* Text */}
+                <div className="space-y-1 relative z-10">
+                  <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-white transition-colors duration-300">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-slate-500 font-medium line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-500 group-hover:text-slate-400 font-medium line-clamp-2 leading-relaxed transition-colors duration-300">
                     {cat.description}
                   </p>
                 </div>
 
-                <div className="pt-2 flex items-center gap-1 text-xs font-bold text-[#2563EB]">
+                {/* CTA Arrow */}
+                <div className="pt-2 flex items-center gap-1 text-xs font-bold text-[#2563EB] group-hover:text-blue-400 relative z-10">
                   <span>Browse Category</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </Link>
             );
           })}
         </div>
       </section>
+
 
       {/* 4. Featured Hardware Catalog */}
       <section className="py-12 max-w-7xl mx-auto px-6 space-y-8 border-t border-slate-200">
