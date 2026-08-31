@@ -101,9 +101,15 @@ export default function GemBuddyPage() {
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="space-y-3 text-center lg:text-left relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-              <Sparkles className="w-4 h-4 text-[#2563EB]" />
-              <span>AWIE OWN-MADE PRODUCT LINEUP</span>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+                <Sparkles className="w-4 h-4 text-[#2563EB]" />
+                <span>AWIE OWN-MADE PRODUCT LINEUP</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-extrabold shadow-sm">
+                <Clock className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+                <span>COMING SOON: Are you waiting for something?</span>
+              </div>
             </div>
             <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
               GEM <span className="text-[#2563EB]">Buddy</span>
@@ -112,6 +118,7 @@ export default function GemBuddyPage() {
               Interactive ESP32 desktop companion featuring animated OLED expressions, 4 White LED ambient lights, piezo audio buzzer, and companion app telemetry.
             </p>
           </div>
+
 
           {/* Version Selector Tabs */}
           <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shrink-0 relative z-10">
