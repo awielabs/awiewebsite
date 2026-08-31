@@ -425,17 +425,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-                  <span>AWIE PRODUCT • PROTOTYPE</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-900 text-white text-xs font-extrabold shadow-sm">
-                  <Terminal className="w-3 h-3 text-blue-400 animate-pulse" />
-                  <span>COMING SOON: Are you waiting for something?</span>
-                </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
+                <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
+                <span>AWIE PRODUCT • PROTOTYPE</span>
               </div>
-
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
                   GEM v1

@@ -51,10 +51,7 @@ export default function ProductsPage() {
                   <Zap className="w-3.5 h-3.5" />
                   <span>STANDARD EDITION</span>
                 </div>
-                <div className="text-right">
-                  <span className="text-xs font-black text-[#2563EB] tracking-wider uppercase block">COMING SOON</span>
-                  <span className="text-[11px] font-bold text-slate-500 block">Are you waiting for something?</span>
-                </div>
+                <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
               <h2 className="text-3xl font-black text-slate-900">GEM v1</h2>
@@ -94,12 +91,8 @@ export default function ProductsPage() {
                   <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
                   <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
-                <div className="text-right">
-                  <span className="text-xs font-black text-rose-400 tracking-wider uppercase block">COMING SOON</span>
-                  <span className="text-[11px] font-bold text-rose-300/80 block">Are you waiting for something?</span>
-                </div>
+                <span className="text-xs font-bold text-rose-400">PRE-BOOKING OPEN SOON</span>
               </div>
-
 
               <h2 className="text-3xl font-black text-white">GEM v2 Pro</h2>
               <p className="text-rose-400 text-sm font-bold">Biometric Telemetry, Audio Buzzer, IR Motion & 1500mAh</p>

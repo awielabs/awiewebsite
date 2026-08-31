@@ -191,8 +191,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                         <h4 className="text-xs font-bold text-slate-900 line-clamp-2">{product.name}</h4>
                         <span className="text-[10px] font-mono text-slate-500 block">{product.sku}</span>
                         <div className="flex items-center justify-between pt-1">
-                          <span className="text-sm font-extrabold text-[#2563EB]">
-                            ₹{product.price.toLocaleString()}
+                          <span className="text-[11px] font-bold text-[#2563EB] bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">
+                            Price on Request
                           </span>
                           <div className="flex items-center gap-2 border border-slate-300 rounded-lg bg-white px-2 py-1">
                             <button
@@ -225,35 +225,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
               {/* Footer */}
               {cart.length > 0 && !checkoutSuccess && (
                 <div className="p-6 bg-slate-50 border-t border-slate-200 space-y-4">
-                  <div className="space-y-1.5 text-xs text-slate-600">
-                    <div className="flex justify-between">
-                      <span>Subtotal</span>
-                      <span className="font-bold text-slate-900">₹{subtotal.toLocaleString()}</span>
-                    </div>
-                    {totalSavings > 0 && (
-                      <div className="flex justify-between text-emerald-600 font-semibold">
-                        <span>Total Savings</span>
-                        <span>-₹{totalSavings.toLocaleString()}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between text-slate-500 text-[11px]">
-                      <span>GST (Incl.) & Shipping</span>
-                      <span>Calculated at checkout</span>
-                    </div>
-                    <div className="flex justify-between pt-2 border-t border-slate-200 text-sm font-extrabold text-slate-900">
-                      <span>Total Amount</span>
-                      <span className="text-[#2563EB]">₹{subtotal.toLocaleString()}</span>
+                  {/* Store not live yet — hide Razorpay & totals */}
+                  <div className="p-4 rounded-2xl bg-slate-900 border border-[#2563EB]/30 flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-ping shrink-0" />
+                    <div>
+                      <span className="text-xs font-extrabold text-white block">Products will go live soon!</span>
+                      <span className="text-[11px] text-slate-400 font-medium">Checkout & pricing will be available at launch.</span>
                     </div>
                   </div>
-
-                  <RazorpayCheckoutButton
-                    amountInRupees={subtotal}
-                    buttonText={`Pay ₹${subtotal.toLocaleString()} via Razorpay`}
-                    onSuccess={(details) => {
-                      handleCheckout();
-                    }}
-                  />
-
 
                   <div className="flex justify-around pt-2 text-[10px] text-slate-500 border-t border-slate-200">
                     <span className="flex items-center gap-1">
@@ -267,6 +246,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                   </div>
                 </div>
               )}
+
 
             </div>
           </div>
