@@ -254,14 +254,20 @@ export default function ComingSoon() {
                 />
               </div>
 
+              {/* Small branded message */}
+              <div className="float-2 hover-pop inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/8 text-xs font-extrabold text-[#2563EB] tracking-widest uppercase select-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-ping" />
+                Are you waiting for something?
+              </div>
+
               {/* Heading */}
-              <h1 className="float-2 hover-pop text-4xl sm:text-6xl font-black text-[#0F172A] tracking-tight leading-tight">
+              <h1 className="float-3 hover-pop text-4xl sm:text-6xl font-black text-[#0F172A] tracking-tight leading-tight">
                 We are building <br />
                 something <span className="text-[#2563EB]">amazing.</span>
               </h1>
 
               {/* Sub text */}
-              <div className="float-3 hover-pop pt-2 space-y-1">
+              <div className="float-4 hover-pop pt-2 space-y-1">
                 <p className="text-xl sm:text-2xl text-[#334155] font-medium">
                   Our website is under construction.
                 </p>
@@ -271,7 +277,7 @@ export default function ComingSoon() {
               </div>
 
               {/* Animated dashed loading line */}
-              <div className="float-4 dash-track">
+              <div className="dash-track">
                 <div className="dash-fill" />
               </div>
 
