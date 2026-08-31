@@ -47,8 +47,9 @@ export default function Footer() {
             <p className="font-bold text-slate-900">Udyam No: UDYAM-MH-33-0820594</p>
             <p>Email: awielabs@gmail.com</p>
             <p className="text-[11px] text-slate-500 font-sans mt-1">
-              Registered Address: AWIE, NL-1 B, Room No. 41/7, LIG, Sector-10, Nerul West, Navi Mumbai, Maharashtra – 400706, India
+              Registered Location: AWIE, Nerul, Navi Mumbai, Maharashtra – 400706, India
             </p>
+
           </div>
 
           <div className="flex items-center gap-3 pt-1 text-slate-600">

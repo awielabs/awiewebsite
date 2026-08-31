@@ -462,8 +462,9 @@ export default function ContactPage() {
                       AWIE (Udyam: UDYAM-MH-33-0820594)
                     </p>
                     <p className="text-[11px] text-slate-500 group-hover:text-slate-400 leading-snug">
-                      NL-1 B, Room No. 41/7, LIG, Sector-10, Nerul West, Navi Mumbai, Maharashtra – 400706, India
+                      Nerul, Navi Mumbai, Maharashtra – 400706, India
                     </p>
+
                   </div>
                 </div>
               </div>

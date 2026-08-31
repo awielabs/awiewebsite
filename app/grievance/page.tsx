@@ -48,8 +48,9 @@ export default function GrievancePage() {
               <div className="pt-3 border-t border-slate-200 text-xs">
                 <p className="text-slate-500 font-medium">Registered Office Address:</p>
                 <p className="font-medium text-slate-800">
-                  AWIE, NL-1 B, Room No. 41/7, LIG, Sector-10, Nerul West, Navi Mumbai, Maharashtra – 400706, India
+                  AWIE, Nerul, Navi Mumbai, Maharashtra – 400706, India
                 </p>
+
               </div>
             </div>
           </section>
