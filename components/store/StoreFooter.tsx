@@ -60,7 +60,7 @@ export default function StoreFooter() {
               <Image src="/store-logo.png" alt="AWIE STORE Logo" width={120} height={35} className="h-7 w-auto object-contain" />
             </div>
             <p className="text-[11px] leading-relaxed text-slate-500">
-              AWIE Store — Genuine Microcontrollers, Sensors & Hardware Components. Udyam Registered Micro Enterprise (UDYAM-MH-33-0820594).
+              AWIE Store — Genuine Microcontrollers, Sensors & Hardware Components. Udyam Registered Micro Enterprise.
             </p>
           </div>
 
@@ -98,8 +98,9 @@ export default function StoreFooter() {
 
         <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
           <p>© {new Date().getFullYear()} AWIE. All rights reserved.</p>
-          <p>Udyam Registration: UDYAM-MH-33-0820594</p>
+          <p>Udyam Registered Micro Enterprise</p>
         </div>
+
 
 
       </div>

@@ -44,13 +44,13 @@ export default function Footer() {
           </p>
 
           <div className="text-xs text-slate-600 space-y-1 font-mono bg-white p-3 rounded-xl border border-slate-200 shadow-xs max-w-sm">
-            <p className="font-bold text-slate-900">Udyam No: UDYAM-MH-33-0820594</p>
+            <p className="font-bold text-slate-900">AWIE Micro Enterprise</p>
             <p>Email: awielabs@gmail.com</p>
             <p className="text-[11px] text-slate-500 font-sans mt-1">
               Registered Location: AWIE, Nerul, Navi Mumbai, Maharashtra – 400706, India
             </p>
-
           </div>
+
 
           <div className="flex items-center gap-3 pt-1 text-slate-600">
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-xs">
@@ -100,8 +100,9 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 mt-10 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-        <p>© 2026 AWIE. Udyam Registered Micro Enterprise (UDYAM-MH-33-0820594). All rights reserved.</p>
+        <p>© 2026 AWIE. Udyam Registered Micro Enterprise. All rights reserved.</p>
       </div>
+
     </footer>
   );
 }

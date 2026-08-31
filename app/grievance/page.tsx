@@ -37,9 +37,10 @@ export default function GrievancePage() {
                   <p className="font-mono font-bold text-[#2563EB]">awielabs@gmail.com</p>
                 </div>
                 <div>
-                  <p className="text-slate-500 font-medium">Registration Number:</p>
-                  <p className="font-mono text-slate-800">UDYAM-MH-33-0820594</p>
+                  <p className="text-slate-500 font-medium">Enterprise Type:</p>
+                  <p className="font-mono text-slate-800">Udyam Micro Enterprise</p>
                 </div>
+
                 <div>
                   <p className="text-slate-500 font-medium">Response Window:</p>
                   <p className="text-slate-800 font-medium">Acknowledgement within 48 hours</p>

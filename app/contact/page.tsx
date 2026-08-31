@@ -459,8 +459,9 @@ export default function ContactPage() {
                   <div className="space-y-1">
                     <span className="text-slate-500 group-hover:text-slate-400 block text-[11px] font-semibold transition-colors duration-300">Registered Business Address</span>
                     <p className="text-slate-900 group-hover:text-white font-sans font-bold text-xs leading-tight">
-                      AWIE (Udyam: UDYAM-MH-33-0820594)
+                      AWIE Micro Enterprise
                     </p>
+
                     <p className="text-[11px] text-slate-500 group-hover:text-slate-400 leading-snug">
                       Nerul, Navi Mumbai, Maharashtra – 400706, India
                     </p>
