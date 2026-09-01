@@ -79,8 +79,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-[#2563EB] shrink-0" />
               <div>
-                <span className="font-extrabold text-slate-900 block">AWIE Quality Assured</span>
-                <span className="text-slate-600 font-medium">100% genuine tested components directly sourced for lab use.</span>
+                <span className="font-extrabold text-slate-900 block">AWIE Hardware Catalog</span>
+                <span className="text-slate-600 font-medium">Sourced for robotics, IoT, and embedded system prototyping.</span>
               </div>
             </div>
           </div>

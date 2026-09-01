@@ -112,11 +112,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248396/awie_store/microcontrollers/esp32-wroom-32-module/top-view.jpg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248395/awie_store/microcontrollers/esp32-wroom-32-module/side-view.jpg',
     gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248395/awie_store/microcontrollers/esp32-wroom-32-module/side-view.jpg',
       'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248396/awie_store/microcontrollers/esp32-wroom-32-module/top-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248394/awie_store/microcontrollers/esp32-wroom-32-module/gpio-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248395/awie_store/microcontrollers/esp32-wroom-32-module/side-view.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248394/awie_store/microcontrollers/esp32-wroom-32-module/gpio-view.jpg'
     ],
     description: 'ESP32-WROOM-32 is a powerful, general-purpose Wi-Fi + Bluetooth + BLE MCU module by Espressif. Powered by the ESP32-D0WDQ6 dual-core 32-bit Tensilica Xtensa LX6 processor operating at up to 240 MHz, it integrates 4 MB SPI flash, an onboard PCB antenna, and rich peripheral interfaces. Note: Espressif marks original ESP32-WROOM-32 as NRND (Not Recommended for New Designs); recommended for existing production or replacement needs.',
     features: [
@@ -167,11 +167,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248399/awie_store/microcontrollers/esp32-c3-supermini/top-view.jpg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248398/awie_store/microcontrollers/esp32-c3-supermini/side-view.jpg',
     gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248398/awie_store/microcontrollers/esp32-c3-supermini/side-view.jpg',
       'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248399/awie_store/microcontrollers/esp32-c3-supermini/top-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248397/awie_store/microcontrollers/esp32-c3-supermini/gpio-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248398/awie_store/microcontrollers/esp32-c3-supermini/side-view.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248397/awie_store/microcontrollers/esp32-c3-supermini/gpio-view.jpg'
     ],
     description: 'ESP32-C3 SuperMini is an ultra-compact RISC-V 32-bit single-core development board equipped with native USB Type-C, Wi-Fi 4, and Bluetooth 5.0 LE. Operating at up to 160 MHz, its miniature 22.5 × 18 mm footprint with castellated holes makes it ideal for space-constrained wearables and smart IoT nodes.',
     features: [
@@ -214,11 +214,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248405/awie_store/microcontrollers/esp32-s3-devkit/top-view.jpg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248404/awie_store/microcontrollers/esp32-s3-devkit/side-view.jpg',
     gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248404/awie_store/microcontrollers/esp32-s3-devkit/side-view.jpg',
       'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248405/awie_store/microcontrollers/esp32-s3-devkit/top-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248403/awie_store/microcontrollers/esp32-s3-devkit/gpio-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248404/awie_store/microcontrollers/esp32-s3-devkit/side-view.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248403/awie_store/microcontrollers/esp32-s3-devkit/gpio-view.jpg'
     ],
     description: 'ESP32-S3 DevKit is an advanced development board powered by Espressif’s dual-core Xtensa LX7 processor with vector instructions for AI/ML edge computing (TinyML, speech recognition, face detection). Features dual USB ports (Native USB OTG + UART), 8 MB Flash, and Bluetooth 5 LE.',
     features: [
@@ -260,11 +260,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248402/awie_store/microcontrollers/esp32-cam/top-view.webp',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248401/awie_store/microcontrollers/esp32-cam/side-viwe.jpg',
     gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248401/awie_store/microcontrollers/esp32-cam/side-viwe.jpg',
       'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248402/awie_store/microcontrollers/esp32-cam/top-view.webp',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248400/awie_store/microcontrollers/esp32-cam/gpio-view.png',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248401/awie_store/microcontrollers/esp32-cam/side-viwe.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248400/awie_store/microcontrollers/esp32-cam/gpio-view.png'
     ],
     description: 'ESP32-CAM is a compact development board featuring an ESP32 MCU, 4 MB external PSRAM, an onboard MicroSD slot, an ultra-bright White LED flash, and an OV2640 2 MP camera module. Perfect for wireless video streaming, AI face recognition, face tracking, and IoT surveillance.',
     features: [
@@ -305,11 +305,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248407/awie_store/microcontrollers/esp8266-nodemcu/top-view.webp',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248407/awie_store/microcontrollers/esp8266-nodemcu/side-view.jpg',
     gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248407/awie_store/microcontrollers/esp8266-nodemcu/side-view.jpg',
       'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248407/awie_store/microcontrollers/esp8266-nodemcu/top-view.webp',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248405/awie_store/microcontrollers/esp8266-nodemcu/gpio-view.webp',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248407/awie_store/microcontrollers/esp8266-nodemcu/side-view.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248405/awie_store/microcontrollers/esp8266-nodemcu/gpio-view.webp'
     ],
     description: 'ESP8266 NodeMCU V2 is an open-source Wi-Fi development board built around the ESP8266EX SoC. Featuring 4 MB SPI flash, an onboard CP2102/CH340 USB-to-UART bridge, and 10 GPIO pins, it provides an affordable entry into Wi-Fi IoT projects, Home Assistant integration, and Arduino IDE programming.',
     features: [
@@ -394,10 +394,10 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248393/awie_store/microcontrollers/arduino-nano-r3/top-view.jpg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248391/awie_store/microcontrollers/arduino-nano-r3/side-view.jpg',
     gallery: [
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248393/awie_store/microcontrollers/arduino-nano-r3/top-view.jpg',
-      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248391/awie_store/microcontrollers/arduino-nano-r3/side-view.jpg'
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248391/awie_store/microcontrollers/arduino-nano-r3/side-view.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788248393/awie_store/microcontrollers/arduino-nano-r3/top-view.jpg'
     ],
     description: 'Arduino Nano R3 Compatible is a compact, breadboard-friendly development board based on the ATmega328P microcontroller. Offering 22 I/O pins (including 8 analog inputs) in a tiny 45 × 18 mm layout, it provides full UNO functionality in a miniature footprint.',
     features: [

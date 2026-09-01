@@ -18,14 +18,17 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
     subCategories: ['All Subcategories']
   };
 
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
-  const [maxPrice, setMaxPrice] = useState<number>(10000);
+  const categoryProducts = STORE_PRODUCTS.filter((p) => p.categorySlug === slug);
+  const highestPriceInCat = Math.max(...categoryProducts.map((p) => p.price), 0);
+  const dynamicMaxPriceLimit = highestPriceInCat > 0 ? highestPriceInCat : 1500;
 
-  const products = STORE_PRODUCTS.filter((p) => {
-    const matchesCategory = p.categorySlug === slug;
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
+  const [maxPrice, setMaxPrice] = useState<number>(dynamicMaxPriceLimit);
+
+  const products = categoryProducts.filter((p) => {
     const matchesSub = selectedSubCategory === 'All' || p.subCategory === selectedSubCategory;
-    const matchesPrice = p.price <= maxPrice;
-    return matchesCategory && matchesSub && matchesPrice;
+    const matchesPrice = p.price === 0 || p.price <= maxPrice;
+    return matchesSub && matchesPrice;
   });
 
   return (
@@ -92,9 +95,9 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
             <span className="text-slate-500 whitespace-nowrap">Filter max price:</span>
             <input
               type="range"
-              min={100}
-              max={10000}
-              step={100}
+              min={50}
+              max={dynamicMaxPriceLimit}
+              step={50}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
               className="accent-[#2563EB] cursor-pointer"
@@ -169,7 +172,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           <div className="p-12 text-center bg-white rounded-3xl border border-slate-200 space-y-4">
             <h3 className="text-lg font-bold text-slate-900">No components found matching your filter</h3>
             <button
-              onClick={() => { setSelectedSubCategory('All'); setMaxPrice(2000); }}
+              onClick={() => { setSelectedSubCategory('All'); setMaxPrice(dynamicMaxPriceLimit); }}
               className="px-6 py-2.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs"
             >
               Reset Filters
