@@ -207,6 +207,70 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
         </div>
 
+        {/* Frequently Viewed / Related Microcontrollers Section */}
+        {(() => {
+          const relatedProducts = STORE_PRODUCTS.filter((p) => p.id !== product.id && p.categorySlug === product.categorySlug).slice(0, 4);
+          if (relatedProducts.length === 0) return null;
+
+          return (
+            <div className="pt-12 border-t border-slate-200 space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-black text-slate-900 tracking-tight">Frequently Viewed Microcontrollers</h2>
+                  <p className="text-xs text-slate-500 font-medium">Explore related development boards and microcontrollers for your lab projects.</p>
+                </div>
+                <Link
+                  href={`/store/category/${product.categorySlug}`}
+                  className="text-xs font-extrabold text-[#2563EB] hover:text-[#1D4ED8] flex items-center gap-1"
+                >
+                  View All {product.categoryName} →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                {relatedProducts.map((rel) => (
+                  <div
+                    key={rel.id}
+                    className="group rounded-2xl bg-white border border-slate-200 hover:border-[#2563EB] hover:shadow-xl transition-all flex flex-col justify-between overflow-hidden"
+                  >
+                    <Link href={`/store/product/${rel.slug}`} className="p-6 bg-slate-50 flex items-center justify-center h-44 group-hover:bg-slate-100/80 transition-colors relative">
+                      <Image
+                        src={rel.image}
+                        alt={rel.name}
+                        width={100}
+                        height={100}
+                        className="object-contain group-hover:scale-110 transition-transform duration-300 max-h-36"
+                      />
+                    </Link>
+
+                    <div className="p-4 space-y-2 flex-1 flex flex-col justify-between">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-mono text-slate-400 block">{rel.sku}</span>
+                        <Link href={`/store/product/${rel.slug}`}>
+                          <h3 className="text-xs font-extrabold text-slate-900 group-hover:text-[#2563EB] transition-colors line-clamp-2 leading-snug">
+                            {rel.name}
+                          </h3>
+                        </Link>
+                      </div>
+
+                      <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-[10px] font-extrabold text-[#2563EB] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Price on Request</span>
+                        <button
+                          onClick={() => addToCart(rel)}
+                          className="p-2 rounded-lg bg-slate-900 hover:bg-[#2563EB] text-white transition-all shadow-sm"
+                          title="Add to Cart"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
       </div>
     </div>
   );
