@@ -439,7 +439,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/ultrasonic.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256080/awie_store/sensors/hc-sr04-ultrasonic-distance-sensor_front-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256080/awie_store/sensors/hc-sr04-ultrasonic-distance-sensor_front-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256079/awie_store/sensors/hc-sr04-ultrasonic-distance-sensor_back-jpg.jpg'
+    ],
     description: 'HC-SR04 is an ultrasonic distance-measuring module designed for obstacle detection, distance measurement and robotics applications.',
     features: [
       '2cm to 400cm typical measuring range with 3mm precision',
@@ -474,7 +478,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256084/awie_store/sensors/ir-obstacle-avoidance-sensor-module_top-view-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256084/awie_store/sensors/ir-obstacle-avoidance-sensor-module_top-view-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256084/awie_store/sensors/ir-obstacle-avoidance-sensor-module_side-view-jpg.jpg'
+    ],
     description: 'An infrared obstacle-detection module that detects nearby objects using reflected infrared light and provides a digital output.',
     features: [
       'Infrared reflective proximity sensor with 2–30 cm detection range',
@@ -508,7 +516,12 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256082/awie_store/sensors/hc-sr501-pir-motion-sensor_front-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256082/awie_store/sensors/hc-sr501-pir-motion-sensor_front-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256081/awie_store/sensors/hc-sr501-pir-motion-sensor_back-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256083/awie_store/sensors/hc-sr501-pir-motion-sensor_gpio-info-jpg.jpg'
+    ],
     description: 'HC-SR501 is a passive infrared motion sensor module designed to detect movement of people and other warm objects.',
     features: [
       '3–7 m adjustable detection distance with <140° detection angle',
@@ -542,7 +555,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256085/awie_store/sensors/ldr-light-sensor-module_front-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256085/awie_store/sensors/ldr-light-sensor-module_front-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256086/awie_store/sensors/ldr-light-sensor-module_top-info-jpg.jpg'
+    ],
     description: 'An LDR-based light sensor module for detecting ambient light intensity. It provides both analog and digital outputs and includes adjustable sensitivity.',
     features: [
       'Photoresistor / LDR sensor element with LM393 voltage comparator',
@@ -578,7 +595,12 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256076/awie_store/sensors/dht11-temperature-humidity-sensor_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256076/awie_store/sensors/dht11-temperature-humidity-sensor_top-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256074/awie_store/sensors/dht11-temperature-humidity-sensor_side-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256074/awie_store/sensors/dht11-temperature-humidity-sensor_gpio-jpg.jpg'
+    ],
     description: 'DHT11 is a low-cost digital sensor for measuring ambient temperature and relative humidity.',
     features: [
       '0–50°C temperature range (±2°C accuracy)',
@@ -613,7 +635,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256077/awie_store/sensors/dht22-am2302-sensor_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256077/awie_store/sensors/dht22-am2302-sensor_top-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256076/awie_store/sensors/dht22-am2302-sensor_back-jpg.jpg'
+    ],
     description: 'DHT22 is a digital temperature and humidity sensor offering higher measurement range and accuracy than the basic DHT11.',
     features: [
       '−40 to +80°C temperature range with ±0.5°C accuracy',
@@ -636,7 +662,7 @@ export const STORE_PRODUCTS: Product[] = [
   },
   {
     id: 'sn-7',
-    name: 'DS18B20 Digital Temperature Sensor',
+    name: 'DS18B20 Waterproof Temperature Sensor Probe',
     slug: 'ds18b20-temperature-sensor',
     sku: 'SKU-SN-07',
     categorySlug: 'sensors',
@@ -649,24 +675,35 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 140,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'DS18B20 is a digital temperature sensor with selectable 9–12-bit resolution and a 1-Wire interface, making it suitable for single-sensor and multi-sensor temperature monitoring.',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256079/awie_store/sensors/ds18b20-temperature-sensor-prob_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256079/awie_store/sensors/ds18b20-temperature-sensor-prob_top-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256078/awie_store/sensors/ds18b20-temperature-sensor-prob_gipo-info-jpg.jpg'
+    ],
+    description: 'Waterproof digital temperature sensor probe with a stainless-steel housing and 1-Wire interface, suitable for liquid, outdoor, IoT and embedded temperature monitoring.',
     features: [
-      '−55 to +125°C wide temperature measuring range (±0.5°C accuracy)',
-      '1-Wire serial communication supporting multi-drop bus topologies',
-      'Selectable 9 to 12-bit ADC conversion resolution (up to 750 ms conversion speed)',
-      'User-configurable non-volatile temperature alarm settings'
+      'Waterproof stainless-steel probe (approx. 6 mm × 45–50 mm) with sealed housing',
+      '1-Wire interface — only one data pin required, supports multi-sensor bus',
+      '−55°C to +125°C range with ±0.5°C accuracy, 9–12-bit programmable resolution',
+      'Long ~1 m 3-wire cable — suitable for aquarium, soil, liquid, and outdoor environments'
     ],
     specs: {
-      'Sensor Type': 'Digital temperature',
+      'Sensor IC': 'DS18B20',
+      'Sensor Type': 'Digital temperature sensor',
       'Interface': '1-Wire',
-      'Supply Voltage': '3–5.5 V',
-      'Temperature Range': '−55 to +125°C',
-      'Accuracy': '±0.5°C',
-      'Resolution': '9–12 bit selectable',
-      'Conversion': 'Up to 750 ms at 12-bit',
-      'Multi-drop': 'Supported',
-      'Alarm': 'User-configurable'
+      'Operating Voltage': '3.0–5.5 V',
+      'Temperature Range': '−55°C to +125°C',
+      'Accuracy': '±0.5°C from −10°C to +85°C',
+      'Resolution': '9-bit to 12-bit programmable',
+      'Probe Material': 'Stainless steel',
+      'Probe Diameter': 'Approx. 6 mm',
+      'Probe Length': 'Approx. 45–50 mm',
+      'Cable Length': 'Approx. 1 metre',
+      'Cable': '3-wire (Red=VCC, Black=GND, Yellow/White=DATA)',
+      'Waterproof': 'Yes — sealed probe',
+      'Pull-up resistor': '4.7 kΩ recommended',
+      'Conversion Time': 'Up to 750 ms at 12-bit',
+      'Unique ID': '64-bit'
     }
   },
   {
@@ -684,7 +721,10 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 130,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256089/awie_store/sensors/mq-2-gas-sensor-module_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256089/awie_store/sensors/mq-2-gas-sensor-module_top-jpg.jpg'
+    ],
     description: 'MQ-2 is a gas-sensing module commonly used in electronics projects for detecting smoke and several combustible gases.',
     features: [
       'Detects smoke, LPG, butane, hydrogen, and combustible gas concentrations',
@@ -718,7 +758,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256088/awie_store/sensors/mpu-6050_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256088/awie_store/sensors/mpu-6050_top-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256087/awie_store/sensors/mpu-6050_side-jpg.jpg'
+    ],
     description: 'MPU-6050 combines a 3-axis accelerometer and 3-axis gyroscope in one motion-sensing device for orientation, movement and motion-monitoring projects.',
     features: [
       '6-axis motion tracking (3-axis Gyroscope + 3-axis Accelerometer)',
@@ -751,7 +795,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 170,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/sensor.svg',
+    image: 'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256091/awie_store/sensors/sw-420-vibration-sensor_top-jpg.jpg',
+    gallery: [
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256091/awie_store/sensors/sw-420-vibration-sensor_top-jpg.jpg',
+      'https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256090/awie_store/sensors/sw-420-vibration-sensor_side-jpg.jpg'
+    ],
     description: 'SW-420 is a vibration detection module that detects vibration or movement and provides a digital switching output.',
     features: [
       'SW-420 normally-closed vibration sensor element',

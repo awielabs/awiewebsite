@@ -1,0 +1,43 @@
+{
+  "DHT11 Temperature & Humidity Sensor": {
+    "gpio.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256074/awie_store/sensors/dht11-temperature-humidity-sensor_gpio-jpg.jpg",
+    "side.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256074/awie_store/sensors/dht11-temperature-humidity-sensor_side-jpg.jpg",
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256076/awie_store/sensors/dht11-temperature-humidity-sensor_top-jpg.jpg"
+  },
+  "DHT22  AM2302 Sensor": {
+    "back.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256076/awie_store/sensors/dht22-am2302-sensor_back-jpg.jpg",
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256077/awie_store/sensors/dht22-am2302-sensor_top-jpg.jpg"
+  },
+  "DS18B20 Temperature Sensor prob": {
+    "gipo info.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256078/awie_store/sensors/ds18b20-temperature-sensor-prob_gipo-info-jpg.jpg",
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256079/awie_store/sensors/ds18b20-temperature-sensor-prob_top-jpg.jpg"
+  },
+  "HC-SR04 Ultrasonic Distance Sensor": {
+    "back.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256079/awie_store/sensors/hc-sr04-ultrasonic-distance-sensor_back-jpg.jpg",
+    "front.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256080/awie_store/sensors/hc-sr04-ultrasonic-distance-sensor_front-jpg.jpg"
+  },
+  "HC-SR501 PIR Motion Sensor": {
+    "back.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256081/awie_store/sensors/hc-sr501-pir-motion-sensor_back-jpg.jpg",
+    "front.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256082/awie_store/sensors/hc-sr501-pir-motion-sensor_front-jpg.jpg",
+    "gpio info.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256083/awie_store/sensors/hc-sr501-pir-motion-sensor_gpio-info-jpg.jpg"
+  },
+  "IR Obstacle Avoidance Sensor Module": {
+    "side view.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256084/awie_store/sensors/ir-obstacle-avoidance-sensor-module_side-view-jpg.jpg",
+    "top view.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256084/awie_store/sensors/ir-obstacle-avoidance-sensor-module_top-view-jpg.jpg"
+  },
+  "LDR Light Sensor Module": {
+    "front.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256085/awie_store/sensors/ldr-light-sensor-module_front-jpg.jpg",
+    "top info.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256086/awie_store/sensors/ldr-light-sensor-module_top-info-jpg.jpg"
+  },
+  "MPU-6050": {
+    "side.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256087/awie_store/sensors/mpu-6050_side-jpg.jpg",
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256088/awie_store/sensors/mpu-6050_top-jpg.jpg"
+  },
+  "MQ-2 Gas Sensor Module": {
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256089/awie_store/sensors/mq-2-gas-sensor-module_top-jpg.jpg"
+  },
+  "SW-420 Vibration Sensor": {
+    "side.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256090/awie_store/sensors/sw-420-vibration-sensor_side-jpg.jpg",
+    "top.jpg": "https://res.cloudinary.com/hrmmi1ox/image/upload/v1788256091/awie_store/sensors/sw-420-vibration-sensor_top-jpg.jpg"
+  }
+}
