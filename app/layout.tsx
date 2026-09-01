@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/layout/CustomCursor';
 import ParticleBackground from '@/components/3d/ParticleBackground';
 import { CartProvider } from '@/components/store/CartContext';
+import MobileDesktopBanner from '@/components/MobileDesktopBanner';
 import './globals.css';
 
 const poppins = Poppins({
@@ -49,6 +50,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
+          <MobileDesktopBanner />
         </CartProvider>
       </body>
     </html>

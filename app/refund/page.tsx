@@ -45,18 +45,17 @@ export default function RefundPage() {
 
           <section className="space-y-2">
             <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">4. AWIE Store Electronics Components</h2>
-            <p>Returns are generally not accepted for:</p>
+            <p>
+              AWIE Store operates on a direct buy-and-sell model for hardware components. Electronic component sales are final with no money-back guarantees or returns for:
+            </p>
             <ul className="list-disc pl-5 space-y-1 text-slate-600">
-              <li>Change of mind</li>
-              <li>Incorrect product selection</li>
-              <li>Incorrect compatibility choice</li>
-              <li>Customer ordering the wrong item</li>
+              <li>Change of mind or preference</li>
+              <li>Incorrect product or sub-variant selection</li>
+              <li>Improper handling, incorrect wiring, or user circuit damage</li>
+              <li>Customer ordering wrong quantities or parts</li>
             </ul>
             <p>
-              However, if an item is damaged in transit, defective on arrival, incorrectly supplied, missing material components, or materially different from its listed description, the customer should contact AWIE at <strong>awielabs@gmail.com</strong> with order details and supporting evidence within 7 days of delivery.
-            </p>
-            <p>
-              AWIE will assess the issue and, where appropriate, provide a replacement, repair, refund, or other lawful resolution.
+              If an item is physically damaged in transit or an incorrect product was dispatched, contact AWIE at <strong>awielabs@gmail.com</strong> with order details and unboxing proof within 7 days of delivery for a replacement assessment.
             </p>
           </section>
 
