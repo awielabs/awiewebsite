@@ -97,10 +97,7 @@ export const STORE_CATEGORIES: StoreCategory[] = [
 
 export const STORE_PRODUCTS: Product[] = [
   // ── MICROCONTROLLERS ──────────────────────────────────────────────────────
-  // Prices set to 0 — will be updated before store goes live.
-  // Physical weight / package dimensions: TBD from verified supplier.
-
-  // 1. ESP32-WROOM-32
+  // Prices set to 0 — w  // 1. ESP32-WROOM-32
   {
     id: 'mc-1',
     name: 'ESP32-WROOM-32',
@@ -116,11 +113,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-wroom-32-module/top_view.jpg',
+    image: '/store/microcontrollers/esp32-wroom-32-module/top_view.jpg',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-wroom-32-module/top_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-wroom-32-module/gpio_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-wroom-32-module/side_view.jpg'
+      '/store/microcontrollers/esp32-wroom-32-module/top_view.jpg',
+      '/store/microcontrollers/esp32-wroom-32-module/gpio_view.jpg',
+      '/store/microcontrollers/esp32-wroom-32-module/side_view.jpg'
     ],
     description: 'ESP32-WROOM-32 is a powerful, general-purpose Wi-Fi + Bluetooth + BLE MCU module by Espressif. Powered by the ESP32-D0WDQ6 dual-core 32-bit Tensilica Xtensa LX6 processor operating at up to 240 MHz, it integrates 4 MB SPI flash, an onboard PCB antenna, and rich peripheral interfaces. Note: Espressif marks original ESP32-WROOM-32 as NRND (Not Recommended for New Designs); recommended for existing production or replacement needs.',
     features: [
@@ -171,11 +168,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-c3-supermini/top_view.jpg',
+    image: '/store/microcontrollers/esp32-c3-supermini/top_view.jpg',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-c3-supermini/top_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-c3-supermini/gpio_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-c3-supermini/side_view.jpg'
+      '/store/microcontrollers/esp32-c3-supermini/top_view.jpg',
+      '/store/microcontrollers/esp32-c3-supermini/gpio_view.jpg',
+      '/store/microcontrollers/esp32-c3-supermini/side_view.jpg'
     ],
     description: 'ESP32-C3 SuperMini is an ultra-compact RISC-V 32-bit single-core development board equipped with native USB Type-C, Wi-Fi 4, and Bluetooth 5.0 LE. Operating at up to 160 MHz, its miniature 22.5 × 18 mm footprint with castellated holes makes it ideal for space-constrained wearables and smart IoT nodes.',
     features: [
@@ -218,11 +215,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-s3-devkit/top_view.jpg',
+    image: '/store/microcontrollers/esp32-s3-devkit/top_view.jpg',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-s3-devkit/top_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-s3-devkit/gpio_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-s3-devkit/side_view.jpg'
+      '/store/microcontrollers/esp32-s3-devkit/top_view.jpg',
+      '/store/microcontrollers/esp32-s3-devkit/gpio_view.jpg',
+      '/store/microcontrollers/esp32-s3-devkit/side_view.jpg'
     ],
     description: 'ESP32-S3 DevKit is an advanced development board powered by Espressif’s dual-core Xtensa LX7 processor with vector instructions for AI/ML edge computing (TinyML, speech recognition, face detection). Features dual USB ports (Native USB OTG + UART), 8 MB Flash, and Bluetooth 5 LE.',
     features: [
@@ -264,11 +261,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-cam/top_view.webp',
+    image: '/store/microcontrollers/esp32-cam/top_view.webp',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-cam/top_view.webp',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-cam/gpio_view.png',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp32-cam/side_viwe.jpg'
+      '/store/microcontrollers/esp32-cam/top_view.webp',
+      '/store/microcontrollers/esp32-cam/gpio_view.png',
+      '/store/microcontrollers/esp32-cam/side_viwe.jpg'
     ],
     description: 'ESP32-CAM is a compact development board featuring an ESP32 MCU, 4 MB external PSRAM, an onboard MicroSD slot, an ultra-bright White LED flash, and an OV2640 2 MP camera module. Perfect for wireless video streaming, AI face recognition, face tracking, and IoT surveillance.',
     features: [
@@ -309,11 +306,11 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp8266-nodemcu/top_view.webp',
+    image: '/store/microcontrollers/esp8266-nodemcu/top_view.webp',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp8266-nodemcu/top_view.webp',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp8266-nodemcu/gpio_view.webp',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/esp8266-nodemcu/side_view.jpg'
+      '/store/microcontrollers/esp8266-nodemcu/top_view.webp',
+      '/store/microcontrollers/esp8266-nodemcu/gpio_view.webp',
+      '/store/microcontrollers/esp8266-nodemcu/side_view.jpg'
     ],
     description: 'ESP8266 NodeMCU V2 is an open-source Wi-Fi development board built around the ESP8266EX SoC. Featuring 4 MB SPI flash, an onboard CP2102/CH340 USB-to-UART bridge, and 10 GPIO pins, it provides an affordable entry into Wi-Fi IoT projects, Home Assistant integration, and Arduino IDE programming.',
     features: [
@@ -354,9 +351,9 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/arduino-uno-r3/top_view.jpg',
+    image: '/store/microcontrollers/arduino-uno-r3/top_view.jpg',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/arduino-uno-r3/top_view.jpg'
+      '/store/microcontrollers/arduino-uno-r3/top_view.jpg'
     ],
     description: 'Arduino UNO R3 Compatible Development Board based on the Microchip ATmega328P 8-bit AVR microcontroller. Featuring 14 digital I/O pins, 6 analog inputs, a 16 MHz crystal oscillator, USB Type-B port, and DC barrel jack, this board is the gold standard for electronics learning, robotics, and prototyping.',
     features: [
@@ -398,10 +395,10 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
-    image: 'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/arduino-nano-r3/top_view.jpg',
+    image: '/store/microcontrollers/arduino-nano-r3/top_view.jpg',
     gallery: [
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/arduino-nano-r3/top_view.jpg',
-      'https://rlcugpexkehndzyecjev.supabase.co/storage/v1/object/public/microcontrollers/arduino-nano-r3/side_view.jpg'
+      '/store/microcontrollers/arduino-nano-r3/top_view.jpg',
+      '/store/microcontrollers/arduino-nano-r3/side_view.jpg'
     ],
     description: 'Arduino Nano R3 Compatible is a compact, breadboard-friendly development board based on the ATmega328P microcontroller. Offering 22 I/O pins (including 8 analog inputs) in a tiny 45 × 18 mm layout, it provides full UNO functionality in a miniature footprint.',
     features: [
@@ -409,7 +406,7 @@ export const STORE_PRODUCTS: Product[] = [
       'Breadboard-friendly 30-pin dual inline package layout',
       '14 Digital I/O pins (6 PWM channels)',
       '8 Analog Input channels (A0 to A7, 10-bit ADC resolution)',
-      '32 KB Flash, 2 KB SRAM, 1 KB EEPROM',
+      '32 KB Flash memory, 2 KB SRAM, 1 KB EEPROM',
       '5 V DC operating logic level',
       'Mini-USB / USB Type-C connector with CH340G USB interface'
     ],
