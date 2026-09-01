@@ -151,6 +151,7 @@ export async function POST(req: Request) {
             order_id: orderId || `AWIE-${Date.now()}`,
             order_date: orderDate,
             pickup_location: 'Primary',
+            channel_id: body.channelId || process.env.SHIPROCKET_CHANNEL_ID || '11888380',
             billing_customer_name: firstName,
             billing_last_name: lastName,
             billing_address: customerAddress,

@@ -216,9 +216,10 @@ export default function AdminDashboardPage() {
   // Shiprocket Credentials State
   const [shiprocketCreds, setShiprocketCreds] = useState({
     email: 'shovinmicheldavidxc@gmail.com',
-    key: 'g%^m^%5yx!tlMcEs16%@PEDL48OZUP$R',
+    key: '6%0hM24nfgj%Xp7jE^%GKDwXCTA!70cT',
     pickupPincode: '400706',
-    pickupLocation: 'AWIE Nerul Hub, Navi Mumbai'
+    pickupLocation: 'Primary (AWIE Nerul Hub)',
+    activeChannelId: '11888380'
   });
 
   React.useEffect(() => {
@@ -282,7 +283,8 @@ export default function AdminDashboardPage() {
           orderId: targetOrder.id,
           customerName: targetOrder.customerName,
           deliveryPincode: targetOrder.pincode,
-          weightGrams: targetOrder.shipping.packageWeightGrams
+          weightGrams: targetOrder.shipping.packageWeightGrams,
+          channelId: shiprocketCreds.activeChannelId
         })
       });
       const data = await res.json();
