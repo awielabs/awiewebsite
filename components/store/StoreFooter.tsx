@@ -17,8 +17,8 @@ export default function StoreFooter() {
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-slate-900">Quality Products</h4>
-              <p className="text-[11px] text-slate-500">Tested & Reliable Components</p>
+              <h4 className="text-xs font-bold text-slate-900">Hardware Catalog</h4>
+              <p className="text-[11px] text-slate-500">Electronics & Microcontroller Catalog</p>
             </div>
           </div>
 

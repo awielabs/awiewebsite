@@ -1102,8 +1102,8 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/esp32.svg',
-    description: 'Pre-flashed ESP32 development module configured for ultra-low latency connection-less ESP-NOW protocol peer-to-peer mesh.',
-    features: ['Low latency peer-to-peer transmission', 'No router required', 'Pre-tested mesh firmware'],
+    description: 'ESP32 development module configured for ultra-low latency connection-less ESP-NOW protocol peer-to-peer mesh.',
+    features: ['Low latency peer-to-peer transmission', 'No router required', 'Configurable mesh firmware'],
     specs: { 'Protocol': 'ESP-NOW 2.4GHz', 'Range': 'Up to 200 meters line-of-sight' }
   },
   {
