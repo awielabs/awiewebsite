@@ -112,7 +112,7 @@ export default function StorePage() {
             <ShieldCheck className="w-6 h-6 text-[#2563EB] shrink-0" />
             <div>
               <span className="font-extrabold text-slate-900 block">Genuine Components</span>
-              <span className="text-slate-500 font-medium">Tested & Verified Hardware</span>
+              <span className="text-slate-500 font-medium">Hardware Components & Modules</span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2">
