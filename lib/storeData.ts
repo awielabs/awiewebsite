@@ -49,7 +49,7 @@ export const STORE_CATEGORIES: StoreCategory[] = [
     slug: 'sensors',
     description: 'Precision environmental, motion, optical, biometric, gas, and distance sensing modules.',
     icon: 'Wifi',
-    itemCount: 19,
+    itemCount: 10,
     color: 'from-[#0066FF] to-[#0284C7]',
     subCategories: ['Environmental & Gas', 'Motion & Proximity', 'Optical & Sound', 'Biometric']
   },
@@ -423,10 +423,10 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
 
-  // 2. Sensors (19 Items)
+  // 2. Sensors (10 Items)
   {
     id: 'sn-1',
-    name: 'HC-SR04 Ultrasonic Sensor',
+    name: 'HC-SR04 Ultrasonic Distance Sensor',
     slug: 'hc-sr04-ultrasonic-sensor',
     sku: 'SKU-SN-01',
     categorySlug: 'sensors',
@@ -440,13 +440,28 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/ultrasonic.svg',
-    description: 'Non-contact ultrasonic distance measuring module operating from 2cm to 400cm with 3mm precision.',
-    features: ['2cm to 400cm range', '5V DC operation', '4-pin interface (VCC, Trig, Echo, GND)'],
-    specs: { 'Operating Voltage': '5V DC', 'Ranging Distance': '2cm - 400cm', 'Measuring Angle': '15 degrees' }
+    description: 'HC-SR04 is an ultrasonic distance-measuring module designed for obstacle detection, distance measurement and robotics applications.',
+    features: [
+      '2cm to 400cm typical measuring range with 3mm precision',
+      '5 V DC operation at 40 kHz frequency',
+      '4-pin interface (VCC, Trig, Echo, GND)',
+      'Ideal for robot obstacle avoidance, distance measurement, and parking prototypes'
+    ],
+    specs: {
+      'Sensor Type': 'Ultrasonic',
+      'Operating Voltage': '5 V DC',
+      'Frequency': '40 kHz',
+      'Typical Measuring Range': '2–400 cm',
+      'Interface': 'VCC, Trig, Echo, GND',
+      'Output': 'Echo pulse',
+      'Board Width': '40 mm',
+      'Board Height': '20 mm',
+      'Side Height': '15 mm'
+    }
   },
   {
     id: 'sn-2',
-    name: 'IR Obstacle Sensor',
+    name: 'Infrared IR Obstacle Avoidance Sensor Module',
     slug: 'ir-obstacle-sensor',
     sku: 'SKU-SN-02',
     categorySlug: 'sensors',
@@ -460,13 +475,27 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Infrared reflective proximity obstacle detection module with adjustable detection range via onboard potentiometer.',
-    features: ['Infrared transmitter & receiver', 'Adjustable sensitivity', 'Digital output pin'],
-    specs: { 'Detection Distance': '2cm - 30cm', 'Operating Voltage': '3.3V - 5V' }
+    description: 'An infrared obstacle-detection module that detects nearby objects using reflected infrared light and provides a digital output.',
+    features: [
+      'Infrared reflective proximity sensor with 2–30 cm detection range',
+      '35° detection angle with onboard sensitivity potentiometer adjustment',
+      'LM393 voltage comparator with active low digital output',
+      'Includes mounting screw holes for line-following robots and proximity automation'
+    ],
+    specs: {
+      'Sensor Type': 'Infrared reflective',
+      'Detection Range': '2–30 cm',
+      'Detection Angle': '35°',
+      'Comparator': 'LM393',
+      'Output': 'Digital',
+      'Output Logic': 'Active Low',
+      'Adjustment': 'Sensitivity adjustable',
+      'Mounting': 'Screw holes'
+    }
   },
   {
     id: 'sn-3',
-    name: 'PIR Motion Sensor',
+    name: 'HC-SR501 PIR Motion Sensor',
     slug: 'pir-motion-sensor',
     sku: 'SKU-SN-03',
     categorySlug: 'sensors',
@@ -480,13 +509,27 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Passive Infrared (PIR) body motion detector module for human intrusion detection and automated lighting.',
-    features: ['120 degree cone detection', 'Adjustable delay time & sensitivity', 'Up to 7 meters range'],
-    specs: { 'Sensing Range': '3m - 7m', 'Delay Time': '0.3s - 18s' }
+    description: 'HC-SR501 is a passive infrared motion sensor module designed to detect movement of people and other warm objects.',
+    features: [
+      '3–7 m adjustable detection distance with <140° detection angle',
+      'Ultra-low current drain (<60 µA) with 4.5–20 V DC wide supply voltage',
+      '2.5 s default blockade/delay time',
+      'Operating temperature range from −20°C to +80°C'
+    ],
+    specs: {
+      'Sensor Type': 'PIR',
+      'Operating Voltage': '4.5–20 V DC',
+      'Current Drain': '<60 µA',
+      'Detection Distance': '3–7 m, adjustable',
+      'Detection Angle': '<140°',
+      'Default Blockade/Delay': '2.5 s',
+      'Operating Temperature': '−20°C to +80°C',
+      'Output': 'Digital motion signal'
+    }
   },
   {
     id: 'sn-4',
-    name: 'LDR Sensor Module',
+    name: 'LDR Light Sensor Module — LM393',
     slug: 'ldr-sensor-module',
     sku: 'SKU-SN-04',
     categorySlug: 'sensors',
@@ -500,13 +543,29 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Light Dependent Resistor (LDR) photoresistor module with digital and analog outputs for ambient light tracking.',
-    features: ['LM393 comparator chip', 'Analog & Digital signal output', 'Adjustable light threshold'],
-    specs: { 'Operating Voltage': '3.3V - 5V', 'Output Type': 'DO & AO' }
+    description: 'An LDR-based light sensor module for detecting ambient light intensity. It provides both analog and digital outputs and includes adjustable sensitivity.',
+    features: [
+      'Photoresistor / LDR sensor element with LM393 voltage comparator',
+      '3.3–5 V DC operating range with dual Digital (DO) & Analog (AO) output pins',
+      'Adjustable sensitivity potentiometer for setting light detection threshold',
+      'Compact 33 × 14 × 8 mm footprint (4 g weight) for smart lamps and ambient light automation'
+    ],
+    specs: {
+      'Sensor': 'LDR / Photoresistor',
+      'Comparator': 'LM393',
+      'Operating Voltage': '3.3–5 V',
+      'Digital Output': 'DO',
+      'Analog Output': 'AO',
+      'Sensitivity': 'Adjustable potentiometer',
+      'Length': '33 mm',
+      'Width': '14 mm',
+      'Height': '8 mm',
+      'Weight': '4 g'
+    }
   },
   {
     id: 'sn-5',
-    name: 'DHT11 Temperature & Humidity Sensor',
+    name: 'DHT11 Digital Temperature & Humidity Sensor',
     slug: 'dht11-sensor',
     sku: 'SKU-SN-05',
     categorySlug: 'sensors',
@@ -520,13 +579,28 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Basic composite digital temperature and humidity sensor module with calibrated single-wire digital output.',
-    features: ['20-90% RH humidity range', '0-50°C temperature range', '3-pin breakout board'],
-    specs: { 'Humidity Accuracy': '±5% RH', 'Temperature Accuracy': '±2°C' }
+    description: 'DHT11 is a low-cost digital sensor for measuring ambient temperature and relative humidity.',
+    features: [
+      '0–50°C temperature range (±2°C accuracy)',
+      '20–90% RH relative humidity range (±5% RH accuracy)',
+      '16-bit digital output with 1 Hz sampling rate',
+      '3–5 V supply with single-wire digital interface'
+    ],
+    specs: {
+      'Sensor Type': 'Digital temperature + humidity',
+      'Supply': '3–5 V',
+      'Temperature Range': '0–50°C',
+      'Temperature Accuracy': '±2°C',
+      'Humidity Range': '20–90% RH',
+      'Humidity Accuracy': '±5% RH',
+      'Resolution': '16-bit digital output',
+      'Sampling': 'Up to 1 Hz',
+      'Interface': 'Single-wire digital'
+    }
   },
   {
     id: 'sn-6',
-    name: 'DHT22 Temperature & Humidity Sensor',
+    name: 'DHT22 / AM2302 Digital Temperature & Humidity Sensor',
     slug: 'dht22-sensor',
     sku: 'SKU-SN-06',
     categorySlug: 'sensors',
@@ -540,13 +614,29 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'High-precision capacitive humidity and temperature digital sensor module for weather stations.',
-    features: ['0-100% RH humidity range', '-40 to 80°C temperature range', '±0.5°C accuracy'],
-    specs: { 'Sampling Period': '2 Seconds', 'Operating Voltage': '3.3V - 5.5V' }
+    description: 'DHT22 is a digital temperature and humidity sensor offering higher measurement range and accuracy than the basic DHT11.',
+    features: [
+      '−40 to +80°C temperature range with ±0.5°C accuracy',
+      '0–99.9% RH humidity range with ±2% RH accuracy',
+      'High 0.1°C / 0.1% RH resolution',
+      'Calibrated single-wire digital output for HVAC and weather station prototypes'
+    ],
+    specs: {
+      'Sensor Type': 'Digital temperature + humidity',
+      'Model': 'DHT22 / AM2302',
+      'Temperature Range': '−40 to +80°C',
+      'Humidity Range': '0–99.9% RH',
+      'Temperature Accuracy': '±0.5°C',
+      'Humidity Accuracy': '±2% RH around 10–90% RH',
+      'Temperature Resolution': '0.1°C',
+      'Humidity Resolution': '0.1% RH',
+      'Output': 'Calibrated digital signal',
+      'Interface': 'Single-wire digital'
+    }
   },
   {
     id: 'sn-7',
-    name: 'DS18B20 Temperature Sensor',
+    name: 'DS18B20 Digital Temperature Sensor',
     slug: 'ds18b20-temperature-sensor',
     sku: 'SKU-SN-07',
     categorySlug: 'sensors',
@@ -560,13 +650,28 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Waterproof 1-Wire digital thermometer probe capable of measuring temperatures from -55°C to +125°C.',
-    features: ['Waterproof stainless steel tube', '1-Wire interface protocol', '9 to 12-bit selectable resolution'],
-    specs: { 'Temperature Range': '-55°C to +125°C', 'Accuracy': '±0.5°C' }
+    description: 'DS18B20 is a digital temperature sensor with selectable 9–12-bit resolution and a 1-Wire interface, making it suitable for single-sensor and multi-sensor temperature monitoring.',
+    features: [
+      '−55 to +125°C wide temperature measuring range (±0.5°C accuracy)',
+      '1-Wire serial communication supporting multi-drop bus topologies',
+      'Selectable 9 to 12-bit ADC conversion resolution (up to 750 ms conversion speed)',
+      'User-configurable non-volatile temperature alarm settings'
+    ],
+    specs: {
+      'Sensor Type': 'Digital temperature',
+      'Interface': '1-Wire',
+      'Supply Voltage': '3–5.5 V',
+      'Temperature Range': '−55 to +125°C',
+      'Accuracy': '±0.5°C',
+      'Resolution': '9–12 bit selectable',
+      'Conversion': 'Up to 750 ms at 12-bit',
+      'Multi-drop': 'Supported',
+      'Alarm': 'User-configurable'
+    }
   },
   {
     id: 'sn-8',
-    name: 'MQ-2 Gas Sensor',
+    name: 'MQ-2 Smoke, LPG & Gas Sensor Module',
     slug: 'mq-2-gas-sensor',
     sku: 'SKU-SN-08',
     categorySlug: 'sensors',
@@ -580,155 +685,29 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Combustible gas and smoke detector module suitable for detecting LPG, propane, methane, alcohol, and hydrogen.',
-    features: ['High sensitivity to LPG and propane', 'Fast response time', 'Analog & Digital outputs'],
-    specs: { 'Target Gases': 'LPG, Smoke, Methane', 'Operating Voltage': '5V DC' }
+    description: 'MQ-2 is a gas-sensing module commonly used in electronics projects for detecting smoke and several combustible gases.',
+    features: [
+      'Detects smoke, LPG, butane, hydrogen, and combustible gas concentrations',
+      'Dual signal outputs: 0–5 V Analog + TTL Digital',
+      'Onboard potentiometer sensitivity threshold adjustment',
+      'Compact 36 × 20 × 21 mm breakout board'
+    ],
+    specs: {
+      'Sensor Type': 'Semiconductor gas sensor',
+      'Operating Voltage': '5 V',
+      'Preheat Duration': '~20 s',
+      'Analog Output': '0–5 V',
+      'Digital Output': 'TTL',
+      'Module Dimensions': '36 × 20 × 21 mm',
+      'Detectable gases': 'Smoke, LPG, butane, hydrogen and other combustible gases',
+      'Sensitivity': 'Adjustable on module'
+    }
   },
   {
     id: 'sn-9',
-    name: 'MQ-135 Air Quality Sensor',
-    slug: 'mq-135-air-quality-sensor',
+    name: 'MPU-6050 6-Axis Accelerometer & Gyroscope Module',
+    slug: 'mpu-6050-gyroscope',
     sku: 'SKU-SN-09',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Environmental & Gas',
-    price: 149,
-    originalPrice: 149,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 110,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Air quality hazard sensor module designed for detecting NH3, NOx, alcohol, benzene, smoke, and CO2.',
-    features: ['Wide detecting scope', 'Onboard potentiometer for threshold adjust', 'Dual signal output'],
-    specs: { 'Target Gases': 'Ammonia, CO2, Smoke', 'Voltage': '5V' }
-  },
-  {
-    id: 'sn-10',
-    name: 'Flame Sensor',
-    slug: 'flame-sensor',
-    sku: 'SKU-SN-10',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Optical & Sound',
-    price: 49,
-    originalPrice: 49,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 170,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Infrared wavelength flame detection module sensitive to fire wavelengths between 760nm to 1100nm.',
-    features: ['60-degree detection angle', 'Onboard LM393 comparator', 'Digital & Analog pins'],
-    specs: { 'Wavelength Range': '760nm - 1100nm', 'Voltage': '3.3V - 5V' }
-  },
-  {
-    id: 'sn-11',
-    name: 'Rain Sensor Module',
-    slug: 'rain-sensor',
-    sku: 'SKU-SN-11',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Environmental & Gas',
-    price: 69,
-    originalPrice: 69,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 190,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Raindrops detection board with nickel-plated weather tracking surface and control driver module.',
-    features: ['Nickel plated anti-oxidation board', 'Adjustable sensitivity', 'DO and AO output pins'],
-    specs: { 'Board Area': '5cm x 4cm', 'Operating Voltage': '3.3V - 5V' }
-  },
-  {
-    id: 'sn-12',
-    name: 'Soil Moisture Sensor',
-    slug: 'soil-moisture-sensor',
-    sku: 'SKU-SN-12',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Environmental & Gas',
-    price: 59,
-    originalPrice: 59,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 210,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Pronged soil water content detection probe for smart agriculture and automatic plant watering systems.',
-    features: ['Two conducting prongs', 'LM393 driver module', 'Digital & Analog outputs'],
-    specs: { 'Voltage': '3.3V - 5V', 'Output': 'Digital DO & Analog AO' }
-  },
-  {
-    id: 'sn-13',
-    name: 'Sound Sensor Module',
-    slug: 'sound-sensor',
-    sku: 'SKU-SN-13',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Optical & Sound',
-    price: 69,
-    originalPrice: 69,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 150,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Electret microphone sound intensity detection module for acoustic trigger switches and clapping detectors.',
-    features: ['High sensitivity microphone', 'LM393 signal amplifier', 'Adjustable Gain potentiometer'],
-    specs: { 'Supply Voltage': '3.3V - 5V', 'Output': 'Digital High/Low' }
-  },
-  {
-    id: 'sn-14',
-    name: 'Touch Sensor Module',
-    slug: 'touch-sensor',
-    sku: 'SKU-SN-14',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Motion & Proximity',
-    price: 49,
-    originalPrice: 49,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 230,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'TTP223 capacitive touch button module providing silent touch-activated digital switching.',
-    features: ['TTP223 touch IC', 'Latching or momentary mode toggle', 'Low power idle state'],
-    specs: { 'Operating Voltage': '2.0V - 5.5V', 'Response Time': '60ms' }
-  },
-  {
-    id: 'sn-15',
-    name: 'Pulse Sensor',
-    slug: 'pulse-sensor',
-    sku: 'SKU-SN-15',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Biometric',
-    price: 199,
-    originalPrice: 199,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 90,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Plug-and-play optical heart rate sensor module for fingertip pulse telemetry and biometric monitoring.',
-    features: ['Optical pulse amplification', 'Noise cancellation circuit', 'Fingertip clip strap included'],
-    specs: { 'Operating Voltage': '3V - 5V', 'Output': 'Analog Waveform' }
-  },
-  {
-    id: 'sn-16',
-    name: 'MPU6050 Accelerometer & Gyroscope',
-    slug: 'mpu6050-gyroscope',
-    sku: 'SKU-SN-16',
     categorySlug: 'sensors',
     categoryName: 'Sensors',
     subCategory: 'Motion & Proximity',
@@ -740,35 +719,28 @@ export const STORE_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: '6-DOF MotionTracking device combining a 3-axis gyroscope and 3-axis accelerometer with I2C interface.',
-    features: ['Integrated Digital Motion Processor (DMP)', '16-bit ADC converters', 'I2C communication protocol'],
-    specs: { 'Gyro Range': '±250 500 1000 2000 °/s', 'Accel Range': '±2 ±4 ±8 ±16g' }
+    description: 'MPU-6050 combines a 3-axis accelerometer and 3-axis gyroscope in one motion-sensing device for orientation, movement and motion-monitoring projects.',
+    features: [
+      '6-axis motion tracking (3-axis Gyroscope + 3-axis Accelerometer)',
+      'User-programmable gyro range: ±250 / ±500 / ±1000 / ±2000 °/s',
+      'User-programmable accel range: ±2g / ±4g / ±8g / ±16g',
+      'Standard I2C digital interface for robotics, drones, and orientation tracking'
+    ],
+    specs: {
+      'Sensor': '3-axis accelerometer + 3-axis gyroscope',
+      'Axes': '6-axis motion sensing',
+      'Interface': 'I²C',
+      'Accelerometer': '±2g / ±4g / ±8g / ±16g',
+      'Gyroscope': '±250 / ±500 / ±1000 / ±2000 °/s',
+      'Digital Interface': 'I²C',
+      'Applications': 'Motion/orientation sensing'
+    }
   },
   {
-    id: 'sn-17',
-    name: 'HC-SR501 PIR Sensor',
-    slug: 'hc-sr501-pir-sensor',
-    sku: 'SKU-SN-17',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Motion & Proximity',
-    price: 99,
-    originalPrice: 99,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 140,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: 'Pyroelectric infrared human motion sensor module featuring automatic trigger control.',
-    features: ['Adjustable sensitivity & hold time', 'Repeatable trigger mode', 'Low power drain'],
-    specs: { 'Voltage': '4.5V - 20V', 'Sensing Range': 'Up to 7 meters' }
-  },
-  {
-    id: 'sn-18',
-    name: 'TCRT5000 Line Sensor',
-    slug: 'tcrt5000-line-sensor',
-    sku: 'SKU-SN-18',
+    id: 'sn-10',
+    name: 'SW-420 Vibration Sensor Module',
+    slug: 'sw-420-vibration-sensor',
+    sku: 'SKU-SN-10',
     categorySlug: 'sensors',
     categoryName: 'Sensors',
     subCategory: 'Motion & Proximity',
@@ -776,33 +748,27 @@ export const STORE_PRODUCTS: Product[] = [
     originalPrice: 59,
     discountPercent: 0,
     inStock: true,
-    stockCount: 220,
+    stockCount: 170,
     rating: 5.0,
     reviewCount: 0,
     image: '/store/sensor.svg',
-    description: 'Reflective optical sensor module for line-following robots and black/white surface discrimination.',
-    features: ['Infrared emitter phototransistor', 'LM393 comparator driver', 'Digital & Analog outputs'],
-    specs: { 'Sensing Distance': '0.2mm - 15mm', 'Voltage': '3.3V - 5V' }
-  },
-  {
-    id: 'sn-19',
-    name: 'RFID RC522 Sensor Module',
-    slug: 'rfid-rc522-sensor',
-    sku: 'SKU-SN-19',
-    categorySlug: 'sensors',
-    categoryName: 'Sensors',
-    subCategory: 'Biometric',
-    price: 179,
-    originalPrice: 179,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 120,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/sensor.svg',
-    description: '13.56MHz SPI RFID reader sensor module bundled with S50 key fob and IC card for access control.',
-    features: ['SPI interface protocol', '13.56MHz contactless read/write', 'Includes card and key fob'],
-    specs: { 'Frequency': '13.56MHz', 'Operating Current': '13-26mA @ 3.3V' }
+    description: 'SW-420 is a vibration detection module that detects vibration or movement and provides a digital switching output.',
+    features: [
+      'SW-420 normally-closed vibration sensor element',
+      'LM393 comparator with adjustable sensitivity potentiometer',
+      '3.3–5 V DC operating range with digital switching output (0/1)',
+      'Mounting bolt holes for anti-tamper alarms and machine monitoring'
+    ],
+    specs: {
+      'Sensor': 'SW-420 normally-closed vibration sensor',
+      'Comparator': 'LM393',
+      'Operating Voltage': '3.3–5 V',
+      'Output': 'Digital',
+      'Output Logic': '0 / 1 switching',
+      'Sensitivity': 'Adjustable',
+      'Mounting': 'Bolt holes',
+      'Output Drive': '>15 mA'
+    }
   },
 
   // 3. Modules (22 Items)
