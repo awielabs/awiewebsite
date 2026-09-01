@@ -15,6 +15,13 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const [quantity, setQuantity] = useState<number>(1);
 
   const product: Product = STORE_PRODUCTS.find((p) => p.slug === slug) || STORE_PRODUCTS[0];
+  const galleryImages = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+  const [selectedImage, setSelectedImage] = useState<string>(galleryImages[0]);
+
+  // Reset selected image if product changes
+  React.useEffect(() => {
+    setSelectedImage(galleryImages[0]);
+  }, [slug]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 pb-20 pt-4">
@@ -34,18 +41,40 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         {/* Main Product Container */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left: Product Image Box */}
+          {/* Left: Product Image Box & Gallery Thumbnails */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex items-center justify-center h-96 relative">
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex items-center justify-center h-96 relative overflow-hidden group">
               <Image
-                src={product.image}
+                src={selectedImage}
                 alt={product.name}
-                width={260}
-                height={260}
-                className="object-contain max-h-80"
+                width={320}
+                height={320}
+                className="object-contain max-h-80 transition-all duration-300 group-hover:scale-105"
                 priority
               />
             </div>
+
+            {/* Gallery Thumbnails */}
+            {galleryImages.length > 1 && (
+              <div className="flex items-center gap-3 overflow-x-auto pb-1">
+                {galleryImages.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedImage(imgUrl)}
+                    className={`relative w-20 h-20 rounded-xl bg-white border-2 overflow-hidden shrink-0 transition-all ${
+                      selectedImage === imgUrl ? 'border-[#2563EB] ring-2 ring-[#2563EB]/20 shadow-sm' : 'border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <Image
+                      src={imgUrl}
+                      alt={`${product.name} view ${idx + 1}`}
+                      fill
+                      className="object-contain p-1.5"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
 
             <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-[#2563EB] shrink-0" />
