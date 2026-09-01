@@ -96,7 +96,11 @@ export const STORE_CATEGORIES: StoreCategory[] = [
 ];
 
 export const STORE_PRODUCTS: Product[] = [
-  // 1. Microcontrollers (12 Items)
+  // ── MICROCONTROLLERS ──────────────────────────────────────────────────────
+  // Prices set to 0 — will be updated before store goes live.
+  // Physical weight / package dimensions: TBD from verified supplier.
+
+  // 1. ESP32-WROOM-32
   {
     id: 'mc-1',
     name: 'ESP32-WROOM-32',
@@ -105,18 +109,50 @@ export const STORE_PRODUCTS: Product[] = [
     categorySlug: 'microcontrollers',
     categoryName: 'Microcontrollers',
     subCategory: 'ESP32 Series',
-    price: 299,
-    originalPrice: 299,
+    price: 0,
+    originalPrice: 0,
     discountPercent: 0,
     inStock: true,
-    stockCount: 150,
+    stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
     image: '/store/esp32.svg',
-    description: 'Dual-core 32-bit Tensilica LX6 microcontroller with integrated 2.4GHz Wi-Fi and Bluetooth v4.2 BR/EDR and BLE.',
-    features: ['240 MHz clock speed', '520 KB SRAM', '4MB SPI Flash memory', 'Wi-Fi & BLE integrated'],
-    specs: { 'Voltage': '3.3V', 'Processor': 'Dual-Core LX6', 'Flash': '4MB', 'Connectivity': 'Wi-Fi + BLE' }
+    description: 'ESP32-WROOM-32 is a general-purpose Wi-Fi + Bluetooth + Bluetooth LE MCU module by Espressif. It integrates an ESP32-D0WDQ6 chip with 4 MB SPI flash, PCB antenna, and all necessary passive components in an 18 × 25.5 × 3.11 mm module. Note: Espressif currently marks the original ESP32-WROOM-32 as NRND (Not Recommended for New Designs). We recommend confirming the exact variant before ordering for new product designs.',
+    features: [
+      'Dual-core 32-bit Tensilica Xtensa LX6 up to 240 MHz',
+      '448 KB ROM, 520 KB SRAM',
+      '4 MB integrated SPI flash',
+      '802.11 b/g/n Wi-Fi (2.4 GHz)',
+      'Bluetooth 4.2 BR/EDR + BLE',
+      'Up to 32 configurable GPIO',
+      'Interfaces: SPI, UART, I²C, I²S, ADC, DAC, PWM, TWAI',
+      'Operating voltage: 3.0–3.6 V',
+      'Module dimensions: 18 × 25.5 × 3.11 mm',
+      'PCB antenna (integrated)',
+      'NRND — Not Recommended for New Designs (Espressif)'
+    ],
+    specs: {
+      'MCU': 'ESP32-D0WDQ6',
+      'CPU': 'Dual-Core Xtensa LX6',
+      'Clock Speed': 'Up to 240 MHz',
+      'ROM': '448 KB',
+      'SRAM': '520 KB',
+      'Flash': '4 MB SPI',
+      'Wi-Fi': '802.11 b/g/n (2.4 GHz)',
+      'Bluetooth': 'v4.2 BR/EDR + BLE',
+      'GPIO': 'Up to 32',
+      'Interfaces': 'SPI, UART, I²C, I²S, ADC, DAC, PWM, TWAI',
+      'Operating Voltage': '3.0–3.6 V',
+      'Module Dimensions': '18 × 25.5 × 3.11 mm',
+      'Status': 'NRND (Not Recommended for New Designs)',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    },
+    isFeatured: true
   },
+
+  // 2. ESP32 DevKit V1
   {
     id: 'mc-2',
     name: 'ESP32 DevKit V1',
@@ -125,18 +161,368 @@ export const STORE_PRODUCTS: Product[] = [
     categorySlug: 'microcontrollers',
     categoryName: 'Microcontrollers',
     subCategory: 'ESP32 Series',
-    price: 349,
-    originalPrice: 349,
+    price: 0,
+    originalPrice: 0,
     discountPercent: 0,
     inStock: true,
-    stockCount: 120,
+    stockCount: 0,
     rating: 5.0,
     reviewCount: 0,
     image: '/store/esp32.svg',
-    description: 'Standard 30-pin ESP32 development board with CP2102 USB-to-UART converter and micro-USB port for rapid breadboard prototyping.',
-    features: ['30 GPIO Pins', 'Micro-USB interface', 'Onboard EN & Boot switches', 'Dual Core 240MHz'],
-    specs: { 'USB Bridge': 'CP2102', 'Pins': '30 GPIO', 'Operating Voltage': '5V via USB / 3.3V Pin' }
+    description: 'ESP32 DevKit V1 is a development board based on the ESP32 platform, providing 2.4 GHz Wi-Fi and Bluetooth/BLE connectivity alongside GPIO and common peripheral interfaces. Suitable for IoT, automation, robotics and embedded projects. Note: Brand and exact USB interface variant (CP2102 / CH340) should be confirmed from the supplier listing before publishing.',
+    features: [
+      'Dual-core ESP32 processor up to 240 MHz',
+      '2.4 GHz 802.11 b/g/n Wi-Fi',
+      'Bluetooth 4.2 / BLE',
+      'Multiple GPIO pins',
+      'ADC, PWM, UART, SPI, I²C',
+      'Breadboard-friendly development format',
+      'USB programming interface',
+      'Onboard EN and Boot buttons',
+      'USB bridge: verify CP2102 or CH340 from supplier'
+    ],
+    specs: {
+      'MCU': 'ESP32',
+      'CPU': 'Dual-Core Xtensa LX6',
+      'Clock Speed': 'Up to 240 MHz',
+      'Wi-Fi': '2.4 GHz 802.11 b/g/n',
+      'Bluetooth': '4.2 / BLE',
+      'USB Bridge': 'CP2102 or CH340 — verify from supplier',
+      'Operating Voltage': '5 V via USB / 3.3 V pin',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    },
+    isFeatured: true
   },
+
+  // 3. ESP32-C3 SuperMini
+  {
+    id: 'mc-3',
+    name: 'ESP32-C3 SuperMini',
+    slug: 'esp32-c3-supermini',
+    sku: 'SKU-MC-03',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'ESP32 Series',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/esp32.svg',
+    description: 'A compact ESP32-C3 development board with a 32-bit RISC-V single-core processor, designed for small IoT, automation and embedded applications where a low-cost, space-efficient controller is required. Verify flash size and exact USB interface from the specific board supplier before publishing.',
+    features: [
+      '32-bit RISC-V single-core MCU up to 160 MHz',
+      '2.4 GHz 802.11 b/g/n Wi-Fi',
+      'Bluetooth LE 5',
+      'Flash: commonly 4 MB (verify from supplier)',
+      'GPIO, UART, SPI, I²C, I²S',
+      'ADC, PWM',
+      'Ultra-compact form factor',
+      'USB: variant dependent — verify from supplier'
+    ],
+    specs: {
+      'MCU': 'ESP32-C3',
+      'CPU': '32-bit RISC-V single-core',
+      'Clock Speed': 'Up to 160 MHz',
+      'Wi-Fi': '2.4 GHz 802.11 b/g/n',
+      'Bluetooth': 'BLE 5',
+      'Flash': 'Commonly 4 MB — verify from supplier',
+      'Interfaces': 'GPIO, UART, SPI, I²C, I²S, ADC, PWM',
+      'USB': 'Variant dependent — verify from supplier',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 4. ESP32-C3 Mini
+  {
+    id: 'mc-4',
+    name: 'ESP32-C3 Mini',
+    slug: 'esp32-c3-mini',
+    sku: 'SKU-MC-04',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'ESP32 Series',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/esp32.svg',
+    description: 'ESP32-C3-MINI-1 is a compact Wi-Fi + BLE module by Espressif based on the ESP32-C3 RISC-V SoC. Available in PCB-antenna (MINI-1) and external-antenna (MINI-1U) variants. Important: Confirm whether AWIE is selling the bare module or a development board — these are different products with different use cases.',
+    features: [
+      '32-bit RISC-V single-core ESP32-C3',
+      '2.4 GHz 802.11 b/g/n Wi-Fi',
+      'Bluetooth LE',
+      '4 MB flash (C3FN4 / C3FH4 variants)',
+      'Operating voltage: 3.0–3.6 V',
+      'GPIO, UART, SPI, I²C, I²S',
+      'PCB antenna (MINI-1) or external antenna (MINI-1U)',
+      'MINI-1 dimensions: 13.2 × 16.6 × 2.4 mm',
+      'MINI-1U dimensions: 13.2 × 12.5 × 2.4 mm'
+    ],
+    specs: {
+      'MCU': 'ESP32-C3',
+      'CPU': '32-bit RISC-V single-core',
+      'Wi-Fi': '2.4 GHz 802.11 b/g/n',
+      'Bluetooth': 'BLE',
+      'Flash': '4 MB (C3FN4/C3FH4)',
+      'Operating Voltage': '3.0–3.6 V',
+      'Interfaces': 'GPIO, UART, SPI, I²C, I²S',
+      'Antenna': 'PCB (MINI-1) / External (MINI-1U)',
+      'Module Dimensions (MINI-1)': '13.2 × 16.6 × 2.4 mm',
+      'Module Dimensions (MINI-1U)': '13.2 × 12.5 × 2.4 mm',
+      'Product Type': 'Module or Dev Board — confirm from supplier',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 5. ESP32-S3 DevKit
+  {
+    id: 'mc-5',
+    name: 'ESP32-S3 DevKit',
+    slug: 'esp32-s3-devkit',
+    sku: 'SKU-MC-05',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'ESP32 Series',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/esp32.svg',
+    description: 'ESP32-S3 development board for advanced IoT, AI-enabled embedded applications, USB projects, and connected devices. Features a dual-core Xtensa LX7 processor with vector instructions for AI/ML edge computation. Note: Confirm the exact board variant and flash size before publishing the final product listing — the official Espressif DevKitC-1-N8 has a different price point to consider.',
+    features: [
+      'Dual-core Xtensa LX7 up to 240 MHz',
+      'Vector instructions for AI/ML edge compute',
+      '512 KB SRAM, 384 KB ROM',
+      'Flash: variant dependent — verify from supplier',
+      '802.11 b/g/n Wi-Fi',
+      'Bluetooth 5 LE',
+      'USB 1.1 OTG / USB Serial-JTAG (board dependent)',
+      'GPIO, SPI, I²C, I²S, UART, PWM',
+      'ADC, Touch sensing',
+      'Exact board variant to be confirmed before listing'
+    ],
+    specs: {
+      'MCU': 'ESP32-S3',
+      'CPU': 'Dual-Core Xtensa LX7',
+      'Clock Speed': 'Up to 240 MHz',
+      'SRAM': '512 KB',
+      'ROM': '384 KB',
+      'Flash': 'Variant dependent — verify from supplier',
+      'Wi-Fi': '802.11 b/g/n',
+      'Bluetooth': 'BLE 5',
+      'USB': 'USB 1.1 OTG / Serial-JTAG (board dependent)',
+      'Interfaces': 'GPIO, SPI, I²C, I²S, UART, PWM, ADC, Touch',
+      'Board Variant': 'TBD — confirm exact board from supplier',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 6. ESP32-CAM
+  {
+    id: 'mc-6',
+    name: 'ESP32-CAM',
+    slug: 'esp32-cam',
+    sku: 'SKU-MC-06',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'ESP32 Series',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/esp32.svg',
+    description: 'ESP32-CAM is a compact ESP32-based development board with an integrated camera interface, suitable for wireless image capture, monitoring and IoT vision projects. Camera sensor, PSRAM and dimensions are variant dependent — exact supplier variant must be confirmed before publishing camera specifications.',
+    features: [
+      'ESP32-based controller',
+      '2.4 GHz Wi-Fi + Bluetooth/BLE',
+      'Camera interface (OV2640 commonly included — verify)',
+      'microSD support on supported board variants',
+      'GPIO, UART, SPI, I²C, PWM',
+      'Camera sensor: verify from exact supplier variant',
+      'Flash and PSRAM: verify from exact supplier variant'
+    ],
+    specs: {
+      'MCU': 'ESP32',
+      'Wi-Fi': '2.4 GHz',
+      'Bluetooth': 'BLE',
+      'Camera Sensor': 'Variant dependent — commonly OV2640 (verify)',
+      'Flash': 'Variant dependent — verify from supplier',
+      'PSRAM': 'Variant dependent — verify from supplier',
+      'Storage': 'microSD slot (board variant dependent)',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 7. ESP8266 NodeMCU
+  {
+    id: 'mc-7',
+    name: 'ESP8266 NodeMCU',
+    slug: 'esp8266-nodemcu',
+    sku: 'SKU-MC-07',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'ESP32 Series',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/microcontroller.svg',
+    description: 'ESP8266 NodeMCU is a Wi-Fi-enabled development board designed for affordable IoT, automation and connected-device projects. Based on the 32-bit Tensilica Xtensa processor. Note: Multiple NodeMCU variants exist with CP2102 or CH340 USB interfaces — AWIE must specify the exact version being sourced.',
+    features: [
+      '32-bit Tensilica Xtensa processor up to 160 MHz',
+      '2.4 GHz 802.11 b/g/n Wi-Fi',
+      'Multiple GPIO pins',
+      '10-bit ADC',
+      'UART, SPI, I²C',
+      '3.3 V logic level',
+      'USB programming interface',
+      'USB bridge: CP2102 or CH340 — verify from supplier'
+    ],
+    specs: {
+      'MCU': 'ESP8266',
+      'CPU': '32-bit Tensilica Xtensa',
+      'Clock Speed': 'Up to 160 MHz',
+      'Wi-Fi': '2.4 GHz 802.11 b/g/n',
+      'Flash': 'Board dependent — verify from supplier',
+      'ADC': '10-bit',
+      'Interfaces': 'UART, SPI, I²C',
+      'Logic Level': '3.3 V',
+      'USB Bridge': 'CP2102 or CH340 — verify from supplier',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 8. Arduino UNO R3 Compatible
+  {
+    id: 'mc-8',
+    name: 'Arduino UNO R3 Compatible Development Board',
+    slug: 'arduino-uno-r3',
+    sku: 'SKU-MC-08',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'Arduino Boards',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/arduino.svg',
+    description: 'Arduino UNO R3 Compatible Development Board based on the ATmega328P 8-bit AVR microcontroller. This is a third-party compatible board — not an official Arduino-manufactured product. USB interface (CH340G or similar) varies by board; confirm exact variant from supplier before publishing.',
+    features: [
+      'ATmega328P 8-bit AVR microcontroller',
+      '16 MHz crystal oscillator',
+      '14 digital I/O pins (6 with PWM)',
+      '6 analog input channels',
+      '32 KB flash, 2 KB SRAM, 1 KB EEPROM',
+      '5 V operating logic',
+      'USB interface: CH340G or similar (verify from supplier)',
+      'Compatible (not Official Arduino-manufactured)'
+    ],
+    specs: {
+      'MCU': 'ATmega328P',
+      'Architecture': '8-bit AVR',
+      'Clock Speed': '16 MHz',
+      'Digital I/O': '14 (6 PWM)',
+      'Analog Inputs': '6',
+      'Flash': '32 KB',
+      'SRAM': '2 KB',
+      'EEPROM': '1 KB',
+      'Operating Voltage': '5 V',
+      'USB Interface': 'CH340G or similar — verify from supplier',
+      'Board Type': 'Compatible (not official Arduino)',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // 9. Arduino Nano R3 Compatible
+  {
+    id: 'mc-9',
+    name: 'Arduino Nano R3 Compatible',
+    slug: 'arduino-nano',
+    sku: 'SKU-MC-09',
+    categorySlug: 'microcontrollers',
+    categoryName: 'Microcontrollers',
+    subCategory: 'Arduino Boards',
+    price: 0,
+    originalPrice: 0,
+    discountPercent: 0,
+    inStock: true,
+    stockCount: 0,
+    rating: 5.0,
+    reviewCount: 0,
+    image: '/store/arduino.svg',
+    description: 'Compact ATmega328P-based Arduino Nano compatible development board suitable for robotics, automation, sensor projects and embedded prototypes. Breadboard-friendly form factor. This is a third-party compatible board. USB interface (Mini-USB or Type-C) and exact pin count vary by board variant — confirm from supplier.',
+    features: [
+      'ATmega328P 8-bit AVR microcontroller',
+      '16 MHz clock speed',
+      'Compact breadboard-friendly layout',
+      '22 digital I/O pins (exact count varies by variant)',
+      '6 PWM outputs',
+      '8 analog input channels',
+      '32 KB flash, 2 KB SRAM, 1 KB EEPROM',
+      '5 V operating voltage',
+      'USB: Mini-USB or Type-C — verify from supplier',
+      'Compatible (not official Arduino-manufactured)'
+    ],
+    specs: {
+      'MCU': 'ATmega328P',
+      'Architecture': '8-bit AVR',
+      'Clock Speed': '16 MHz',
+      'Digital I/O': '22 (exact count varies by variant)',
+      'PWM': '6',
+      'Analog Inputs': '8',
+      'Flash': '32 KB',
+      'SRAM': '2 KB',
+      'EEPROM': '1 KB',
+      'Operating Voltage': '5 V',
+      'USB': 'Mini-USB or Type-C — verify from supplier',
+      'Board Type': 'Compatible (not official Arduino)',
+      'Product Weight': 'TBD — verify from supplier',
+      'Package Weight': 'TBD — verify after packaging',
+      'Package Dimensions': 'TBD — verify after packaging'
+    }
+  },
+
+  // ── Arduino Mega 2560 removed as per product catalogue decision ───────────
+
+
+
+  // ── SENSORS ───────────────────────────────────────────────────────────────
+
+
+  // 2. Sensors (19 Items)
+
   {
     id: 'mc-3',
     name: 'ESP32-C3 SuperMini',

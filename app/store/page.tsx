@@ -88,6 +88,12 @@ export default function StorePage() {
               {renderInteractiveText('Hardware Components', true, 'heading-part2')}
             </h1>
 
+            {/* Go Live Soon Banner */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 backdrop-blur-md border border-[#2563EB]/40 text-xs font-extrabold text-white shadow-lg shadow-[#2563EB]/10">
+              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-ping shrink-0" />
+              <span>Products will go live soon — Stay tuned!</span>
+            </div>
+
           </div>
 
         </div>
@@ -246,15 +252,12 @@ export default function StorePage() {
                 {/* Stock Status */}
                 <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-600">
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>In Stock</span>
+                  <span>Genuine Component</span>
                 </div>
 
-                {/* Price Display */}
-                <div className="pt-2 border-t border-slate-100 flex items-baseline justify-between">
-                  <div>
-                    <span className="text-base font-black text-slate-900">₹{prod.price.toLocaleString()}</span>
-                    <span className="text-[10px] text-slate-500 font-medium block">Incl. GST</span>
-                  </div>
+                {/* Price — Hidden until store goes live */}
+                <div className="pt-2 border-t border-slate-100">
+                  <span className="text-[11px] font-bold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">Price on Request</span>
                 </div>
 
                 {/* Action Button */}

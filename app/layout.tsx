@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins, Outfit } from 'next/font/google';
+import Script from 'next/script';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/layout/CustomCursor';
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     ],
     shortcut: '/icon.png',
     apple: '/icon.png',
-  },
+    },
 };
 
 export default function RootLayout({
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${outfit.variable} dark scroll-smooth`}>
       <body className={`${poppins.className} bg-[#0B0F17] text-gray-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden selection:bg-[#2563EB] selection:text-white`}>
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
         <CartProvider>
           <CustomCursor />
           <ParticleBackground />
@@ -52,3 +54,4 @@ export default function RootLayout({
     </html>
   );
 }
+

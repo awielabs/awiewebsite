@@ -146,10 +146,9 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                     <span>In Stock</span>
                   </div>
 
-                  {/* Price Breakdown */}
-                  <div className="space-y-0.5 pt-2 border-t border-slate-100">
-                    <span className="text-base font-black text-slate-900">₹{prod.price.toLocaleString()}</span>
-                    <span className="text-[10px] font-medium text-slate-500 block">Incl. all GST & Taxes</span>
+                  {/* Price Breakdown — Hidden until store goes live */}
+                  <div className="pt-2 border-t border-slate-100">
+                    <span className="text-[11px] font-bold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">Price on Request</span>
                   </div>
 
                   {/* Action Button */}
