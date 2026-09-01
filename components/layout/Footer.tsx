@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Code2, Globe } from 'lucide-react';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -49,16 +48,6 @@ export default function Footer() {
             <p className="text-[11px] text-slate-500 font-sans mt-1">
               Registered Location: AWIE, Nerul, Navi Mumbai, Maharashtra – 400706, India
             </p>
-          </div>
-
-
-          <div className="flex items-center gap-3 pt-1 text-slate-600">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-xs">
-              <Code2 className="w-4 h-4" />
-            </a>
-            <a href="https://awie.in" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-white border border-slate-300 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors shadow-xs">
-              <Globe className="w-4 h-4" />
-            </a>
           </div>
         </div>
 

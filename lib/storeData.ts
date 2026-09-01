@@ -39,7 +39,7 @@ export const STORE_CATEGORIES: StoreCategory[] = [
     slug: 'microcontrollers',
     description: 'High-performance ESP32, ESP8266, and Arduino microcontroller development boards and modules.',
     icon: 'Cpu',
-    itemCount: 9,
+    itemCount: 7,
     color: 'from-[#0066FF] to-[#2563EB]',
     subCategories: ['ESP32 Series', 'Arduino Boards']
   },
@@ -150,52 +150,7 @@ export const STORE_PRODUCTS: Product[] = [
     isFeatured: true
   },
 
-  // 2. ESP32 DevKit V1
-  {
-    id: 'mc-2',
-    name: 'ESP32 DevKit V1',
-    slug: 'esp32-devkit-v1',
-    sku: 'SKU-MC-02',
-    categorySlug: 'microcontrollers',
-    categoryName: 'Microcontrollers',
-    subCategory: 'ESP32 Series',
-    price: 0,
-    originalPrice: 0,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 0,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/esp32.svg',
-    description: 'ESP32 DevKit V1 is a versatile development board featuring the ESP32-WROOM-32 module with 2.4 GHz Wi-Fi, Bluetooth/BLE, an onboard CP2102/CH340 USB-to-UART bridge, and AMS1117 3.3V voltage regulator. Designed for rapid prototyping, IoT applications, smart home automation, and robotics.',
-    features: [
-      'ESP32 Dual-Core Xtensa LX6 processor up to 240 MHz',
-      '2.4 GHz Wi-Fi 802.11 b/g/n & Bluetooth 4.2 / BLE',
-      'Onboard USB-to-UART bridge (CP2102 / CH340G)',
-      'Micro-USB / Type-C port for power, programming, and serial debug',
-      'Onboard AMS1117-3.3V LDO regulator (5V VIN to 3.3V)',
-      'Breadboard-friendly 30-pin dual inline header layout',
-      'Dedicated EN (Reset) and BOOT (Flash mode) push buttons',
-      'Integrated Power and Status LEDs'
-    ],
-    specs: {
-      'MCU': 'ESP32-WROOM-32',
-      'CPU Architecture': '32-bit Dual-Core Xtensa LX6',
-      'Clock Speed': 'Up to 240 MHz',
-      'Flash Memory': '4 MB SPI Flash',
-      'SRAM': '520 KB',
-      'Wi-Fi Connectivity': '2.4 GHz 802.11 b/g/n',
-      'Bluetooth': 'v4.2 BR/EDR & BLE',
-      'USB Interface': 'CP2102 / CH340 USB-to-UART',
-      'Power Supply': '5 V DC via USB or VIN Pin',
-      'Operating Logic Level': '3.3 V DC',
-      'Header Layout': '30-Pin / 36-Pin DIP layout',
-      'Board Dimensions': '51.5 × 28.5 × 13 mm'
-    },
-    isFeatured: true
-  },
-
-  // 3. ESP32-C3 SuperMini
+  // 2. ESP32-C3 SuperMini
   {
     id: 'mc-3',
     name: 'ESP32-C3 SuperMini',
@@ -234,48 +189,6 @@ export const STORE_PRODUCTS: Product[] = [
       'Analog Inputs': '4-Channel 12-bit ADC',
       'Operating Voltage': '3.3 V Logic (5 V Input via USB/VIN)',
       'Dimensions': '22.5 × 18.0 × 4.5 mm'
-    }
-  },
-
-  // 4. ESP32-C3 Mini
-  {
-    id: 'mc-4',
-    name: 'ESP32-C3 Mini',
-    slug: 'esp32-c3-mini',
-    sku: 'SKU-MC-04',
-    categorySlug: 'microcontrollers',
-    categoryName: 'Microcontrollers',
-    subCategory: 'ESP32 Series',
-    price: 0,
-    originalPrice: 0,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 0,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/esp32.svg',
-    description: 'ESP32-C3-MINI-1 is Espressif’s compact Wi-Fi and Bluetooth LE module based on the ESP32-C3 RISC-V SoC. Integrating 4 MB embedded flash and an onboard PCB antenna in a 13.2 × 16.6 mm footprint, it provides reliable 2.4 GHz wireless connectivity for smart lighting, sensor nodes, and low-power IoT equipment.',
-    features: [
-      'ESP32-C3FH4 / C3FN4 RISC-V 32-bit single-core MCU @ 160 MHz',
-      '4 MB Embedded SPI Flash, 400 KB SRAM, 384 KB ROM',
-      '802.11 b/g/n Wi-Fi (2.4 GHz) + Bluetooth 5.0 LE',
-      '15x Multi-function GPIO pins',
-      'Peripherals: 2x UART, 1x SPI, 1x I2C, 1x I2S, 6x 12-bit ADC channels, 6x PWM',
-      'Integrated 3.3V Low Dropout regulator support',
-      'Integrated PCB Trace Antenna (MINI-1 variant)',
-      'Module Dimensions: 13.2 × 16.6 × 2.4 mm'
-    ],
-    specs: {
-      'SoC': 'ESP32-C3 (RISC-V 32-Bit @ 160 MHz)',
-      'Flash Memory': '4 MB Embedded Flash',
-      'SRAM': '400 KB',
-      'Wi-Fi': '2.4 GHz 802.11 b/g/n',
-      'Bluetooth': 'Bluetooth 5.0 LE',
-      'GPIO Count': '15 Pins',
-      'Interfaces': 'UART (2), SPI (1), I2C (1), I2S (1), PWM (6)',
-      'ADC Channels': '6 Channels (12-bit)',
-      'Operating Voltage': '3.0 V – 3.6 V',
-      'Module Size': '13.2 × 16.6 × 2.4 mm'
     }
   },
 
