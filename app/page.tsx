@@ -424,7 +424,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v1</h2>
             <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
-              Featuring 4 White LED ambient bulbs, piezo audio buzzer sound alerts, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
+              A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
             </p>
           </div>
 
