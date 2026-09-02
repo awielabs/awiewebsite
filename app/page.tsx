@@ -422,9 +422,9 @@ export default function Home() {
           {/* Glow Backdrop */}
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
+          <div className="flex flex-col gap-10">
+            {/* Top Content */}
+            <div className="space-y-6 max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
                 <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
                 <span>AWIE PRODUCT</span>
@@ -437,15 +437,15 @@ export default function Home() {
                   Desktop Companion, Engineered for Interaction
                 </span>
               </div>
-              <p className="text-slate-600 text-sm leading-relaxed font-medium">
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
                 A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
               </p>
 
               {/* Feature Pills */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                 {gemFeatures.map((feat) => (
-                  <div key={feat} className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700 bg-white p-2 rounded-xl border border-slate-200">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                  <div key={feat} className="flex items-center gap-2 text-xs font-bold text-slate-700 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -454,7 +454,7 @@ export default function Home() {
               {/* Technical Platform */}
               <div className="pt-2">
                 <span className="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Technical Platform:</span>
-                <span className="text-xs font-mono font-bold text-[#2563EB]">
+                <span className="text-xs sm:text-sm font-mono font-bold text-[#2563EB]">
                   ESP32 • OLED • Capacitive Touch • Li-ion Power • Wi-Fi • BLE • RGB LEDs
                 </span>
               </div>
@@ -462,39 +462,39 @@ export default function Home() {
               <div className="pt-2 flex flex-wrap gap-4">
                 <Link
                   href="/products/gem-buddy"
-                  className="px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-2"
                 >
                   <span>Explore GEM Buddy</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/contact?interest=Pre-Booking+GEM+Buddy"
-                  className="px-6 py-3 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-xs transition-all flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-sm"
                 >
                   <span>Register Pre-Booking</span>
                 </Link>
               </div>
             </div>
 
-            {/* Right Product Image Visual */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-sm w-full space-y-4 text-center">
-                <div className="w-full h-56 rounded-2xl bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Bottom Product Image Visual */}
+            <div className="w-full pt-4 border-t border-slate-200/80">
+              <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-2xl mx-auto w-full space-y-5">
+                <div className="w-full h-64 sm:h-72 rounded-2xl bg-slate-900 flex items-center justify-center p-6 relative overflow-hidden">
                   <Image
                     src="/logo.jpeg"
                     alt="GEM Buddy Product Visual"
-                    width={160}
-                    height={160}
+                    width={180}
+                    height={180}
                     className="object-contain"
                   />
-                  <div className="absolute bottom-3 left-3 bg-slate-950/80 px-2.5 py-1 rounded-md text-[10px] font-mono text-emerald-400 border border-slate-800">
+                  <div className="absolute bottom-4 left-4 bg-slate-950/80 px-3 py-1.5 rounded-md text-[11px] font-mono text-emerald-400 border border-slate-800 shadow-sm">
                     ESP32 ACTIVE • OLED READY
                   </div>
                 </div>
-                <div className="space-y-1 text-left">
+                <div className="space-y-1.5 text-center sm:text-left">
                   <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE EDITION</span>
-                  <h3 className="text-lg font-black text-slate-900">GEM Desktop Companion</h3>
-                  <p className="text-xs text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
+                  <h3 className="text-xl font-black text-slate-900">GEM Desktop Companion</h3>
+                  <p className="text-xs sm:text-sm text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
                 </div>
               </div>
             </div>
