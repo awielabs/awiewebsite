@@ -23,7 +23,7 @@ import {
   Activity,
   CheckCircle2
 } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, type Variants } from 'framer-motion';
 
 export default function AboutPage() {
   // 3D Card Interactive Tilt State
@@ -162,7 +162,7 @@ export default function AboutPage() {
   };
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -173,7 +173,7 @@ export default function AboutPage() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
