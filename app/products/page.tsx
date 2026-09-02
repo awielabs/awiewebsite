@@ -31,8 +31,32 @@ export default function ProductsPage() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
             <span>AWIE HARDWARE PRODUCTS</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">
-            AWIE <span className="text-[#2563EB]">Products</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight select-none py-1">
+            <span className="tracking-wider inline-flex">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 bg-clip-text text-transparent hover:text-[#2563EB] cursor-default">
+                A
+              </span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-[#2563EB] cursor-default">
+                W
+              </span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 bg-clip-text text-transparent hover:text-[#2563EB] cursor-default">
+                I
+              </span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-[#2563EB] cursor-default">
+                E
+              </span>
+            </span>
+            {' '}
+            <span className="text-[#2563EB] inline-flex">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">P</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">r</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">o</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">d</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">u</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">c</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">t</span>
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-blue-700 cursor-default">s</span>
+            </span>
           </h1>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium max-w-2xl mx-auto">
             In-house hardware engineering, embedded companion devices, and smart electronics kits built by AWIE.
