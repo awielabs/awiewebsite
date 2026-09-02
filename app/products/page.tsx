@@ -33,16 +33,16 @@ export default function ProductsPage() {
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight select-none py-1">
             <span className="tracking-wider inline-flex">
-              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 bg-clip-text text-transparent hover:text-[#2563EB] cursor-default">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 text-[#2563EB] hover:text-blue-700 cursor-default">
                 A
               </span>
-              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-[#2563EB] cursor-default">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 text-slate-900 hover:text-[#2563EB] cursor-default">
                 W
               </span>
-              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 bg-clip-text text-transparent hover:text-[#2563EB] cursor-default">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 text-[#2563EB] hover:text-blue-700 cursor-default">
                 I
               </span>
-              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 hover:text-[#2563EB] cursor-default">
+              <span className="inline-block transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-110 text-slate-900 hover:text-[#2563EB] cursor-default">
                 E
               </span>
             </span>
