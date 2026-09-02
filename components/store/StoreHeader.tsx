@@ -7,6 +7,8 @@ import { Search, ShoppingBag, ChevronDown, Menu, X } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
 
+import StoreSearchBar from './StoreSearchBar';
+
 export default function StoreHeader() {
   const { setIsCartOpen, totalItems } = useCart();
   const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
@@ -17,7 +19,7 @@ export default function StoreHeader() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
         
         {/* Official AWIE STORE Logo */}
-        <Link href="/store" className="flex items-center group">
+        <Link href="/store" className="flex items-center group shrink-0">
           <Image
             src="/store-logo.png"
             alt="AWIE STORE Logo"
@@ -80,14 +82,9 @@ export default function StoreHeader() {
         {/* Search & Actions */}
         <div className="flex items-center gap-4">
           
-          {/* Search Box */}
-          <div className="relative hidden sm:block w-48 lg:w-64">
-            <input
-              type="text"
-              placeholder="Search components..."
-              className="w-full pl-4 pr-9 py-2 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#2563EB] transition-all"
-            />
-            <Search className="w-4 h-4 text-slate-400 absolute right-3 top-2.5" />
+          {/* Search Box with Autocomplete Recommendations */}
+          <div className="hidden sm:block w-48 lg:w-64">
+            <StoreSearchBar />
           </div>
 
           {/* Cart Icon Button with Count Badge */}
@@ -121,17 +118,24 @@ export default function StoreHeader() {
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 text-xs font-bold">
-          <Link href="/" className="block py-2 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
-          <Link href="/store" className="block py-2 text-[#2563EB]">AWIE Store Shop</Link>
-          <Link href="/store/category/microcontrollers" className="block py-2 text-slate-700">Microcontrollers</Link>
-          <Link href="/store/category/sensors" className="block py-2 text-slate-700">Sensors</Link>
-          <Link href="/store/category/modules" className="block py-2 text-slate-700">Modules</Link>
-          <Link href="/store/category/displays" className="block py-2 text-slate-700">Displays</Link>
-          <Link href="/store/category/motors-drivers" className="block py-2 text-slate-700">Motors & Drivers</Link>
-          <Link href="/store/category/power-battery" className="block py-2 text-slate-700">Power & Battery</Link>
-          <Link href="/about" className="block py-2 text-slate-700">About Us</Link>
-          <Link href="/contact" className="block py-2 text-slate-700">Contact</Link>
+        <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-4 text-xs font-bold">
+          {/* Mobile Search Bar with Live Recommendations */}
+          <div className="w-full">
+            <StoreSearchBar isMobile onCloseMobile={() => setIsMobileMenuOpen(false)} />
+          </div>
+
+          <div className="space-y-2 pt-2 border-t border-slate-100">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
+            <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
+            <Link href="/store/category/microcontrollers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Microcontrollers</Link>
+            <Link href="/store/category/sensors" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Sensors</Link>
+            <Link href="/store/category/modules" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Modules</Link>
+            <Link href="/store/category/displays" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Displays</Link>
+            <Link href="/store/category/motors-drivers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Motors & Drivers</Link>
+            <Link href="/store/category/power-battery" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Power & Battery</Link>
+            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">About Us</Link>
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Contact</Link>
+          </div>
         </div>
       )}
     </header>
