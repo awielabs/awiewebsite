@@ -57,7 +57,7 @@ export default function GemBuddyPage() {
     { label: 'Heart Rate Monitoring', value: 'Not Included (Available in v2)' },
     { label: 'Touch Interactivity', value: 'Capacitive Touch Top Guard' },
     { label: 'App Support', value: 'Full GEM Mobile App (Wi-Fi + BLE)' },
-    { label: 'Battery & Power', value: '1000mAh LiPo Battery via Type-C' }
+    { label: 'Battery & Power', value: '2500mAh Li-ion Rechargeable Battery via Type-C' }
   ];
 
   const specsV2 = [
@@ -70,7 +70,7 @@ export default function GemBuddyPage() {
     { label: 'Heart Rate & Pulse', value: 'MAX30102 PPG Optical Biometric Sensor' },
     { label: 'Touch Interactivity', value: 'Capacitive Touch Top Guard' },
     { label: 'App Support', value: 'Full GEM Mobile App Telemetry (Wi-Fi + BLE)' },
-    { label: 'Battery & Power', value: '1500mAh LiPo Battery via Type-C' }
+    { label: 'Battery & Power', value: '2500mAh Li-ion Rechargeable Battery via Type-C' }
   ];
 
   const nextAppSlide = () => {
@@ -124,19 +124,19 @@ export default function GemBuddyPage() {
               }`}
             >
               <Zap className="w-4 h-4" />
-              <span>GEM v1 (Standard 1000mAh)</span>
+              <span>GEM v1 (Standard 2500mAh)</span>
             </button>
 
             <button
               onClick={() => setSelectedVersion('v2')}
               className={`px-6 py-3 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
                 selectedVersion === 'v2'
-                  ? 'bg-slate-900 text-white shadow-md shadow-slate-900/25'
+                  ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <HeartPulse className="w-4 h-4 text-rose-400" />
-              <span>GEM v2 Pro (Biometric 1500mAh)</span>
+              <HeartPulse className="w-4 h-4 text-blue-200" />
+              <span>GEM v2 Pro (Biometric 2500mAh)</span>
             </button>
           </div>
         </div>
@@ -163,7 +163,7 @@ export default function GemBuddyPage() {
                   <span>{selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Pro Biometric'}</span>
                 </div>
                 <span className="font-extrabold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                  {selectedVersion === 'v1' ? '1000mAh Battery' : '1500mAh + MAX30102'}
+                  {selectedVersion === 'v1' ? '2500mAh Li-ion Battery' : '2500mAh + MAX30102'}
                 </span>
               </div>
             </div>
@@ -178,21 +178,21 @@ export default function GemBuddyPage() {
                   <span>PRE-BOOKING OPEN SOON</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v1 Standard Companion</h2>
-                <p className="text-[#2563EB] text-base font-bold">1000mAh Battery • 4 White LEDs • Audio Buzzer & GEM App</p>
+                <p className="text-[#2563EB] text-base font-bold">2500mAh Li-ion Battery • 4 White LEDs • Audio Buzzer & GEM App</p>
                 <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                  Designed and manufactured in-house by AWIE. GEM v1 features 4 crisp White LED ambient bulbs, a piezo audio buzzer for sound alerts & touch feedback, 1000mAh rechargeable LiPo battery power, capacitive touch sensors, animated OLED eyes, and full GEM Mobile App synchronization.
+                  Designed and manufactured in-house by AWIE. GEM v1 features 4 crisp White LED ambient bulbs, a piezo audio buzzer for sound alerts & touch feedback, rechargeable 2500mAh Li-ion battery power, capacitive touch sensors, animated OLED eyes, and full GEM Mobile App synchronization.
                 </p>
               </>
             ) : (
               <>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-bold text-rose-600">
-                  <HeartPulse className="w-4 h-4 text-rose-500" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+                  <HeartPulse className="w-4 h-4 text-[#2563EB]" />
                   <span>PRE-BOOKING OPEN SOON — PRO HEALTH EDITION</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v2 Pro Biometric Edition</h2>
-                <p className="text-rose-600 text-base font-bold">1500mAh Battery • MAX30102 Heart Sensor & IR Motion</p>
+                <p className="text-[#2563EB] text-base font-bold">2500mAh Li-ion Battery • MAX30102 Heart Sensor & IR Motion</p>
                 <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                  GEM v2 Pro combines an integrated MAX30102 PPG optical pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, 1500mAh LiPo battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
+                  GEM v2 Pro combines an integrated MAX30102 PPG optical pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, rechargeable 2500mAh Li-ion battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
                 </p>
               </>
             )}
@@ -235,8 +235,8 @@ export default function GemBuddyPage() {
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
                 <BatteryCharging className="w-4 h-4 text-[#2563EB] shrink-0" />
                 <div>
-                  <span className="text-xs font-bold text-slate-900 block">LiPo Battery</span>
-                  <span className="text-[11px] text-slate-500 font-medium">{selectedVersion === 'v1' ? '1000mAh Power' : '1500mAh Power'}</span>
+                  <span className="text-xs font-bold text-slate-900 block">Li-ion Battery</span>
+                  <span className="text-[11px] text-slate-500 font-medium">Rechargeable 2500mAh Power</span>
                 </div>
               </div>
             </div>
@@ -245,11 +245,7 @@ export default function GemBuddyPage() {
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <Link
                 href={`/contact?interest=GEM+${selectedVersion === 'v1' ? 'v1+Standard' : 'v2+Pro'}+PreBooking`}
-                className={`inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-white font-bold text-xs transition-all shadow-lg ${
-                  selectedVersion === 'v1'
-                    ? 'bg-[#2563EB] hover:bg-[#1D4ED8] shadow-[#2563EB]/25'
-                    : 'bg-slate-900 hover:bg-slate-800 shadow-slate-900/25'
-                }`}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-lg shadow-[#2563EB]/25"
               >
                 <span>Register for GEM {selectedVersion === 'v1' ? 'v1' : 'v2 Pro'} Pre-Booking</span>
                 <ArrowRight className="w-4 h-4" />
@@ -458,9 +454,9 @@ export default function GemBuddyPage() {
                   <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs (Pulse Synced)</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-slate-800">Rechargeable LiPo Battery Power</td>
-                  <td className="p-4 text-slate-900 font-bold">1000mAh Battery</td>
-                  <td className="p-4 text-[#2563EB] font-bold">1500mAh Battery</td>
+                  <td className="p-4 font-semibold text-slate-800">Rechargeable Li-ion Battery Power</td>
+                  <td className="p-4 text-slate-900 font-bold">2500mAh Li-ion Battery</td>
+                  <td className="p-4 text-[#2563EB] font-bold">2500mAh Li-ion Battery</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">GEM Mobile App Support (Wi-Fi + BLE)</td>
