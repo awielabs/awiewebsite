@@ -85,9 +85,11 @@ export default function ProductsPage() {
             <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 flex items-center justify-between relative z-10">
               <Link
                 href="/products/gem-buddy?version=v1"
-                className="w-full text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
+                className="w-full relative group/btn overflow-hidden flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Explore GEM v1 Details →
+                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+                <span>Explore GEM v1 Details</span>
+                <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-1.5">→</span>
               </Link>
             </div>
           </div>
@@ -134,9 +136,11 @@ export default function ProductsPage() {
             <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 flex items-center justify-between relative z-10">
               <Link
                 href="/products/gem-buddy?version=v2"
-                className="w-full text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
+                className="w-full relative group/btn overflow-hidden flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Explore GEM v2 Pro Details →
+                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+                <span>Explore GEM v2 Pro Details</span>
+                <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-1.5">→</span>
               </Link>
             </div>
           </div>
