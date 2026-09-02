@@ -162,14 +162,6 @@ export default function Home() {
     }
   ];
 
-  const gemV1Features = [
-    { title: 'OLED Display', desc: 'High-contrast graphic face expressions' },
-    { title: 'Piezo Audio Buzzer', desc: 'Touch sound beeps & audio alerts' },
-    { title: '4 White LED Bulbs', desc: 'Pure white crisp ambient illumination' },
-    { title: '1000mAh Battery', desc: 'Rechargeable LiPo power via USB Type-C' },
-    { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' },
-    { title: 'Touch Interaction', desc: 'Capacitive touch sensors for mood feedback' }
-  ];
 
   const studentSupportList = [
     'Project concept development',
@@ -436,18 +428,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Feature Grid (2 columns) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-            {gemV1Features.map((f) => (
-              <div key={f.title} className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-0.5 shadow-sm">
-                <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-                  {f.title}
-                </span>
-                <p className="text-[11px] sm:text-xs text-slate-500 font-medium pl-6">{f.desc}</p>
-              </div>
-            ))}
-          </div>
 
           {/* Bottom Button */}
           <div className="pt-2 border-t border-slate-200">
