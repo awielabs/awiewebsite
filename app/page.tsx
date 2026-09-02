@@ -450,8 +450,8 @@ export default function Home() {
             <div className="space-y-4">
               {/* Top Bar */}
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-bold text-rose-600">
-                  <HeartPulse className="w-3.5 h-3.5 text-rose-600" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
+                  <HeartPulse className="w-3.5 h-3.5 text-[#2563EB]" />
                   <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
                 <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
@@ -460,7 +460,7 @@ export default function Home() {
               {/* Title & Description */}
               <div className="space-y-2">
                 <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v2 Pro</h2>
-                <p className="text-rose-600 text-sm font-bold">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
+                <p className="text-[#2563EB] text-sm font-bold">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
                   An elevated desktop companion featuring integrated MAX30102 optical PPG pulse telemetry, infrared proximity sensing, dynamic pulse-synced illumination, and extended 1500mAh LiPo battery longevity.
                 </p>
@@ -471,7 +471,7 @@ export default function Home() {
             <div className="pt-4 border-t border-slate-200">
               <Link
                 href="/products/gem-buddy?version=v2"
-                className="w-full block text-center py-3.5 rounded-xl bg-rose-600 text-white font-bold text-xs sm:text-sm hover:bg-rose-700 transition-all shadow-md shadow-rose-600/20"
+                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20"
               >
                 Explore GEM v2 Pro Details →
               </Link>
