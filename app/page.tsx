@@ -19,7 +19,8 @@ import {
   RefreshCw,
   Sliders,
   Terminal,
-  Zap
+  Zap,
+  HeartPulse
 } from 'lucide-react';
 import ScrollFrameBackground from '@/components/ui/ScrollFrameBackground';
 
@@ -407,37 +408,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Product Section: GEM v1 */}
-      <section className="py-20 px-6 max-w-4xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden flex flex-col justify-between space-y-6">
-          {/* Top Bar */}
-          <div className="flex items-center justify-between">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
-              <Zap className="w-3.5 h-3.5" />
-              <span>STANDARD EDITION</span>
+      {/* Featured Products Section: GEM Lineup */}
+      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Card 1: GEM v1 Standard */}
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              {/* Top Bar */}
+              <div className="flex items-center justify-between">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
+                  <Zap className="w-3.5 h-3.5" />
+                  <span>STANDARD EDITION</span>
+                </div>
+                <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
+              </div>
+
+              {/* Title & Description */}
+              <div className="space-y-2">
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v1</h2>
+                <p className="text-[#2563EB] text-sm font-bold">Desktop Companion, Engineered for Interaction</p>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
+                  A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
+                </p>
+              </div>
             </div>
-            <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
+
+            {/* Bottom Button */}
+            <div className="pt-4 border-t border-slate-200">
+              <Link
+                href="/products/gem-buddy?version=v1"
+                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20"
+              >
+                Explore GEM v1 Details →
+              </Link>
+            </div>
           </div>
 
-          {/* Title & Description */}
-          <div className="space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v1</h2>
-            <p className="text-[#2563EB] text-sm font-bold">Desktop Companion, Engineered for Interaction</p>
-            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
-              A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
-            </p>
+          {/* Card 2: GEM v2 Pro Health & Motion */}
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#0B0F19] text-slate-100 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              {/* Top Bar */}
+              <div className="flex items-center justify-between">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-500/15 border border-rose-500/30 text-xs font-bold text-rose-400">
+                  <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
+                  <span>PRO HEALTH & MOTION EDITION</span>
+                </div>
+                <span className="text-xs font-bold text-rose-400">PRE-BOOKING OPEN SOON</span>
+              </div>
+
+              {/* Title & Description */}
+              <div className="space-y-2">
+                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">GEM v2 Pro</h2>
+                <p className="text-rose-400 text-sm font-bold">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1">
+                  An elevated desktop companion featuring integrated MAX30102 optical PPG pulse telemetry, infrared proximity sensing, dynamic pulse-synced illumination, and extended 1500mAh LiPo battery longevity.
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Button */}
+            <div className="pt-4 border-t border-slate-800">
+              <Link
+                href="/products/gem-buddy?version=v2"
+                className="w-full block text-center py-3.5 rounded-xl bg-rose-600 text-white font-bold text-xs sm:text-sm hover:bg-rose-700 transition-all shadow-md shadow-rose-600/25"
+              >
+                Explore GEM v2 Pro Details →
+              </Link>
+            </div>
           </div>
 
-
-          {/* Bottom Button */}
-          <div className="pt-2 border-t border-slate-200">
-            <Link
-              href="/products/gem-buddy?version=v1"
-              className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20"
-            >
-              Explore GEM v1 Details →
-            </Link>
-          </div>
         </div>
       </section>
 
