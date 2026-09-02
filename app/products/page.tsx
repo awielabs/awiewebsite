@@ -44,79 +44,97 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Card 1: GEM v1 Standard */}
-          <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
+          <div className="p-8 rounded-3xl bg-slate-50 hover:bg-[#0B1528] border border-slate-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
+            
+            {/* Ambient Corner Glows */}
+            <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+            <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+
+            <div className="space-y-4 relative z-10">
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
-                  <Zap className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
+                  <Zap className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
                   <span>STANDARD EDITION</span>
                 </div>
-                <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
+                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors duration-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
-              <h2 className="text-3xl font-black text-slate-900">GEM v1</h2>
-              <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                Featuring 4 White LED ambient bulbs, piezo audio buzzer sound alerts, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
-              </p>
+              <div className="space-y-2">
+                <h2 className="text-3xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500 inline-block animate-float hover:scale-105">GEM v1</h2>
+                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-500">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
+                <p className="text-slate-600 group-hover:text-slate-300 text-xs leading-relaxed transition-colors duration-500">
+                  Featuring 4 White LED ambient bulbs, piezo audio buzzer sound alerts, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
+                </p>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                 {gemV1Features.map((f) => (
-                  <div key={f.title} className="p-3 rounded-xl bg-white border border-slate-200 space-y-0.5 shadow-sm">
-                    <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB]" />
+                  <div key={f.title} className="p-3 rounded-xl bg-white border border-slate-200 group-hover:bg-[#0F1B33]/80 group-hover:border-blue-900/60 space-y-0.5 shadow-sm transition-all duration-500">
+                    <span className="text-xs font-bold text-slate-900 group-hover:text-white flex items-center gap-1.5 transition-colors duration-500">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500 shrink-0" />
                       {f.title}
                     </span>
-                    <p className="text-[11px] text-slate-500 font-medium">{f.desc}</p>
+                    <p className="text-[11px] text-slate-500 group-hover:text-slate-400 font-medium transition-colors duration-500">{f.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 flex items-center justify-between relative z-10">
               <Link
                 href="/products/gem-buddy?version=v1"
-                className="w-full text-center py-3 rounded-xl bg-[#2563EB] text-white font-bold text-xs hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20"
+                className="w-full text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
               >
                 Explore GEM v1 Details →
               </Link>
             </div>
           </div>
 
-          {/* Card 2: GEM v2 Pro Biometric */}
-          <div className="p-8 rounded-3xl bg-slate-900 text-slate-100 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
+          {/* Card 2: GEM v2 Pro Health & Motion */}
+          <div className="p-8 rounded-3xl bg-slate-50 hover:bg-[#0B1528] border border-slate-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
+            
+            {/* Ambient Corner Glows */}
+            <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+            <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+
+            <div className="space-y-4 relative z-10">
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-500/20 border border-rose-500/40 text-xs font-bold text-rose-400">
-                  <HeartPulse className="w-3.5 h-3.5 text-rose-500" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
+                  <HeartPulse className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
                   <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
-                <span className="text-xs font-bold text-rose-400">PRE-BOOKING OPEN SOON</span>
+                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors duration-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
-              <h2 className="text-3xl font-black text-white">GEM v2 Pro</h2>
-              <p className="text-rose-400 text-sm font-bold">Biometric Telemetry, Audio Buzzer, IR Motion & 1500mAh</p>
-              <p className="text-slate-300 text-xs leading-relaxed">
-                Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, piezo audio buzzer sound feedback, 1500mAh LiPo battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
-              </p>
+              <div className="space-y-2">
+                <h2 className="text-3xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500 inline-block animate-float-delayed-1 hover:scale-105">GEM v2 Pro</h2>
+                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-500">Biometric Telemetry, Audio Buzzer, IR Motion & 1500mAh</p>
+                <p className="text-slate-600 group-hover:text-slate-300 text-xs leading-relaxed transition-colors duration-500">
+                  Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, piezo audio buzzer sound feedback, 1500mAh LiPo battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
+                </p>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                 {gemV2Features.map((f) => (
-                  <div key={f.title} className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-0.5 shadow-sm">
-                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-rose-500" />
+                  <div key={f.title} className="p-3 rounded-xl bg-white border border-slate-200 group-hover:bg-[#0F1B33]/80 group-hover:border-blue-900/60 space-y-0.5 shadow-sm transition-all duration-500">
+                    <span className="text-xs font-bold text-slate-900 group-hover:text-white flex items-center gap-1.5 transition-colors duration-500">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500 shrink-0" />
                       {f.title}
                     </span>
-                    <p className="text-[11px] text-slate-400 font-medium">{f.desc}</p>
+                    <p className="text-[11px] text-slate-500 group-hover:text-slate-400 font-medium transition-colors duration-500">{f.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 flex items-center justify-between relative z-10">
               <Link
                 href="/products/gem-buddy?version=v2"
-                className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-bold text-xs hover:from-red-700 hover:to-rose-700 transition-all shadow-md shadow-rose-600/30"
+                className="w-full text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
               >
                 Explore GEM v2 Pro Details →
               </Link>
