@@ -446,32 +446,32 @@ export default function Home() {
           </div>
 
           {/* Card 2: GEM v2 Pro Health & Motion */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#0B0F19] text-slate-100 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-6">
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               {/* Top Bar */}
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-500/15 border border-rose-500/30 text-xs font-bold text-rose-400">
-                  <HeartPulse className="w-3.5 h-3.5 text-rose-400" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-bold text-rose-600">
+                  <HeartPulse className="w-3.5 h-3.5 text-rose-600" />
                   <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
-                <span className="text-xs font-bold text-rose-400">PRE-BOOKING OPEN SOON</span>
+                <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
               {/* Title & Description */}
               <div className="space-y-2">
-                <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">GEM v2 Pro</h2>
-                <p className="text-rose-400 text-sm font-bold">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
-                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1">
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v2 Pro</h2>
+                <p className="text-rose-600 text-sm font-bold">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
                   An elevated desktop companion featuring integrated MAX30102 optical PPG pulse telemetry, infrared proximity sensing, dynamic pulse-synced illumination, and extended 1500mAh LiPo battery longevity.
                 </p>
               </div>
             </div>
 
             {/* Bottom Button */}
-            <div className="pt-4 border-t border-slate-800">
+            <div className="pt-4 border-t border-slate-200">
               <Link
                 href="/products/gem-buddy?version=v2"
-                className="w-full block text-center py-3.5 rounded-xl bg-rose-600 text-white font-bold text-xs sm:text-sm hover:bg-rose-700 transition-all shadow-md shadow-rose-600/25"
+                className="w-full block text-center py-3.5 rounded-xl bg-rose-600 text-white font-bold text-xs sm:text-sm hover:bg-rose-700 transition-all shadow-md shadow-rose-600/20"
               >
                 Explore GEM v2 Pro Details →
               </Link>
