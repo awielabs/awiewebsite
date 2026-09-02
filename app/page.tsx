@@ -427,7 +427,7 @@ export default function Home() {
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
                 <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-                <span>AWIE PRODUCT • PROTOTYPE</span>
+                <span>AWIE PRODUCT</span>
               </div>
               <div>
                 <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -492,7 +492,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="space-y-1 text-left">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE PROTOTYPE</span>
+                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE EDITION</span>
                   <h3 className="text-lg font-black text-slate-900">GEM Desktop Companion</h3>
                   <p className="text-xs text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
                 </div>
