@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, CheckCircle2, Layers, Clock, Zap, HeartPulse } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2, Layers, Clock, Zap, HeartPulse, Cpu, Radio, Activity, BatteryCharging } from 'lucide-react';
 
 export default function ProductsPage() {
   const gemV1Features = [
@@ -27,17 +27,48 @@ export default function ProductsPage() {
     <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen">
       <div className="max-w-7xl mx-auto px-6 space-y-16">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-            <span>AWIE HARDWARE PRODUCTS</span>
+        {/* Intro / Header Section */}
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-extrabold text-[#2563EB] tracking-wider uppercase">
+            <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
+            <span>AWIE HARDWARE LABS • EMBEDDED INNOVATION</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-900">
-            AWIE <span className="text-[#2563EB]">Products</span>
+
+          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            Hardware Companions, <br className="hidden sm:inline" />
+            <span className="text-[#2563EB]">Engineered for Connection.</span>
           </h1>
-          <p className="text-slate-600 text-base leading-relaxed font-medium">
-            In-house hardware engineering, embedded companion devices, and smart electronics kits built by AWIE.
+
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium max-w-3xl mx-auto">
+            We design and build purposeful hardware systems that combine expressive human interaction, real-time wireless telemetry, and precision electronics — all crafted and refined in-house.
           </p>
+
+          {/* Quick Technology Highlights Banner */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center space-y-1.5 shadow-sm hover:border-[#2563EB]/40 transition-colors">
+              <Cpu className="w-5 h-5 text-[#2563EB]" />
+              <span className="text-xs font-bold text-slate-800">ESP32 Dual-Core</span>
+              <span className="text-[10px] text-slate-500 font-medium">Modular Architecture</span>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center space-y-1.5 shadow-sm hover:border-[#2563EB]/40 transition-colors">
+              <Radio className="w-5 h-5 text-[#2563EB]" />
+              <span className="text-xs font-bold text-slate-800">Wi-Fi & BLE 5.0</span>
+              <span className="text-[10px] text-slate-500 font-medium">GEM App Sync</span>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center space-y-1.5 shadow-sm hover:border-[#2563EB]/40 transition-colors">
+              <Activity className="w-5 h-5 text-[#2563EB]" />
+              <span className="text-xs font-bold text-slate-800">Biometric Sensing</span>
+              <span className="text-[10px] text-slate-500 font-medium">Pulse & Vital Telemetry</span>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col items-center text-center space-y-1.5 shadow-sm hover:border-[#2563EB]/40 transition-colors">
+              <BatteryCharging className="w-5 h-5 text-[#2563EB]" />
+              <span className="text-xs font-bold text-slate-800">Rechargeable LiPo</span>
+              <span className="text-[10px] text-slate-500 font-medium">USB Type-C Power</span>
+            </div>
+          </div>
         </div>
 
         {/* GEM Models Lineup Cards */}
