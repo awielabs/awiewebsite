@@ -161,16 +161,6 @@ export default function Home() {
     }
   ];
 
-  const gemFeatures = [
-    'OLED Expressive Display',
-    'ESP32 Architecture',
-    'Capacitive Touch',
-    'Rechargeable Battery',
-    'Wi-Fi Connectivity',
-    'Dynamic RGB Lighting',
-    'Device Control',
-    'Mobile Companion Support'
-  ];
 
   const studentSupportList = [
     'Project concept development',
@@ -416,91 +406,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Product Section: GEM v1 */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden">
-          {/* Glow Backdrop */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
-                <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-                <span>AWIE PRODUCT • PROTOTYPE</span>
-              </div>
-              <div>
-                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-                  GEM v1
-                </h2>
-                <span className="text-xs sm:text-sm font-bold text-[#2563EB] block mt-1">
-                  Desktop Companion, Engineered for Interaction
-                </span>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
-              </p>
-
-              {/* Feature Pills */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-                {gemFeatures.map((feat) => (
-                  <div key={feat} className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700 bg-white p-2 rounded-xl border border-slate-200">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Technical Platform */}
-              <div className="pt-2">
-                <span className="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Technical Platform:</span>
-                <span className="text-xs font-mono font-bold text-[#2563EB]">
-                  ESP32 • OLED • Capacitive Touch • Li-ion Power • Wi-Fi • BLE • RGB LEDs
-                </span>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-4">
-                <Link
-                  href="/products/gem-buddy"
-                  className="px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-2"
-                >
-                  <span>Explore GEM Buddy</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/contact?interest=Pre-Booking+GEM+Buddy"
-                  className="px-6 py-3 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-xs transition-all flex items-center gap-2"
-                >
-                  <span>Register Pre-Booking</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Product Image Visual */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-sm w-full space-y-4 text-center">
-                <div className="w-full h-56 rounded-2xl bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-                  <Image
-                    src="/logo.jpeg"
-                    alt="GEM Buddy Product Visual"
-                    width={160}
-                    height={160}
-                    className="object-contain"
-                  />
-                  <div className="absolute bottom-3 left-3 bg-slate-950/80 px-2.5 py-1 rounded-md text-[10px] font-mono text-emerald-400 border border-slate-800">
-                    ESP32 ACTIVE • OLED READY
-                  </div>
-                </div>
-                <div className="space-y-1 text-left">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE PROTOTYPE</span>
-                  <h3 className="text-lg font-black text-slate-900">GEM Desktop Companion</h3>
-                  <p className="text-xs text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Student Engineering Support Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
