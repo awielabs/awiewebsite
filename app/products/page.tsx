@@ -24,8 +24,21 @@ export default function ProductsPage() {
 
   return (
     <div className="pt-28 pb-20 bg-white text-slate-800 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
+      <div className="max-w-7xl mx-auto px-6 space-y-16">
         
+        {/* Header Section */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+            <span>AWIE HARDWARE PRODUCTS</span>
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">
+            AWIE <span className="text-[#2563EB]">Products</span>
+          </h1>
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium max-w-2xl mx-auto">
+            In-house hardware engineering, embedded companion devices, and smart electronics kits built by AWIE.
+          </p>
+        </div>
+
         {/* GEM Models Lineup Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
