@@ -18,7 +18,8 @@ import {
   CheckCheck,
   RefreshCw,
   Sliders,
-  Terminal
+  Terminal,
+  Zap
 } from 'lucide-react';
 import ScrollFrameBackground from '@/components/ui/ScrollFrameBackground';
 
@@ -161,15 +162,13 @@ export default function Home() {
     }
   ];
 
-  const gemFeatures = [
-    'OLED Expressive Display',
-    'ESP32 Architecture',
-    'Capacitive Touch',
-    'Rechargeable Battery',
-    'Wi-Fi Connectivity',
-    'Dynamic RGB Lighting',
-    'Device Control',
-    'Mobile Companion Support'
+  const gemV1Features = [
+    { title: 'OLED Display', desc: 'High-contrast graphic face expressions' },
+    { title: 'Piezo Audio Buzzer', desc: 'Touch sound beeps & audio alerts' },
+    { title: '4 White LED Bulbs', desc: 'Pure white crisp ambient illumination' },
+    { title: '1000mAh Battery', desc: 'Rechargeable LiPo power via USB Type-C' },
+    { title: 'GEM Mobile App', desc: 'Full Wi-Fi & Bluetooth app support' },
+    { title: 'Touch Interaction', desc: 'Capacitive touch sensors for mood feedback' }
   ];
 
   const studentSupportList = [
@@ -417,87 +416,47 @@ export default function Home() {
       </section>
 
       {/* Featured Product Section: GEM v1 */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
-        <div className="p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden">
-          {/* Glow Backdrop */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="flex flex-col gap-10">
-            {/* Top Content */}
-            <div className="space-y-6 max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-extrabold text-[#2563EB]">
-                <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-                <span>AWIE PRODUCT</span>
-              </div>
-              <div>
-                <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-                  GEM v1
-                </h2>
-                <span className="text-xs sm:text-sm font-bold text-[#2563EB] block mt-1">
-                  Desktop Companion, Engineered for Interaction
-                </span>
-              </div>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium">
-                A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
-              </p>
-
-              {/* Feature Pills */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-                {gemFeatures.map((feat) => (
-                  <div key={feat} className="flex items-center gap-2 text-xs font-bold text-slate-700 bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
-                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Technical Platform */}
-              <div className="pt-2">
-                <span className="text-[10px] font-extrabold uppercase text-slate-400 block mb-1">Technical Platform:</span>
-                <span className="text-xs sm:text-sm font-mono font-bold text-[#2563EB]">
-                  ESP32 • OLED • Capacitive Touch • Li-ion Power • Wi-Fi • BLE • RGB LEDs
-                </span>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-4">
-                <Link
-                  href="/products/gem-buddy"
-                  className="px-6 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-2"
-                >
-                  <span>Explore GEM Buddy</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/contact?interest=Pre-Booking+GEM+Buddy"
-                  className="px-6 py-3.5 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-slate-800 font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-sm"
-                >
-                  <span>Register Pre-Booking</span>
-                </Link>
-              </div>
+      <section className="py-20 px-6 max-w-4xl mx-auto border-t border-slate-200 relative z-10">
+        <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl relative overflow-hidden flex flex-col justify-between space-y-6">
+          {/* Top Bar */}
+          <div className="flex items-center justify-between">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB]">
+              <Zap className="w-3.5 h-3.5" />
+              <span>STANDARD EDITION</span>
             </div>
+            <span className="text-xs font-bold text-slate-500">PRE-BOOKING OPEN SOON</span>
+          </div>
 
-            {/* Bottom Product Image Visual */}
-            <div className="w-full pt-4 border-t border-slate-200/80">
-              <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-2xl mx-auto w-full space-y-5">
-                <div className="w-full h-64 sm:h-72 rounded-2xl bg-slate-900 flex items-center justify-center p-6 relative overflow-hidden">
-                  <Image
-                    src="/logo.jpeg"
-                    alt="GEM Buddy Product Visual"
-                    width={180}
-                    height={180}
-                    className="object-contain"
-                  />
-                  <div className="absolute bottom-4 left-4 bg-slate-950/80 px-3 py-1.5 rounded-md text-[11px] font-mono text-emerald-400 border border-slate-800 shadow-sm">
-                    ESP32 ACTIVE • OLED READY
-                  </div>
-                </div>
-                <div className="space-y-1.5 text-center sm:text-left">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] tracking-wider uppercase block">STATUS: PHYSICAL HARDWARE EDITION</span>
-                  <h3 className="text-xl font-black text-slate-900">GEM Desktop Companion</h3>
-                  <p className="text-xs sm:text-sm text-slate-500 font-medium">Standard Edition and Biometric Pro Edition in development.</p>
-                </div>
+          {/* Title & Description */}
+          <div className="space-y-2">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v1</h2>
+            <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
+              Featuring 4 White LED ambient bulbs, piezo audio buzzer sound alerts, 1000mAh rechargeable LiPo battery, animated OLED eyes, capacitive touch reactions, and full GEM Mobile App synchronization.
+            </p>
+          </div>
+
+          {/* Feature Grid (2 columns) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            {gemV1Features.map((f) => (
+              <div key={f.title} className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-0.5 shadow-sm">
+                <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
+                  {f.title}
+                </span>
+                <p className="text-[11px] sm:text-xs text-slate-500 font-medium pl-6">{f.desc}</p>
               </div>
-            </div>
+            ))}
+          </div>
+
+          {/* Bottom Button */}
+          <div className="pt-2 border-t border-slate-200">
+            <Link
+              href="/products/gem-buddy?version=v1"
+              className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20"
+            >
+              Explore GEM v1 Details →
+            </Link>
           </div>
         </div>
       </section>
