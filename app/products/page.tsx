@@ -117,7 +117,7 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Card 2: GEM v2 Pro Health & Motion */}
+          {/* Card 2: GEM v2 Health & Motion */}
           <div className="p-8 rounded-3xl bg-slate-50 hover:bg-[#0B1528] border border-slate-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
             {/* Smooth Dark Gradient Overlay */}
             <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
@@ -136,7 +136,7 @@ export default function ProductsPage() {
               </div>
 
               <div className="space-y-2">
-                <h2 className="text-3xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500 inline-block animate-float-delayed-1 hover:scale-105">GEM v2 Pro</h2>
+                <h2 className="text-3xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500 inline-block animate-float-delayed-1 hover:scale-105">GEM v2</h2>
                 <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-500">Biometric Telemetry, Audio Buzzer, IR Motion & 2500mAh</p>
                 <p className="text-slate-600 group-hover:text-slate-300 text-xs leading-relaxed transition-colors duration-500">
                   Includes an integrated MAX30102 PPG optical pulse sensor, IR distance motion sensor, piezo audio buzzer sound feedback, rechargeable 2500mAh Li-ion battery, 4 White LED bulbs, and real-time pulse telemetry via the GEM Mobile App.
@@ -162,7 +162,7 @@ export default function ProductsPage() {
                 className="w-full relative group/btn overflow-hidden flex items-center justify-center gap-2 py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-md shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
-                <span>Explore GEM v2 Pro Details</span>
+                <span>Explore GEM v2 Details</span>
                 <span className="inline-block transition-transform duration-300 group-hover/btn:translate-x-1.5">→</span>
               </Link>
             </div>

@@ -61,7 +61,7 @@ export default function GemBuddyPage() {
   ];
 
   const specsV2 = [
-    { label: 'Model', value: 'GEM v2 Pro Biometric Edition' },
+    { label: 'Model', value: 'GEM v2 Biometric Edition' },
     { label: 'Microcontroller', value: 'ESP32 Dual-Core 240MHz' },
     { label: 'Display', value: '0.96" Monochromatic OLED (128x64)' },
     { label: 'Audio Feedback', value: 'Piezo Audio Buzzer (Pulse & Touch Chimes)' },
@@ -136,7 +136,7 @@ export default function GemBuddyPage() {
               }`}
             >
               <HeartPulse className="w-4 h-4 text-blue-200" />
-              <span>GEM v2 Pro (Biometric 2500mAh)</span>
+              <span>GEM v2 (Biometric 2500mAh)</span>
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function GemBuddyPage() {
               <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 font-bold text-slate-700">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse" />
-                  <span>{selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Pro Biometric'}</span>
+                  <span>{selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Biometric'}</span>
                 </div>
                 <span className="font-extrabold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
                   {selectedVersion === 'v1' ? '2500mAh Li-ion Battery' : '2500mAh + MAX30102'}
@@ -189,10 +189,10 @@ export default function GemBuddyPage() {
                   <HeartPulse className="w-4 h-4 text-[#2563EB]" />
                   <span>PRE-BOOKING OPEN SOON — PRO HEALTH EDITION</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v2 Pro Biometric Edition</h2>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v2 Biometric Edition</h2>
                 <p className="text-[#2563EB] text-base font-bold">2500mAh Li-ion Battery • MAX30102 Heart Sensor & IR Motion</p>
                 <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                  GEM v2 Pro combines an integrated MAX30102 PPG optical pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, rechargeable 2500mAh Li-ion battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
+                  GEM v2 combines an integrated MAX30102 PPG optical pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, rechargeable 2500mAh Li-ion battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
                 </p>
               </>
             )}
@@ -202,7 +202,7 @@ export default function GemBuddyPage() {
               <Clock className="w-5 h-5 text-[#2563EB] shrink-0" />
               <div className="text-xs font-medium">
                 <span className="font-bold text-slate-900 block">WE ARE LAUNCHING OUR OWN-MADE PRODUCT</span>
-                <span className="text-slate-600">Pre-booking for GEM {selectedVersion === 'v1' ? 'v1' : 'v2 Pro'} will open shortly. Stay tuned!</span>
+                <span className="text-slate-600">Pre-booking for GEM {selectedVersion === 'v1' ? 'v1' : 'v2'} will open shortly. Stay tuned!</span>
               </div>
             </div>
 
@@ -247,7 +247,7 @@ export default function GemBuddyPage() {
                 href={`/contact?interest=GEM+${selectedVersion === 'v1' ? 'v1+Standard' : 'v2+Pro'}+PreBooking`}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-lg shadow-[#2563EB]/25"
               >
-                <span>Register for GEM {selectedVersion === 'v1' ? 'v1' : 'v2 Pro'} Pre-Booking</span>
+                <span>Register for GEM {selectedVersion === 'v1' ? 'v1' : 'v2'} Pre-Booking</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -362,7 +362,7 @@ export default function GemBuddyPage() {
                   {simMode === 'happy' && 'GEM is happy, tracking ambient light, and responsive to top touch guard.'}
                   {simMode === 'sleep' && 'GEM enters low-power idle sleep state with soft OLED eye animations.'}
                   {simMode === 'guard' && 'Desk Guard Armed! Motion detection or light changes trigger alert chimes.'}
-                  {simMode === 'pulse' && 'GEM v2 Pro MAX30102 PPG sensor reading live pulse rate (78 BPM) and oxygen levels.'}
+                  {simMode === 'pulse' && 'GEM v2 MAX30102 PPG sensor reading live pulse rate (78 BPM) and oxygen levels.'}
                 </p>
               </div>
             </div>
@@ -429,7 +429,7 @@ export default function GemBuddyPage() {
                 <tr className="border-b border-slate-200 bg-slate-50">
                   <th className="p-4 text-slate-500 font-bold uppercase">Feature / Specification</th>
                   <th className="p-4 text-[#2563EB] font-black text-sm">🔹 GEM v1 (Standard)</th>
-                  <th className="p-4 text-slate-900 font-black text-sm">🚀 GEM v2 Pro (Biometric)</th>
+                  <th className="p-4 text-slate-900 font-black text-sm">🚀 GEM v2 (Biometric)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
@@ -496,7 +496,7 @@ export default function GemBuddyPage() {
         <div className="space-y-6 pt-8 border-t border-slate-200">
           <div className="space-y-1">
             <h2 className="text-2xl font-bold text-slate-900">
-              {selectedVersion === 'v1' ? 'GEM v1 Technical Specifications' : 'GEM v2 Pro Technical Specifications'}
+              {selectedVersion === 'v1' ? 'GEM v1 Technical Specifications' : 'GEM v2 Technical Specifications'}
             </h2>
             <p className="text-xs text-slate-500 font-medium">Hardware and micro-architecture details</p>
           </div>
