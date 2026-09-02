@@ -413,36 +413,39 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Card 1: GEM v1 Standard */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:bg-gradient-to-br hover:from-[#0B1528] hover:via-[#0D1B36] hover:to-[#081022] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden flex flex-col justify-between space-y-6">
-            {/* Subtle Ambient Corner Glow on Hover */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:border-[#2563EB]/80 hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0B1528] via-[#0E1E38] to-[#081020] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none" />
+            
+            {/* Ambient Corner Glows */}
+            <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+            <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
             <div className="space-y-4 relative z-10">
               {/* Top Bar */}
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-300">
-                  <Zap className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
+                  <Zap className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
                   <span>STANDARD EDITION</span>
                 </div>
-                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors">PRE-BOOKING OPEN SOON</span>
+                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors duration-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
               {/* Title & Description */}
               <div className="space-y-2">
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">GEM v1</h2>
-                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-300">Desktop Companion, Engineered for Interaction</p>
-                <p className="text-slate-600 group-hover:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1 transition-colors duration-300">
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500">GEM v1</h2>
+                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-500">Desktop Companion, Engineered for Interaction</p>
+                <p className="text-slate-600 group-hover:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1 transition-colors duration-500">
                   A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
                 </p>
               </div>
             </div>
 
             {/* Bottom Button */}
-            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-300 relative z-10">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-500 relative z-10">
               <Link
                 href="/products/gem-buddy?version=v1"
-                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
+                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
               >
                 Explore GEM v1 Details →
               </Link>
@@ -450,36 +453,39 @@ export default function Home() {
           </div>
 
           {/* Card 2: GEM v2 Pro Health & Motion */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:bg-gradient-to-br hover:from-[#0B1528] hover:via-[#0D1B36] hover:to-[#081022] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden flex flex-col justify-between space-y-6">
-            {/* Subtle Ambient Corner Glow on Hover */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:border-[#2563EB]/80 hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0B1528] via-[#0E1E38] to-[#081020] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none" />
+            
+            {/* Ambient Corner Glows */}
+            <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+            <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
             <div className="space-y-4 relative z-10">
               {/* Top Bar */}
               <div className="flex items-center justify-between">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-300">
-                  <HeartPulse className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
+                  <HeartPulse className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
                   <span>PRO HEALTH & MOTION EDITION</span>
                 </div>
-                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors">PRE-BOOKING OPEN SOON</span>
+                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-400 transition-colors duration-500">PRE-BOOKING OPEN SOON</span>
               </div>
 
               {/* Title & Description */}
               <div className="space-y-2">
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">GEM v2 Pro</h2>
-                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-300">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
-                <p className="text-slate-600 group-hover:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1 transition-colors duration-300">
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500">GEM v2 Pro</h2>
+                <p className="text-[#2563EB] group-hover:text-blue-400 text-sm font-bold transition-colors duration-500">Advanced Biometric & Spatial Companion, Engineered for Vitality</p>
+                <p className="text-slate-600 group-hover:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium pt-1 transition-colors duration-500">
                   An elevated desktop companion featuring integrated MAX30102 optical PPG pulse telemetry, infrared proximity sensing, dynamic pulse-synced illumination, and extended 1500mAh LiPo battery longevity.
                 </p>
               </div>
             </div>
 
             {/* Bottom Button */}
-            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-300 relative z-10">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-500 relative z-10">
               <Link
                 href="/products/gem-buddy?version=v2"
-                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
+                className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
               >
                 Explore GEM v2 Pro Details →
               </Link>
