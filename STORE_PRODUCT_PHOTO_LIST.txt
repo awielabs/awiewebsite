@@ -75,7 +75,7 @@ CATEGORY 5: MOTORS & DRIVERS (10 products)
  7. A4988 Stepper Driver Module      → a4988-stepper-driver.jpg          (₹199)
  8. DRV8825 Stepper Driver           → drv8825-stepper-driver.jpg        (₹249)
  9. 300RPM DC Gear Motor             → dc-gear-motor-300rpm.jpg          (₹199)
-10. Smart Robot Car Chassis (2WD)    → robot-chassis-2wd.jpg             (₹499)
+10. Smart Robot Car Chassis (2WD)    → robot-chassis-2wd.jpg             (TBD / ₹299)
 
 ──────────────────────────────────────────────
 CATEGORY 6: POWER & BATTERY (10 products)
