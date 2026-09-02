@@ -166,8 +166,8 @@ export default function StoreSearchBar({ className = '', isMobile = false, onClo
         {/* Search Icon */}
         <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
 
-        {/* Clear Button / Shortcut Badge */}
-        {query ? (
+        {/* Clear Button */}
+        {query && (
           <button
             type="button"
             onClick={() => {
@@ -178,11 +178,7 @@ export default function StoreSearchBar({ className = '', isMobile = false, onClo
           >
             <X className="w-3.5 h-3.5" />
           </button>
-        ) : !isMobile ? (
-          <div className="hidden lg:flex items-center gap-0.5 absolute right-2.5 px-1.5 py-0.5 rounded bg-slate-200/80 border border-slate-300/70 text-[9px] font-mono font-bold text-slate-500 pointer-events-none select-none">
-            <span>⌘K</span>
-          </div>
-        ) : null}
+        )}
       </div>
 
       {/* Autocomplete Recommendation Dropdown */}
