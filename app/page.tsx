@@ -413,9 +413,9 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Card 1: GEM v1 Standard */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:border-[#2563EB]/80 hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
-            {/* Smooth Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0B1528] via-[#0E1E38] to-[#081020] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 hover:bg-[#0B1528] border border-slate-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay spanning full card */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
             
             {/* Ambient Corner Glows */}
             <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
@@ -442,7 +442,7 @@ export default function Home() {
             </div>
 
             {/* Bottom Button */}
-            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-500 relative z-10">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 relative z-10">
               <Link
                 href="/products/gem-buddy?version=v1"
                 className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
@@ -453,9 +453,9 @@ export default function Home() {
           </div>
 
           {/* Card 2: GEM v2 Pro Health & Motion */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl hover:border-[#2563EB]/80 hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
-            {/* Smooth Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0B1528] via-[#0E1E38] to-[#081020] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none" />
+          <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 hover:bg-[#0B1528] border border-slate-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden flex flex-col justify-between space-y-6">
+            {/* Smooth Dark Gradient Overlay spanning full card */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
             
             {/* Ambient Corner Glows */}
             <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
@@ -482,7 +482,7 @@ export default function Home() {
             </div>
 
             {/* Bottom Button */}
-            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800/80 transition-colors duration-500 relative z-10">
+            <div className="pt-4 border-t border-slate-200 group-hover:border-slate-800 transition-colors duration-500 relative z-10">
               <Link
                 href="/products/gem-buddy?version=v2"
                 className="w-full block text-center py-3.5 rounded-xl bg-[#2563EB] text-white font-bold text-xs sm:text-sm hover:bg-[#1D4ED8] transition-all duration-300 shadow-md shadow-[#2563EB]/20 group-hover:shadow-blue-500/25"
