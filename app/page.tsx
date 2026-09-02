@@ -422,7 +422,7 @@ export default function Home() {
           {/* Title & Description */}
           <div className="space-y-2">
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">GEM v1</h2>
-            <p className="text-[#2563EB] text-sm font-bold">Autonomous Desktop Companion • Audio Buzzer & GEM App</p>
+            <p className="text-[#2563EB] text-sm font-bold">Desktop Companion, Engineered for Interaction</p>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-medium pt-1">
               A compact interactive desktop companion built around an ESP32 architecture, combining expressive OLED interaction, touch input, dynamic lighting, wireless connectivity, and intelligent device control.
             </p>
