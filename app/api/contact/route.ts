@@ -161,7 +161,7 @@ export async function POST(request: Request) {
                   content: logoBuffer,
                   cid: 'awielogo@awie.in',
                   contentType: 'image/jpeg',
-                  contentDisposition: 'inline',
+                  contentDisposition: 'inline' as const,
                 },
               ]
             : [];
