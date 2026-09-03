@@ -114,8 +114,14 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Action Buttons (Hidden on Contact page without layout shift) */}
-        <div className="hidden lg:flex items-center gap-3">
+        {/* Action Buttons */}
+        <div className="hidden lg:flex items-center gap-2.5">
+          <Link
+            href="/login"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-[#2563EB] hover:bg-slate-100 transition-all"
+          >
+            Log In
+          </Link>
           <Link
             href="/contact"
             tabIndex={isContactPage ? -1 : undefined}

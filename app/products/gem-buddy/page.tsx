@@ -24,7 +24,9 @@ import {
   Hand,
   Radio,
   Layers,
-  Smartphone
+  Smartphone,
+  Check,
+  XCircle
 } from 'lucide-react';
 
 function GemBuddyContent() {
@@ -52,31 +54,6 @@ function GemBuddyContent() {
     { title: '9. Hardware User Guide', desc: 'Built-in interactive guide and troubleshooting manual.', src: '/gem/Device Guid screen.jpg' }
   ];
 
-  const specsV1 = [
-    { label: 'Model', value: 'GEM v1 Standard Companion' },
-    { label: 'Microcontroller', value: 'ESP32 Dual-Core 240MHz' },
-    { label: 'Display', value: '0.96" Monochromatic OLED (128x64)' },
-    { label: 'Audio Feedback', value: 'Piezo Audio Buzzer (Touch Beeps & Chimes)' },
-    { label: 'Ambient Lighting', value: '4 White LED Bulbs (Pure White)' },
-    { label: 'Motion Detection', value: 'Not Included (Available in v2)' },
-    { label: 'Heart Rate Monitoring', value: 'Not Included (Available in v2)' },
-    { label: 'Touch Interactivity', value: 'Capacitive Touch Top Guard' },
-    { label: 'App Support', value: 'Full GEM Mobile App (Wi-Fi + BLE)' },
-    { label: 'Battery & Power', value: '2500mAh Li-ion Rechargeable Battery via Type-C' }
-  ];
-
-  const specsV2 = [
-    { label: 'Model', value: 'GEM v2 Biometric Edition' },
-    { label: 'Microcontroller', value: 'ESP32 Dual-Core 240MHz' },
-    { label: 'Display', value: '0.96" Monochromatic OLED (128x64)' },
-    { label: 'Audio Feedback', value: 'Piezo Audio Buzzer (Pulse & Touch Chimes)' },
-    { label: 'Ambient Lighting', value: '4 White LED Bulbs (Pulse Synced)' },
-    { label: 'Motion Detection', value: 'IR Proximity & Distance Sensor' },
-    { label: 'Heart Rate & Pulse', value: 'MAX30102 PPG Optical Biometric Sensor' },
-    { label: 'Touch Interactivity', value: 'Capacitive Touch Top Guard' },
-    { label: 'App Support', value: 'Full GEM Mobile App Telemetry (Wi-Fi + BLE)' },
-    { label: 'Battery & Power', value: '2500mAh Li-ion Rechargeable Battery via Type-C' }
-  ];
   const nextAppSlide = () => {
     setAppCarouselIndex((prev) => (prev + 1) % appScreenshots.length);
   };
@@ -183,50 +160,10 @@ function GemBuddyContent() {
               <span className="block font-black tracking-tight leading-none">GEM v1 Standard</span>
               <span className="text-[10px] opacity-80 font-medium">2500mAh • 4 White LEDs • OLED Face</span>
             </div>
-<<<<<<< HEAD
-            <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-              GEM <span className="text-[#2563EB]">Buddy</span>
-            </h1>
-            <p className="text-slate-600 text-sm leading-relaxed font-medium">
-              Interactive ESP32 desktop companion featuring animated OLED expressions, 4 White LED ambient lights, piezo audio buzzer, and companion app telemetry.
-            </p>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2563EB] text-white text-xs font-extrabold uppercase tracking-wider shadow-lg shadow-[#2563EB]/30">
-              <Clock className="w-4 h-4" />
-              <span>Pre-Booking Open Soon</span>
-            </div>
-          </div>
-
-          {/* Version Selector Tabs */}
-          <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shrink-0 relative z-10">
-            <button
-              onClick={() => setSelectedVersion('v1')}
-              className={`px-6 py-3 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
-                selectedVersion === 'v1'
-                  ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <Zap className="w-4 h-4" />
-              <span>GEM v1 (Standard 2500mAh)</span>
-            </button>
-
-            <button
-              onClick={() => setSelectedVersion('v2')}
-              className={`px-6 py-3 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
-                selectedVersion === 'v2'
-                  ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <HeartPulse className="w-4 h-4 text-blue-200" />
-              <span>GEM v2 (Biometric 2500mAh)</span>
-            </button>
-          </div>
-=======
           </button>
 
           <button
-            onClick={() => handleVersionChange('v2')}
+            onClick={() => setSelectedVersion('v2')}
             className={`flex-1 py-3 px-5 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 ${
               selectedVersion === 'v2'
                 ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
@@ -239,7 +176,6 @@ function GemBuddyContent() {
               <span className="text-[10px] opacity-80 font-medium">MAX30102 PPG • IR Motion • 2500mAh</span>
             </div>
           </button>
->>>>>>> origin/main
         </div>
 
         {/* Hero Hardware Showcase */}
@@ -271,16 +207,6 @@ function GemBuddyContent() {
                   priority
                 />
 
-<<<<<<< HEAD
-              <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 font-bold text-slate-700">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#2563EB] animate-pulse" />
-                  <span>{selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Biometric'}</span>
-                </div>
-                <span className="font-extrabold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                  {selectedVersion === 'v1' ? '2500mAh Li-ion Battery' : '2500mAh + MAX30102'}
-                </span>
-=======
                 {/* Ambient White LEDs Glow Simulation Overlay */}
                 {ledBrightness > 0 && (
                   <div 
@@ -288,47 +214,11 @@ function GemBuddyContent() {
                     style={{ opacity: ledBrightness === 100 ? 0.9 : 0.45 }}
                   />
                 )}
->>>>>>> origin/main
-              </div>
             </div>
-          </div>
 
           {/* Right Column: Title, Narrative & Launch Registration */}
           <div className="lg:col-span-6 space-y-6">
             
-<<<<<<< HEAD
-            {selectedVersion === 'v1' ? (
-              <>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-                  <span>PRE-BOOKING OPEN SOON</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v1 Standard Companion</h2>
-                <p className="text-[#2563EB] text-base font-bold">2500mAh Li-ion Battery • 4 White LEDs • Audio Buzzer & GEM App</p>
-                <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                  Designed and manufactured in-house by AWIE. GEM v1 features 4 crisp White LED ambient bulbs, a piezo audio buzzer for sound alerts & touch feedback, rechargeable 2500mAh Li-ion battery power, capacitive touch sensors, animated OLED eyes, and full GEM Mobile App synchronization.
-                </p>
-              </>
-            ) : (
-              <>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-                  <HeartPulse className="w-4 h-4 text-[#2563EB]" />
-                  <span>PRE-BOOKING OPEN SOON — PRO HEALTH EDITION</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-slate-900">GEM v2 Biometric Edition</h2>
-                <p className="text-[#2563EB] text-base font-bold">2500mAh Li-ion Battery • MAX30102 Heart Sensor & IR Motion</p>
-                <p className="text-slate-600 text-sm leading-relaxed font-medium">
-                  GEM v2 combines an integrated MAX30102 PPG optical pulse sensor for real-time heart rate monitoring, an IR distance motion sensor, rechargeable 2500mAh Li-ion battery, 4 White LED bulbs, piezo audio buzzer sound feedback, and biometric telemetry on the GEM Mobile App.
-                </p>
-              </>
-            )}
-
-            {/* Launch Banner Box */}
-            <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 flex items-center gap-3">
-              <Clock className="w-5 h-5 text-[#2563EB] shrink-0" />
-              <div className="text-xs font-medium">
-                <span className="font-bold text-slate-900 block">WE ARE LAUNCHING OUR OWN-MADE PRODUCT</span>
-                <span className="text-slate-600">Pre-booking for GEM {selectedVersion === 'v1' ? 'v1' : 'v2'} will open shortly. Stay tuned!</span>
-=======
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
               <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
@@ -361,7 +251,8 @@ function GemBuddyContent() {
                 <span className="text-slate-600 font-medium">
                   Register your priority spot for GEM {selectedVersion === 'v1' ? 'v1 Standard' : 'v2 Biometric'}. Limited initial production run batch.
                 </span>
->>>>>>> origin/main
+              </div>
+            </div>
               </div>
             </div>
 
@@ -422,11 +313,7 @@ function GemBuddyContent() {
                 href={`/contact?interest=GEM+${selectedVersion === 'v1' ? 'v1+Standard' : 'v2+Biometric'}+PreBooking`}
                 className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
               >
-<<<<<<< HEAD
-                <span>Register for GEM {selectedVersion === 'v1' ? 'v1' : 'v2'} Pre-Booking</span>
-=======
                 <span>Pre-Book GEM {selectedVersion === 'v1' ? 'v1' : 'v2'}</span>
->>>>>>> origin/main
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
@@ -443,64 +330,8 @@ function GemBuddyContent() {
 
         </div>
 
-<<<<<<< HEAD
-        {/* Features Showcase Section — adapted from GEM showcase site */}
-        <div className="space-y-8">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">
-              Hardware Meets <span className="text-[#2563EB]">Personality</span>
-            </h2>
-            <p className="text-xs text-slate-600 font-medium">
-              Packed with sensors, responsive displays, and security functions, GEM brings your workspace to life.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              {
-                icon: Eye,
-                title: 'OLED Face Expressions',
-                desc: 'Dynamic emotions and animated eyes that react to time of day and physical touch interaction.'
-              },
-              {
-                icon: Shield,
-                title: 'Desk Guard Mode',
-                desc: 'Arm GEM when you step away. Any light fluctuations or physical touch trigger security alerts.'
-              },
-              {
-                icon: Sun,
-                title: 'Light Telemetry',
-                desc: 'Calibrated ambient light tracking. GEM translates environment brightness from dark 0% to bright 100%.'
-              },
-              {
-                icon: Hand,
-                title: 'Capacitive Sensing',
-                desc: 'Interactive touch pins react to your hand, letting you pet GEM, trigger pings, or silence alarms.'
-              }
-            ].map((feature) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-[#2563EB] hover:shadow-lg hover:shadow-blue-500/15 hover:-translate-y-1 transition-all duration-300 space-y-3"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] flex items-center justify-center">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-sm font-black text-slate-900">{feature.title}</h3>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">{feature.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Interactive Device Simulator Section */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-8">
-=======
         {/* Bento Capabilities Grid with Signature Dark Blue Gradient Hover */}
         <div className="space-y-6 pt-8">
->>>>>>> origin/main
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
               <Layers className="w-3.5 h-3.5" />
@@ -781,16 +612,6 @@ function GemBuddyContent() {
                 </button>
               </div>
 
-<<<<<<< HEAD
-              {/* Status Box */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <span className="text-xs font-bold text-slate-900 block">Live Telemetry Feedback</span>
-                <p className="text-xs text-slate-600 font-medium">
-                  {simMode === 'happy' && 'GEM is happy, tracking ambient light, and responsive to top touch guard.'}
-                  {simMode === 'sleep' && 'GEM enters low-power idle sleep state with soft OLED eye animations.'}
-                  {simMode === 'guard' && 'Desk Guard Armed! Motion detection or light changes trigger alert chimes.'}
-                  {simMode === 'pulse' && 'GEM v2 MAX30102 PPG sensor reading live pulse rate (78 BPM) and oxygen levels.'}
-=======
               {/* Ambient LED Brightness Controller */}
               <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
                 <div className="flex items-center justify-between text-xs">
@@ -836,7 +657,6 @@ function GemBuddyContent() {
                   {simMode === 'sleep' && 'GEM enters power-saving idle state. Monochromatic OLED display plays subtle eye-closing routines.'}
                   {simMode === 'guard' && 'Desk Sentinel Mode Armed! Motion detection or light changes trigger alert audio beeps and angry sentry eyes.'}
                   {simMode === 'pulse' && 'GEM v2 MAX30102 PPG optical sensor actively reads human pulse and transmits real-time BPM telemetry.'}
->>>>>>> origin/main
                 </p>
               </div>
 
@@ -968,7 +788,6 @@ function GemBuddyContent() {
               <p className="text-xs text-slate-600 font-medium">Full hardware component and micro-architecture breakdown</p>
             </div>
 
-<<<<<<< HEAD
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
@@ -1093,11 +912,9 @@ function GemBuddyContent() {
               {selectedVersion === 'v1' ? 'GEM v1 Technical Specifications' : 'GEM v2 Technical Specifications'}
             </h2>
             <p className="text-xs text-slate-500 font-medium">Hardware and micro-architecture details</p>
-=======
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-bold text-slate-700">
               <span>MODEL: {selectedVersion === 'v1' ? 'AWIE-GEM-V1-2500' : 'AWIE-GEM-V2-2500'}</span>
             </div>
->>>>>>> origin/main
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1161,6 +978,7 @@ function GemBuddyContent() {
 
       </div>
     </div>
+  </div>
   );
 }
 
