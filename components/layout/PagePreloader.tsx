@@ -81,13 +81,13 @@ export default function PagePreloader() {
     >
       <div className="relative z-10 flex flex-col items-center max-w-sm text-center px-6">
         {/* Loading Image from Assets */}
-        <div className="mb-6 p-2">
+        <div className="mb-4 p-1">
           <Image
             src="/loading.png"
             alt="AWIE Loading"
-            width={130}
-            height={130}
-            className="w-28 h-28 sm:w-32 sm:h-32 object-contain"
+            width={200}
+            height={200}
+            className="w-36 h-36 sm:w-44 sm:h-44 object-contain"
             priority
           />
         </div>
