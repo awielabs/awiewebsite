@@ -9,7 +9,16 @@ export default function PagePreloader() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(20);
+  const [dotCount, setDotCount] = useState(1);
   const isFirstLoad = useRef(true);
+
+  // Animated dots effect for text
+  useEffect(() => {
+    const dotInterval = setInterval(() => {
+      setDotCount((prev) => (prev % 3) + 1);
+    }, 400);
+    return () => clearInterval(dotInterval);
+  }, []);
 
   useEffect(() => {
     // Show preloader on route change or initial load
@@ -91,49 +100,53 @@ export default function PagePreloader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#0B0F17] text-white transition-opacity duration-500 ease-in-out ${
+      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-white text-slate-900 transition-opacity duration-500 ease-in-out ${
         isFadingOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
       aria-label="Loading AWIE"
     >
-      {/* Ambient Radial Glow */}
-      <div className="absolute w-[360px] h-[360px] bg-[#2563EB]/20 rounded-full blur-[100px] animate-pulse pointer-events-none" />
-      <div className="absolute w-[200px] h-[200px] bg-blue-400/10 rounded-full blur-[60px] pointer-events-none" />
+      {/* Background Soft Glow */}
+      <div className="absolute w-[400px] h-[400px] bg-blue-100/60 rounded-full blur-[120px] pointer-events-none animate-pulse" />
 
-      <div className="relative z-10 flex flex-col items-center max-w-xs text-center px-6">
-        {/* Glowing Logo Badge */}
-        <div className="relative mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl shadow-[#2563EB]/30 group">
-          <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 opacity-30 blur-sm group-hover:opacity-50 transition-opacity" />
+      <div className="relative z-10 flex flex-col items-center max-w-sm text-center px-6">
+        {/* Loading Image from Assets */}
+        <div className="relative mb-6 p-4 rounded-3xl bg-white shadow-xl shadow-blue-500/10 border border-slate-100 animate-bounce-subtle">
           <Image
-            src="/icon.png"
-            alt="AWIE Logo"
-            width={72}
-            height={72}
-            className="relative w-16 h-16 sm:w-18 sm:h-18 object-contain drop-shadow-[0_0_20px_rgba(37,99,235,0.7)] animate-pulse"
+            src="/loading.png"
+            alt="AWIE Loading"
+            width={120}
+            height={120}
+            className="w-24 h-24 sm:w-28 sm:h-28 object-contain transition-transform duration-300 hover:scale-105"
             priority
           />
         </div>
 
-        {/* Brand Title */}
-        <h2 className="text-2xl font-black tracking-wider text-white mb-1">
-          AWIE<span className="text-[#2563EB]">.</span>
-        </h2>
-        <p className="text-xs text-slate-400 font-medium tracking-wide mb-6">
-          Preparing AWIE Store & Catalog...
+        {/* Animated Text Loading */}
+        <div className="flex items-center justify-center gap-1 mb-2">
+          <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
+            Loading AWIE
+          </span>
+          <span className="text-xl sm:text-2xl font-black text-[#2563EB] inline-block min-w-[24px] text-left">
+            {'.'.repeat(dotCount)}
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-500 font-medium tracking-wide mb-6 animate-pulse">
+          Fetching products, hardware & assets
         </p>
 
         {/* Progress Bar Container */}
-        <div className="w-56 bg-slate-800/80 rounded-full h-1.5 overflow-hidden p-0.5 border border-white/10 relative shadow-inner">
+        <div className="w-60 bg-slate-100 rounded-full h-2 overflow-hidden p-0.5 border border-slate-200 shadow-inner">
           <div
-            className="bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-blue-400 h-full rounded-full transition-all duration-300 ease-out shadow-[0_0_12px_#2563EB]"
+            className="bg-gradient-to-r from-[#0066FF] via-[#2563EB] to-blue-500 h-full rounded-full transition-all duration-300 ease-out shadow-[0_0_10px_rgba(37,99,235,0.4)]"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        {/* Progress Percentage */}
-        <div className="mt-3 flex items-center gap-1.5 text-slate-400 font-mono text-[11px]">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-ping" />
-          <span className="font-semibold text-slate-300">{progress}%</span>
+        {/* Progress Percentage Indicator */}
+        <div className="mt-3 flex items-center gap-2 text-slate-500 font-mono text-xs font-bold">
+          <span className="inline-block w-2 h-2 rounded-full bg-[#2563EB] animate-ping" />
+          <span>{progress}%</span>
         </div>
       </div>
     </div>
