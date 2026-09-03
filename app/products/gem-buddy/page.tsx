@@ -661,107 +661,116 @@ function GemBuddyContent() {
           </div>
         </div>
 
-        {/* Mobile Companion App Carousel Section - Tap Sides to Scroll & Auto-scroll */}
+        {/* Mobile Companion App Carousel Section - Horizontal Layout (Demo Left, Details Right) */}
         <div
           onMouseEnter={() => setIsAppCarouselPaused(true)}
           onMouseLeave={() => setIsAppCarouselPaused(false)}
-          className="max-w-xl mx-auto p-5 sm:p-6 rounded-2xl bg-white hover:bg-[#0B1528] border border-slate-200/90 hover:border-[#2563EB] shadow-lg hover:shadow-xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden text-center space-y-4 select-none"
+          className="max-w-4xl mx-auto p-8 sm:p-10 rounded-3xl bg-white hover:bg-[#0B1528] border border-slate-200/90 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/20 transition-all duration-700 ease-out group relative overflow-hidden select-none"
         >
-          {/* Tap Either Side to Scroll Overlay */}
-          <div
-            onClick={prevAppSlide}
-            className="absolute inset-y-0 left-0 w-1/2 cursor-pointer z-20"
-            title="Tap left to view previous screen"
-            aria-label="Previous screen"
-          />
-          <div
-            onClick={nextAppSlide}
-            className="absolute inset-y-0 right-0 w-1/2 cursor-pointer z-20"
-            title="Tap right to view next screen"
-            aria-label="Next screen"
-          />
-
           {/* Smooth Dark Blue Gradient Overlay */}
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-2xl" />
-          <div className="absolute -top-16 -right-16 w-60 h-60 bg-blue-500/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
-          <div className="absolute -bottom-16 -left-16 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
+          <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
-          {/* Section Header */}
-          <div className="max-w-md mx-auto space-y-1.5 relative z-10 pointer-events-none">
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-50 group-hover:bg-blue-950/80 border border-blue-200 group-hover:border-blue-700/60 text-[11px] font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-500">
-              <Smartphone className="w-3 h-3" />
-              <span>GEM MOBILE COMPANION APP</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500">
-              Total Control on Your Phone
-            </h2>
-            <p className="text-xs text-slate-500 group-hover:text-slate-300 font-medium max-w-sm mx-auto transition-colors duration-500">
-              Configure face expressions, audio buzzer chimes, security guard mode, and firmware updates.
-            </p>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 items-center relative z-10">
+            
+            {/* Left Column: Phone Demo */}
+            <div className="md:col-span-5 flex flex-col items-center justify-center relative">
+              {/* Tap Left / Right of phone area to navigate */}
+              <div
+                onClick={prevAppSlide}
+                className="absolute inset-y-0 left-0 w-1/2 cursor-pointer z-20"
+                title="Tap left side to view previous screen"
+                aria-label="Previous screen"
+              />
+              <div
+                onClick={nextAppSlide}
+                className="absolute inset-y-0 right-0 w-1/2 cursor-pointer z-20"
+                title="Tap right side to view next screen"
+                aria-label="Next screen"
+              />
 
-          {/* Compact Phone Mockup Frame */}
-          <div className="relative z-10 flex justify-center py-1 pointer-events-none">
-            <div className="relative w-[150px] sm:w-[170px] aspect-[9/18.5] rounded-[28px] p-2 bg-slate-950 border-[3.5px] border-slate-900 shadow-xl ring-1 ring-slate-800/80 group-hover:border-slate-800 transition-all duration-500 overflow-hidden">
-              {/* Phone Speaker Notch */}
-              <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-12 h-2.5 bg-slate-950 rounded-full z-20" />
-              
-              {/* Screen Area with Smooth Hardware Horizontal Sliding */}
-              <div className="relative w-full h-full rounded-[20px] overflow-hidden bg-slate-900">
-                <div
-                  className="flex w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
-                  style={{ transform: `translateX(-${appCarouselIndex * 100}%)` }}
-                >
-                  {appScreenshots.map((screen, idx) => (
-                    <div key={idx} className="relative w-full h-full shrink-0">
-                      <Image
-                        src={screen.src}
-                        alt={screen.title}
-                        fill
-                        className="object-contain select-none"
-                        priority={idx <= 1}
-                      />
-                    </div>
-                  ))}
+              {/* Enhanced Phone Mockup Frame */}
+              <div className="relative w-[190px] sm:w-[220px] aspect-[9/18.5] rounded-[36px] p-3 bg-slate-950 border-[5px] border-slate-900 shadow-2xl ring-1 ring-slate-800/80 group-hover:border-slate-800 transition-all duration-500 overflow-hidden pointer-events-none">
+                {/* Phone Speaker Notch */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-3.5 bg-slate-950 rounded-full z-20" />
+                
+                {/* Screen Area with Smooth Hardware Horizontal Sliding */}
+                <div className="relative w-full h-full rounded-[26px] overflow-hidden bg-slate-900">
+                  <div
+                    className="flex w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
+                    style={{ transform: `translateX(-${appCarouselIndex * 100}%)` }}
+                  >
+                    {appScreenshots.map((screen, idx) => (
+                      <div key={idx} className="relative w-full h-full shrink-0">
+                        <Image
+                          src={screen.src}
+                          alt={screen.title}
+                          fill
+                          className="object-contain select-none"
+                          priority={idx <= 1}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Caption & Navigation Progress (No Scroll Buttons) */}
-          <div className="relative z-10 flex flex-col items-center gap-2 pointer-events-none">
-            <div className="text-center space-y-0.5 min-w-[170px] max-w-xs px-2 transition-all duration-500 ease-out">
-              <span className="block text-xs font-bold text-slate-900 group-hover:text-white transition-colors duration-500">
-                {appScreenshots[appCarouselIndex].title}
+              {/* Phone navigation tap hint below mockup */}
+              <span className="text-[11px] text-slate-400 group-hover:text-slate-400 font-mono mt-3 tracking-wide pointer-events-none">
+                Tap phone to navigate
               </span>
-              <p className="text-[10px] text-slate-500 group-hover:text-slate-300 font-medium transition-colors duration-500 leading-tight">
-                {appScreenshots[appCarouselIndex].desc}
-              </p>
             </div>
 
-            {/* Pagination Dots */}
-            <div className="flex items-center gap-1 pt-0.5 pointer-events-auto relative z-30">
-              {appScreenshots.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setAppCarouselIndex(i);
-                  }}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    appCarouselIndex === i
-                      ? 'w-4 bg-[#2563EB]'
-                      : 'w-1 bg-slate-300 group-hover:bg-slate-700 hover:bg-blue-400'
-                  }`}
-                  aria-label={`Jump to screenshot ${i + 1}`}
-                />
-              ))}
+            {/* Right Column: Details & Module Info */}
+            <div className="md:col-span-7 flex flex-col justify-center text-left space-y-5">
+              
+              {/* Badge & Title */}
+              <div className="space-y-2.5">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 group-hover:bg-blue-950/80 border border-blue-200 group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-500">
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>GEM MOBILE COMPANION APP</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-500">
+                  Total Control on Your Phone
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 group-hover:text-slate-300 font-medium leading-relaxed transition-colors duration-500">
+                  Configure face expressions, audio buzzer chimes, security guard mode, and firmware updates.
+                </p>
+              </div>
+
+              {/* Active Screen Detail Box */}
+              <div className="p-5 rounded-2xl bg-slate-50 group-hover:bg-[#0F1B33]/80 border border-slate-200/80 group-hover:border-blue-900/60 transition-all duration-500 space-y-1.5 shadow-sm">
+                <div className="flex items-center justify-between text-xs font-mono text-slate-400 group-hover:text-blue-400">
+                  <span>SCREEN {appCarouselIndex + 1} OF {appScreenshots.length}</span>
+                  <span className="text-[#2563EB] group-hover:text-blue-300 font-semibold">Active Module</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 group-hover:text-white transition-colors duration-500">
+                  {appScreenshots[appCarouselIndex].title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 group-hover:text-slate-300 font-medium leading-relaxed transition-colors duration-500">
+                  {appScreenshots[appCarouselIndex].desc}
+                </p>
+              </div>
+
+              {/* Pagination Dots */}
+              <div className="flex items-center gap-2 pt-1 relative z-30">
+                {appScreenshots.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setAppCarouselIndex(i)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      appCarouselIndex === i
+                        ? 'w-8 bg-[#2563EB]'
+                        : 'w-2 bg-slate-300 group-hover:bg-slate-700 hover:bg-blue-400'
+                    }`}
+                    aria-label={`Jump to screenshot ${i + 1}`}
+                  />
+                ))}
+              </div>
+
             </div>
 
-            {/* Tap Instruction Hint */}
-            <span className="text-[9px] text-slate-400 group-hover:text-slate-400 font-mono tracking-wide">
-              Tap left or right side of card to navigate
-            </span>
           </div>
         </div>
 
