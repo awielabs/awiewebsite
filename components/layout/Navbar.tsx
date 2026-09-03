@@ -55,6 +55,8 @@ export default function Navbar() {
     return pathname === href || pathname?.startsWith(`${href}/`);
   };
 
+  const isContactPage = pathname === '/contact' || pathname?.startsWith('/contact/');
+
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md transition-all duration-300 ease-in-out ${
@@ -112,17 +114,20 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-3">
+        {/* Action Buttons (Hidden on Contact page without layout shift) */}
+        <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/contact"
-            className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-1.5"
+            tabIndex={isContactPage ? -1 : undefined}
+            aria-hidden={isContactPage ? 'true' : undefined}
+            className={`px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-md shadow-[#2563EB]/20 flex items-center gap-1.5 ${
+              isContactPage ? 'invisible pointer-events-none' : ''
+            }`}
           >
             <span>Start Project</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
-
 
         {/* Mobile Hamburger Toggle */}
         <button
@@ -159,15 +164,17 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-slate-200 flex flex-col gap-2">
-            <Link
-              href="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-[#2563EB] text-white text-xs font-bold text-center shadow-md shadow-[#2563EB]/20"
-            >
-              Start Project
-            </Link>
-          </div>
+          {!isContactPage && (
+            <div className="pt-4 border-t border-slate-200 flex flex-col gap-2">
+              <Link
+                href="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-[#2563EB] text-white text-xs font-bold text-center shadow-md shadow-[#2563EB]/20"
+              >
+                Start Project
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </nav>
