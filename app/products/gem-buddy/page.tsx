@@ -27,7 +27,9 @@ import {
   ChevronRight,
   Shield,
   Eye,
-  Sliders
+  Sliders,
+  Download,
+  Play
 } from 'lucide-react';
 
 export default function GemBuddyPage() {
@@ -111,6 +113,10 @@ export default function GemBuddyPage() {
             <p className="text-slate-600 text-sm leading-relaxed font-medium">
               Interactive ESP32 desktop companion featuring animated OLED expressions, 4 White LED ambient lights, piezo audio buzzer, and companion app telemetry.
             </p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2563EB] text-white text-xs font-extrabold uppercase tracking-wider shadow-lg shadow-[#2563EB]/30">
+              <Clock className="w-4 h-4" />
+              <span>Pre-Booking Open Soon</span>
+            </div>
           </div>
 
           {/* Version Selector Tabs */}
@@ -254,6 +260,57 @@ export default function GemBuddyPage() {
 
           </div>
 
+        </div>
+
+        {/* Features Showcase Section — adapted from GEM showcase site */}
+        <div className="space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">
+              Hardware Meets <span className="text-[#2563EB]">Personality</span>
+            </h2>
+            <p className="text-xs text-slate-600 font-medium">
+              Packed with sensors, responsive displays, and security functions, GEM brings your workspace to life.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                icon: Eye,
+                title: 'OLED Face Expressions',
+                desc: 'Dynamic emotions and animated eyes that react to time of day and physical touch interaction.'
+              },
+              {
+                icon: Shield,
+                title: 'Desk Guard Mode',
+                desc: 'Arm GEM when you step away. Any light fluctuations or physical touch trigger security alerts.'
+              },
+              {
+                icon: Sun,
+                title: 'Light Telemetry',
+                desc: 'Calibrated ambient light tracking. GEM translates environment brightness from dark 0% to bright 100%.'
+              },
+              {
+                icon: Hand,
+                title: 'Capacitive Sensing',
+                desc: 'Interactive touch pins react to your hand, letting you pet GEM, trigger pings, or silence alarms.'
+              }
+            ].map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={feature.title}
+                  className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:border-[#2563EB] hover:shadow-lg hover:shadow-blue-500/15 hover:-translate-y-1 transition-all duration-300 space-y-3"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] flex items-center justify-center">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-black text-slate-900">{feature.title}</h3>
+                  <p className="text-xs text-slate-600 font-medium leading-relaxed">{feature.desc}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Interactive Device Simulator Section */}
@@ -475,6 +532,54 @@ export default function GemBuddyPage() {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Download the App Section — adapted from GEM showcase site */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl relative overflow-hidden text-center space-y-5">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+              <Download className="w-3.5 h-3.5" />
+              <span>COMPANION APP DOWNLOAD</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">Get the GEM Buddy App</h2>
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Download the official GEM Buddy Companion App for your Android device to customize your companion&apos;s eyes, set alarms, activate guard mode security, and synchronize settings.
+            </p>
+            <a
+              href="/gem-app/Gem%20v1.2.0.apk"
+              download="Gem v1.2.0.apk"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/30 hover:scale-[1.02]"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download App (v1.2.0 APK)</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Tutorial Hub Section — adapted from GEM showcase site */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">
+              How to Use <span className="text-[#2563EB]">GEM Buddy</span>
+            </h2>
+            <p className="text-xs text-slate-600 font-medium">
+              Set up your device, link the mobile app, and customize settings. Watch the setup walkthrough below.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl aspect-video flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/20 via-transparent to-transparent pointer-events-none" />
+            <div className="relative z-10 text-center space-y-4 p-8">
+              <div className="w-16 h-16 mx-auto rounded-full bg-[#2563EB] text-white flex items-center justify-center shadow-lg shadow-[#2563EB]/40 hover:scale-105 transition-transform cursor-pointer">
+                <Play className="w-7 h-7 fill-current" />
+              </div>
+              <h3 className="text-base font-black text-white">Watch Tutorial &amp; Setup Guide</h3>
+              <p className="text-xs text-slate-400 font-medium">
+                Learn how to connect Wi-Fi, arm Guard Mode, and configure triggers.
+              </p>
+            </div>
           </div>
         </div>
 

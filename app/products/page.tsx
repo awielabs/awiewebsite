@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Layers, Zap, HeartPulse, CheckCircle2 } from 'lucide-react';
 
 export default function ProductsPage() {
@@ -76,6 +77,17 @@ export default function ProductsPage() {
             <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
             <div className="space-y-4 relative z-10">
+              {/* Product Placement Image — AWIE Blue & White Theme */}
+              <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-white border border-slate-200 group-hover:border-[#2563EB] shadow-sm group-hover:shadow-lg group-hover:shadow-blue-500/20 flex items-center justify-center p-4 transition-all duration-500 ease-out">
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/5 via-transparent to-transparent pointer-events-none" />
+                <Image
+                  src="/gem/device_real.jpg"
+                  alt="GEM v1 Device Photo"
+                  fill
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+              </div>
+
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
                   <Zap className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
@@ -127,6 +139,17 @@ export default function ProductsPage() {
             <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
             <div className="space-y-4 relative z-10">
+              {/* Product Placement Image — AWIE Blue & White Theme */}
+              <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-white border border-slate-200 group-hover:border-[#2563EB] shadow-sm group-hover:shadow-lg group-hover:shadow-blue-500/20 flex items-center justify-center p-4 transition-all duration-500 ease-out">
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/5 via-transparent to-transparent pointer-events-none" />
+                <Image
+                  src="/gem/gem_device_mockup.jpg"
+                  alt="GEM v2 Device Render"
+                  fill
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+              </div>
+
               <div className="flex items-center justify-between">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2563EB]/10 border border-[#2563EB]/30 text-xs font-bold text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-300 transition-all duration-500 ease-out">
                   <HeartPulse className="w-3.5 h-3.5 text-[#2563EB] group-hover:text-blue-400 transition-colors duration-500" />
