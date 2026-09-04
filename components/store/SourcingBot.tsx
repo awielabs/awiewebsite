@@ -76,14 +76,14 @@ export default function SourcingBot() {
           setSessionPhone(phone || '');
           if (!phone && !contactMissingPrompted) {
             setContactMissingPrompted(true);
-            botSay([
-              '⚠️ We don\'t have your contact details (phone/WhatsApp) on file yet — we currently only have your email.',
-            ], () => {
-              setMessages((prev) => [...prev, {
-                from: 'bot',
-                text: 'Adding a phone number helps us reach you faster about your sourcing requests. You can update your email & phone in your Profile page, or just type your number here and I will note it for this request.',
-              }]);
-            });
+            setIsTyping(true);
+            setTimeout(() => {
+              setMessages((prev) => [...prev,
+                { from: 'bot', text: '⚠️ We don\'t have your contact details (phone/WhatsApp) on file yet — we currently only have your email.' },
+                { from: 'bot', text: 'Adding a phone number helps us reach you faster about your sourcing requests. You can update your email & phone in your Profile page, or just type your number here and I will note it for this request.' },
+              ]);
+              setIsTyping(false);
+            }, TYPING_DELAY);
           }
         } catch {
           // Profile fetch is best-effort only
