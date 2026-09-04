@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ShieldCheck,
   Truck,
-  Lock,
   Headphones,
   Cpu,
   Wifi,
@@ -107,7 +106,7 @@ export default function StorePage() {
 
       {/* 2. Store Features Row */}
       <section className="py-8 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
           <div className="flex items-center gap-3 p-2">
             <ShieldCheck className="w-6 h-6 text-[#2563EB] shrink-0" />
             <div>
@@ -120,13 +119,6 @@ export default function StorePage() {
             <div>
               <span className="font-extrabold text-slate-900 block">Fast Shipping</span>
               <span className="text-slate-500 font-medium">Dispatched via Courier</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-2">
-            <Lock className="w-6 h-6 text-indigo-600 shrink-0" />
-            <div>
-              <span className="font-extrabold text-slate-900 block">Pre-Book & Enquiry</span>
-              <span className="text-slate-500 font-medium">Order via WhatsApp & Email</span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2">
