@@ -75,7 +75,7 @@ export default function StudentsPage() {
 
             <div className="space-y-3">
               <p className="text-[#2563EB] text-lg sm:text-2xl font-extrabold tracking-tight leading-snug">
-                Have a college project idea but don't know where to start?
+                Have a college project idea but don&apos;t know where to start?
               </p>
 
               <p className="text-slate-600 text-sm sm:text-lg leading-relaxed font-medium">
