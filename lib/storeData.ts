@@ -1,4 +1,4 @@
-export interface Product {
+﻿export interface Product {
   id: string;
   name: string;
   slug: string;
@@ -1061,7 +1061,7 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
 
-  // 4. Displays (10 Items)
+  // 4. Displays (8 Items)
   {
     id: 'dp-1',
     name: '0.96" OLED Display 128×64',
@@ -1077,7 +1077,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/oled-096-128x64.jpg',
+    image: '/store/displays/oled-096-128x64.png',
     description: 'Compact monochrome OLED display with 128×64 resolution and I²C interface, ideal for showing sensor readings, status information, menus, icons and small graphical interfaces in Arduino, ESP32 and other embedded projects.',
     features: [
       'High-contrast 128×64 pixel graphic OLED display',
@@ -1112,7 +1112,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/oled-13-128x64.jpg',
+    image: '/store/displays/oled-13-128x64.png',
     description: 'Larger monochrome OLED display providing a 128×64 pixel resolution for compact embedded interfaces, menus, sensor dashboards and device status displays.',
     features: [
       'Generous 1.3" diagonal viewing area with 128×64 resolution',
@@ -1148,7 +1148,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/oled-091-128x32.jpg',
+    image: '/store/displays/oled-091-128x32.png',
     description: 'Ultra-compact monochrome OLED display designed for projects where space is limited. Suitable for displaying short text, sensor values, icons and device status.',
     features: [
       'Ultra-compact slim horizontal 0.91-inch form factor',
@@ -1170,42 +1170,6 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
   {
-    id: 'dp-4',
-    name: '2.4" TFT LCD Touch Display',
-    slug: 'tft-24-touch',
-    sku: 'SKU-DP-04',
-    categorySlug: 'displays',
-    categoryName: 'Displays',
-    subCategory: 'TFT Displays',
-    price: 349,
-    originalPrice: 349,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 95,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/products/tft-24-touch.jpg',
-    description: 'Compact color TFT touchscreen display designed for interactive Arduino, ESP32 and embedded projects. Suitable for graphical interfaces, control panels and small dashboards.',
-    features: [
-      '240×320 pixels 65K full-color vibrant TFT LCD',
-      'Integrated touch panel for responsive interactive UI',
-      'Onboard SD card socket for image and font asset storage',
-      'High-speed SPI / 8-bit interface support',
-      'Compatible with Adafruit GFX, TFT_eSPI, and LVGL graphics libraries'
-    ],
-    specs: {
-      'Display Size': '2.4 inch',
-      'Display Type': 'TFT LCD',
-      'Touch': 'Yes (Touchscreen Panel)',
-      'Typical Resolution': '240×320 pixels',
-      'Color Depth': '65K RGB Colors',
-      'Display Controller': 'ILI9341 / Variant Dependent',
-      'Touch Interface': 'SPI / Dedicated Touch Controller (XPT2046)',
-      'Operating Voltage': '3.3V – 5.0V',
-      'Applications': 'Arduino, ESP32, IoT and embedded UI'
-    }
-  },
-  {
     id: 'dp-5',
     name: '3.5" TFT LCD Touch Display',
     slug: 'tft-35-touch',
@@ -1220,7 +1184,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 75,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/tft-35-touch.jpg',
+    image: '/store/displays/tft-35-touch.png',
     description: 'Large color TFT touchscreen suitable for graphical interfaces, dashboards, control panels and embedded applications requiring a larger interactive display.',
     features: [
       'Generous 3.5" diagonal viewing area with 320×480 HD resolution',
@@ -1256,7 +1220,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 300,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/lcd-16x2-blue.jpg',
+    image: '/store/displays/lcd-16x2-blue.png',
     description: 'Classic 16×2 character LCD with blue backlight for displaying text, numbers and basic status information. A simple and reliable choice for Arduino and microcontroller projects.',
     features: [
       '16 characters wide across 2 lines (32 total characters)',
@@ -1290,7 +1254,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 280,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/lcd-16x2-i2c.jpg',
+    image: '/store/displays/lcd-16x2-i2c.png',
     description: '16×2 character LCD combined with an I²C adapter, reducing the number of microcontroller pins required for displaying text and values.',
     features: [
       'Pre-soldered PCF8574 I²C backpack module',
@@ -1325,7 +1289,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 150,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/lcd-20x4-i2c.jpg',
+    image: '/store/displays/lcd-20x4-i2c.png',
     description: '20×4 character LCD with an I²C interface, providing more display space than a standard 16×2 LCD. Suitable for menus, sensor dashboards and automation systems.',
     features: [
       '20 columns × 4 rows (80 total characters) for extensive telemetry',
@@ -1346,41 +1310,6 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
   {
-    id: 'dp-9',
-    name: 'WS2812B LED Strip (30 LED/m)',
-    slug: 'ws2812b-led-strip',
-    sku: 'SKU-DP-09',
-    categorySlug: 'displays',
-    categoryName: 'Displays',
-    subCategory: 'LED & Matrix',
-    price: 249,
-    originalPrice: 249,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 160,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/products/ws2812b-led-strip.jpg',
-    description: 'Individually addressable RGB LED strip that allows each LED to be controlled independently. Suitable for decorative lighting, status indicators, animations and IoT lighting projects.',
-    features: [
-      'Individually addressable 5050 RGB LEDs with built-in WS2812B IC',
-      '30 LEDs per metre density for smooth animations and ambient effects',
-      'Single-wire digital signal control compatible with FastLED & NeoPixel',
-      'Cuttable between each individual LED for custom lengths',
-      'Adhesive backing tape for easy mounting on surfaces'
-    ],
-    specs: {
-      'LED Type': 'WS2812B',
-      'LED Density': '30 LEDs/m',
-      'LED Color': 'RGB Full Color',
-      'Addressable': 'Individually Addressable',
-      'Data Protocol': 'Single-wire digital signal (NZR)',
-      'Typical Supply': '5V DC',
-      'Strip Length': '1 Metre (AWIE Standard SKU)',
-      'Applications': 'Arduino, ESP32, lighting effects and IoT projects'
-    }
-  },
-  {
     id: 'dp-10',
     name: '8×8 LED Matrix with MAX7219',
     slug: 'led-matrix-8x8',
@@ -1395,7 +1324,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/led-matrix-8x8.jpg',
+    image: '/store/displays/led-matrix-8x8.png',
     description: 'Compact 8×8 LED matrix module driven by the MAX7219 controller. Suitable for displaying numbers, letters, scrolling text, symbols and simple animations.',
     features: [
       '64 individually addressable bright red LED pixels',
