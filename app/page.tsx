@@ -280,7 +280,6 @@ export default function Home() {
                       </div>
 
                       <div>
-                        <span className="text-xs font-mono font-bold text-slate-400 block mb-0.5">{card.num} —</span>
                         <h3 className="text-2xl font-extrabold text-slate-900 mb-1">
                           {card.title}
                         </h3>
@@ -381,7 +380,6 @@ export default function Home() {
               >
                 <div className="space-y-3 relative z-10">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-black text-[#2563EB] group-hover:text-blue-400">{step.num} —</span>
                     <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-800 group-hover:text-blue-400 transition-colors">
                       <Icon className="w-4 h-4" />
                     </div>
