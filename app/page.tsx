@@ -21,7 +21,6 @@ import {
   Terminal
 } from 'lucide-react';
 import ScrollFrameBackground from '@/components/ui/ScrollFrameBackground';
-import SourcingBot from '@/components/store/SourcingBot';
 
 export default function Home() {
   const whatWeDoCards = [
@@ -177,8 +176,6 @@ export default function Home() {
 
   return (
     <div className="relative pt-24 bg-white text-slate-800 overflow-hidden">
-      {/* Floating AWIE Sourcer Bot */}
-      <SourcingBot />
       {/* Scroll-Driven Interactive 30fps Frame Background */}
       <ScrollFrameBackground />
 

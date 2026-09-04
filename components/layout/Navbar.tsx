@@ -59,15 +59,10 @@ export default function Navbar() {
 
 
 
-  // About Us & Contact are shown in the main navbar ONLY on AWIE Products screens
-  const showSiteLinks = pathname === '/products' || pathname?.startsWith('/products/');
-
   const navLinks = [
     { name: 'Students', href: '/students' },
-    ...(showSiteLinks ? [
-      { name: 'About', href: '/about' },
-      { name: 'Contact', href: '/contact' },
-    ] : []),
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
     { name: 'AWIE Products', href: '/products', isPill: true },
     { name: 'AWIE Store', href: '/store', isPill: true }
   ];

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -14,7 +14,6 @@ import {
   HelpCircle
 } from 'lucide-react';
 import StudentScrollBackground from '@/components/ui/StudentScrollBackground';
-import SourcingBot from '@/components/store/SourcingBot';
 
 export default function StudentsPage() {
   const [frameAlign, setFrameAlign] = useState<'left' | 'right'>('right');
@@ -32,10 +31,7 @@ export default function StudentsPage() {
 
   return (
     <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
-      {/* Floating AWIE Sourcer Bot */}
-      <SourcingBot />
-
-      {/* Scroll-Driven Alternating 5-Part Student Background */}
+            {/* Scroll-Driven Alternating 5-Part Student Background */}
       <StudentScrollBackground onAlignChange={(align) => setFrameAlign(align)} />
 
       {/* Light Circuit Grid Background Pattern */}
