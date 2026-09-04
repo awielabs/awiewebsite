@@ -88,14 +88,6 @@ export default function StoreHeader() {
           <Link href="/store/category/microcontrollers" className="hover:text-[#2563EB] transition-colors">
             Microcontrollers
           </Link>
-
-          <Link href="/about" className="hover:text-[#2563EB] transition-colors">
-            About Us
-          </Link>
-
-          <Link href="/contact" className="hover:text-[#2563EB] transition-colors">
-            Contact
-          </Link>
         </nav>
 
         {/* Search & Actions */}
@@ -305,8 +297,6 @@ export default function StoreHeader() {
             <Link href="/store/category/displays" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Displays</Link>
             <Link href="/store/category/motors-drivers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Motors & Drivers</Link>
             <Link href="/store/category/power-battery" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Power & Battery</Link>
-            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">About Us</Link>
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Contact</Link>
           </div>
         </div>
       )}
