@@ -34,11 +34,12 @@ export default function SourcingBot() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [step, setStep] = useState<'idle' | 'name' | 'product' | 'quantity' | 'specs' | 'brand' | 'image' | 'contact'>('idle');
+  const [step, setStep] = useState<'idle' | 'status' | 'product' | 'quantity' | 'specs' | 'brand' | 'image' | 'contact'>('idle');
   const [draft, setDraft] = useState<SourcingDraft>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -114,6 +115,43 @@ export default function SourcingBot() {
     });
   };
 
+  // Check status of an existing request by Sourcing ID
+  const checkStatus = async (rawId: string) => {
+    const id = rawId.trim().toUpperCase();
+    if (!id) return;
+
+    setIsCheckingStatus(true);
+    try {
+      const res = await fetch(`/api/store/sourcing-request?id=${encodeURIComponent(id)}`);
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        botSay([data.error || 'Could not check the status right now. Please try again.']);
+        return;
+      }
+
+      const statusMap: Record<string, string> = {
+        pending: '🟡 Checking — your request is queued and will be reviewed soon.',
+        checking: '🟡 Checking — we are still checking availability with suppliers.',
+        sourceable: '🟢 Sourceable — AWIE can potentially obtain this item. Our team will contact you with a quotation.',
+        not_sourceable: '🔴 Not Sourceable — we currently cannot source this item. You are welcome to submit a new request anytime.',
+        completed: '✅ Completed — this sourcing request has been fulfilled and closed by our team. Thank you!',
+      };
+
+      const r = data.request;
+      botSay([
+        `Status for ${r.sourcing_id}:`,
+        statusMap[r.status] || `Status: ${r.status}`,
+        `Product: ${r.product_name}${r.quantity ? ` · Qty: ${r.quantity}` : ''}`,
+      ]);
+    } catch {
+      botSay(['Network error while checking status. Please try again.']);
+    } finally {
+      setIsCheckingStatus(false);
+      setStep('idle');
+    }
+  };
+
   const startConversation = () => {
     resetConversation();
     if (hasSession && sessionEmail) {
@@ -121,7 +159,7 @@ export default function SourcingBot() {
         'Hi! I am the AWIE Sourcer Bot 🤖',
         `Welcome ${sessionName || 'there'}! Tell us what you need and we will check if we can source it for you.`,
       ], () => {
-        setMessages((prev) => [...prev, { from: 'bot', text: 'What product or component are you looking for?' }]);
+        setMessages((prev) => [...prev, { from: 'bot', text: 'You can also check an existing request — just type "status" and your Sourcing ID (e.g. "status SRC-AB12CD"). Or tell me, what product or component are you looking for?' }]);
         setStep('product');
       });
     } else {
@@ -136,6 +174,25 @@ export default function SourcingBot() {
   const handleUserReply = (raw: string) => {
     const text = raw.trim();
     if (!text) return;
+
+    // Status check command — works at any step: "status" or "status SRC-XXXXXX"
+    if (/^status(\s+\S+)?$/i.test(text)) {
+      setMessages((prev) => [...prev, { from: 'user', text }]);
+      const idInText = text.split(/\s+/)[1];
+      if (idInText) {
+        checkStatus(idInText);
+      } else {
+        botSay(['Sure — please type your Sourcing ID (e.g. "SRC-AB12CD") and I will check the status for you.']);
+        setStep('status');
+      }
+      return;
+    }
+
+    if (step === 'status') {
+      checkStatus(text);
+      return;
+    }
+
     setMessages((prev) => [...prev, { from: 'user', text }]);
     setInputValue('');
 
@@ -239,8 +296,10 @@ export default function SourcingBot() {
 
       botSay([
         '✅ Request received!',
-        'AWIE Sourcer Bot will check the requested product and let you know whether it can be sourced.',
-        'You will be notified by email with one of these statuses: 🟢 Sourceable · 🟡 Checking · 🔴 Not Sourceable.',
+        data.sourcingId
+          ? `Your Sourcing ID is: ${data.sourcingId}\nSave it — you can use it any time to check your request status. The ID stays in our system until your request is completed by our team.`
+          : 'Your request has been saved.',
+        'AWIE Sourcer Bot will check the requested product and let you know whether it can be sourced. You will also be notified by email with one of these statuses: 🟢 Sourceable · 🟡 Checking · 🔴 Not Sourceable.',
         'Note: attached reference images are auto-deleted from our storage within 3 days after review.',
       ]);
       setIsDone(true);
@@ -477,7 +536,9 @@ export default function SourcingBot() {
                     }
                   }}
                   placeholder={
-                    step === 'idle'
+                    step === 'status'
+                      ? 'e.g. SRC-AB12CD'
+                      : step === 'idle'
                       ? '…'
                       : step === 'contact' && hasSession && sessionEmail
                       ? 'Type "yes" to submit'

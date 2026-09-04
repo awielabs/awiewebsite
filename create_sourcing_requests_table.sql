@@ -5,6 +5,7 @@
 
 CREATE TABLE IF NOT EXISTS public.sourcing_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sourcing_id VARCHAR(20) UNIQUE,
     user_id TEXT,
     email VARCHAR(255) NOT NULL,
     name VARCHAR(255),
@@ -18,6 +19,10 @@ CREATE TABLE IF NOT EXISTS public.sourcing_requests (
     status VARCHAR(50) DEFAULT 'pending',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- Add sourcing_id to existing installations
+ALTER TABLE public.sourcing_requests
+    ADD COLUMN IF NOT EXISTS sourcing_id VARCHAR(20) UNIQUE;
 
 -- Row Level Security: only service role / authenticated inserts
 ALTER TABLE public.sourcing_requests ENABLE ROW LEVEL SECURITY;

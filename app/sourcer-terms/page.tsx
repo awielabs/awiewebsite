@@ -49,10 +49,18 @@ export default function SourcerTermsPage() {
 
           {/* 3 */}
           <section className="space-y-2">
-            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">3. Sourcing Check</h2>
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">3. Sourcing Check &amp; Sourcing ID</h2>
             <p>
               Submitting a request does not constitute an order or guarantee of supply.
             </p>
+            <p>
+              When a request is submitted, AWIE assigns it a unique <span className="font-bold">Sourcing ID</span> (e.g. <span className="font-mono font-bold">SRC-AB12CD</span>). The Sourcing ID:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-slate-600">
+              <li>Lets you check your request status at any time through AWIE Sourcer Bot (type &ldquo;status&rdquo; followed by your ID) or by contacting AWIE.</li>
+              <li>Remains active in AWIE&apos;s system while your request is being processed — until it is marked completed by AWIE.</li>
+              <li>Once a request is marked <span className="font-bold">completed</span>, the request record is removed from AWIE&apos;s database; only the reference outside AWIE (your own saved Sourcing ID and email confirmation) remains.</li>
+            </ul>
             <p>
               AWIE may check its suppliers and available sources to determine whether the requested item can be sourced.
             </p>

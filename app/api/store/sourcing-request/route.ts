@@ -118,9 +118,40 @@ export async function POST(request: Request) {
       status: 'pending',
     });
 
-    if (insertError) {
-      console.error('Sourcing request insert failed:', insertError.message);
-      const tableMissing = /does not exist|relation|schema/i.test(insertError.message || '');
+    // 3. Generate unique short Sourcing ID (format: SRC-XXXXXX) — kept until admin marks the request completed
+    let sourcingId = '';
+    let inserted = false;
+    let lastError: string | null = null;
+
+    for (let attempt = 0; attempt < 5 && !inserted; attempt++) {
+      sourcingId = 'SRC-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+      const { error: insertError } = await supabase.from('sourcing_requests').insert({
+        sourcing_id: sourcingId,
+        user_id: userId || null,
+        email,
+        name: name || null,
+        phone: phone || null,
+        product_name: productName,
+        quantity: quantity || null,
+        specifications: specifications || null,
+        brand_model: brandModel || null,
+        image_path: imagePath,
+        status: 'pending',
+      });
+
+      if (!insertError) {
+        inserted = true;
+      } else {
+        lastError = insertError.message;
+        // Retry with a new ID only on unique-constraint collisions
+        if (!/unique|duplicate/i.test(insertError.message || '')) break;
+      }
+    }
+
+    if (!inserted) {
+      console.error('Sourcing request insert failed:', lastError);
+      const tableMissing = /does not exist|relation|schema/i.test(lastError || '');
       return NextResponse.json(
         {
           success: false,
@@ -135,11 +166,151 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Sourcing request received. Our team will check availability and reply within 7 days.',
+      sourcingId,
+      message: `Sourcing request received. Save your Sourcing ID: ${sourcingId} — use it any time to check your request status. Our team will also notify you by email within 7 days.`,
     });
   } catch {
     return NextResponse.json(
       { success: false, error: 'Failed to submit sourcing request. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
+
+// GET /api/store/sourcing-request?id=SRC-XXXXXX — status lookup by Sourcing ID
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const sourcingId = (searchParams.get('id') || '').trim().toUpperCase();
+
+    if (!sourcingId) {
+      return NextResponse.json(
+        { success: false, error: 'Please provide your Sourcing ID (e.g. SRC-AB12CD).' },
+        { status: 400 }
+      );
+    }
+
+    if (!supabaseKey) {
+      return NextResponse.json(
+        { success: false, error: 'Status service is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    const { data, error } = await supabase
+      .from('sourcing_requests')
+      .select('sourcing_id, product_name, quantity, status, created_at')
+      .eq('sourcing_id', sourcingId)
+      .limit(1);
+
+    if (error) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to check status. Please try again.' },
+        { status: 500 }
+      );
+    }
+
+    if (!data || data.length === 0) {
+      return NextResponse.json(
+        { success: false, notFound: true, error: `No sourcing request found for ${sourcingId}. Please double-check your Sourcing ID.` },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      request: data[0],
+    });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: 'Failed to check status. Please try again.' },
+      { status: 500 }
+    );
+  }
+}
+
+// PATCH /api/store/sourcing-request — admin updates status; when marked completed the record is deleted (only the status/confirmation history remains with the user)
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const sourcingId = String(body.sourcingId || '').trim().toUpperCase();
+    const adminPasscode = String(body.adminPasscode || '');
+
+    if (!sourcingId) {
+      return NextResponse.json(
+        { success: false, error: 'Sourcing ID is required.' },
+        { status: 400 }
+      );
+    }
+
+    const expectedPasscode = process.env.ADMIN_PASSCODE || '';
+    if (!expectedPasscode || adminPasscode !== expectedPasscode) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized. Admin passcode required.' },
+        { status: 401 }
+      );
+    }
+
+    const newStatus = String(body.status || '').trim().toLowerCase();
+    const allowed = ['pending', 'checking', 'sourceable', 'not_sourceable', 'completed'];
+    if (!allowed.includes(newStatus)) {
+      return NextResponse.json(
+        { success: false, error: `Invalid status. Allowed: ${allowed.join(', ')}.` },
+        { status: 400 }
+      );
+    }
+
+    if (!supabaseKey) {
+      return NextResponse.json(
+        { success: false, error: 'Service temporarily unavailable.' },
+        { status: 503 }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // Completed requests are removed from the table (user keeps the confirmation/id outside)
+    if (newStatus === 'completed') {
+      const { error: deleteError } = await supabase
+        .from('sourcing_requests')
+        .delete()
+        .eq('sourcing_id', sourcingId);
+
+      if (deleteError) {
+        return NextResponse.json(
+          { success: false, error: 'Failed to complete request. Please try again.' },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        completed: true,
+        message: `Request ${sourcingId} marked completed and removed from the database.`,
+      });
+    }
+
+    const { error: updateError } = await supabase
+      .from('sourcing_requests')
+      .update({ status: newStatus })
+      .eq('sourcing_id', sourcingId);
+
+    if (updateError) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to update request status.' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Request ${sourcingId} status updated to ${newStatus}.`,
+    });
+  } catch {
+    return NextResponse.json(
+      { success: false, error: 'Failed to update request. Please try again.' },
       { status: 500 }
     );
   }
