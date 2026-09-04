@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { X, Send, MessageCircle, RefreshCw, ImageIcon, UserPlus } from 'lucide-react';
+import { X, Send, MessageCircle, RefreshCw, ImageIcon, UserPlus, ShoppingBag, Search } from 'lucide-react';
 import { decryptSession } from '@/lib/authCrypto';
 
 interface ChatMessage {
@@ -36,7 +36,7 @@ export default function SourcingBot() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [step, setStep] = useState<'idle' | 'status' | 'product' | 'quantity' | 'specs' | 'brand' | 'image' | 'contact'>('idle');
+  const [step, setStep] = useState<'idle' | 'menu' | 'status' | 'product' | 'quantity' | 'specs' | 'brand' | 'image' | 'contact'>('idle');
   const [draft, setDraft] = useState<SourcingDraft>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -182,10 +182,9 @@ export default function SourcingBot() {
       botSay([
         'Hi! I am the AWIE Sourcer Bot 🤖',
         `Welcome ${sessionName || 'there'}! Tell us what you need and we will check if we can source it for you.`,
-      ], () => {
-        setMessages((prev) => [...prev, { from: 'bot', text: 'You can also check an existing request — just type "status" and your Sourcing ID (e.g. "status SRC-AB12CD"). Or tell me, what product or component are you looking for?' }]);
-        setStep('product');
-      });
+      ]);
+      // Two quick-choice buttons replace the free-text question
+      setStep('menu');
     } else {
       botSay([
         'Hi! I am the AWIE Sourcer Bot 🤖',
@@ -423,6 +422,38 @@ export default function SourcingBot() {
               </div>
             )}
 
+            {/* Welcome menu — two quick choices */}
+            {step === 'menu' && (
+              <div className="flex flex-col gap-2 px-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMessages((prev) => [...prev, { from: 'user', text: '🛒 Get a Product' }]);
+                    botSay(['Awesome!'], () => {
+                      setMessages((prev) => [...prev, { from: 'bot', text: 'What product or component are you looking for?' }]);
+                      setStep('product');
+                    });
+                  }}
+                  className="w-full py-3 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white text-xs font-bold shadow-md shadow-[#2563EB]/25 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Get a Product Sourced</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMessages((prev) => [...prev, { from: 'user', text: '🔎 Check Status' }]);
+                    botSay(['Sure — please type your Sourcing ID (e.g. "SRC-AB12CD") and I will check the status for you.']);
+                    setStep('status');
+                  }}
+                  className="w-full py-3 rounded-xl bg-white hover:bg-blue-50 border border-slate-300 hover:border-[#2563EB] text-slate-800 hover:text-[#2563EB] text-xs font-bold transition-all flex items-center justify-center gap-2"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Check Request Status</span>
+                </button>
+              </div>
+            )}
+
             {/* Contact details missing — quick link to Profile tab */}
             {hasSession && !sessionPhone && contactMissingPrompted && !isDone && (
               <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3.5 space-y-2.5">
@@ -562,7 +593,7 @@ export default function SourcingBot() {
                 <input
                   type="text"
                   value={inputValue}
-                  disabled={isTyping || isSubmitting || step === 'idle'}
+                  disabled={isTyping || isSubmitting || step === 'idle' || step === 'menu'}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -580,7 +611,7 @@ export default function SourcingBot() {
                   placeholder={
                     step === 'status'
                       ? 'e.g. SRC-AB12CD'
-                      : step === 'idle'
+                      : step === 'idle' || step === 'menu'
                       ? '…'
                       : step === 'contact' && hasSession && sessionEmail
                       ? 'Type "yes" to submit'
@@ -590,7 +621,7 @@ export default function SourcingBot() {
                 />
                 <button
                   type="button"
-                  disabled={isTyping || isSubmitting || step === 'idle' || !inputValue.trim()}
+                  disabled={isTyping || isSubmitting || step === 'idle' || step === 'menu' || !inputValue.trim()}
                   onClick={() => {
                     if (step === 'contact' && hasSession && sessionEmail) {
                       if (inputValue.trim().toLowerCase() === 'yes') {
