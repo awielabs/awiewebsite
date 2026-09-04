@@ -21,7 +21,7 @@ interface SourcingDraft {
   phone?: string;
 }
 
-const BOT_NAME = 'AWIE Source Bot';
+const BOT_NAME = 'AWIE Sourcer Bot';
 const TYPING_DELAY = 700;
 
 export default function SourcingBot() {
@@ -38,6 +38,7 @@ export default function SourcingBot() {
   const [draft, setDraft] = useState<SourcingDraft>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -49,6 +50,7 @@ export default function SourcingBot() {
     setStep('idle');
     setDraft({});
     setIsDone(false);
+    setAgreedToTerms(false);
     setErrorMessage(null);
     setIsTyping(false);
   };
@@ -80,7 +82,7 @@ export default function SourcingBot() {
       if (productName) {
         setDraft({ productName });
         setMessages([
-          { from: 'bot', text: 'Hi! I am the AWIE Source Bot 🤖' },
+          { from: 'bot', text: 'Hi! I am the AWIE Sourcer Bot 🤖' },
           { from: 'bot', text: `Got it — you are looking for "${productName}". Tell us what you need and we will check if we can source it.` },
           { from: 'bot', text: 'How many units do you need? (e.g. 5, 10, 50…)' },
         ]);
@@ -116,7 +118,7 @@ export default function SourcingBot() {
     resetConversation();
     if (hasSession && sessionEmail) {
       botSay([
-        'Hi! I am the AWIE Source Bot 🤖',
+        'Hi! I am the AWIE Sourcer Bot 🤖',
         `Welcome ${sessionName || 'there'}! Tell us what you need and we will check if we can source it for you.`,
       ], () => {
         setMessages((prev) => [...prev, { from: 'bot', text: 'What product or component are you looking for?' }]);
@@ -124,8 +126,8 @@ export default function SourcingBot() {
       });
     } else {
       botSay([
-        'Hi! I am the AWIE Source Bot 🤖',
-        'To submit a sourcing request, please sign in to your AWIE account first. This keeps requests genuine and lets us reply to you faster.',
+        'Hi! I am the AWIE Sourcer Bot 🤖',
+        'Please sign in to your AWIE store account first. This keeps requests genuine and lets us reply to you faster.',
       ]);
       setStep('idle');
     }
@@ -192,6 +194,10 @@ export default function SourcingBot() {
   };
 
   const submitRequest = async (contact?: { email?: string; phone?: string }) => {
+    if (!agreedToTerms) {
+      botSay(['⚠️ Please accept the AWIE Sourcer Bot Terms & Conditions before submitting.']);
+      return;
+    }
     const finalEmail = contact?.email || draft.email || sessionEmail || '';
     if (!finalEmail) {
       botSay(['Please include a valid email so we can reply to you.']);
@@ -228,8 +234,9 @@ export default function SourcingBot() {
       }
 
       botSay([
-        '✅ Done! Your sourcing request has been received.',
-        'Our team will check availability and get back to you within 7 days.',
+        '✅ Request received!',
+        'AWIE Sourcer Bot will check the requested product and let you know whether it can be sourced.',
+        'You will be notified by email with one of these statuses: 🟢 Sourceable · 🟡 Checking · 🔴 Not Sourceable.',
         'Note: attached reference images are auto-deleted from our storage within 3 days after review.',
       ]);
       setIsDone(true);
@@ -375,6 +382,32 @@ export default function SourcingBot() {
 
             <div ref={messagesEndRef} />
           </div>
+
+          {/* Terms Consent Checkbox — shown once details are being collected */}
+          {(step === 'image' || step === 'contact') && !isDone && (
+            <div className="px-3 pt-3 bg-white shrink-0">
+              <label htmlFor="sourcer-terms" className="flex items-start gap-2 text-[10px] text-slate-600 font-medium cursor-pointer select-none">
+                <input
+                  id="sourcer-terms"
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  className="mt-0.5 w-3.5 h-3.5 rounded bg-slate-100 border-slate-300 text-[#2563EB] focus:ring-[#2563EB] shrink-0"
+                />
+                <span>
+                  I agree to the{' '}
+                  <Link
+                    href="/sourcer-terms"
+                    target="_blank"
+                    className="text-[#2563EB] font-bold hover:underline"
+                  >
+                    AWIE Sourcer Bot Terms &amp; Conditions
+                  </Link>{' '}
+                  and understand that submitting a request does not guarantee availability, pricing, or purchase.
+                </span>
+              </label>
+            </div>
+          )}
 
           {/* Input Row */}
           <div className="p-3 border-t border-slate-200 bg-white shrink-0">
