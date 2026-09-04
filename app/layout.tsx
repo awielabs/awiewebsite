@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${outfit.variable} dark scroll-smooth`}>
+    <html lang="en" suppressHydrationWarning className={`${poppins.variable} ${outfit.variable} dark scroll-smooth`}>
       <body className={`${poppins.className} bg-[#0B0F17] text-gray-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden selection:bg-[#2563EB] selection:text-white`}>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
         <CartProvider>
