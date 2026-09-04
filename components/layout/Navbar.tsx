@@ -11,6 +11,26 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Hide navbar entirely when the user is signed in / logged in
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('awie_user_session');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Respect the 30-minute inactivity timeout used across the app
+        const expired = Date.now() - parsed.lastActive > 30 * 60 * 1000;
+        if (!expired) {
+          setIsLoggedIn(true);
+        } else {
+          localStorage.removeItem('awie_user_session');
+        }
+      }
+    } catch {
+      localStorage.removeItem('awie_user_session');
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +60,10 @@ export default function Navbar() {
     return null;
   }
 
+  if (isLoggedIn) {
+    return null;
+  }
+
 
 
   const navLinks = [
@@ -56,6 +80,7 @@ export default function Navbar() {
   };
 
   const isContactPage = pathname === '/contact' || pathname?.startsWith('/contact/');
+  const isProductsPage = pathname === '/products' || pathname?.startsWith('/products/');
 
   return (
     <nav 
@@ -116,12 +141,14 @@ export default function Navbar() {
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-2.5">
-          <Link
-            href="/login"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-[#2563EB] hover:bg-slate-100 transition-all"
-          >
-            Log In
-          </Link>
+          {isProductsPage && (
+            <Link
+              href="/login"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 hover:text-[#2563EB] hover:bg-slate-100 transition-all"
+            >
+              Log In
+            </Link>
+          )}
           <Link
             href="/contact"
             tabIndex={isContactPage ? -1 : undefined}

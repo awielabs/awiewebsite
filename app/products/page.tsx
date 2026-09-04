@@ -81,7 +81,7 @@ export default function ProductsPage() {
               <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-white border border-slate-200 group-hover:border-[#2563EB] shadow-sm group-hover:shadow-lg group-hover:shadow-blue-500/20 flex items-center justify-center p-4 transition-all duration-500 ease-out">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/5 via-transparent to-transparent pointer-events-none" />
                 <Image
-                  src="/gem/device_real.jpg"
+                  src="/gem/Gemv1.png"
                   alt="GEM v1 Device Photo"
                   fill
                   className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -143,7 +143,7 @@ export default function ProductsPage() {
               <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-white border border-slate-200 group-hover:border-[#2563EB] shadow-sm group-hover:shadow-lg group-hover:shadow-blue-500/20 flex items-center justify-center p-4 transition-all duration-500 ease-out">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/5 via-transparent to-transparent pointer-events-none" />
                 <Image
-                  src="/gem/gem_device_mockup.jpg"
+                  src="/gem/Gemv2.png"
                   alt="GEM v2 Device Render"
                   fill
                   className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"

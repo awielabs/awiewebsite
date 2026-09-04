@@ -26,8 +26,7 @@ export default function StudentsPage() {
     { title: 'Debugging & Troubleshooting', desc: 'Resolving hardware circuit shorts, sensor noise, and software compilation issues.', icon: Bug },
     { title: 'IoT Prototyping', desc: 'Setting up local/cloud IoT MQTT brokers, sensor dashboards, and wireless links.', icon: Cpu },
     { title: 'Documentation Guidance', desc: 'Formatting project reports, system flowcharts, and technical specification sheets.', icon: FileText },
-    { title: 'Testing & Validation', desc: 'Running systematic component tests, sensor calibration, and performance metrics.', icon: CheckCircle2 },
-    { title: 'Viva Preparation', desc: 'Mock viva Q&A sessions, architecture defense coaching, and concept explanations.', icon: HelpCircle }
+    { title: 'Testing & Validation', desc: 'Running systematic component tests, sensor calibration, and performance metrics.', icon: CheckCircle2 }
   ];
 
   return (

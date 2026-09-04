@@ -428,7 +428,7 @@ export default function Home() {
               </h2>
 
               <p className="text-slate-600 group-hover:text-slate-300 text-sm sm:text-base leading-relaxed font-medium transition-colors duration-300">
-                Our own IoT and embedded products — fully designed, developed, and manufactured in-house, customized to solve real-world problems.
+                Our own IoT and embedded products — fully designed, developed, and manufactured in-house, customized to solve real-world problems. We strive to create intelligent, automated, and seamless solutions that bridge the gap between cutting-edge technology and everyday usability. From smart devices like GEM to complex embedded electronics, our products are engineered for performance, reliability, and innovation.
               </p>
             </div>
 

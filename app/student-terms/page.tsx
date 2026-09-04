@@ -60,12 +60,11 @@ export default function StudentTermsPage() {
             </p>
             <ul className="list-disc pl-5 space-y-1 text-slate-600">
               <li>Marks, grades, or academic evaluation scores</li>
-              <li>Viva voce examination outcomes</li>
-              <li>College or university department approvals</li>
+              <li>That the project made by us will be accepted or approved by your college</li>
               <li>Academic publication or competition victories</li>
             </ul>
             <p>
-              The student remains individually responsible for understanding, presenting, explaining, and defending their own academic submission before their institution.
+              Project topic selection is entirely a self-selection process by the student. Any rejection or disapproval of the project by your college or university is solely your responsibility. The student remains individually responsible for understanding, presenting, explaining, and defending their own academic submission before their institution.
             </p>
           </section>
 
