@@ -348,16 +348,16 @@ export default function SourcingBot() {
             setIsOpen(true);
             if (messages.length === 0) startConversation();
           }}
-          className="fixed bottom-6 right-6 z-40 group"
-          aria-label="Open AWIE Source Bot"
+          className="fixed bottom-6 right-6 z-40 group bot-float"
+          aria-label="Open AWIE Sourcer Bot"
         >
           <span className="absolute inset-0 rounded-full bg-[#2563EB]/40 animate-ping group-hover:bg-[#2563EB]/60" />
-          <span className="relative flex items-center justify-center w-14 h-14 rounded-full bg-white border-2 border-[#2563EB] shadow-xl shadow-[#2563EB]/40 overflow-hidden hover:scale-105 transition-transform">
+          <span className="relative flex items-center justify-center w-16 h-16 rounded-full bg-white border-2 border-[#2563EB] shadow-xl shadow-[#2563EB]/40 overflow-hidden hover:scale-110 transition-transform">
             <Image
               src="/awiestorebot.png"
-              alt="AWIE Source Bot"
-              width={48}
-              height={48}
+              alt="AWIE Sourcer Bot"
+              width={56}
+              height={56}
               className="object-cover w-full h-full"
             />
           </span>

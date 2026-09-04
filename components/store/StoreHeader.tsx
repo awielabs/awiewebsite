@@ -51,7 +51,7 @@ export default function StoreHeader() {
 
         {/* Center Nav Links */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
-          <Link href="/" className="hover:text-[#2563EB] transition-colors">
+          <Link href="/" prefetch={false} className="hover:text-[#2563EB] transition-colors">
             Home
           </Link>
 

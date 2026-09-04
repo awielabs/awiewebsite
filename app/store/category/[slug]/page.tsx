@@ -37,7 +37,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-          <Link href="/" className="hover:text-[#2563EB]">Home</Link>
+          <Link href="/" prefetch={false} className="hover:text-[#2563EB]">Home</Link>
           <span>→</span>
           <Link href="/store" className="hover:text-[#2563EB]">Shop</Link>
           <span>→</span>
