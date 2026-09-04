@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShieldAlert, Lock, ArrowRight, KeyRound } from 'lucide-react';
+import { ShieldAlert, Lock, ArrowRight, KeyRound, Eye, EyeOff } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const [passcode, setPasscode] = useState('');
+  const [showPasscode, setShowPasscode] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -32,11 +33,12 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070B14] text-slate-100 flex items-center justify-center p-6 pt-24">
-      <div className="w-full max-w-md bg-[#0F172A] border border-slate-800 rounded-3xl p-8 space-y-6 shadow-2xl relative overflow-hidden">
-        
-        {/* Subtle Ambient Backlight */}
-        <div className="absolute top-0 right-0 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Background glow effects */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 translate-y-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6 relative z-10">
 
         {/* Header */}
         <div className="space-y-3 text-center">
@@ -56,14 +58,28 @@ export default function AdminLoginPage() {
               <KeyRound className="w-3.5 h-3.5 text-[#2563EB]" />
               <span>Admin Access Passcode</span>
             </label>
-            <input
-              type="password"
-              placeholder="Enter passcode..."
-              value={passcode}
-              onChange={(e) => setPasscode(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-sm placeholder-slate-500 focus:outline-none focus:border-[#2563EB]"
-              autoFocus
-            />
+            <div className="relative">
+              <input
+                type={showPasscode ? 'text' : 'password'}
+                placeholder="Enter passcode..."
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+                className="w-full px-4 py-3 pr-11 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-sm placeholder-slate-500 focus:outline-none focus:border-[#2563EB]"
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={() => setShowPasscode(!showPasscode)}
+                className="absolute right-3 top-3 p-1 rounded-md text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                aria-label={showPasscode ? 'Hide passcode' : 'Show passcode'}
+              >
+                {showPasscode ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+              </button>
+            </div>
           </div>
 
           {error && (

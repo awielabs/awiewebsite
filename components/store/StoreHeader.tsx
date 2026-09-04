@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ShoppingBag, ChevronDown, Menu, X, User } from 'lucide-react';
+import { Search, ShoppingBag, ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
+import { useAuthSession } from '@/lib/useAuthSession';
 
 import StoreSearchBar from './StoreSearchBar';
 
@@ -13,6 +14,24 @@ export default function StoreHeader() {
   const { setIsCartOpen, totalItems } = useCart();
   const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, logout } = useAuthSession();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+    if (isProfileOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProfileOpen]);
 
   return (
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 transition-all duration-300">
@@ -87,14 +106,121 @@ export default function StoreHeader() {
             <StoreSearchBar />
           </div>
 
-          {/* Account / Sign In Button */}
-          <Link
-            href="/login"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold text-slate-800 transition-all"
-          >
-            <User className="w-4 h-4 text-slate-700" />
-            <span className="hidden sm:inline">Sign In</span>
-          </Link>
+          {/* Account / User Profile */}
+          {user ? (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsProfileOpen((prev) => !prev)}
+                className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-full hover:bg-slate-100/90 transition-all border border-slate-200/90 bg-white shadow-sm group focus:outline-none cursor-pointer"
+                aria-label="User profile menu"
+                aria-expanded={isProfileOpen}
+              >
+                <div className="relative w-8 h-8 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-[#2563EB] to-indigo-600 text-white font-bold text-xs shadow-inner ring-2 ring-blue-500/20 shrink-0">
+                  {user.avatarUrl ? (
+                    <img
+                      src={user.avatarUrl}
+                      alt={user.name || 'User'}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span>{user.name ? user.name.charAt(0).toUpperCase() : 'U'}</span>
+                  )}
+                  <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full ring-1 ring-white" />
+                </div>
+                <div className="hidden xl:flex flex-col text-left">
+                  <span className="text-xs font-bold text-slate-800 leading-tight group-hover:text-[#2563EB] transition-colors truncate max-w-[110px]">
+                    {user.name || 'Account'}
+                  </span>
+                  <span className="text-[10px] text-slate-500 leading-tight truncate max-w-[110px]">
+                    {user.email}
+                  </span>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  {/* User info */}
+                  <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-[#2563EB] to-indigo-600 text-white font-bold text-sm shrink-0 shadow-sm">
+                      {user.avatarUrl ? (
+                        <img
+                          src={user.avatarUrl}
+                          alt={user.name || 'User'}
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <span>{user.name ? user.name.charAt(0).toUpperCase() : 'U'}</span>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-bold text-slate-900 truncate">
+                        {user.name || 'AWIE Member'}
+                      </p>
+                      <p className="text-[11px] text-slate-500 truncate">
+                        {user.email}
+                      </p>
+                      <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-50 text-[#2563EB] border border-blue-100">
+                        Unified Account
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Navigation Links inside Dropdown */}
+                  <div className="py-1">
+                    <Link
+                      href="/store"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#2563EB] transition-colors"
+                    >
+                      <span>Store Catalog</span>
+                    </Link>
+                    <Link
+                      href="/store/orders"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#2563EB] transition-colors"
+                    >
+                      <span>My Orders</span>
+                    </Link>
+                    <Link
+                      href="/products"
+                      onClick={() => setIsProfileOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#2563EB] transition-colors"
+                    >
+                      <span>AWIE Products</span>
+                    </Link>
+                  </div>
+
+                  {/* Sign Out Button */}
+                  <div className="pt-1 border-t border-slate-100">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsProfileOpen(false);
+                        logout();
+                      }}
+                      className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors text-left cursor-pointer"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold text-slate-800 transition-all"
+            >
+              <User className="w-4 h-4 text-slate-700" />
+              <span className="hidden sm:inline">Sign In</span>
+            </Link>
+          )}
 
           {/* Cart Icon Button with Count Badge */}
           <button
@@ -128,6 +254,41 @@ export default function StoreHeader() {
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-4 text-xs font-bold">
+          {/* User profile card in mobile drawer */}
+          {user && (
+            <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-[#2563EB] to-indigo-600 text-white font-bold text-xs shrink-0 shadow-inner">
+                  {user.avatarUrl ? (
+                    <img
+                      src={user.avatarUrl}
+                      alt={user.name || 'User'}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span>{user.name ? user.name.charAt(0).toUpperCase() : 'U'}</span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-slate-900 truncate">{user.name || 'AWIE Member'}</p>
+                  <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  logout();
+                }}
+                className="p-2 rounded-xl text-slate-500 hover:text-red-600 hover:bg-white border border-transparent hover:border-slate-200 transition-all cursor-pointer"
+                title="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {/* Mobile Search Bar with Live Recommendations */}
           <div className="w-full">
             <StoreSearchBar isMobile onCloseMobile={() => setIsMobileMenuOpen(false)} />
@@ -136,6 +297,8 @@ export default function StoreHeader() {
           <div className="space-y-2 pt-2 border-t border-slate-100">
             <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
             <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
+            <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
+            <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">AWIE Products</Link>
             <Link href="/store/category/microcontrollers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Microcontrollers</Link>
             <Link href="/store/category/sensors" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Sensors</Link>
             <Link href="/store/category/modules" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Modules</Link>

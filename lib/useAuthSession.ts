@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { encryptSession, decryptSession, sanitizeConsole } from '@/lib/authCrypto';
 
 export interface UserSession {
   id: string;
@@ -15,21 +16,61 @@ export interface UserSession {
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes inactivity timeout
 const STORAGE_KEY = 'awie_user_session';
 
+// Helper to save user profile into Supabase public.profiles and awie_users table
+async function syncProfileToSupabase(user: UserSession) {
+  if (!user.email) return;
+  try {
+    await supabase.from('awie_users').upsert(
+      {
+        auth_user_id: user.id,
+        email: user.email,
+        name: user.name,
+        role: 'customer',
+        platform: 'AWIE Store and Products',
+        is_verified: true,
+        last_login: new Date().toISOString(),
+      },
+      { onConflict: 'email' }
+    );
+  } catch {
+    // Ignore
+  }
+
+  try {
+    await supabase.from('profiles').upsert(
+      {
+        email: user.email,
+        full_name: user.name,
+        avatar_url: user.avatarUrl,
+        provider: user.provider,
+        is_verified: true,
+        last_login: new Date().toISOString(),
+      },
+      { onConflict: 'email' }
+    );
+  } catch {
+    // Ignore network sync errors
+  }
+}
+
 export function useAuthSession() {
   const [user, setUser] = useState<UserSession | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Sanitize web console to protect PII
+  useEffect(() => {
+    sanitizeConsole();
+  }, []);
 
   // Update activity timestamp
   const refreshActivity = useCallback(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
-      try {
-        const parsed: UserSession = JSON.parse(stored);
+      const parsed = decryptSession(stored);
+      if (parsed) {
         parsed.lastActive = Date.now();
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        localStorage.setItem(STORAGE_KEY, encryptSession(parsed));
         setUser(parsed);
-      } catch (err) {
-        console.error('Failed parsing session', err);
       }
     }
   }, []);
@@ -38,7 +79,7 @@ export function useAuthSession() {
   const logout = useCallback(async (reason: 'manual' | 'timeout' = 'manual') => {
     try {
       await supabase.auth.signOut();
-    } catch (e) {
+    } catch {
       // ignore
     }
     localStorage.removeItem(STORAGE_KEY);
@@ -55,32 +96,45 @@ export function useAuthSession() {
     const initSession = async () => {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        try {
-          const parsed: UserSession = JSON.parse(stored);
-          // Check if session already expired
+        const parsed = decryptSession(stored);
+        if (parsed) {
+          // Check if session already expired (30 mins)
           if (Date.now() - parsed.lastActive > SESSION_TIMEOUT_MS) {
             logout('timeout');
             setLoading(false);
             return;
           }
+          // Re-encrypt if was previously stored as plaintext
+          localStorage.setItem(STORAGE_KEY, encryptSession(parsed));
           setUser(parsed);
-        } catch {
+        } else {
           localStorage.removeItem(STORAGE_KEY);
         }
       }
 
-      // Supabase listener
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-        if (session?.user) {
+      // Supabase listener for Google & OAuth sign-ins
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+        if (session?.user && event === 'SIGNED_IN') {
+          // If returning on the login page, the login page itself will validate database account existence
+          const isLoginPage = typeof window !== 'undefined' && (
+            window.location.pathname === '/login' ||
+            window.location.search.includes('mode=login')
+          );
+          if (isLoginPage) {
+            return;
+          }
+
           const newUser: UserSession = {
             id: session.user.id,
             email: session.user.email || '',
-            name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'AWIE User',
+            name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'AWIE Member',
             avatarUrl: session.user.user_metadata?.avatar_url,
             provider: session.user.app_metadata?.provider === 'google' ? 'google' : 'email',
             lastActive: Date.now()
           };
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
+
+          await syncProfileToSupabase(newUser);
+          localStorage.setItem(STORAGE_KEY, encryptSession(newUser));
           setUser(newUser);
         }
       });
@@ -114,13 +168,9 @@ export function useAuthSession() {
     const interval = setInterval(() => {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        try {
-          const parsed: UserSession = JSON.parse(stored);
-          if (Date.now() - parsed.lastActive > SESSION_TIMEOUT_MS) {
-            logout('timeout');
-          }
-        } catch (e) {
-          logout('manual');
+        const parsed = decryptSession(stored);
+        if (!parsed || Date.now() - parsed.lastActive > SESSION_TIMEOUT_MS) {
+          logout('timeout');
         }
       }
     }, 15000);
@@ -132,40 +182,24 @@ export function useAuthSession() {
     };
   }, [user, refreshActivity, logout]);
 
-  // Google Sign In helper
-  const signInWithGoogle = async () => {
+  // Google Sign In / Sign Up helper
+  const signInWithGoogle = async (mode: 'login' | 'signup' = 'login') => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const redirectUrl = `${window.location.origin}/${mode === 'signup' ? 'signup' : 'login'}?google_auth=1&mode=${mode}`;
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: redirectUrl,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'select_account',
+          }
         }
       });
 
-      if (error) {
-        // Fallback for local demo environment if OAuth redirect is pending setup
-        const demoUser: UserSession = {
-          id: 'google-user-' + Date.now(),
-          email: 'user@gmail.com',
-          name: 'Google User',
-          provider: 'google',
-          lastActive: Date.now()
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(demoUser));
-        setUser(demoUser);
-        window.location.href = '/dashboard';
-      }
+      return { data, error };
     } catch (err) {
-      const demoUser: UserSession = {
-        id: 'google-user-' + Date.now(),
-        email: 'user@gmail.com',
-        name: 'Google User',
-        provider: 'google',
-        lastActive: Date.now()
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(demoUser));
-      setUser(demoUser);
-      window.location.href = '/dashboard';
+      return { error: err };
     }
   };
 
@@ -177,3 +211,4 @@ export function useAuthSession() {
     refreshActivity
   };
 }
+

@@ -97,7 +97,7 @@ function GemBuddyContent() {
   const specsV1 = [
     { category: 'Compute & Wireless', label: 'Microcontroller', value: 'ESP32 32-bit Dual-Core 240MHz' },
     { category: 'Compute & Wireless', label: 'Connectivity', value: '2.4 GHz Wi-Fi 802.11 b/g/n + BLE 5.0' },
-    { category: 'Display & Audio', label: 'Screen', value: '0.96" Monochromatic Graphic OLED (128×64)' },
+    { category: 'Display & Audio', label: 'Screen', value: '1.3" OLED Display (128×64)' },
     { category: 'Display & Audio', label: 'Audio Engine', value: 'Piezo Resonant Buzzer (Melodic Beeps & Chimes)' },
     { category: 'Lighting & Touch', label: 'Ambient Lighting', value: '4× Ultra-Crisp Pure White LEDs' },
     { category: 'Lighting & Touch', label: 'Touch Sensing', value: 'Capacitive Touch Top Enclosure' },
@@ -110,7 +110,7 @@ function GemBuddyContent() {
   const specsV2 = [
     { category: 'Compute & Wireless', label: 'Microcontroller', value: 'ESP32 32-bit Dual-Core 240MHz' },
     { category: 'Compute & Wireless', label: 'Connectivity', value: '2.4 GHz Wi-Fi 802.11 b/g/n + BLE 5.0' },
-    { category: 'Display & Audio', label: 'Screen', value: '0.96" Monochromatic Graphic OLED (128×64)' },
+    { category: 'Display & Audio', label: 'Screen', value: '1.3" OLED Display (128×64)' },
     { category: 'Display & Audio', label: 'Audio Engine', value: 'Piezo Resonant Buzzer (Pulse Sync Chimes & Alerts)' },
     { category: 'Lighting & Touch', label: 'Ambient Lighting', value: '4× Pure White LEDs (Pulse Synced Illumination)' },
     { category: 'Lighting & Touch', label: 'Touch Sensing', value: 'Capacitive Touch Top Enclosure' },
@@ -214,7 +214,9 @@ function GemBuddyContent() {
                     style={{ opacity: ledBrightness === 100 ? 0.9 : 0.45 }}
                   />
                 )}
+              </div>
             </div>
+          </div>
 
           {/* Right Column: Title, Narrative & Launch Registration */}
           <div className="lg:col-span-6 space-y-6">
@@ -253,8 +255,6 @@ function GemBuddyContent() {
                 </span>
               </div>
             </div>
-              </div>
-            </div>
 
             {/* Key Feature Highlight Badges with Dark Blue Gradient Hover */}
             <div className="grid grid-cols-2 gap-3 pt-2">
@@ -263,7 +263,7 @@ function GemBuddyContent() {
                 <Tv className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 shrink-0 mt-0.5 relative z-10 transition-colors duration-300" />
                 <div className="relative z-10">
                   <span className="text-xs font-bold text-slate-900 group-hover:text-white block transition-colors duration-300">Animated OLED Eyes</span>
-                  <span className="text-[11px] text-slate-500 group-hover:text-slate-300 font-medium transition-colors duration-300">0.96" 128×64 contrast face</span>
+                  <span className="text-[11px] text-slate-500 group-hover:text-slate-300 font-medium transition-colors duration-300">1.3" 128×64 contrast face</span>
                 </div>
               </div>
 
@@ -362,7 +362,7 @@ function GemBuddyContent() {
               </div>
             </div>
 
-            {/* Card 2: Monochromatic OLED Expression Display */}
+            {/* Card 2: 1.3 inch OLED Expression Display */}
             <div className="p-6 rounded-3xl bg-slate-50/70 hover:bg-[#0B1528] border border-slate-200/90 hover:border-[#2563EB] shadow-sm hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out hover:-translate-y-1.5 group relative overflow-hidden flex flex-col justify-between space-y-4">
               {/* Smooth Dark Blue Gradient Overlay */}
               <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
@@ -372,7 +372,7 @@ function GemBuddyContent() {
                 <Tv className="w-5 h-5" />
               </div>
               <div className="space-y-1 relative z-10">
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-500">0.96" Monochromatic OLED</h3>
+                <h3 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-500">1.3 inch OLED Display</h3>
                 <p className="text-xs text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-500">
                   High-contrast 128×64 pixel display projecting procedural ocular animations, blink routines, idle glances, and security sentry status alerts.
                 </p>
@@ -804,7 +804,7 @@ function GemBuddyContent() {
                   <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-slate-800">0.96" OLED Expression Screen (128x64)</td>
+                  <td className="p-4 font-semibold text-slate-800">1.3" OLED Expression Screen (128x64)</td>
                   <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                   <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                 </tr>
