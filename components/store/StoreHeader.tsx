@@ -51,6 +51,7 @@ export default function StoreHeader() {
             alt="AWIE STORE Logo"
             width={160}
             height={48}
+            style={{ width: 'auto', height: 'auto' }}
             className="h-11 w-auto object-contain transition-transform group-hover:scale-105"
             priority
           />

@@ -69,16 +69,32 @@ export function decryptSession(ciphertext: string | null): EncryptedSessionUser 
 }
 
 /**
- * Suppresses sensitive user data in client console logs
+ * Suppresses sensitive user data in client console logs.
+ * In production, console output is disabled entirely so user data
+ * never leaks through DevTools (life inspection).
  */
 export function sanitizeConsole() {
   if (typeof window === 'undefined') return;
 
-  // Protect window console from leaking user session data or auth tokens
+  const isProduction = process.env.NODE_ENV === 'production';
+
   const originalLog = console.log;
   const originalError = console.error;
   const originalWarn = console.warn;
+  const originalInfo = console.info;
+  const originalDebug = console.debug;
 
+  if (isProduction) {
+    // Production: silence all client-side console output to prevent any data exposure
+    console.log = () => {};
+    console.info = () => {};
+    console.debug = () => {};
+    console.warn = () => {};
+    console.error = () => {};
+    return;
+  }
+
+  // Protect window console from leaking user session data or auth tokens in development
   const isSensitive = (item: unknown): boolean => {
     if (!item) return false;
     if (typeof item === 'string') {
@@ -126,5 +142,19 @@ export function sanitizeConsole() {
       return;
     }
     originalError(...args);
+  };
+
+  console.info = (...args: unknown[]) => {
+    if (args.some(isSensitive)) {
+      return;
+    }
+    originalInfo(...args);
+  };
+
+  console.debug = (...args: unknown[]) => {
+    if (args.some(isSensitive)) {
+      return;
+    }
+    originalDebug(...args);
   };
 }
