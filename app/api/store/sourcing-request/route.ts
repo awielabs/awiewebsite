@@ -119,8 +119,16 @@ export async function POST(request: Request) {
     });
 
     if (insertError) {
+      console.error('Sourcing request insert failed:', insertError.message);
+      const tableMissing = /does not exist|relation|schema/i.test(insertError.message || '');
       return NextResponse.json(
-        { success: false, error: 'Failed to submit your sourcing request. Please try again.' },
+        {
+          success: false,
+          tableMissing,
+          error: tableMissing
+            ? 'Sourcing table is not set up yet. Please run create_sourcing_requests_table.sql in the Supabase SQL Editor.'
+            : 'Failed to submit your sourcing request. Please try again.',
+        },
         { status: 500 }
       );
     }

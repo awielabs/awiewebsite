@@ -228,7 +228,11 @@ export default function SourcingBot() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        setErrorMessage(data.error || 'Failed to submit your request. Please try again.');
+        if (data.tableMissing) {
+          setErrorMessage('⚠️ Setup needed: the sourcing_requests table does not exist yet in Supabase. Run create_sourcing_requests_table.sql in the Supabase SQL Editor, then try again.');
+        } else {
+          setErrorMessage(data.error || 'Failed to submit your request. Please try again.');
+        }
         setIsSubmitting(false);
         return;
       }
