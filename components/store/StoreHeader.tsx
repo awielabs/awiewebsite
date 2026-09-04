@@ -49,10 +49,10 @@ export default function StoreHeader() {
           <Image
             src="/store-logo.png"
             alt="AWIE STORE Logo"
-            width={130}
-            height={40}
+            width={160}
+            height={48}
             style={{ width: 'auto', height: 'auto' }}
-            className="h-9 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
             priority
           />
         </Link>
