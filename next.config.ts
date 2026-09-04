@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Hide the Next.js dev-mode indicator badge from the browser
+  devIndicators: false,
   images: {
     remotePatterns: [
       {

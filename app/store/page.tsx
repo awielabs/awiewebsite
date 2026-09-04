@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ShieldCheck,
   Truck,
-  Lock,
   Headphones,
   Cpu,
   Wifi,
@@ -21,6 +20,7 @@ import {
 import { STORE_CATEGORIES, STORE_PRODUCTS } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
 import StoreScrollBackground from '@/components/ui/StoreScrollBackground';
+import SourcingBot from '@/components/store/SourcingBot';
 
 export default function StorePage() {
   const { addToCart } = useCart();
@@ -59,6 +59,9 @@ export default function StorePage() {
 
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
+
+      {/* Floating AWIE Source Bot — bottom right corner */}
+      <SourcingBot />
 
       {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
       <section className="relative z-10 border-b border-slate-200 pt-12 sm:pt-16 lg:pt-20 pb-32 min-h-[550px] sm:min-h-[640px] flex items-start overflow-hidden bg-white">
@@ -107,7 +110,7 @@ export default function StorePage() {
 
       {/* 2. Store Features Row */}
       <section className="py-8 bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
           <div className="flex items-center gap-3 p-2">
             <ShieldCheck className="w-6 h-6 text-[#2563EB] shrink-0" />
             <div>
@@ -120,13 +123,6 @@ export default function StorePage() {
             <div>
               <span className="font-extrabold text-slate-900 block">Fast Shipping</span>
               <span className="text-slate-500 font-medium">Dispatched via Courier</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-2">
-            <Lock className="w-6 h-6 text-indigo-600 shrink-0" />
-            <div>
-              <span className="font-extrabold text-slate-900 block">Pre-Book & Enquiry</span>
-              <span className="text-slate-500 font-medium">Order via WhatsApp & Email</span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2">

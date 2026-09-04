@@ -17,11 +17,11 @@ const TRENDING_KEYWORDS = [
   'ESP32',
   'OLED Display',
   'SG90 Servo',
-  'WS2812B LED',
-  'NEMA17 Stepper',
-  'DHT11 Sensor',
+  'Li-Po Battery',
   'L298N Driver',
-  '18650 Battery'
+  'DHT11 Sensor',
+  'TP4056 Charger',
+  'Buck Converter'
 ];
 
 export default function StoreSearchBar({ className = '', isMobile = false, onCloseMobile }: StoreSearchBarProps) {
@@ -363,7 +363,26 @@ export default function StoreSearchBar({ className = '', isMobile = false, onClo
                       Try searching by keyword like <span className="text-[#2563EB] font-bold">OLED</span>, <span className="text-[#2563EB] font-bold">ESP32</span>, <span className="text-[#2563EB] font-bold">Servo</span>, <span className="text-[#2563EB] font-bold">Sensor</span>, or <span className="text-[#2563EB] font-bold">Driver</span>.
                     </p>
                   </div>
-                  
+
+                  {/* Product Request CTA — opens the AWIE Source Bot with the query prefilled */}
+                  {query.trim().length >= 3 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsOpen(false);
+                        onCloseMobile?.();
+                        window.dispatchEvent(
+                          new CustomEvent('open-sourcing-bot', { detail: { productName: query.trim() } })
+                        );
+                      }}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white text-xs font-bold shadow-md shadow-[#2563EB]/25 hover:scale-[1.02] transition-all"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Looking for &ldquo;{query.trim()}&rdquo;? Request this product</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+
                   {/* Quick Suggestions */}
                   <div className="pt-2 flex flex-wrap justify-center gap-1.5">
                     {['ESP32', 'OLED', 'Servo', 'Sensor'].map((term) => (

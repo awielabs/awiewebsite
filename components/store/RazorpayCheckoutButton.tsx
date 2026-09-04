@@ -122,7 +122,6 @@ export default function RazorpayCheckoutButton({
         modal: {
           ondismiss: function () {
             setLoading(false);
-            console.log('Payment modal dismissed by user');
           },
         },
         prefill: {

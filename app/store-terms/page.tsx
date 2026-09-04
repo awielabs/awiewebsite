@@ -84,6 +84,21 @@ export default function StoreTermsPage() {
             </p>
           </section>
 
+          <section className="space-y-2">
+            <h2 className="text-base font-black text-slate-900 border-l-4 border-[#2563EB] pl-3">8. Product Sourcing Requests (AWIE Source Bot)</h2>
+            <p>
+              The AWIE Source Bot lets you submit a sourcing request for components not listed in our catalogue. By submitting a request you agree to the following:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-slate-600">
+              <li>Sourcing requests require an active AWIE account; requests must include a valid contact email and, where provided, an accurate phone/WhatsApp number.</li>
+              <li>Reference images attached to a sourcing request are stored in a private storage folder named <span className="font-mono font-bold">sourcing-requests</span> and are <span className="font-bold">automatically deleted within 3 days</span> of review. Do not attach images containing personal data you do not intend to share.</li>
+              <li>AWIE typically checks availability and responds to sourcing requests <span className="font-bold">within 7 days</span>. Sourcing timelines for the actual product may vary depending on supplier availability, and quoted prices and delivery dates are estimates until confirmed.</li>
+              <li>A sourcing request is not an order confirmation and creates no payment obligation until you accept a quote.</li>
+              <li><span className="font-bold text-slate-900">Abuse & Misuse:</span> submitting false, spam, abusive, repeated junk, or malicious requests — or impersonating another person — may lead to immediate rejection of the request and, at AWIE&apos;s sole discretion, permanent removal of the associated account and blocking of future sourcing access.</li>
+              <li>You confirm that all information provided in a sourcing request is accurate and that you own or have the right to share any attached reference images.</li>
+            </ul>
+          </section>
+
         </div>
       </div>
     </div>

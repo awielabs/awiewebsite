@@ -17,6 +17,14 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [pendingGoogleUser, setPendingGoogleUser] = useState<{
+    id: string;
+    email: string;
+    name: string;
+    avatarUrl?: string;
+    provider: 'google';
+    lastActive: number;
+  } | null>(null);
   const [accountNotFound, setAccountNotFound] = useState(false);
   const [notFoundEmail, setNotFoundEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -81,10 +89,28 @@ export default function LoginPage() {
           return;
         }
 
-        // Account exists! Save encrypted session and redirect to products
-        const encrypted = encryptSession(data.user);
-        localStorage.setItem('awie_user_session', encrypted);
-        window.location.href = '/products';
+        // Account exists! Require OTP verification on the Gmail before signing in
+        const otpRes = await fetch('/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: googleEmail,
+            name: data.user.name,
+            purpose: 'login',
+          }),
+        });
+
+        if (!otpRes.ok) {
+          await supabase.auth.signOut();
+          localStorage.removeItem('awie_user_session');
+          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          setIsSubmitting(false);
+          return;
+        }
+
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+        setIsSubmitting(false);
       } catch {
         setErrorMessage('Failed to verify Google account. Please try again.');
         setIsSubmitting(false);
@@ -103,6 +129,17 @@ export default function LoginPage() {
       setErrorMessage('Unable to connect to Google OAuth. Please check connection or use email code.');
       setIsSubmitting(false);
     }
+  };
+
+  // Complete Google login after OTP verification on the Gmail account
+  const handleGoogleOtpSuccess = () => {
+    if (!pendingGoogleUser) return;
+    setIsOtpOpen(false);
+    const encrypted = encryptSession(pendingGoogleUser);
+    localStorage.setItem('awie_user_session', encrypted);
+    setTimeout(() => {
+      window.location.href = '/products';
+    }, 500);
   };
 
   // Trigger animation frame play on typing
@@ -418,10 +455,16 @@ export default function LoginPage() {
       {/* 6-Digit Animated OTP Forum Modal */}
       <OtpVerificationModal
         isOpen={isOtpOpen}
-        email={email}
+        email={pendingGoogleUser?.email || email}
         purpose="login"
-        onClose={() => setIsOtpOpen(false)}
-        onSuccess={handleOtpSuccess}
+        onClose={() => {
+          setIsOtpOpen(false);
+          if (pendingGoogleUser) {
+            setPendingGoogleUser(null);
+            supabase.auth.signOut();
+          }
+        }}
+        onSuccess={pendingGoogleUser ? handleGoogleOtpSuccess : handleOtpSuccess}
       />
 
     </div>

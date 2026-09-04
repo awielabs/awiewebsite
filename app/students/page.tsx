@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -31,7 +31,7 @@ export default function StudentsPage() {
 
   return (
     <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 bg-white text-slate-800 min-h-screen relative overflow-hidden">
-      {/* Scroll-Driven Alternating 5-Part Student Background */}
+            {/* Scroll-Driven Alternating 5-Part Student Background */}
       <StudentScrollBackground onAlignChange={(align) => setFrameAlign(align)} />
 
       {/* Light Circuit Grid Background Pattern */}
@@ -71,7 +71,7 @@ export default function StudentsPage() {
 
             <div className="space-y-3">
               <p className="text-[#2563EB] text-lg sm:text-2xl font-extrabold tracking-tight leading-snug">
-                Have a college project idea but don't know where to start?
+                Have a college project idea but don&apos;t know where to start?
               </p>
 
               <p className="text-slate-600 text-sm sm:text-lg leading-relaxed font-medium">

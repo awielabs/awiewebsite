@@ -1,8 +1,9 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Search, ShoppingBag, ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
@@ -17,6 +18,12 @@ export default function StoreHeader() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuthSession();
+  const pathname = usePathname();
+
+  // On the main store page "Home" goes to the site home screen;
+  // from deeper store pages (category/product) "Home" returns to the Shop Catalog
+  const isStoreRoot = pathname === '/store';
+  const homeHref = isStoreRoot ? '/' : '/store';
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -42,16 +49,16 @@ export default function StoreHeader() {
           <Image
             src="/store-logo.png"
             alt="AWIE STORE Logo"
-            width={160}
-            height={48}
-            className="h-11 w-auto object-contain transition-transform group-hover:scale-105"
+            width={54}
+            height={36}
+            className="h-9 w-[54px] object-contain object-left transition-transform group-hover:scale-105 shrink-0"
             priority
           />
         </Link>
 
         {/* Center Nav Links */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
-          <Link href="/" className="hover:text-[#2563EB] transition-colors">
+          <Link href={homeHref} prefetch={false} className="hover:text-[#2563EB] transition-colors">
             Home
           </Link>
 
@@ -84,18 +91,6 @@ export default function StoreHeader() {
               </div>
             )}
           </div>
-
-          <Link href="/store/category/microcontrollers" className="hover:text-[#2563EB] transition-colors">
-            Microcontrollers
-          </Link>
-
-          <Link href="/about" className="hover:text-[#2563EB] transition-colors">
-            About Us
-          </Link>
-
-          <Link href="/contact" className="hover:text-[#2563EB] transition-colors">
-            Contact
-          </Link>
         </nav>
 
         {/* Search & Actions */}
@@ -295,18 +290,15 @@ export default function StoreHeader() {
           </div>
 
           <div className="space-y-2 pt-2 border-t border-slate-100">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
+            <Link href={homeHref} onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
             <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
             <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
             <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">AWIE Products</Link>
-            <Link href="/store/category/microcontrollers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Microcontrollers</Link>
             <Link href="/store/category/sensors" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Sensors</Link>
             <Link href="/store/category/modules" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Modules</Link>
             <Link href="/store/category/displays" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Displays</Link>
             <Link href="/store/category/motors-drivers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Motors & Drivers</Link>
             <Link href="/store/category/power-battery" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Power & Battery</Link>
-            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">About Us</Link>
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Contact</Link>
           </div>
         </div>
       )}

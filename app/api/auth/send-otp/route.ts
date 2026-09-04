@@ -146,6 +146,7 @@ export async function POST(request: Request) {
         });
 
         const subject = `${otp} is your AWIE verification code`;
+        const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://awie.vercel.app'}/logobg.png`;
         const html = `
           <!DOCTYPE html>
           <html>
@@ -159,12 +160,12 @@ export async function POST(request: Request) {
               <tr>
                 <td align="center" style="padding: 40px 16px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 520px; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
-                    
-                    <!-- Header -->
+
+                    <!-- Header with AWIE Logo -->
                     <tr>
-                      <td style="padding: 32px 36px; background-color: #2563EB; text-align: center;">
-                        <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #FFFFFF; letter-spacing: 1px;">AWIE LABS</h1>
-                        <p style="margin: 6px 0 0 0; font-size: 12px; color: #BFDBFE; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Unified Account Verification</p>
+                      <td style="padding: 28px 36px; background-color: #2563EB; text-align: center;">
+                        <img src="${logoUrl}" alt="AWIE Logo" width="150" style="display: inline-block; height: auto; max-width: 150px;" />
+                        <p style="margin: 8px 0 0 0; font-size: 12px; color: #BFDBFE; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Unified Account Verification</p>
                       </td>
                     </tr>
 
@@ -202,7 +203,7 @@ export async function POST(request: Request) {
                     <tr>
                       <td style="padding: 20px 36px; background-color: #F8FAFC; border-top: 1px solid #F1F5F9; text-align: center;">
                         <p style="margin: 0; font-size: 11px; color: #64748B; font-weight: 500;">
-                          © ${new Date().getFullYear()} AWIE Labs. Single Sign-On protected by 30-min security timeout.
+                          © ${new Date().getFullYear()} AWIE. Single Sign-On protected by 30-min security timeout.
                         </p>
                       </td>
                     </tr>

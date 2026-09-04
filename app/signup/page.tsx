@@ -19,6 +19,14 @@ export default function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [pendingGoogleUser, setPendingGoogleUser] = useState<{
+    id: string;
+    email: string;
+    name: string;
+    avatarUrl?: string;
+    provider: 'google';
+    lastActive: number;
+  } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -80,9 +88,28 @@ export default function SignupPage() {
           return;
         }
 
-        const encrypted = encryptSession(data.user);
-        localStorage.setItem('awie_user_session', encrypted);
-        window.location.href = '/profile?new_user=true';
+        // Registration valid! Require OTP verification on the Gmail before creating session
+        const otpRes = await fetch('/api/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: googleEmail,
+            name: data.user.name,
+            purpose: 'signup',
+          }),
+        });
+
+        if (!otpRes.ok) {
+          await supabase.auth.signOut();
+          localStorage.removeItem('awie_user_session');
+          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          setIsSubmitting(false);
+          return;
+        }
+
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+        setIsSubmitting(false);
       } catch {
         setErrorMessage('Network error during Google registration. Please try again.');
         setIsSubmitting(false);
@@ -91,6 +118,17 @@ export default function SignupPage() {
 
     handleGoogleSignupCallback();
   }, []);
+
+  // Complete Google signup after OTP verification on the Gmail account
+  const handleGoogleOtpSuccess = () => {
+    if (!pendingGoogleUser) return;
+    setIsOtpOpen(false);
+    const encrypted = encryptSession(pendingGoogleUser);
+    localStorage.setItem('awie_user_session', encrypted);
+    setTimeout(() => {
+      window.location.href = '/profile?new_user=true';
+    }, 500);
+  };
 
   const handleGoogleSignup = async () => {
     setIsSubmitting(true);
@@ -396,11 +434,17 @@ export default function SignupPage() {
       {/* 6-Digit Animated OTP Forum Modal */}
       <OtpVerificationModal
         isOpen={isOtpOpen}
-        email={email}
-        name={name}
+        email={pendingGoogleUser?.email || email}
+        name={pendingGoogleUser?.name || name}
         purpose="signup"
-        onClose={() => setIsOtpOpen(false)}
-        onSuccess={handleOtpSuccess}
+        onClose={() => {
+          setIsOtpOpen(false);
+          if (pendingGoogleUser) {
+            setPendingGoogleUser(null);
+            supabase.auth.signOut();
+          }
+        }}
+        onSuccess={pendingGoogleUser ? handleGoogleOtpSuccess : handleOtpSuccess}
       />
 
     </div>
