@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     }
 
     // 1. Validation
-    if (!productName || productName.length < 2) {
+    if (!productName) {
       return NextResponse.json(
         { success: false, error: 'Please tell us the product or component name you need sourced.' },
         { status: 400 }
