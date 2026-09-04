@@ -29,9 +29,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-          <Link href="/" prefetch={false} className="hover:text-[#2563EB]">Home</Link>
-          <span>→</span>
-          <Link href="/store" className="hover:text-[#2563EB]">Shop</Link>
+          <Link href="/store" className="hover:text-[#2563EB]">Home</Link>
           <span>→</span>
           <Link href={`/store/category/${product.categorySlug}`} className="hover:text-[#2563EB]">{product.categoryName}</Link>
           <span>→</span>

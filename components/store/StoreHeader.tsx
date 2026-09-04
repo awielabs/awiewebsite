@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Search, ShoppingBag, ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
@@ -17,6 +18,12 @@ export default function StoreHeader() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuthSession();
+  const pathname = usePathname();
+
+  // On the main store page "Home" goes to the site home screen;
+  // from deeper store pages (category/product) "Home" returns to the Shop Catalog
+  const isStoreRoot = pathname === '/store';
+  const homeHref = isStoreRoot ? '/' : '/store';
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -51,7 +58,7 @@ export default function StoreHeader() {
 
         {/* Center Nav Links */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
-          <Link href="/" prefetch={false} className="hover:text-[#2563EB] transition-colors">
+          <Link href={homeHref} prefetch={false} className="hover:text-[#2563EB] transition-colors">
             Home
           </Link>
 
@@ -283,7 +290,7 @@ export default function StoreHeader() {
           </div>
 
           <div className="space-y-2 pt-2 border-t border-slate-100">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
+            <Link href={homeHref} onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
             <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
             <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
             <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">AWIE Products</Link>
