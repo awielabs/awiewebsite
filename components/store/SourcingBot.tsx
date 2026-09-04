@@ -30,6 +30,8 @@ export default function SourcingBot() {
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [sessionName, setSessionName] = useState<string>('');
   const [sessionUserId, setSessionUserId] = useState<string>('');
+  const [sessionPhone, setSessionPhone] = useState<string>('');
+  const [contactMissingPrompted, setContactMissingPrompted] = useState(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -58,18 +60,40 @@ export default function SourcingBot() {
 
   // Check signup session on mount and on open
   useEffect(() => {
-    const checkSession = () => {
+    const checkSession = async () => {
       const user = decryptSession(localStorage.getItem('awie_user_session'));
       if (user) {
         setHasSession(true);
         setSessionEmail(user.email || null);
         setSessionName(user.name || '');
         setSessionUserId(user.id || '');
+
+        // Fetch phone from profile; if missing, prompt user to add contact details
+        try {
+          const res = await fetch(`/api/user/profile?email=${encodeURIComponent(user.email || '')}`);
+          const data = await res.json();
+          const phone = data?.profile?.phone || data?.phone || '';
+          setSessionPhone(phone || '');
+          if (!phone && !contactMissingPrompted) {
+            setContactMissingPrompted(true);
+            botSay([
+              '⚠️ We don\'t have your contact details (phone/WhatsApp) on file yet — we currently only have your email.',
+            ], () => {
+              setMessages((prev) => [...prev, {
+                from: 'bot',
+                text: 'Adding a phone number helps us reach you faster about your sourcing requests. You can update your email & phone in your Profile page, or just type your number here and I will note it for this request.',
+              }]);
+            });
+          }
+        } catch {
+          // Profile fetch is best-effort only
+        }
       } else {
         setHasSession(false);
       }
     };
     checkSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Listen for open requests from store search ("Request this product")
@@ -271,7 +295,7 @@ export default function SourcingBot() {
       formData.append('specifications', draft.specifications || '');
       formData.append('brandModel', draft.brandModel || '');
       formData.append('email', finalEmail);
-      formData.append('phone', contact?.phone || draft.phone || '');
+      formData.append('phone', contact?.phone || draft.phone || sessionPhone || '');
       formData.append('name', sessionName || '');
       formData.append('userId', sessionUserId || '');
       if (draft.image) {
@@ -396,6 +420,24 @@ export default function SourcingBot() {
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '150ms' }} />
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
+              </div>
+            )}
+
+            {/* Contact details missing — quick link to Profile tab */}
+            {hasSession && !sessionPhone && contactMissingPrompted && !isDone && (
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3.5 space-y-2.5">
+                <p className="text-[11px] text-blue-900 font-semibold leading-relaxed">
+                  📇 Keep your contact details up to date — email &amp; phone are saved in your profile.
+                </p>
+                <a
+                  href="/profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white text-[11px] font-bold text-center inline-flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <UserPlus className="w-3 h-3" />
+                  <span>Update in Profile</span>
+                </a>
               </div>
             )}
 
