@@ -52,7 +52,7 @@ export default function StoreHeader() {
             width={160}
             height={48}
             style={{ width: 'auto', height: 'auto' }}
-            className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-7 w-auto object-contain transition-transform group-hover:scale-105"
             priority
           />
         </Link>
