@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
@@ -84,10 +84,6 @@ export default function StoreHeader() {
               </div>
             )}
           </div>
-
-          <Link href="/store/category/microcontrollers" className="hover:text-[#2563EB] transition-colors">
-            Microcontrollers
-          </Link>
         </nav>
 
         {/* Search & Actions */}
@@ -291,7 +287,6 @@ export default function StoreHeader() {
             <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
             <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
             <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">AWIE Products</Link>
-            <Link href="/store/category/microcontrollers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Microcontrollers</Link>
             <Link href="/store/category/sensors" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Sensors</Link>
             <Link href="/store/category/modules" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Modules</Link>
             <Link href="/store/category/displays" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Displays</Link>
