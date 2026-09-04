@@ -160,7 +160,7 @@ export default function SourcingBot() {
     } else if (step === 'brand') {
       setDraft((d) => ({ ...d, brandModel: text.toLowerCase() === 'skip' ? '' : text }));
       botSay(['Almost done!'], () => {
-        setMessages((prev) => [...prev, { from: 'bot', text: 'You can attach a reference image of the component (optional).' }]);
+        setMessages((prev) => [...prev, { from: 'bot', text: 'You can attach a reference image of the component (optional, max 5 MB).' }]);
         setStep('image');
       });
     } else if (step === 'contact') {
@@ -373,7 +373,7 @@ export default function SourcingBot() {
                   className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-300 hover:border-[#2563EB] text-[11px] font-bold text-slate-700 hover:text-[#2563EB] transition-colors"
                 >
                   <ImageIcon className="w-3.5 h-3.5" />
-                  <span>Attach Reference Image (optional)</span>
+                  <span>Attach Reference Image (optional, max 5 MB)</span>
                 </button>
               </div>
             )}
