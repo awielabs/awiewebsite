@@ -1,22 +1,106 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { User, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { User, Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import SignupFramePlayer from '@/components/auth/SignupFramePlayer';
 import { useAuthSession } from '@/lib/useAuthSession';
+import OtpVerificationModal from '@/components/auth/OtpVerificationModal';
+import { encryptSession, sanitizeConsole } from '@/lib/authCrypto';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [agreed, setAgreed] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
+
+  // Sanitize browser console and prefill email if passed via query params
+  useEffect(() => {
+    sanitizeConsole();
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlEmail = params.get('email');
+      if (urlEmail) {
+        setEmail(urlEmail);
+      }
+    }
+  }, []);
+
+  // Handle Google OAuth signup callback and persist user in awie_users table
+  useEffect(() => {
+    const handleGoogleSignupCallback = async () => {
+      if (typeof window === 'undefined') return;
+      const isGoogleAuth = window.location.search.includes('google_auth') || window.location.hash.includes('access_token');
+      if (!isGoogleAuth) return;
+
+      setIsSubmitting(true);
+      setErrorMessage(null);
+
+      let session = (await supabase.auth.getSession()).data.session;
+      if (!session?.user?.email) {
+        await new Promise((r) => setTimeout(r, 450));
+        session = (await supabase.auth.getSession()).data.session;
+      }
+
+      if (!session?.user?.email) {
+        setIsSubmitting(false);
+        return;
+      }
+
+      const googleEmail = session.user.email.toLowerCase();
+
+      try {
+        const res = await fetch('/api/auth/google-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: googleEmail,
+            name: session.user.user_metadata?.full_name || session.user.user_metadata?.name,
+            avatarUrl: session.user.user_metadata?.avatar_url,
+            googleId: session.user.id,
+            mode: 'signup',
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          setErrorMessage(data.error || 'Failed to complete registration with Google.');
+          setIsSubmitting(false);
+          return;
+        }
+
+        const encrypted = encryptSession(data.user);
+        localStorage.setItem('awie_user_session', encrypted);
+        window.location.href = '/profile?new_user=true';
+      } catch {
+        setErrorMessage('Network error during Google registration. Please try again.');
+        setIsSubmitting(false);
+      }
+    };
+
+    handleGoogleSignupCallback();
+  }, []);
+
+  const handleGoogleSignup = async () => {
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    const res = await signInWithGoogle('signup');
+    if (res?.error) {
+      setErrorMessage('Unable to connect to Google OAuth. Please check connection or use email code.');
+      setIsSubmitting(false);
+    }
+  };
 
   // Trigger animation frame play on typing
   const handleTyping = () => {
@@ -27,34 +111,80 @@ export default function SignupPage() {
     }, 1500); // Pause 1.5 seconds after user stops typing
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    if (!agreed) return;
 
-    const userSession = {
-      id: 'usr-' + Date.now(),
-      email,
-      name,
-      provider: 'email',
-      lastActive: Date.now()
-    };
-    localStorage.setItem('awie_user_session', JSON.stringify(userSession));
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const targetEmail = email.trim().toLowerCase();
+    if (!targetEmail || !targetEmail.includes('@') || !targetEmail.includes('.')) {
+      setErrorMessage('Please enter a valid email address (e.g. name@domain.com).');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: targetEmail,
+          name: name.trim(),
+          purpose: 'signup',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || 'Failed to send verification code. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data.email) {
+        setEmail(data.email);
+      }
+
+      // Open the OTP verification forum
+      setIsOtpOpen(true);
+    } catch {
+      setErrorMessage('Network connection error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOtpSuccess = (verifiedUser: {
+    id: string;
+    email: string;
+    name: string;
+    avatarUrl?: string;
+    provider: 'email';
+    lastActive: number;
+  }) => {
+    setIsOtpOpen(false);
+    // Encrypt user session data before storing in localStorage
+    const encrypted = encryptSession(verifiedUser);
+    localStorage.setItem('awie_user_session', encrypted);
 
     setTimeout(() => {
-      window.location.href = '/dashboard';
-    }, 700);
+      window.location.href = '/profile?new_user=true';
+    }, 500);
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col lg:flex-row relative">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col lg:flex-row relative pt-20 lg:pt-24">
 
       {/* LEFT COLUMN: Full Height Interactive Frame Player */}
-      <div className="w-full lg:w-3/5 min-h-screen order-2 lg:order-1">
+      <div className="w-full lg:w-3/5 min-h-[calc(100vh-5rem)] order-2 lg:order-1">
         <SignupFramePlayer isTyping={isTyping} />
       </div>
 
       {/* RIGHT COLUMN: Clean White & Blue Signup Form Container */}
-      <div className="w-full lg:w-2/5 min-h-screen flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-white relative z-10 order-1 lg:order-2">
+      <div className="w-full lg:w-2/5 min-h-[calc(100vh-5rem)] flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-white relative z-10 order-1 lg:order-2">
         
         {/* Top Header & Logo */}
         <div className="flex items-center justify-between">
@@ -89,7 +219,7 @@ export default function SignupPage() {
               Create Your Account
             </h1>
             <p className="text-xs text-slate-600 font-medium leading-relaxed">
-              Get full access to <span className="text-[#2563EB] font-bold">AWIE Store</span> catalog, hardware order tracking & developer portal.
+              Get full access to <span className="text-[#2563EB] font-bold">AWIE Products</span> and <span className="text-[#2563EB] font-bold">AWIE Store</span> catalog, hardware order tracking & developer portal.
             </p>
           </div>
 
@@ -109,7 +239,7 @@ export default function SignupPage() {
           {/* Google Sign Up Button */}
           <button
             type="button"
-            onClick={signInWithGoogle}
+            onClick={handleGoogleSignup}
             disabled={isSubmitting}
             className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs transition-all shadow-sm border border-slate-300 flex items-center justify-center gap-3 hover:border-blue-400"
           >
@@ -156,7 +286,7 @@ export default function SignupPage() {
                     setName(e.target.value);
                     handleTyping();
                   }}
-                  placeholder="Jane Doe"
+                  placeholder="Enter your full name"
                   className="w-full px-4 py-3 pl-10 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
                 />
                 <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -168,6 +298,8 @@ export default function SignupPage() {
               <div className="relative">
                 <input
                   type="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   required
                   value={email}
                   onKeyDown={handleTyping}
@@ -175,7 +307,7 @@ export default function SignupPage() {
                     setEmail(e.target.value);
                     handleTyping();
                   }}
-                  placeholder="you@example.com"
+                  placeholder="Enter your email address"
                   className="w-full px-4 py-3 pl-10 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
                 />
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -186,7 +318,7 @@ export default function SignupPage() {
               <label className="text-xs font-bold text-slate-700">Password</label>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onKeyDown={handleTyping}
@@ -194,10 +326,22 @@ export default function SignupPage() {
                     setPassword(e.target.value);
                     handleTyping();
                   }}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-3 pl-10 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
+                  placeholder="Enter your password"
+                  className="w-full px-4 py-3 pl-10 pr-11 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
                 />
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
             </div>
 
@@ -214,12 +358,19 @@ export default function SignupPage() {
               </label>
             </div>
 
+            {errorMessage && (
+              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
             <button
               type="submit"
               disabled={isSubmitting || !agreed}
-              className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{isSubmitting ? 'Creating Account...' : 'Create Account'}</span>
+              <span>{isSubmitting ? 'Sending Verification Code...' : 'Create Account'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
@@ -241,6 +392,16 @@ export default function SignupPage() {
         </div>
 
       </div>
+
+      {/* 6-Digit Animated OTP Forum Modal */}
+      <OtpVerificationModal
+        isOpen={isOtpOpen}
+        email={email}
+        name={name}
+        purpose="signup"
+        onClose={() => setIsOtpOpen(false)}
+        onSuccess={handleOtpSuccess}
+      />
 
     </div>
   );
