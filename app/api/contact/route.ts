@@ -118,6 +118,18 @@ export async function POST(request: Request) {
             status: 'unread',
           },
         ]);
+
+        // Persist client service inquiry into service_requests table (Contact inquiries only)
+        await supabase.from('service_requests').insert([
+          {
+            name: cleanName,
+            email: cleanEmail,
+            service: cleanService,
+            description: cleanMessage,
+            budget: cleanBudget || null,
+            status: 'Submitted',
+          },
+        ]);
       } catch (dbError) {
         console.warn('Supabase insertion skipped or failed:', dbError);
       }

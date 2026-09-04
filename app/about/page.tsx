@@ -402,46 +402,86 @@ export default function AboutPage() {
                 <motion.div 
                   key={pillar.id}
                   variants={itemVariants}
-                  whileHover={{ y: -8, transition: { duration: 0.25 } }}
-                  className="bg-white border border-slate-200 p-8 rounded-3xl space-y-6 shadow-sm relative overflow-hidden flex flex-col justify-between hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-300 group cursor-default"
+                  className="perspective-1000 h-[430px] sm:h-[460px] flip-card cursor-pointer select-none"
                 >
-                  {/* Subtle Background Glow on Hover */}
-                  <div className={`absolute top-0 right-0 w-36 h-36 bg-gradient-to-b from-[#2563EB]/10 to-transparent ${pillar.glowColor} rounded-full blur-2xl pointer-events-none transition-all duration-300`} />
-                  
-                  <div className="space-y-4 relative z-10">
-                    <div className="flex items-center justify-between">
-                      <motion.div 
-                        whileHover={{ scale: 1.15, rotate: 6 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
-                        className={`p-3.5 rounded-xl ${pillar.badgeBg} border ${pillar.accent} ${pillar.hoverAccent} shadow-sm transition-all duration-300 w-fit`}
-                      >
-                        <Icon className="w-6 h-6" />
-                      </motion.div>
-                      <span className="text-xs font-black font-mono px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 group-hover:bg-slate-900 group-hover:text-blue-400 group-hover:border group-hover:border-blue-900/60 transition-all duration-300">
-                        {pillar.step}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-white transition-colors duration-300">
-                      {pillar.title}
-                    </h3>
+                  <div className="flip-card-inner">
                     
-                    <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-300">
-                      {pillar.desc}
-                    </p>
-                  </div>
+                    {/* FRONT FACE: Header + Robot Image entirely covering the card */}
+                    <div className="flip-card-front bg-white border border-slate-200/90 shadow-lg p-7 flex flex-col justify-between relative group">
+                      {/* Subtle Background Glow */}
+                      <div className={`absolute top-0 right-0 w-44 h-44 bg-gradient-to-b from-[#2563EB]/10 to-transparent ${pillar.glowColor} rounded-full blur-2xl pointer-events-none`} />
 
-                  {/* Illustration Slot */}
-                  <div className="pt-4 relative z-10">
-                    <div className="w-full h-32 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-3 overflow-hidden transition-colors duration-300">
-                      <Image
-                        src={pillar.imgSrc}
-                        alt={pillar.imgAlt}
-                        width={200}
-                        height={140}
-                        className="w-auto h-full object-contain max-h-28 group-hover:scale-110 transition-transform duration-500"
-                      />
+                      {/* Header Section */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between">
+                          <div className={`p-3.5 rounded-xl ${pillar.badgeBg} border ${pillar.accent} shadow-sm w-fit`}>
+                            <Icon className="w-6 h-6" />
+                          </div>
+                          <span className="text-xs font-black font-mono px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 border border-slate-200">
+                            {pillar.step}
+                          </span>
+                        </div>
+
+                        <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-4">
+                          {pillar.title}
+                        </h3>
+                      </div>
+
+                      {/* Large Robot Image covering the card body */}
+                      <div className="flex-1 w-full flex items-center justify-center relative z-10 py-2 my-auto">
+                        <Image
+                          src={pillar.imgSrc}
+                          alt={pillar.imgAlt}
+                          width={280}
+                          height={220}
+                          className="w-auto h-full max-h-[210px] sm:max-h-[235px] object-contain drop-shadow-md select-none transition-transform duration-500 hover:scale-105"
+                          priority
+                        />
+                      </div>
                     </div>
+
+                    {/* BACK FACE: Description & Engineering Details */}
+                    <div className="flip-card-back bg-slate-950 border border-[#2563EB]/80 shadow-2xl p-7 sm:p-8 flex flex-col justify-between text-white relative">
+                      {/* Ambient Glowing Orbs on Back */}
+                      <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-b from-[#2563EB]/30 to-transparent rounded-full blur-2xl pointer-events-none" />
+                      <div className="absolute bottom-0 left-0 w-36 h-36 bg-gradient-to-t from-indigo-500/25 to-transparent rounded-full blur-xl pointer-events-none" />
+
+                      {/* Back Header */}
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between">
+                          <div className="p-3.5 rounded-xl bg-blue-950 border border-blue-700/60 text-blue-400 shadow-sm w-fit">
+                            <Icon className="w-6 h-6" />
+                          </div>
+                          <span className="text-xs font-black font-mono px-2.5 py-1 rounded-md bg-slate-900 text-blue-400 border border-blue-900/60">
+                            {pillar.step}
+                          </span>
+                        </div>
+
+                        <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-4">
+                          {pillar.title}
+                        </h3>
+                        <div className="w-12 h-1 bg-[#2563EB] rounded-full mt-3" />
+                      </div>
+
+                      {/* Back Description (revealed on hover) */}
+                      <div className="relative z-10 my-auto py-4">
+                        <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-medium">
+                          {pillar.desc}
+                        </p>
+                      </div>
+
+                      {/* Back Footer */}
+                      <div className="relative z-10 pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-xs font-bold text-blue-400 font-mono">
+                          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                          <span>CORE PRINCIPLE {pillar.step}</span>
+                        </div>
+                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                          AWIE Engineering
+                        </span>
+                      </div>
+                    </div>
+
                   </div>
                 </motion.div>
               );
@@ -484,13 +524,13 @@ export default function AboutPage() {
                 >
                   {/* Scene Image Container on Left */}
                   <div className="w-full sm:w-1/3 relative z-10 shrink-0">
-                    <div className="w-full h-32 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-2 overflow-hidden transition-colors duration-300">
+                    <div className="relative w-full h-44 sm:h-36 rounded-2xl bg-slate-50 border border-slate-100 group-hover:border-slate-800 overflow-hidden transition-colors duration-300">
                       <Image
                         src={dom.imgSrc}
                         alt={`${dom.title} Scene`}
-                        width={160}
-                        height={100}
-                        className="w-auto h-full object-contain max-h-24 group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                   </div>
@@ -597,16 +637,16 @@ export default function AboutPage() {
             {/* CTA Visual Scene */}
             <div className="lg:col-span-4 flex items-center justify-center">
               <motion.div 
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                className="w-full max-w-xs h-40 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-4 overflow-hidden transition-colors duration-300"
+                className="relative w-full max-w-xs sm:max-w-sm h-48 sm:h-56 rounded-2xl border border-slate-200/60 group-hover:border-[#2563EB]/60 overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300"
               >
                 <Image
                   src="/about/Have an Idea.png"
                   alt="AWIE Idea to Engineering to Working Product"
-                  width={240}
-                  height={160}
-                  className="w-auto h-full object-contain max-h-36 group-hover:scale-110 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </motion.div>
             </div>

@@ -1,20 +1,109 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, UserPlus, Eye, EyeOff } from 'lucide-react';
 import SignupFramePlayer from '@/components/auth/SignupFramePlayer';
 import { useAuthSession } from '@/lib/useAuthSession';
+import OtpVerificationModal from '@/components/auth/OtpVerificationModal';
+import { encryptSession, sanitizeConsole } from '@/lib/authCrypto';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [accountNotFound, setAccountNotFound] = useState(false);
+  const [notFoundEmail, setNotFoundEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
+
+  // Sanitize web console to prevent user PII leaks
+  useEffect(() => {
+    sanitizeConsole();
+  }, []);
+
+  // Check for Google OAuth callback and validate database account presence
+  useEffect(() => {
+    const verifyGoogleOAuth = async () => {
+      if (typeof window === 'undefined') return;
+      const isGoogleAuth = window.location.search.includes('google_auth') || window.location.hash.includes('access_token');
+      if (!isGoogleAuth) return;
+
+      setIsSubmitting(true);
+      setErrorMessage(null);
+      setAccountNotFound(false);
+
+      // Wait briefly for Supabase client to parse the session from redirect URL
+      let session = (await supabase.auth.getSession()).data.session;
+      if (!session?.user?.email) {
+        await new Promise((r) => setTimeout(r, 450));
+        session = (await supabase.auth.getSession()).data.session;
+      }
+
+      if (!session?.user?.email) {
+        setIsSubmitting(false);
+        return;
+      }
+
+      const googleEmail = session.user.email.toLowerCase();
+
+      try {
+        const res = await fetch('/api/auth/google-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: googleEmail,
+            name: session.user.user_metadata?.full_name || session.user.user_metadata?.name,
+            avatarUrl: session.user.user_metadata?.avatar_url,
+            googleId: session.user.id,
+            mode: 'login',
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          // Reject login & sign out session if account is not registered in database
+          await supabase.auth.signOut();
+          localStorage.removeItem('awie_user_session');
+
+          setAccountNotFound(true);
+          setNotFoundEmail(googleEmail);
+          setErrorMessage(null);
+          setIsSubmitting(false);
+          return;
+        }
+
+        // Account exists! Save encrypted session and redirect to products
+        const encrypted = encryptSession(data.user);
+        localStorage.setItem('awie_user_session', encrypted);
+        window.location.href = '/products';
+      } catch {
+        setErrorMessage('Failed to verify Google account. Please try again.');
+        setIsSubmitting(false);
+      }
+    };
+
+    verifyGoogleOAuth();
+  }, []);
+
+  const handleGoogleLogin = async () => {
+    setIsSubmitting(true);
+    setErrorMessage(null);
+    setAccountNotFound(false);
+    const res = await signInWithGoogle('login');
+    if (res?.error) {
+      setErrorMessage('Unable to connect to Google OAuth. Please check connection or use email code.');
+      setIsSubmitting(false);
+    }
+  };
 
   // Trigger animation frame play on typing
   const handleTyping = () => {
@@ -25,24 +114,90 @@ export default function LoginPage() {
     }, 1500); // Pause 1.5 seconds after user stops typing
   };
 
-  const handleEmailLogin = (e: React.FormEvent) => {
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
+    setAccountNotFound(false);
+
+    let targetEmail = email.trim().toLowerCase();
+    if (!targetEmail) {
+      setErrorMessage('Please enter your email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!targetEmail.includes('@') || !targetEmail.includes('.')) {
+      setErrorMessage('Please enter a valid email address (e.g. name@domain.com).');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: targetEmail,
+          purpose: 'login',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        if (data.notFound) {
+          setAccountNotFound(true);
+          setNotFoundEmail(targetEmail);
+          setErrorMessage(null);
+        } else {
+          setErrorMessage(data.error || 'Failed to dispatch verification code. Please try again.');
+        }
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data.email) {
+        setEmail(data.email);
+      }
+
+      // Open the 6-digit OTP verification forum modal
+      setIsOtpOpen(true);
+    } catch {
+      setErrorMessage('Network connection error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOtpSuccess = (verifiedUser: {
+    id: string;
+    email: string;
+    name: string;
+    avatarUrl?: string;
+    provider: 'email';
+    lastActive: number;
+  }) => {
+    setIsOtpOpen(false);
+    // Encrypt user session before storing in client storage
+    const encrypted = encryptSession(verifiedUser);
+    localStorage.setItem('awie_user_session', encrypted);
+
     setTimeout(() => {
-      window.location.href = '/dashboard';
-    }, 600);
+      window.location.href = '/products';
+    }, 500);
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col lg:flex-row relative">
+    <div className="min-h-screen bg-white text-slate-900 flex flex-col lg:flex-row relative pt-20 lg:pt-24">
 
       {/* LEFT COLUMN: Full Height Interactive Frame Player */}
-      <div className="w-full lg:w-3/5 min-h-screen order-2 lg:order-1">
+      <div className="w-full lg:w-3/5 min-h-[calc(100vh-5rem)] order-2 lg:order-1">
         <SignupFramePlayer isTyping={isTyping} />
       </div>
 
       {/* RIGHT COLUMN: Clean White & Blue Login Form Container */}
-      <div className="w-full lg:w-2/5 min-h-screen flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-white relative z-10 order-1 lg:order-2">
+      <div className="w-full lg:w-2/5 min-h-[calc(100vh-5rem)] flex flex-col justify-between p-6 sm:p-10 xl:p-14 bg-white relative z-10 order-1 lg:order-2">
 
         {/* Top Header & Logo */}
         <div className="flex items-center justify-between">
@@ -77,7 +232,7 @@ export default function LoginPage() {
               Welcome Back
             </h1>
             <p className="text-xs text-slate-600 font-medium leading-relaxed">
-              Single account access for <span className="text-[#2563EB] font-bold">AWIE Store</span>, Hardware Products &amp; Customer Portal
+              Single account access for <span className="text-[#2563EB] font-bold">AWIE Products</span> and <span className="text-[#2563EB] font-bold">AWIE Store</span>, Customer Portal & Order Tracking
             </p>
           </div>
 
@@ -97,7 +252,7 @@ export default function LoginPage() {
           {/* Google / Gmail Sign In Button */}
           <button
             type="button"
-            onClick={signInWithGoogle}
+            onClick={handleGoogleLogin}
             disabled={isSubmitting}
             className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs transition-all shadow-sm border border-slate-300 flex items-center justify-center gap-3 hover:border-blue-400"
           >
@@ -130,6 +285,42 @@ export default function LoginPage() {
             </span>
           </div>
 
+          {/* Account Not Found Notification */}
+          {accountNotFound && (
+            <div className="p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-300 text-slate-800 shadow-md space-y-3 animate-in fade-in zoom-in-95 duration-200">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 shrink-0">
+                  <UserPlus className="w-5 h-5" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-xs font-black text-amber-900 uppercase tracking-wider">
+                    Account Not Found
+                  </h4>
+                  <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+                    No account is registered with <span className="font-bold underline decoration-amber-400">{notFoundEmail || email}</span>. Please create an account to get started.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <Link
+                  href={`/signup?email=${encodeURIComponent(notFoundEmail || email)}`}
+                  className="flex-1 py-2.5 px-3 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-bold text-xs text-center shadow-md shadow-blue-500/20 flex items-center justify-center gap-1.5 transition-all"
+                >
+                  <UserPlus className="w-3.5 h-3.5" />
+                  <span>Create New Account</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setAccountNotFound(false)}
+                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-amber-100/60 border border-amber-200 text-amber-800 font-semibold text-xs transition-colors"
+                >
+                  Try Another
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleEmailLogin} className="space-y-4">
             <div className="space-y-1.5">
@@ -137,6 +328,8 @@ export default function LoginPage() {
               <div className="relative">
                 <input
                   type="email"
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   required
                   value={email}
                   onKeyDown={handleTyping}
@@ -144,7 +337,7 @@ export default function LoginPage() {
                     setEmail(e.target.value);
                     handleTyping();
                   }}
-                  placeholder="you@example.com"
+                  placeholder="Enter your email address"
                   className="w-full px-4 py-3 pl-10 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
                 />
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
@@ -160,7 +353,7 @@ export default function LoginPage() {
               </div>
               <div className="relative">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onKeyDown={handleTyping}
@@ -168,19 +361,38 @@ export default function LoginPage() {
                     setPassword(e.target.value);
                     handleTyping();
                   }}
-                  placeholder="••••••••"
-                  className="w-full px-4 py-3 pl-10 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
+                  placeholder="Enter your password"
+                  className="w-full px-4 py-3 pl-10 pr-11 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-all font-medium"
                 />
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
               </div>
             </div>
+
+            {errorMessage && (
+              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{isSubmitting ? 'Signing In...' : 'Sign In'}</span>
+              <span>{isSubmitting ? 'Sending Security Code...' : 'Sign In'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
@@ -202,6 +414,15 @@ export default function LoginPage() {
         </div>
 
       </div>
+
+      {/* 6-Digit Animated OTP Forum Modal */}
+      <OtpVerificationModal
+        isOpen={isOtpOpen}
+        email={email}
+        purpose="login"
+        onClose={() => setIsOtpOpen(false)}
+        onSuccess={handleOtpSuccess}
+      />
 
     </div>
   );
