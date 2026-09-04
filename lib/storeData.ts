@@ -1345,7 +1345,7 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
 
-  // 5. Motors & Drivers (10 Items)
+  // 5. Motors & Drivers (8 Items)
   {
     id: 'mt-1',
     name: 'SG90 9g Micro Servo Motor',
@@ -1361,7 +1361,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 400,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/sg90-servo.jpg',
+    image: '/store/motors/sg90-servo.png',
     description: 'Compact 9g micro servo motor suitable for small robotic mechanisms, pan-tilt systems, RC projects and Arduino/ESP32-based applications.',
     features: [
       'Lightweight 9g compact form factor with mounting tabs',
@@ -1397,7 +1397,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/mg996r-servo.jpg',
+    image: '/store/motors/mg996r-servo.png',
     description: 'High-torque metal-geared servo motor designed for robotic arms, steering mechanisms, pan-tilt systems and other applications requiring greater mechanical force.',
     features: [
       'Full metal gear train for high durability under load',
@@ -1433,7 +1433,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 250,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/28byj48-stepper.jpg',
+    image: '/store/motors/28byj48-stepper.png',
     description: 'Compact geared stepper motor supplied with a ULN2003 driver board. Suitable for projects requiring controlled incremental movement and positioning.',
     features: [
       'Includes 28BYJ-48 5V stepper motor and matching ULN2003 driver PCB',
@@ -1455,40 +1455,6 @@ export const STORE_PRODUCTS: Product[] = [
     }
   },
   {
-    id: 'mt-4',
-    name: 'NEMA17 Stepper Motor',
-    slug: 'nema17-stepper',
-    sku: 'SKU-MT-04',
-    categorySlug: 'motors-drivers',
-    categoryName: 'Motors & Drivers',
-    subCategory: 'Stepper Motors',
-    price: 599,
-    originalPrice: 599,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 120,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/products/nema17-stepper.jpg',
-    description: 'NEMA17 bipolar stepper motor designed for precise motion control applications such as 3D printers, CNC machines, robotics and automated mechanisms.',
-    features: [
-      'Standard NEMA 17 faceplate (42 × 42 mm) with M3 mounting holes',
-      '1.8° precision step angle (200 steps per complete revolution)',
-      'High holding torque ideal for linear rails, lead screws & extruders',
-      'Standard 4-wire bipolar connection compatible with A4988 & DRV8825 drivers',
-      'Robust metal construction with dual ball bearings'
-    ],
-    specs: {
-      'Motor Type': 'Bipolar Hybrid Stepper Motor',
-      'Frame Size': 'NEMA 17 (42 × 42 mm)',
-      'Typical Step Angle': '1.8°',
-      'Steps/Rev': '200 Steps/Revolution',
-      'Phase Count': '2-Phase Bipolar (4-wire lead)',
-      'Control': 'Step / Direction through stepper driver',
-      'Applications': '3D printers, CNC, robotics and automation'
-    }
-  },
-  {
     id: 'mt-5',
     name: 'L298N Dual H-Bridge Driver',
     slug: 'l298n-motor-driver',
@@ -1503,7 +1469,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 220,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/l298n-motor-driver.jpg',
+    image: '/store/motors/l298n-motor-driver.png',
     description: 'Dual H-bridge motor driver module for controlling two DC motors or one bipolar stepper motor. Commonly used with Arduino, ESP32 and robotics platforms.',
     features: [
       'Dual full H-bridge driver capable of up to 2A peak per channel',
@@ -1525,38 +1491,42 @@ export const STORE_PRODUCTS: Product[] = [
   },
   {
     id: 'mt-6',
-    name: 'L293D Motor Driver IC',
+    name: 'L293D Motor Driver Shield for Arduino',
     slug: 'l293d-motor-driver',
     sku: 'SKU-MT-06',
     categorySlug: 'motors-drivers',
     categoryName: 'Motors & Drivers',
     subCategory: 'Motor Drivers & Chassis',
-    price: 79,
-    originalPrice: 79,
+    price: 299,
+    originalPrice: 299,
     discountPercent: 0,
     inStock: true,
-    stockCount: 300,
+    stockCount: 120,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/l293d-motor-driver.jpg',
-    description: 'Dual H-bridge motor driver IC for controlling small DC motors and stepper motors from microcontroller-based systems.',
+    image: '/store/motors/l293d-motor-shield.png',
+    description: 'Arduino-compatible L293D motor-control shield that sits directly on an Arduino UNO board, with multiple L293D H-bridge driver ICs and screw terminals for M1–M4 motor channels.',
     features: [
-      'Quadruple high-current half-H driver integrated circuit',
-      'Internal clamp diodes for inductive flyback kickback suppression',
-      'Standard 16-pin DIP footprint compatible with breadboards and PCB sockets',
-      'Separate logic and motor power inputs',
-      'Supports bidirectional motor rotation and PWM speed control'
+      'Arduino UNO & compatible board shield format — stacks directly on the board',
+      'Multiple L293D H-bridge driver ICs onboard',
+      '4 × DC motor channels (M1, M2, M3, M4) with bidirectional control',
+      'Drives up to 2 stepper motors and 2 × 5V servo interfaces (SERVO 1 / SERVO 2)',
+      'PWR / EXT PWR selector for external motor power supply',
+      'Forward/reverse plus PWM speed control on all motor channels',
+      'Accessible digital pins 0–13, analog pins A0–A5 and onboard RESET button'
     ],
     specs: {
-      'IC Model': 'L293D',
-      'Type': 'Dual H-Bridge Quad Half-H Driver',
-      'Motor Channels': '2 DC Motors or 1 Stepper Motor',
-      'Motor Supply': 'Up to approximately 36V DC',
-      'Logic Supply': '4.5V – 7V (5V typical)',
-      'Output Current': '600 mA continuous / 1.2A peak per channel',
-      'Package': 'DIP-16 Through-Hole',
-      'Control': 'Digital / PWM',
-      'Applications': 'Arduino, robotics and small DC motor projects'
+      'Product Name': 'DK Electronics L293D Motor Driver Shield',
+      'Type': 'Arduino Motor Driver Shield',
+      'Controller Compatibility': 'Arduino UNO and compatible boards',
+      'Motor Driver': 'L293D H-bridge ICs',
+      'DC Motor Channels': '4 (M1, M2, M3, M4) — bidirectional with PWM speed control',
+      'Stepper Support': 'Up to 2 stepper motors',
+      'Servo Ports': '2 × 5V servo interfaces',
+      'Motor Voltage': 'Approximately 4.5–36V DC (implementation dependent)',
+      'Driver Current': 'Up to 600 mA per H-bridge, higher peak capability',
+      'Main Connections': 'M1–M4, SERVO 1/2, PWR / EXT PWR, 5V / GND, RESET',
+      'Arduino Headers': 'Digital pins 0–13, Analog pins A0–A5'
     }
   },
   {
@@ -1574,7 +1544,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 180,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/a4988-stepper-driver.jpg',
+    image: '/store/motors/a4988-stepper-driver.png',
     description: 'Compact stepper motor driver module supporting microstepping and adjustable current control. Suitable for NEMA-series stepper motors and motion-control projects.',
     features: [
       'Five microstep resolutions: full, 1/2, 1/4, 1/8, and 1/16-step',
@@ -1610,7 +1580,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 160,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/drv8825-stepper-driver.jpg',
+    image: '/store/motors/drv8825-stepper-driver.png',
     description: 'High-resolution stepper motor driver module designed for precise motion control and applications requiring higher microstepping capability.',
     features: [
       'Six microstep resolutions down to 1/32 microstepping for ultra-smooth motion',
@@ -1646,7 +1616,7 @@ export const STORE_PRODUCTS: Product[] = [
     stockCount: 200,
     rating: 5.0,
     reviewCount: 0,
-    image: '/store/products/dc-gear-motor-300rpm.jpg',
+    image: '/store/motors/dc-gear-motor-300rpm.png',
     description: 'Compact geared DC motor designed for robotics, mobile platforms and DIY mechanisms where controlled speed and increased output torque are required.',
     features: [
       'Integrated internal spur gearbox providing balanced speed and torque',
@@ -1664,40 +1634,6 @@ export const STORE_PRODUCTS: Product[] = [
       'Direction': 'Reversible (CW / CCW)',
       'Control': 'Voltage / PWM Speed Control',
       'Applications': 'Robot cars, mobile robots, automation and DIY projects'
-    }
-  },
-  {
-    id: 'mt-10',
-    name: 'Smart Robot Car Chassis (2WD)',
-    slug: 'robot-chassis-2wd',
-    sku: 'SKU-MT-10',
-    categorySlug: 'motors-drivers',
-    categoryName: 'Motors & Drivers',
-    subCategory: 'Motor Drivers & Chassis',
-    price: 299,
-    originalPrice: 299,
-    discountPercent: 0,
-    inStock: true,
-    stockCount: 150,
-    rating: 5.0,
-    reviewCount: 0,
-    image: '/store/products/robot-chassis-2wd.jpg',
-    description: '2WD robotic car chassis kit designed as a base platform for building Arduino, ESP32 and other DIY robot vehicles.',
-    features: [
-      'Laser-cut transparent acrylic chassis plate with universal mounting slots',
-      'Includes dual drive wheels with high-traction rubber tires and front omni caster wheel',
-      'Compatible with TT DC gear motors, speed encoder discs & motor brackets',
-      'Pre-drilled mounting holes for Arduino Uno, ESP32, ultrasonic sensors & battery holders',
-      'Ideal beginner foundation for line-following, obstacle avoidance & Bluetooth RC rovers'
-    ],
-    specs: {
-      'Chassis Type': '2WD Platform',
-      'Drive Configuration': 'Two-wheel drive (2 Drive Wheels + 1 Swivel Caster)',
-      'Motor Mounts': '2 Motor Mount Positions',
-      'Wheels': '2 Rubber Drive Wheels + 1 Caster Wheel',
-      'Material': 'Durable Acrylic / Plastic Platform',
-      'Motor Compatibility': 'Standard TT DC Gear Motors',
-      'Applications': 'Robot cars, obstacle avoidance, line following and IoT robotics'
     }
   },
 
