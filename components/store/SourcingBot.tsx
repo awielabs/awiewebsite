@@ -346,7 +346,8 @@ export default function SourcingBot() {
           type="button"
           onClick={() => {
             setIsOpen(true);
-            if (messages.length === 0) startConversation();
+            // Fresh chat every open: always show the welcome message + menu again
+            startConversation();
           }}
           className="fixed bottom-6 right-6 z-40 group bot-float"
           aria-label="Open AWIE Sourcer Bot"
@@ -388,6 +389,15 @@ export default function SourcingBot() {
                 {isTyping ? 'typing…' : 'Online — Tell us what you need'}
               </span>
             </div>
+            <button
+              type="button"
+              onClick={resetConversation}
+              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/15 transition-colors"
+              aria-label="Restart chat"
+              title="Restart chat"
+            >
+              <RefreshCw className="w-4 h-4" />
+            </button>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
