@@ -19,9 +19,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
   const [selectedImage, setSelectedImage] = useState<string>(galleryImages[0]);
 
   // Reset selected image if product changes
-  React.useEffect(() => {
+  const [lastSlug, setLastSlug] = useState(slug);
+  if (slug !== lastSlug) {
+    setLastSlug(slug);
     setSelectedImage(galleryImages[0]);
-  }, [slug]);
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 pb-20 pt-4">
