@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -20,6 +20,7 @@ import {
 import { STORE_CATEGORIES, STORE_PRODUCTS } from '@/lib/storeData';
 import { useCart } from '@/components/store/CartContext';
 import StoreScrollBackground from '@/components/ui/StoreScrollBackground';
+import SourcingBot from '@/components/store/SourcingBot';
 
 export default function StorePage() {
   const { addToCart } = useCart();
@@ -58,6 +59,9 @@ export default function StorePage() {
 
   return (
     <div className="bg-slate-50 text-slate-800 pb-20">
+
+      {/* Floating AWIE Source Bot — bottom right corner */}
+      <SourcingBot />
 
       {/* 1. Store Hero Section (Light Studio Background with 100% Full Video Frames) */}
       <section className="relative z-10 border-b border-slate-200 pt-12 sm:pt-16 lg:pt-20 pb-32 min-h-[550px] sm:min-h-[640px] flex items-start overflow-hidden bg-white">

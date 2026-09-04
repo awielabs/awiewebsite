@@ -364,20 +364,23 @@ export default function StoreSearchBar({ className = '', isMobile = false, onClo
                     </p>
                   </div>
 
-                  {/* Product Request CTA */}
+                  {/* Product Request CTA — opens the AWIE Source Bot with the query prefilled */}
                   {query.trim().length >= 3 && (
-                    <Link
-                      href={`/contact?interest=${encodeURIComponent('Product Request')}&product=${encodeURIComponent(query.trim())}`}
+                    <button
+                      type="button"
                       onClick={() => {
                         setIsOpen(false);
                         onCloseMobile?.();
+                        window.dispatchEvent(
+                          new CustomEvent('open-sourcing-bot', { detail: { productName: query.trim() } })
+                        );
                       }}
                       className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white text-xs font-bold shadow-md shadow-[#2563EB]/25 hover:scale-[1.02] transition-all"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Looking for &ldquo;{query.trim()}&rdquo;? Request this product</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    </button>
                   )}
 
                   {/* Quick Suggestions */}
