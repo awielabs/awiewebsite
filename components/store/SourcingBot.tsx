@@ -522,13 +522,13 @@ export default function SourcingBot() {
           {/* Terms Consent Checkbox — shown once details are being collected */}
           {(step === 'image' || step === 'contact') && !isDone && (
             <div className="px-3 pt-3 bg-[#0B1528] shrink-0">
-              <label htmlFor="sourcer-terms" className="flex items-start gap-2 text-[10px] text-slate-600 font-medium cursor-pointer select-none">
+              <label htmlFor="sourcer-terms" className="flex items-start gap-2 text-[10px] text-slate-400/90 font-medium cursor-pointer select-none hover:text-slate-300 transition-colors">
                 <input
                   id="sourcer-terms"
                   type="checkbox"
                   checked={agreedToTerms}
                   onChange={(e) => setAgreedToTerms(e.target.checked)}
-                  className="mt-0.5 w-3.5 h-3.5 rounded bg-white/10 border-blue-300/25 accent-[#2563EB] focus:ring-[#2563EB] shrink-0"
+                  className="mt-0.5 w-3.5 h-3.5 rounded bg-white/10 border-blue-300/40 accent-[#2563EB] focus:ring-[#2563EB] shrink-0"
                 />
                 <span>
                   I agree to the{' '}
