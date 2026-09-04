@@ -59,7 +59,7 @@ export default function AboutPage() {
       badgeBg: 'bg-blue-50 border-blue-100',
       hoverAccent: 'group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-400',
       glowColor: 'group-hover:from-blue-600/20',
-      imgSrc: '/intro.png',
+      imgSrc: '/about/Understand.png',
       imgAlt: 'AWIE Understand the Problem - Analyzing project requirements'
     },
     {
@@ -72,7 +72,7 @@ export default function AboutPage() {
       badgeBg: 'bg-sky-50 border-sky-100',
       hoverAccent: 'group-hover:bg-sky-950 group-hover:border-sky-700/60 group-hover:text-sky-400',
       glowColor: 'group-hover:from-sky-600/20',
-      imgSrc: '/intro.png',
+      imgSrc: '/about/Build.png',
       imgAlt: 'AWIE Build With Purpose - Purposeful engineering architecture'
     },
     {
@@ -85,7 +85,7 @@ export default function AboutPage() {
       badgeBg: 'bg-indigo-50 border-indigo-100',
       hoverAccent: 'group-hover:bg-indigo-950 group-hover:border-indigo-700/60 group-hover:text-indigo-400',
       glowColor: 'group-hover:from-indigo-600/20',
-      imgSrc: '/intro.png',
+      imgSrc: '/about/mait work.png',
       imgAlt: 'AWIE Make It Work - Working physical and digital solutions'
     }
   ];
@@ -97,7 +97,7 @@ export default function AboutPage() {
       desc: 'Modern mobile applications designed for businesses, services, products, and custom ideas.',
       icon: Smartphone,
       tag: 'iOS & Android',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/mobile app.png'
     },
     {
       id: 'web',
@@ -105,7 +105,7 @@ export default function AboutPage() {
       desc: 'Websites, dashboards, portals, internal tools, APIs, and full-stack applications built around specific requirements.',
       icon: Globe,
       tag: 'Full-Stack & Cloud',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/website.png'
     },
     {
       id: 'iot',
@@ -113,7 +113,7 @@ export default function AboutPage() {
       desc: 'Sensor-based systems, monitoring solutions, wireless devices, MQTT systems, and connected hardware for real-world applications.',
       icon: Cpu,
       tag: 'Telemetry & Wireless',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/iot.png'
     },
     {
       id: 'embedded',
@@ -121,7 +121,7 @@ export default function AboutPage() {
       desc: 'Custom PCBs, microcontroller systems, electronic circuits, sensor modules, prototypes, and purpose-built hardware.',
       icon: CircuitBoard,
       tag: 'Circuits & Firmware',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/embed.png'
     },
     {
       id: 'business',
@@ -129,7 +129,7 @@ export default function AboutPage() {
       desc: 'Technology solutions for real-world environments such as hotels, businesses, institutions, automation, monitoring, and other specialized applications.',
       icon: Building2,
       tag: 'Automation & Operations',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/Business & Industry Solutions.png'
     },
     {
       id: 'prototyping',
@@ -137,7 +137,7 @@ export default function AboutPage() {
       desc: 'From an early concept or circuit idea to a working prototype that can be tested and refined.',
       icon: FlaskConical,
       tag: 'R&D to Production',
-      imgSrc: '/intro.png'
+      imgSrc: '/about/Prototyping & Development.png'
     }
   ];
 
@@ -361,7 +361,7 @@ export default function AboutPage() {
               />
 
               <Image
-                src="/intro.png"
+                src="/introbg.png"
                 alt="AWIE engineering team working across software, electronics and IoT projects"
                 width={380}
                 height={280}
@@ -471,7 +471,7 @@ export default function AboutPage() {
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
             variants={containerVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
           >
             {domains.map((dom) => {
               const Icon = dom.icon;
@@ -480,33 +480,11 @@ export default function AboutPage() {
                   key={dom.id}
                   variants={itemVariants}
                   whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-xl hover:shadow-[#2563EB]/20 transition-all duration-300 group cursor-default"
+                  className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm relative overflow-hidden flex flex-col sm:flex-row items-center gap-6 hover:bg-slate-950 hover:border-[#2563EB] hover:shadow-xl hover:shadow-[#2563EB]/20 transition-all duration-300 group cursor-default"
                 >
-                  <div className="space-y-4 relative z-10">
-                    <div className="flex items-center justify-between">
-                      <motion.div 
-                        whileHover={{ scale: 1.1, rotate: -5 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
-                        className="p-3 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-400 transition-all duration-300 w-fit"
-                      >
-                        <Icon className="w-5 h-5" />
-                      </motion.div>
-                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100/60 group-hover:bg-blue-950/80 group-hover:text-blue-300 group-hover:border-blue-800 transition-all duration-300">
-                        {dom.tag}
-                      </span>
-                    </div>
-
-                    <h4 className="text-xl font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
-                      {dom.title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-300">
-                      {dom.desc}
-                    </p>
-                  </div>
-
-                  {/* Scene Image Container */}
-                  <div className="pt-6 relative z-10">
-                    <div className="w-full h-28 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-2 overflow-hidden transition-colors duration-300">
+                  {/* Scene Image Container on Left */}
+                  <div className="w-full sm:w-1/3 relative z-10 shrink-0">
+                    <div className="w-full h-32 rounded-xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-2 overflow-hidden transition-colors duration-300">
                       <Image
                         src={dom.imgSrc}
                         alt={`${dom.title} Scene`}
@@ -514,6 +492,32 @@ export default function AboutPage() {
                         height={100}
                         className="w-auto h-full object-contain max-h-24 group-hover:scale-110 transition-transform duration-500"
                       />
+                    </div>
+                  </div>
+
+                  {/* Details on Right (visible on hover) */}
+                  <div className="w-full sm:w-2/3 space-y-3 relative z-10 text-left">
+                    <div className="flex items-center gap-3">
+                      <motion.div 
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                        className="p-2 rounded-xl bg-blue-50 border border-blue-100 text-[#2563EB] group-hover:bg-blue-950 group-hover:border-blue-700/60 group-hover:text-blue-400 transition-all duration-300 w-fit"
+                      >
+                        <Icon className="w-4 h-4" />
+                      </motion.div>
+                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100/60 group-hover:bg-blue-950/80 group-hover:text-blue-300 group-hover:border-blue-800 transition-all duration-300">
+                        {dom.tag}
+                      </span>
+                    </div>
+
+                    <h4 className="text-lg font-bold text-slate-900 group-hover:text-white transition-colors duration-300">
+                      {dom.title}
+                    </h4>
+                    
+                    <div className="overflow-hidden transition-all duration-500 max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100">
+                      <p className="text-xs text-slate-600 group-hover:text-slate-300 leading-relaxed font-medium transition-colors duration-300 mt-2">
+                        {dom.desc}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -598,7 +602,7 @@ export default function AboutPage() {
                 className="w-full max-w-xs h-40 rounded-2xl bg-slate-50 border border-slate-100 group-hover:bg-slate-900 group-hover:border-slate-800 flex items-center justify-center p-4 overflow-hidden transition-colors duration-300"
               >
                 <Image
-                  src="/intro.png"
+                  src="/about/Have an Idea.png"
                   alt="AWIE Idea to Engineering to Working Product"
                   width={240}
                   height={160}

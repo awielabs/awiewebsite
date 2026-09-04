@@ -19,10 +19,14 @@ import {
   Shield,
   Eye,
   Sliders,
+  Download,
+  Play,
   Hand,
   Radio,
   Layers,
-  Smartphone
+  Smartphone,
+  Check,
+  XCircle
 } from 'lucide-react';
 
 function GemBuddyContent() {
@@ -159,7 +163,7 @@ function GemBuddyContent() {
           </button>
 
           <button
-            onClick={() => handleVersionChange('v2')}
+            onClick={() => setSelectedVersion('v2')}
             className={`flex-1 py-3 px-5 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 ${
               selectedVersion === 'v2'
                 ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
@@ -210,9 +214,7 @@ function GemBuddyContent() {
                     style={{ opacity: ledBrightness === 100 ? 0.9 : 0.45 }}
                   />
                 )}
-              </div>
             </div>
-          </div>
 
           {/* Right Column: Title, Narrative & Launch Registration */}
           <div className="lg:col-span-6 space-y-6">
@@ -249,6 +251,8 @@ function GemBuddyContent() {
                 <span className="text-slate-600 font-medium">
                   Register your priority spot for GEM {selectedVersion === 'v1' ? 'v1 Standard' : 'v2 Biometric'}. Limited initial production run batch.
                 </span>
+              </div>
+            </div>
               </div>
             </div>
 
@@ -784,6 +788,130 @@ function GemBuddyContent() {
               <p className="text-xs text-slate-600 font-medium">Full hardware component and micro-architecture breakdown</p>
             </div>
 
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <th className="p-4 text-slate-500 font-bold uppercase">Feature / Specification</th>
+                  <th className="p-4 text-[#2563EB] font-black text-sm">🔹 GEM v1 (Standard)</th>
+                  <th className="p-4 text-slate-900 font-black text-sm">🚀 GEM v2 (Biometric)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">ESP32 32-bit Dual Core Processor (240MHz)</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">0.96" OLED Expression Screen (128x64)</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">Piezo Audio Buzzer (Beeps & Sound Alerts)</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">4 White LED Bulbs (Pure White Lighting)</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs (Pulse Synced)</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">Rechargeable Li-ion Battery Power</td>
+                  <td className="p-4 text-slate-900 font-bold">2500mAh Li-ion Battery</td>
+                  <td className="p-4 text-[#2563EB] font-bold">2500mAh Li-ion Battery</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-slate-800">GEM Mobile App Support (Wi-Fi + BLE)</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
+                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="p-4 font-semibold text-slate-900">IR Distance & Motion Proximity Sensor</td>
+                  <td className="p-4 text-slate-400 font-semibold"><XCircle className="w-4 h-4 inline mr-1 text-slate-400" /> Not Included</td>
+                  <td className="p-4 text-[#2563EB] font-extrabold"><Check className="w-4 h-4 inline mr-1" /> Included (IR Motion)</td>
+                </tr>
+                <tr className="bg-slate-50">
+                  <td className="p-4 font-semibold text-slate-900">MAX30102 Heart Rate & Pulse Oximeter Sensor</td>
+                  <td className="p-4 text-slate-400 font-semibold"><XCircle className="w-4 h-4 inline mr-1 text-slate-400" /> Not Included</td>
+                  <td className="p-4 text-[#2563EB] font-extrabold"><Check className="w-4 h-4 inline mr-1" /> Included (MAX30102 PPG)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Download the App Section — adapted from GEM showcase site */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl relative overflow-hidden text-center space-y-5">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-[#2563EB]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
+              <Download className="w-3.5 h-3.5" />
+              <span>COMPANION APP DOWNLOAD</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">Get the GEM Buddy App</h2>
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Download the official GEM Buddy Companion App for your Android device to customize your companion&apos;s eyes, set alarms, activate guard mode security, and synchronize settings.
+            </p>
+            <a
+              href="/gem-app/Gem%20v1.2.0.apk"
+              download="Gem v1.2.0.apk"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/30 hover:scale-[1.02]"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download App (v1.2.0 APK)</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Tutorial Hub Section — adapted from GEM showcase site */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">
+              How to Use <span className="text-[#2563EB]">GEM Buddy</span>
+            </h2>
+            <p className="text-xs text-slate-600 font-medium">
+              Set up your device, link the mobile app, and customize settings. Watch the setup walkthrough below.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl aspect-video flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/20 via-transparent to-transparent pointer-events-none" />
+            <div className="relative z-10 text-center space-y-4 p-8">
+              <div className="w-16 h-16 mx-auto rounded-full bg-[#2563EB] text-white flex items-center justify-center shadow-lg shadow-[#2563EB]/40 hover:scale-105 transition-transform cursor-pointer">
+                <Play className="w-7 h-7 fill-current" />
+              </div>
+              <h3 className="text-base font-black text-white">Watch Tutorial &amp; Setup Guide</h3>
+              <p className="text-xs text-slate-400 font-medium">
+                Learn how to connect Wi-Fi, arm Guard Mode, and configure triggers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Launch Poster Graphic Section */}
+        <div className="pt-4 max-w-4xl mx-auto text-center space-y-6">
+          <h2 className="text-2xl font-black text-slate-900">Official GEM Launch Poster</h2>
+          <div className="max-w-md mx-auto rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl">
+            <Image
+              src="/gem-banner.png"
+              alt="AWIE GEM Official Launch Banner"
+              width={600}
+              height={1000}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Selected Version Technical Specifications Grid */}
+        <div className="space-y-6 pt-8 border-t border-slate-200">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-bold text-slate-900">
+              {selectedVersion === 'v1' ? 'GEM v1 Technical Specifications' : 'GEM v2 Technical Specifications'}
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">Hardware and micro-architecture details</p>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-bold text-slate-700">
               <span>MODEL: {selectedVersion === 'v1' ? 'AWIE-GEM-V1-2500' : 'AWIE-GEM-V2-2500'}</span>
             </div>
@@ -850,6 +978,7 @@ function GemBuddyContent() {
 
       </div>
     </div>
+  </div>
   );
 }
 

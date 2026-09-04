@@ -408,6 +408,43 @@ export default function Home() {
 
 
 
+      {/* AWIE Products Section — Same Style as Student Engineering Support */}
+      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
+        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden">
+          {/* Subtle Ambient Corner Glow on Hover */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-600/10 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+
+            <div className="lg:col-span-8 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 group-hover:bg-blue-950 group-hover:border group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-300">
+                <Cpu className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
+                <span>AWIE PRODUCTS</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">
+                Engineered by AWIE
+              </h2>
+
+              <p className="text-slate-600 group-hover:text-slate-300 text-sm sm:text-base leading-relaxed font-medium transition-colors duration-300">
+                Our own IoT and embedded products — fully designed, developed, and manufactured in-house, customized to solve real-world problems. We strive to create intelligent, automated, and seamless solutions that bridge the gap between cutting-edge technology and everyday usability. From smart devices like GEM to complex embedded electronics, our products are engineered for performance, reliability, and innovation.
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 flex items-center justify-center lg:justify-end">
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-[1.02] w-full sm:w-auto"
+              >
+                <span>Explore AWIE Products →</span>
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Student Engineering Support Section */}
       <section className="py-20 px-6 max-w-7xl mx-auto border-t border-slate-200 relative z-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl hover:bg-[#0B1528] hover:border-[#2563EB] hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-500 group relative overflow-hidden">
@@ -420,7 +457,7 @@ export default function Home() {
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#2563EB]/10 group-hover:bg-blue-950 group-hover:border group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-300">
                 <GraduationCap className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 transition-colors" />
-                <span>STUDENT ENGINEERING SUPPORT</span>
+                <span>STUDENT PROJECT GUIDANCE</span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-black text-slate-900 group-hover:text-white tracking-tight transition-colors duration-300">

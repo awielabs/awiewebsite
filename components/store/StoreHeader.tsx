@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, ShoppingBag, ChevronDown, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, ChevronDown, Menu, X, User } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
 import { STORE_CATEGORIES } from '@/lib/storeData';
 
@@ -86,6 +86,15 @@ export default function StoreHeader() {
           <div className="hidden sm:block w-48 lg:w-64">
             <StoreSearchBar />
           </div>
+
+          {/* Account / Sign In Button */}
+          <Link
+            href="/login"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-xs font-bold text-slate-800 transition-all"
+          >
+            <User className="w-4 h-4 text-slate-700" />
+            <span className="hidden sm:inline">Sign In</span>
+          </Link>
 
           {/* Cart Icon Button with Count Badge */}
           <button
