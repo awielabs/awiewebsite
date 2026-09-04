@@ -370,9 +370,9 @@ export default function SourcingBot() {
       {/* Chat Dialog */}
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] rounded-3xl bg-white border border-slate-200 shadow-2xl shadow-slate-900/20 overflow-hidden flex flex-col max-h-[70vh] animate-in fade-in zoom-in-95 duration-200">
-          {/* Header */}
-          <div className="p-4 bg-[#2563EB] flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 rounded-full bg-white/95 border border-white/60 overflow-hidden flex items-center justify-center shrink-0">
+          {/* Header — dark blue gradient, deepens when user hovers */}
+          <div className="group/header p-4 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#0B1528] hover:from-[#1D4ED8] hover:via-[#0B1528] hover:to-[#050B18] transition-all duration-500 flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 rounded-full bg-white/95 border border-white/60 overflow-hidden flex items-center justify-center shrink-0 group-hover/header:shadow-lg group-hover/header:shadow-black/30 transition-all duration-500">
               <Image
                 src="/awiestorebot.png"
                 alt={BOT_NAME}
@@ -383,7 +383,7 @@ export default function SourcingBot() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="text-white text-xs font-black block">{BOT_NAME}</span>
-              <span className="text-blue-100 text-[10px] font-bold flex items-center gap-1.5">
+              <span className="text-blue-100/90 text-[10px] font-bold flex items-center gap-1.5 group-hover/header:text-blue-200/80 transition-colors duration-500">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
                 {isTyping ? 'typing…' : 'Online — Tell us what you need'}
               </span>
