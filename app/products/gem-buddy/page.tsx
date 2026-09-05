@@ -169,7 +169,7 @@ function GemBuddyContent() {
           </button>
 
           <button
-            onClick={() => setSelectedVersion('v2')}
+            onClick={() => handleVersionChange('v2')}
             className={`flex-1 py-3 px-5 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 ${
               selectedVersion === 'v2'
                 ? 'bg-[#2563EB] text-white shadow-md shadow-[#2563EB]/25'
@@ -271,70 +271,68 @@ function GemBuddyContent() {
               </p>
             </div>
 
-            {/* Version Pricing Cards - Both GEM v1 and GEM v2 Displayed */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              
-              {/* GEM v1 Card */}
-              <div 
-                onClick={() => setSelectedVersion('v1')}
-                className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
-                  selectedVersion === 'v1'
-                    ? 'border-[#2563EB] bg-blue-50/50 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20'
-                    : 'border-slate-200 hover:border-slate-300 bg-white'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-black text-slate-900 text-sm">GEM v1 Standard</span>
-                  <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white font-black text-[11px]">
+            {/* Respective GEM Version Pricing & Pre-Booking Card (Highlighted on active tab) */}
+            {selectedVersion === 'v1' ? (
+              <div className="p-4 sm:p-5 rounded-2xl border-2 border-[#2563EB] bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-blue-50/90 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20 relative transition-all">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-black text-slate-900 text-base sm:text-lg">GEM v1 Standard</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-[#2563EB] text-[10px] font-extrabold tracking-wide uppercase border border-blue-200">
+                      Active Selection
+                    </span>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-md bg-[#2563EB] text-white font-black text-xs sm:text-sm shadow-sm shadow-[#2563EB]/25">
                     ₹199 Pre-Booking
                   </span>
                 </div>
-                <div className="space-y-0.5">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-base font-black text-slate-900">₹1,200</span>
-                    <span className="text-xs text-slate-500 font-bold line-through">₹1,300</span>
-                    <span className="text-[10px] font-bold text-emerald-600">Launch Price</span>
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="text-2xl sm:text-3xl font-black text-slate-900">₹1,200</span>
+                    <span className="text-sm text-slate-400 font-bold line-through">₹1,300</span>
+                    <span className="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      Launch Price Offer
+                    </span>
                   </div>
-                  <div className="text-[11px] text-slate-500">
-                    Normal price: <span className="font-semibold text-slate-700">₹1,300</span> after launch offer
+                  <div className="text-xs text-slate-600 font-medium">
+                    Normal price: <span className="font-bold text-slate-700">₹1,300</span> after launch offer period
                   </div>
-                  <div className="text-[10px] text-blue-700 font-bold pt-1">
-                    ₹1,001 payable before delivery
+                  <div className="flex items-center gap-1.5 text-xs text-blue-700 font-extrabold pt-1">
+                    <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                    <span>₹1,001 payable before delivery (adjusted against ₹1,200 launch price)</span>
                   </div>
                 </div>
               </div>
-
-              {/* GEM v2 Card */}
-              <div 
-                onClick={() => setSelectedVersion('v2')}
-                className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
-                  selectedVersion === 'v2'
-                    ? 'border-[#2563EB] bg-blue-50/50 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20'
-                    : 'border-slate-200 hover:border-slate-300 bg-white'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-black text-slate-900 text-sm">GEM v2 Biometric</span>
-                  <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white font-black text-[11px]">
+            ) : (
+              <div className="p-4 sm:p-5 rounded-2xl border-2 border-[#2563EB] bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-blue-50/90 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20 relative transition-all">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-black text-slate-900 text-base sm:text-lg">GEM v2 Biometric</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-[#2563EB] text-[10px] font-extrabold tracking-wide uppercase border border-blue-200">
+                      Active Selection
+                    </span>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-md bg-[#2563EB] text-white font-black text-xs sm:text-sm shadow-sm shadow-[#2563EB]/25">
                     ₹299 Pre-Booking
                   </span>
                 </div>
-                <div className="space-y-0.5">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-base font-black text-slate-900">₹1,650</span>
-                    <span className="text-xs text-slate-500 font-bold line-through">₹1,750</span>
-                    <span className="text-[10px] font-bold text-emerald-600">Launch Price</span>
+                <div className="space-y-1">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="text-2xl sm:text-3xl font-black text-slate-900">₹1,650</span>
+                    <span className="text-sm text-slate-400 font-bold line-through">₹1,750</span>
+                    <span className="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      Launch Price Offer
+                    </span>
                   </div>
-                  <div className="text-[11px] text-slate-500">
-                    Normal price: <span className="font-semibold text-slate-700">₹1,750</span> after launch offer
+                  <div className="text-xs text-slate-600 font-medium">
+                    Normal price: <span className="font-bold text-slate-700">₹1,750</span> after launch offer period
                   </div>
-                  <div className="text-[10px] text-blue-700 font-bold pt-1">
-                    ₹1,351 payable before delivery
+                  <div className="flex items-center gap-1.5 text-xs text-blue-700 font-extrabold pt-1">
+                    <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                    <span>₹1,351 payable before delivery (adjusted against ₹1,650 launch price)</span>
                   </div>
                 </div>
               </div>
-
-            </div>
+            )}
 
             {/* Key Feature Highlight Badges with Dark Blue Gradient Hover */}
             <div className="grid grid-cols-2 gap-3 pt-1">
