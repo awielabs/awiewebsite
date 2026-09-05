@@ -30,7 +30,8 @@ import {
   Smartphone,
   Check,
   XCircle,
-  Palette
+  Palette,
+  Search
 } from 'lucide-react';
 
 export type GemColor = 'blue' | 'purple' | 'red';
@@ -495,16 +496,20 @@ function GemBuddyContent() {
                 </a>
               </div>
 
-              {/* Already Pre-Booked Customer Link */}
-              <div className="text-center">
-                <Link
-                  href="/gem-booking/lookup"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  <span>Already Pre-Booked? Track Order &amp; Pay Remaining Balance</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+                {/* Already Pre-Booked Customer Link */}
+                <div className="text-center space-y-1.5">
+                  <Link
+                    href="/gem-booking/lookup"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    <Search className="w-3.5 h-3.5" />
+                    <span>Check Your Booking Status</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                  <p className="text-[10px] text-slate-500 font-medium">
+                    Enter your Booking ID (from your confirmation email) to track production, shipping &amp; balance payment.
+                  </p>
+                </div>
             </div>
 
           </div>

@@ -1,4 +1,4 @@
-export type GemVersion = 'v1' | 'v2';
+﻿export type GemVersion = 'v1' | 'v2';
 
 export interface GemProductConfig {
   version: GemVersion;
@@ -126,7 +126,7 @@ export interface GemBookingRecord {
  * Generate HTML email for Pre-Booking Confirmation
  */
 export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { subject: string; html: string } {
-  const subject = `Your GEM Pre-Booking is Confirmed! (Ticket: ${booking.ticket_code})`;
+  const subject = `Your GEM Pre-Booking is Confirmed! (Booking ID: ${booking.booking_id})`;
   const config = GEM_PRODUCTS[booking.product_version];
   const dateFormatted = new Date().toLocaleDateString('en-IN', {
     day: 'numeric',
@@ -172,9 +172,8 @@ export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { sub
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td style="vertical-align: top;">
-                      <span style="font-size: 11px; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.8px;">Pre-Booking Ticket Code</span>
-                      <div style="font-size: 28px; font-weight: 900; color: #60A5FA; letter-spacing: 2px; font-family: monospace; margin: 4px 0 12px 0;">
-                        ${booking.ticket_code}
+                      <span style="font-size: 11px; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.8px;">Booking ID</span>
+                      <div style="font-size: 24px; font-weight: 900; color: #60A5FA; letter-spacing: 2px; font-family: monospace; margin: 4px 0 12px 0;">${booking.booking_id}
                       </div>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -252,11 +251,11 @@ export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { sub
           <!-- Call to Action Button -->
           <tr>
             <td align="center" style="padding: 0 32px 32px 32px;">
-              <a href="https://awie.in/gem-booking/lookup" style="display: inline-block; background-color: #2563EB; color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 14px 28px; border-radius: 12px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);">
+              <a href="https://awie.in/gem-booking/lookup?code=${encodeURIComponent(booking.booking_id)}" style="display: inline-block; background-color: #2563EB; color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 14px 28px; border-radius: 12px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);">
                 Track Booking Status &amp; View Ticket →
               </a>
               <p style="margin: 12px 0 0 0; font-size: 11px; color: #64748B;">
-                You can enter your ticket code <strong>${booking.ticket_code}</strong> anytime on awie.in to check production status.
+                You can check your booking status anytime on awie.in using your Booking ID <strong>${booking.booking_id}</strong>.
               </p>
             </td>
           </tr>
@@ -289,7 +288,7 @@ export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { sub
  * Generate HTML email for Final Payment Receipt
  */
 export function getGemFinalPaymentConfirmationEmail(booking: GemBookingRecord): { subject: string; html: string } {
-  const subject = `Final Payment Received for GEM Pre-Booking! (${booking.ticket_code})`;
+  const subject = `Final Payment Received for GEM Pre-Booking! (${booking.booking_id})`;
   const config = GEM_PRODUCTS[booking.product_version];
 
   const html = `
@@ -314,7 +313,7 @@ export function getGemFinalPaymentConfirmationEmail(booking: GemBookingRecord): 
             <td style="padding: 28px 32px;">
               <p style="font-size: 14px; line-height: 1.6; color: #CBD5E1;">
                 Hello <strong>${booking.customer_name}</strong>,<br><br>
-                We have received your final payment of <strong>₹${booking.remaining_amount + booking.delivery_charge}</strong> for ticket <strong>${booking.ticket_code}</strong>.
+                We have received your final payment of <strong>₹${booking.remaining_amount + booking.delivery_charge}</strong> for booking <strong>${booking.booking_id}</strong>.
               </p>
               <div style="background-color: #0F172A; border-radius: 12px; padding: 18px; margin: 20px 0; border: 1px solid #1E293B;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: 13px;">
@@ -364,8 +363,8 @@ export function getGemLaunchDayNotificationEmail(
   booking: GemBookingRecord,
   portalBaseUrl?: string
 ) {
-  const code = booking.ticket_code || booking.booking_id || '';
-  const subject = `🚀 GEM Launch Day is Here! Complete Your Final Balance Payment [Ticket: ${code}]`;
+  const code = booking.booking_id || booking.ticket_code || '';
+  const subject = `🚀 GEM Launch Day is Here! Complete Your Final Balance Payment [Booking: ${code}]`;
   const config = GEM_PRODUCTS[booking.product_version];
   const baseUrl = portalBaseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://awie.in';
   const payUrl = `${baseUrl}/gem-booking/lookup?code=${encodeURIComponent(code)}`;
@@ -412,8 +411,8 @@ export function getGemLaunchDayNotificationEmail(
               <div style="background-color: #0F172A; border-radius: 14px; padding: 20px; border: 1px solid #1E293B; margin-bottom: 24px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: 13px;">
                   <tr>
-                    <td style="color: #94A3B8; padding-bottom: 8px;">Ticket Code:</td>
-                    <td style="color: #60A5FA; font-weight: 800; font-family: monospace; font-size: 15px; padding-bottom: 8px;">${booking.ticket_code}</td>
+                    <td style="color: #94A3B8; padding-bottom: 8px;">Booking ID:</td>
+                    <td style="color: #60A5FA; font-weight: 800; font-family: monospace; font-size: 15px; padding-bottom: 8px;">${booking.booking_id}</td>
                   </tr>
                   <tr>
                     <td style="color: #94A3B8; padding-bottom: 8px;">Product Model:</td>
@@ -440,7 +439,7 @@ export function getGemLaunchDayNotificationEmail(
                   Pay Remaining ₹${booking.remaining_amount.toLocaleString()} &amp; Confirm Shipping →
                 </a>
                 <p style="margin: 10px 0 0 0; font-size: 11px; color: #64748B;">
-                  Direct link for ticket <strong>${booking.ticket_code}</strong>. Secure online checkout via Razorpay.
+                  Direct link for booking <strong>${booking.booking_id}</strong>. Secure online checkout via Razorpay.
                 </p>
               </div>
 
