@@ -28,6 +28,7 @@ export default function LoginPage() {
   const [accountNotFound, setAccountNotFound] = useState(false);
   const [notFoundEmail, setNotFoundEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
 
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -95,7 +96,11 @@ export default function LoginPage() {
           return;
         }
 
-        // Account exists! Require OTP verification on the Gmail before signing in
+        // Account exists! Open the OTP dialog immediately in "waiting" mode,
+        // then send the code (dialog shows the waiting state while it travels)
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -107,15 +112,20 @@ export default function LoginPage() {
         });
 
         if (!otpRes.ok) {
-          await supabase.auth.signOut();
-          localStorage.removeItem('awie_user_session');
-          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          const otpData = await otpRes.json().catch(() => ({}));
+          if (otpData.dailyLimit) {
+            setDailyLimitNotice('You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
+          } else {
+            await supabase.auth.signOut();
+            localStorage.removeItem('awie_user_session');
+            setIsOtpOpen(false);
+            setPendingGoogleUser(null);
+            setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
+          }
           setIsSubmitting(false);
           return;
         }
 
-        setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
         setIsSubmitting(false);
       } catch {
         setErrorMessage('Failed to verify Google account. Please try again.');
@@ -476,8 +486,11 @@ export default function LoginPage() {
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
         purpose="login"
+        isPreparing={isSubmitting && isOtpOpen}
+        dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
+          setDailyLimitNotice(null);
           if (pendingGoogleUser) {
             setPendingGoogleUser(null);
             supabase.auth.signOut();

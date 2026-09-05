@@ -28,6 +28,7 @@ export default function SignupPage() {
     lastActive: number;
   } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
   
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -39,7 +40,9 @@ export default function SignupPage() {
       const params = new URLSearchParams(window.location.search);
       const urlEmail = params.get('email');
       if (urlEmail) {
-        setEmail(urlEmail);
+        // Defer to avoid cascading-render lint error
+        const id = requestAnimationFrame(() => setEmail(urlEmail));
+        return () => cancelAnimationFrame(id);
       }
     }
   }, []);
@@ -93,7 +96,11 @@ export default function SignupPage() {
           return;
         }
 
-        // Registration valid! Require OTP verification on the Gmail before creating session
+        // Registration valid! Open the OTP dialog immediately in "waiting" mode,
+        // then send the code (dialog shows the waiting state while it travels)
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -105,15 +112,20 @@ export default function SignupPage() {
         });
 
         if (!otpRes.ok) {
-          await supabase.auth.signOut();
-          localStorage.removeItem('awie_user_session');
-          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          const otpData = await otpRes.json().catch(() => ({}));
+          if (otpData.dailyLimit) {
+            setDailyLimitNotice('You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
+          } else {
+            await supabase.auth.signOut();
+            localStorage.removeItem('awie_user_session');
+            setIsOtpOpen(false);
+            setPendingGoogleUser(null);
+            setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
+          }
           setIsSubmitting(false);
           return;
         }
 
-        setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
         setIsSubmitting(false);
       } catch {
         setErrorMessage('Network error during Google registration. Please try again.');
@@ -455,8 +467,11 @@ export default function SignupPage() {
         email={pendingGoogleUser?.email || email}
         name={pendingGoogleUser?.name || name}
         purpose="signup"
+        isPreparing={isSubmitting && isOtpOpen}
+        dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
+          setDailyLimitNotice(null);
           if (pendingGoogleUser) {
             setPendingGoogleUser(null);
             supabase.auth.signOut();

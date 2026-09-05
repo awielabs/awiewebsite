@@ -8,6 +8,10 @@ interface OtpVerificationModalProps {
   email: string;
   name?: string;
   purpose: 'signup' | 'login';
+  /** True while the code is still being generated/sent — dialog shows a waiting state */
+  isPreparing?: boolean;
+  /** Pre-set lockout/error notice (e.g. daily limit reached) shown inside the dialog */
+  dailyLimitNotice?: string | null;
   onClose: () => void;
   onSuccess: (user: {
     id: string;
@@ -24,6 +28,8 @@ export default function OtpVerificationModal({
   email,
   name,
   purpose,
+  isPreparing = false,
+  dailyLimitNotice = null,
   onClose,
   onSuccess,
 }: OtpVerificationModalProps) {
@@ -220,9 +226,27 @@ export default function OtpVerificationModal({
           </p>
         </div>
 
-        {/* 6-Digit Split Inputs — hidden when the daily limit is reached */}
-        <div className={isDailyLimited ? 'py-4' : 'py-6'}>
-          {!isDailyLimited && (
+        {/* Waiting / Lockout / Inputs states */}
+        {isPreparing ? (
+          <div className="py-8 flex flex-col items-center justify-center gap-4">
+            <RefreshCw className="w-10 h-10 text-[#2563EB] animate-spin" />
+            <div className="text-center space-y-1">
+              <p className="text-sm font-black text-slate-900">Waiting for your code…</p>
+              <p className="text-xs text-slate-500 font-medium">Sending the 6-digit verification code to your email.</p>
+            </div>
+          </div>
+        ) : isDailyLimited || dailyLimitNotice ? (
+          <div className="py-4">
+            <div className="p-5 rounded-2xl bg-red-50 border-2 border-red-200 text-center space-y-2">
+              <AlertCircle className="w-8 h-8 text-red-500 mx-auto" />
+              <p className="text-sm font-black text-red-800">OTP Request Limit Reached</p>
+              <p className="text-xs text-red-700 font-medium leading-relaxed">
+                {dailyLimitNotice || 'You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.'} Need urgent help? Reach us at <span className="font-bold">awieclient@gmail.com</span>.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="py-6">
             <div className="flex justify-center items-center gap-2 sm:gap-2.5">
               {digits.map((digit, idx) => (
                 <input
@@ -242,35 +266,24 @@ export default function OtpVerificationModal({
                 />
               ))}
             </div>
-          )}
 
-          {/* Daily Limit Lockout Notice */}
-          {isDailyLimited && (
-            <div className="p-5 rounded-2xl bg-red-50 border-2 border-red-200 text-center space-y-2">
-              <AlertCircle className="w-8 h-8 text-red-500 mx-auto" />
-              <p className="text-sm font-black text-red-800">OTP Request Limit Reached</p>
-              <p className="text-xs text-red-700 font-medium leading-relaxed">
-                You have requested the maximum of 5 verification codes today. For security, please try again tomorrow. Need urgent help? Reach us at <span className="font-bold">awieclient@gmail.com</span>.
-              </p>
-            </div>
-          )}
+            {/* Error Message */}
+            {error && (
+              <div className="mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
+                <span>{error}</span>
+              </div>
+            )}
 
-          {/* Error Message */}
-          {error && (
-            <div className="mt-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-red-600" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          {/* Resend Success Message */}
-          {resendSuccess && !error && (
-            <div className="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
-              <span>A fresh 6-digit code has been sent to your email.</span>
-            </div>
-          )}
-        </div>
+            {/* Resend Success Message */}
+            {resendSuccess && !error && (
+              <div className="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                <span>A fresh 6-digit code has been sent to your email.</span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Required Note about Spam Folder */}
         <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-[11px] text-amber-900 leading-relaxed">
@@ -282,8 +295,8 @@ export default function OtpVerificationModal({
           </p>
         </div>
 
-        {/* Action Button: Verify — hidden once the daily limit is hit */}
-        {!isDailyLimited && (
+        {/* Action Button: Verify — hidden while preparing or when the daily limit is hit */}
+        {!isPreparing && !isDailyLimited && !dailyLimitNotice && (
           <div className="mt-6 space-y-3">
             <button
               type="button"
@@ -337,7 +350,7 @@ export default function OtpVerificationModal({
         )}
 
         {/* Back row when daily-limited */}
-        {isDailyLimited && (
+        {(isDailyLimited || dailyLimitNotice) && !isPreparing && (
           <div className="mt-5">
             <button
               type="button"
