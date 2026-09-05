@@ -163,10 +163,14 @@ export default function LoginPage() {
             setPendingGoogleUser(null);
             setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
           }
-          // Code sent — switch the dialog from waiting to the input state
           setIsOtpPreparing(false);
+          setIsSubmitting(false);
           return;
         }
+
+        // OTP dispatched successfully — switch the dialog from waiting to the input state
+        setIsOtpPreparing(false);
+        setIsSubmitting(false);
       } catch {
         setIsOtpOpen(false);
         setIsOtpPreparing(false);
