@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs';
 
@@ -528,7 +528,7 @@ ${cleanNotes ? `<strong>Client Vision / Notes:</strong>\n${cleanNotes}\n\n` : ''
               </div>
 
               <p style="font-size: 13px; color: #64748B; line-height: 1.6; margin: 0;">
-                Need to add attachments or have immediate questions? Feel free to reply directly to this email or reach us at <a href="mailto:awielabs@gmail.com" style="color: #2563EB; font-weight: 700; text-decoration: none;">awielabs@gmail.com</a>.
+                Need to add attachments or have immediate questions? Feel free to reply directly to this email or reach us at <a href="mailto:awieclient@gmail.com" style="color: #2563EB; font-weight: 700; text-decoration: none;">awieclient@gmail.com</a>.
               </p>
 
             </td>
@@ -543,7 +543,7 @@ ${cleanNotes ? `<strong>Client Vision / Notes:</strong>\n${cleanNotes}\n\n` : ''
               <div style="font-size: 11px; color: #64748B; margin-top: 6px;">
                 <a href="https://awie.in" target="_blank" style="color: #2563EB; text-decoration: none; font-weight: 700;">awie.in</a> &nbsp;•&nbsp; 
                 <a href="https://www.linkedin.com/company/awie/" target="_blank" style="color: #2563EB; text-decoration: none; font-weight: 700;">LinkedIn</a> &nbsp;•&nbsp; 
-                <a href="mailto:awielabs@gmail.com" style="color: #64748B; text-decoration: none;">awielabs@gmail.com</a>
+                <a href="mailto:awieclient@gmail.com" style="color: #64748B; text-decoration: none;">awieclient@gmail.com</a>
               </div>
             </td>
           </tr>
