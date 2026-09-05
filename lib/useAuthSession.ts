@@ -94,16 +94,19 @@ export function useAuthSession() {
   // Sync Supabase Auth & Local Session
   useEffect(() => {
     const initSession = async () => {
-      // Repair: if Google OAuth returned with an #access_token hash (implicit flow),
-      // let the Supabase client parse it, then strip the token hash from the URL
-      if (typeof window !== 'undefined' && window.location.hash.includes('access_token=')) {
-        try {
-          await supabase.auth.getSession();
-        } catch {
-          // ignore parse errors
-        }
-        const cleaned = window.location.pathname + window.location.search;
-        window.history.replaceState(null, '', cleaned || '/');
+      if (typeof window === 'undefined') return;
+
+      const isAuthPage = window.location.pathname === '/login' || window.location.pathname === '/signup';
+
+      // OAuth callback guard: if Google's ?code= or #access_token lands on any page
+      // other than login/signup, bounce it to the login page so the OTP flow runs.
+      // The code is NOT consumed here (detectSessionInUrl is disabled).
+      const hasCode = window.location.search.includes('code=');
+      const hasTokenHash = window.location.hash.includes('access_token=');
+      if ((hasCode || hasTokenHash) && !isAuthPage) {
+        const target = `/login?google_auth=1&mode=login${window.location.search}${window.location.hash}`;
+        window.location.replace(target);
+        return;
       }
 
       const stored = localStorage.getItem(STORAGE_KEY);

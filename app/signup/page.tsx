@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
@@ -28,6 +28,7 @@ export default function SignupPage() {
     lastActive: number;
   } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
   
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -39,7 +40,9 @@ export default function SignupPage() {
       const params = new URLSearchParams(window.location.search);
       const urlEmail = params.get('email');
       if (urlEmail) {
-        setEmail(urlEmail);
+        // Defer to avoid cascading-render lint error
+        const id = requestAnimationFrame(() => setEmail(urlEmail));
+        return () => cancelAnimationFrame(id);
       }
     }
   }, []);
@@ -54,15 +57,21 @@ export default function SignupPage() {
       setIsSubmitting(true);
       setErrorMessage(null);
 
+      // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
+      // session — nothing is auto-consumed on other pages (OTP enforcement).
+      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+        try {
+          await supabase.auth.exchangeCodeForSession(window.location.href);
+        } catch {
+          // Legacy implicit flow — try getSession as fallback
+        }
+        window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=signup`);
+      }
+
       let session = (await supabase.auth.getSession()).data.session;
       if (!session?.user?.email) {
         await new Promise((r) => setTimeout(r, 450));
         session = (await supabase.auth.getSession()).data.session;
-      }
-
-      // Strip the token hash from the address bar after it has been consumed
-      if (window.location.hash.includes('access_token=')) {
-        window.history.replaceState(null, '', window.location.pathname);
       }
 
       if (!session?.user?.email) {
@@ -93,7 +102,11 @@ export default function SignupPage() {
           return;
         }
 
-        // Registration valid! Require OTP verification on the Gmail before creating session
+        // Registration valid! Open the OTP dialog immediately in "waiting" mode,
+        // then send the code (dialog shows the waiting state while it travels)
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -105,15 +118,20 @@ export default function SignupPage() {
         });
 
         if (!otpRes.ok) {
-          await supabase.auth.signOut();
-          localStorage.removeItem('awie_user_session');
-          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          const otpData = await otpRes.json().catch(() => ({}));
+          if (otpData.dailyLimit) {
+            setDailyLimitNotice('You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
+          } else {
+            await supabase.auth.signOut();
+            localStorage.removeItem('awie_user_session');
+            setIsOtpOpen(false);
+            setPendingGoogleUser(null);
+            setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
+          }
           setIsSubmitting(false);
           return;
         }
 
-        setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
         setIsSubmitting(false);
       } catch {
         setErrorMessage('Network error during Google registration. Please try again.');
@@ -438,7 +456,7 @@ export default function SignupPage() {
 
       {/* 6-Digit Animated OTP Forum Modal */}
       {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && (
+      {isSubmitting && !isOtpOpen && !errorMessage && (
         <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
           <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
             <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
@@ -455,8 +473,11 @@ export default function SignupPage() {
         email={pendingGoogleUser?.email || email}
         name={pendingGoogleUser?.name || name}
         purpose="signup"
+        isPreparing={isSubmitting && isOtpOpen}
+        dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
+          setDailyLimitNotice(null);
           if (pendingGoogleUser) {
             setPendingGoogleUser(null);
             supabase.auth.signOut();

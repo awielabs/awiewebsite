@@ -24,6 +24,26 @@ declare global {
 const otpCache: Map<string, CachedOtp> = globalThis.__AWIE_OTP_CACHE__ || new Map();
 globalThis.__AWIE_OTP_CACHE__ = otpCache;
 
+const OTP_DAILY_LIMIT = 5;
+
+// Daily OTP request counter (persisted per email in otp_verifications table)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function getTodayRequestCount(admin: any, email: string): Promise<number> {
+  try {
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { count } = await (admin as any)
+      .from('otp_verifications')
+      .select('id', { count: 'exact', head: true })
+      .eq('email', email)
+      .gte('created_at', startOfDay.toISOString());
+    return count || 0;
+  } catch {
+    return 0;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -35,6 +55,19 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { success: false, error: 'A valid email address is required.' },
         { status: 400 }
+      );
+    }
+
+    // Daily limit: max 5 OTP requests per email per day (IST calendar day)
+    const todayCount = await getTodayRequestCount(supabaseAdmin, email);
+    if (todayCount >= OTP_DAILY_LIMIT) {
+      return NextResponse.json(
+        {
+          success: false,
+          dailyLimit: true,
+          error: `Daily limit reached — you have already requested ${OTP_DAILY_LIMIT} verification codes today. Please try again tomorrow or contact awieclient@gmail.com if this is urgent.`,
+        },
+        { status: 429 }
       );
     }
 
@@ -216,16 +249,17 @@ export async function POST(request: Request) {
         `;
 
         // Attach the logo from the repo so it renders in every email client
-        let logoAttachment: { filename: string; content: Buffer; cid: string } | undefined;
+        let logoAttachment: { filename: string; content: Buffer; cid: string; contentType: string } | undefined;
         try {
           const path = await import('path');
           const fs = await import('fs');
-          const logoPath = path.join(process.cwd(), 'public', 'logobg.png');
+          const logoPath = path.join(process.cwd(), 'public', 'logo.jpeg');
           if (fs.existsSync(logoPath)) {
             logoAttachment = {
-              filename: 'awie-logo.png',
+              filename: 'awie-logo.jpeg',
               content: fs.readFileSync(logoPath),
               cid: 'awie-logo',
+              contentType: 'image/jpeg',
             };
           }
         } catch {

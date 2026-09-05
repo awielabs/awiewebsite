@@ -28,6 +28,7 @@ export default function LoginPage() {
   const [accountNotFound, setAccountNotFound] = useState(false);
   const [notFoundEmail, setNotFoundEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
 
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -47,6 +48,19 @@ export default function LoginPage() {
       setIsSubmitting(true);
       setErrorMessage(null);
       setAccountNotFound(false);
+
+      // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
+      // session — detectSessionInUrl is disabled globally so nothing is
+      // auto-consumed on other pages and OTP is always enforced here.
+      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+        try {
+          await supabase.auth.exchangeCodeForSession(window.location.href);
+        } catch {
+          // Legacy implicit flow — try getSession as fallback
+        }
+        // Clean the address bar: remove code/token but keep google_auth flag
+        window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=login`);
+      }
 
       // Wait briefly for Supabase client to parse the session from redirect URL
       let session = (await supabase.auth.getSession()).data.session;
@@ -95,7 +109,11 @@ export default function LoginPage() {
           return;
         }
 
-        // Account exists! Require OTP verification on the Gmail before signing in
+        // Account exists! Open the OTP dialog immediately in "waiting" mode,
+        // then send the code (dialog shows the waiting state while it travels)
+        setPendingGoogleUser(data.user);
+        setIsOtpOpen(true);
+
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -107,15 +125,20 @@ export default function LoginPage() {
         });
 
         if (!otpRes.ok) {
-          await supabase.auth.signOut();
-          localStorage.removeItem('awie_user_session');
-          setErrorMessage('Failed to send verification code to your Gmail. Please try again.');
+          const otpData = await otpRes.json().catch(() => ({}));
+          if (otpData.dailyLimit) {
+            setDailyLimitNotice('You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
+          } else {
+            await supabase.auth.signOut();
+            localStorage.removeItem('awie_user_session');
+            setIsOtpOpen(false);
+            setPendingGoogleUser(null);
+            setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
+          }
           setIsSubmitting(false);
           return;
         }
 
-        setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
         setIsSubmitting(false);
       } catch {
         setErrorMessage('Failed to verify Google account. Please try again.');
@@ -459,7 +482,7 @@ export default function LoginPage() {
       </div>
 
       {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && (
+      {isSubmitting && !isOtpOpen && !errorMessage && !accountNotFound && (
         <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
           <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
             <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
@@ -476,8 +499,11 @@ export default function LoginPage() {
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
         purpose="login"
+        isPreparing={isSubmitting && isOtpOpen}
+        dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
+          setDailyLimitNotice(null);
           if (pendingGoogleUser) {
             setPendingGoogleUser(null);
             supabase.auth.signOut();
