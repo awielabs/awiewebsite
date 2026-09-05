@@ -29,8 +29,43 @@ import {
   Layers,
   Smartphone,
   Check,
-  XCircle
+  XCircle,
+  Palette
 } from 'lucide-react';
+
+export type GemColor = 'blue' | 'purple' | 'red';
+
+export interface GemColorOption {
+  id: GemColor;
+  name: string;
+  dotClass: string;
+  v1Src: string;
+  v2Src: string;
+}
+
+export const GEM_COLOR_OPTIONS: GemColorOption[] = [
+  {
+    id: 'blue',
+    name: 'Cyber Blue',
+    dotClass: 'bg-[#2563EB]',
+    v1Src: '/gem/gem_device_mockup_v1_blue.jpeg',
+    v2Src: '/gem/gem_device_mockup_v2_blue.jpg',
+  },
+  {
+    id: 'purple',
+    name: 'Neon Purple',
+    dotClass: 'bg-[#9333EA]',
+    v1Src: '/gem/gem_device_mockup_v1_purple.jpeg',
+    v2Src: '/gem/gem_device_mockup_v2_purple.jpeg',
+  },
+  {
+    id: 'red',
+    name: 'Crimson Red',
+    dotClass: 'bg-[#EF4444]',
+    v1Src: '/gem/gem_device_mockup_v1_red.jpeg',
+    v2Src: '/gem/gem_device_mockup_v2_red.jpg',
+  },
+];
 
 function GemBuddyContent() {
   const { user } = useAuthSession();
@@ -40,6 +75,7 @@ function GemBuddyContent() {
   // Read initial version from URL query if present (?version=v2 or ?version=v1)
   const initialVersion = searchParams.get('version') === 'v2' ? 'v2' : 'v1';
   const [selectedVersion, setSelectedVersion] = useState<'v1' | 'v2'>(initialVersion);
+  const [selectedColor, setSelectedColor] = useState<GemColor>('blue');
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [bookingModalVersion, setBookingModalVersion] = useState<GemVersion>('v1');
   const [simMode, setSimMode] = useState<'happy' | 'sleep' | 'guard' | 'pulse'>('happy');
@@ -47,6 +83,9 @@ function GemBuddyContent() {
   const [isPetting, setIsPetting] = useState(false);
   const [appCarouselIndex, setAppCarouselIndex] = useState(0);
   const [isAppCarouselPaused, setIsAppCarouselPaused] = useState(false);
+
+  const activeColorObj = GEM_COLOR_OPTIONS.find((c) => c.id === selectedColor) || GEM_COLOR_OPTIONS[0];
+  const activeDeviceMockup = selectedVersion === 'v1' ? activeColorObj.v1Src : activeColorObj.v2Src;
 
   const appScreenshots = [
     { title: '1. Welcome & Onboarding', desc: 'Introduction to GEM companion app setup & connectivity.', src: '/gem/intro.jpg' },
@@ -195,19 +234,24 @@ function GemBuddyContent() {
               <div className="absolute -top-12 -right-12 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
               <div className="absolute -bottom-12 -left-12 w-60 h-60 bg-blue-600/15 rounded-full blur-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
 
-              {/* Top Bar */}
-              <div className="flex items-center mb-4 relative z-10 text-xs">
+              {/* Top Bar with Version and Active Color */}
+              <div className="flex items-center justify-between mb-4 relative z-10 text-xs">
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 group-hover:bg-blue-950/80 border border-blue-200 group-hover:border-blue-700/60 text-xs font-bold text-[#2563EB] group-hover:text-blue-300 transition-all duration-500">
                   <div className="w-2 h-2 rounded-full bg-[#2563EB] group-hover:bg-blue-400 animate-pulse" />
                   <span>{selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Biometric'}</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 group-hover:bg-slate-800 border border-slate-200 group-hover:border-slate-700 text-[11px] font-bold text-slate-700 group-hover:text-slate-300">
+                  <span className={`w-2 h-2 rounded-full ${activeColorObj.dotClass}`} />
+                  <span>{activeColorObj.name}</span>
                 </div>
               </div>
 
               {/* Main Photo Viewport */}
               <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center p-6 shadow-inner relative z-10">
                 <Image
-                  src="/gem/gem_device_mockup.jpg"
-                  alt="GEM Buddy Hardware Mockup"
+                  key={`${selectedVersion}-${selectedColor}`}
+                  src={activeDeviceMockup}
+                  alt={`${selectedVersion === 'v1' ? 'GEM v1 Standard' : 'GEM v2 Biometric'} in ${activeColorObj.name}`}
                   fill
                   className="object-contain p-6 transition-all duration-700 group-hover:scale-105"
                   priority
@@ -220,6 +264,36 @@ function GemBuddyContent() {
                     style={{ opacity: ledBrightness === 100 ? 0.9 : 0.45 }}
                   />
                 )}
+              </div>
+
+              {/* Shell Color Switcher Controls */}
+              <div className="mt-4 pt-4 border-t border-slate-100 group-hover:border-slate-800/80 flex items-center justify-between flex-wrap gap-2 relative z-10">
+                <div className="flex items-center gap-2">
+                  <Palette className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400" />
+                  <span className="text-xs font-bold text-slate-700 group-hover:text-slate-300">
+                    Device Color:
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  {GEM_COLOR_OPTIONS.map((c) => {
+                    const isSelected = selectedColor === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => setSelectedColor(c.id)}
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${
+                          isSelected
+                            ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-md shadow-blue-500/25 ring-2 ring-[#2563EB]/40 scale-105'
+                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 group-hover:bg-slate-800 group-hover:border-slate-700 group-hover:text-slate-300'
+                        }`}
+                      >
+                        <span className={`w-2.5 h-2.5 rounded-full ${c.dotClass} ${isSelected ? 'ring-1 ring-white' : ''}`} />
+                        <span>{c.name.split(' ')[1] || c.name}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -270,6 +344,8 @@ function GemBuddyContent() {
                 • <em>Delivery charges are additional.</em>
               </p>
             </div>
+
+
 
             {/* Respective GEM Version Pricing & Pre-Booking Card (Highlighted on active tab) */}
             {selectedVersion === 'v1' ? (
