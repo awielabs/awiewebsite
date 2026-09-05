@@ -29,6 +29,7 @@ export default function LoginPage() {
   const [notFoundEmail, setNotFoundEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
+  const [isOtpPreparing, setIsOtpPreparing] = useState(false);
 
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -109,10 +110,12 @@ export default function LoginPage() {
           return;
         }
 
-        // Account exists! Open the OTP dialog immediately in "waiting" mode,
-        // then send the code (dialog shows the waiting state while it travels)
+        // Account exists! Open the OTP dialog directly with the inputs ready —
+        // no intermediate waiting screen
         setPendingGoogleUser(data.user);
         setIsOtpOpen(true);
+        setIsOtpPreparing(false);
+        setIsSubmitting(false);
 
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
@@ -135,11 +138,8 @@ export default function LoginPage() {
             setPendingGoogleUser(null);
             setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
           }
-          setIsSubmitting(false);
           return;
         }
-
-        setIsSubmitting(false);
       } catch {
         setErrorMessage('Failed to verify Google account. Please try again.');
         setIsSubmitting(false);
@@ -199,6 +199,10 @@ export default function LoginPage() {
       return;
     }
 
+    // Pop the OTP dialog open right away with the "waiting for OTP" state
+    setIsOtpOpen(true);
+    setIsOtpPreparing(true);
+
     try {
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
@@ -212,10 +216,15 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         if (data.notFound) {
           setAccountNotFound(true);
           setNotFoundEmail(targetEmail);
           setErrorMessage(null);
+        } else if (data.dailyLimit) {
+          setIsOtpOpen(true);
+          setDailyLimitNotice(data.error || 'You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
         } else {
           setErrorMessage(data.error || 'Failed to dispatch verification code. Please try again.');
         }
@@ -227,11 +236,13 @@ export default function LoginPage() {
         setEmail(data.email);
       }
 
-      // Open the 6-digit OTP verification forum modal
-      setIsOtpOpen(true);
+      // Code sent — switch the dialog from waiting to the input state
+      setIsOtpPreparing(false);
+      setIsSubmitting(false);
     } catch {
+      setIsOtpOpen(false);
+      setIsOtpPreparing(false);
       setErrorMessage('Network connection error. Please try again.');
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -481,25 +492,12 @@ export default function LoginPage() {
 
       </div>
 
-      {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && !errorMessage && !accountNotFound && (
-        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
-          </div>
-          <div className="text-center space-y-1.5">
-            <p className="text-sm font-black text-slate-900">Preparing your verification code…</p>
-            <p className="text-xs text-slate-500 font-medium">Sending the 6-digit OTP to your email. This takes a few seconds.</p>
-          </div>
-        </div>
-      )}
-
       {/* 6-Digit Animated OTP Forum Modal */}
       <OtpVerificationModal
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
         purpose="login"
-        isPreparing={isSubmitting && isOtpOpen}
+        isPreparing={isOtpPreparing}
         dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
