@@ -212,11 +212,6 @@ export default function OtpVerificationModal({
             <Mail className="w-7 h-7" />
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#2563EB]">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span>EMAIL VERIFICATION FORUM</span>
-          </div>
-
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">
             Enter 6-Digit Code
           </h2>
