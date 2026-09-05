@@ -50,6 +50,11 @@ export default function LoginPage() {
       setErrorMessage(null);
       setAccountNotFound(false);
 
+      // Pop the OTP dialog open immediately in "waiting" mode while the
+      // code exchange, account check, and OTP send happen
+      setIsOtpOpen(true);
+      setIsOtpPreparing(true);
+
       // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
       // session — detectSessionInUrl is disabled globally so nothing is
       // auto-consumed on other pages and OTP is always enforced here.
@@ -77,6 +82,8 @@ export default function LoginPage() {
       }
 
       if (!session?.user?.email) {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         setIsSubmitting(false);
         return;
       }
@@ -106,16 +113,16 @@ export default function LoginPage() {
           setAccountNotFound(true);
           setNotFoundEmail(googleEmail);
           setErrorMessage(null);
+          setIsOtpOpen(false);
+          setIsOtpPreparing(false);
           setIsSubmitting(false);
           return;
         }
 
-        // Account exists! Open the OTP dialog directly with the inputs ready —
-        // no intermediate waiting screen
+        // Account exists and code is being sent — dialog stays in "waiting" mode
+        // until send-otp completes, then it switches to the input state
         setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
-        setIsOtpPreparing(false);
-        setIsSubmitting(false);
+        setIsOtpPreparing(true);
 
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
@@ -135,12 +142,17 @@ export default function LoginPage() {
             await supabase.auth.signOut();
             localStorage.removeItem('awie_user_session');
             setIsOtpOpen(false);
+            setIsOtpPreparing(false);
             setPendingGoogleUser(null);
             setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
           }
+          // Code sent — switch the dialog from waiting to the input state
+          setIsOtpPreparing(false);
           return;
         }
       } catch {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         setErrorMessage('Failed to verify Google account. Please try again.');
         setIsSubmitting(false);
       }
