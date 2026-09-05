@@ -31,7 +31,8 @@ import {
   Plus,
   Check,
   X,
-  RefreshCw
+  RefreshCw,
+  Sparkles
 } from 'lucide-react';
 import { STORE_PRODUCTS, Product } from '@/lib/storeData';
 
@@ -199,7 +200,7 @@ const INITIAL_ORDERS: AdminOrder[] = [
 ];
 
 export default function AdminDashboardPage() {
-  const [sidebarTab, setSidebarTab] = useState<'dashboard' | 'orders' | 'products' | 'customers' | 'shipping' | 'payments' | 'settings'>('dashboard');
+  const [sidebarTab, setSidebarTab] = useState<'dashboard' | 'orders' | 'gem-prebookings' | 'products' | 'customers' | 'shipping' | 'payments' | 'settings'>('dashboard');
   const [orders, setOrders] = useState<AdminOrder[]>(INITIAL_ORDERS);
   const [productsList, setProductsList] = useState<Product[]>(STORE_PRODUCTS);
   const [orderFilter, setOrderFilter] = useState<string>('All');
@@ -207,6 +208,16 @@ export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [passcodeInput, setPasscodeInput] = useState('');
   const [authError, setAuthError] = useState('');
+
+  // GEM Pre-Bookings State
+  const [gemBookings, setGemBookings] = useState<any[]>([]);
+  const [gemMetrics, setGemMetrics] = useState<any | null>(null);
+  const [loadingGem, setLoadingGem] = useState(false);
+  const [gemFilter, setGemFilter] = useState<string>('All');
+  const [gemSearch, setGemSearch] = useState<string>('');
+  const [selectedGemBooking, setSelectedGemBooking] = useState<any | null>(null);
+  const [gemUpdateNotice, setGemUpdateNotice] = useState<string>('');
+  const [isUpdatingGem, setIsUpdatingGem] = useState<boolean>(false);
 
   // Modal state
   const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
@@ -241,9 +252,31 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const fetchGemBookings = async () => {
+    setLoadingGem(true);
+    try {
+      const passcode = typeof window !== 'undefined' ? (localStorage.getItem('awie_admin_passcode') || 'awie2026') : 'awie2026';
+      const res = await fetch('/api/admin/gem-bookings', {
+        headers: { 'x-admin-passcode': passcode },
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setGemBookings(data.bookings || []);
+        setGemMetrics(data.metrics || null);
+      }
+    } catch {
+      // Continue
+    } finally {
+      setLoadingGem(false);
+    }
+  };
+
   React.useEffect(() => {
     if (sidebarTab === 'customers' || sidebarTab === 'dashboard') {
       fetchRegisteredUsers();
+    }
+    if (sidebarTab === 'gem-prebookings' || sidebarTab === 'dashboard') {
+      fetchGemBookings();
     }
   }, [sidebarTab]);
 
@@ -256,14 +289,50 @@ export default function AdminDashboardPage() {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcodeInput.trim() === 'awie@19(-_-)' || passcodeInput.trim() === 'awie2026' || passcodeInput.trim() === 'admin123') {
+    const cleanPass = passcodeInput.trim();
+    if (cleanPass === 'awie@19(-_-)' || cleanPass === 'awie2026' || cleanPass === 'admin123') {
       if (typeof window !== 'undefined') {
         localStorage.setItem('awie_admin_session', 'authenticated');
+        localStorage.setItem('awie_admin_passcode', cleanPass);
       }
       setIsAuthenticated(true);
       setAuthError('');
+      fetchGemBookings();
     } else {
       setAuthError('Invalid passcode. Access Denied.');
+    }
+  };
+
+  const handleSaveGemBookingUpdates = async (bookingId: string, updates: any) => {
+    setIsUpdatingGem(true);
+    setGemUpdateNotice('');
+    try {
+      const passcode = typeof window !== 'undefined' ? (localStorage.getItem('awie_admin_passcode') || 'awie2026') : 'awie2026';
+      const res = await fetch('/api/admin/gem-bookings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-passcode': passcode,
+        },
+        body: JSON.stringify({
+          id: bookingId,
+          ...updates,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to update booking status.');
+      }
+
+      setGemUpdateNotice('Booking updated successfully!');
+      setSelectedGemBooking(data.booking);
+      fetchGemBookings();
+      setTimeout(() => setGemUpdateNotice(''), 3500);
+    } catch (err: any) {
+      setGemUpdateNotice(err?.message || 'Update failed.');
+    } finally {
+      setIsUpdatingGem(false);
     }
   };
 
@@ -516,6 +585,26 @@ export default function AdminDashboardPage() {
               {newOrdersCount > 0 && (
                 <span className="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 font-black text-[10px]">
                   {newOrdersCount}
+                </span>
+              )}
+            </button>
+
+            {/* GEM PRE-BOOKINGS TAB */}
+            <button
+              onClick={() => setSidebarTab('gem-prebookings')}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold transition-all ${
+                sidebarTab === 'gem-prebookings'
+                  ? 'bg-[#2563EB] text-white shadow-md shadow-blue-600/30'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-4 h-4 text-blue-400" />
+                <span>GEM Pre-Bookings</span>
+              </div>
+              {gemBookings.length > 0 && (
+                <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-mono text-[10px]">
+                  {gemBookings.length}
                 </span>
               )}
             </button>
@@ -844,7 +933,210 @@ export default function AdminDashboardPage() {
             </div>
           )}
 
-          {/* 3. PRODUCTS MANAGEMENT PANEL */}
+          {/* GEM PRE-BOOKINGS MANAGEMENT PANEL */}
+          {sidebarTab === 'gem-prebookings' && (
+            <div className="space-y-6">
+              
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-black text-white tracking-tight flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-blue-400" />
+                    <span>GEM Companion Pre-Bookings</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 font-medium">
+                    Manage reservation deposits, production workflows, remaining balances, and dispatch.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={fetchGemBookings}
+                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all flex items-center gap-1.5"
+                  >
+                    <span>Refresh</span>
+                  </button>
+                  <Link
+                    href="/products/gem-buddy"
+                    target="_blank"
+                    className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white text-xs font-bold transition-all shadow-md shadow-blue-600/20"
+                  >
+                    View Product Page ↗
+                  </Link>
+                </div>
+              </div>
+
+              {/* Aggregated Metrics Cards Grid */}
+              {gemMetrics && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">Total Pre-Bookings</span>
+                    <div className="text-2xl font-black text-white font-mono">{gemMetrics.totalBookings}</div>
+                    <span className="text-[10px] text-blue-400 font-bold block">
+                      v1: {gemMetrics.v1Bookings} | v2: {gemMetrics.v2Bookings}
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">Paid Bookings</span>
+                    <div className="text-2xl font-black text-emerald-400 font-mono">{gemMetrics.paidBookings}</div>
+                    <span className="text-[10px] text-amber-400 font-semibold block">
+                      Pending: {gemMetrics.pendingPayments}
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">In Production</span>
+                    <div className="text-2xl font-black text-indigo-400 font-mono">{gemMetrics.productionOrders}</div>
+                    <span className="text-[10px] text-slate-400 block">Assembling / Testing</span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">Final Payment Due</span>
+                    <div className="text-2xl font-black text-amber-400 font-mono">{gemMetrics.finalPaymentPending}</div>
+                    <span className="text-[10px] text-slate-400 block">Ready for customer pay</span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">Booking Deposits</span>
+                    <div className="text-2xl font-black text-emerald-400 font-mono">₹{gemMetrics.totalBookingMoneyCollected.toLocaleString()}</div>
+                    <span className="text-[10px] text-slate-400 block">Initial ₹199 / ₹299</span>
+                  </div>
+
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                    <span className="text-[10px] font-extrabold uppercase text-slate-400 block">Total Revenue</span>
+                    <div className="text-2xl font-black text-blue-400 font-mono">₹{gemMetrics.totalProductRevenue.toLocaleString()}</div>
+                    <span className="text-[10px] text-slate-400 block">
+                      Delivery: ₹{gemMetrics.totalDeliveryCharges.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Filter and Search Toolbar */}
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+                <div className="flex flex-wrap items-center gap-1.5 bg-slate-900/90 border border-slate-800 p-1.5 rounded-2xl">
+                  {['All', 'Paid', 'Pending', 'v1', 'v2', 'In Production', 'Final Payment Pending', 'Completed'].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setGemFilter(tab)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                        gemFilter === tab
+                          ? 'bg-[#2563EB] text-white shadow-md'
+                          : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="relative w-full sm:w-72">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                  <input
+                    type="text"
+                    value={gemSearch}
+                    onChange={(e) => setGemSearch(e.target.value)}
+                    placeholder="Search ticket code, name, phone..."
+                    className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
+                  />
+                </div>
+              </div>
+
+              {/* Bookings Table */}
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-xl">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-950/80 text-slate-400 uppercase tracking-wider font-extrabold border-b border-slate-800">
+                    <tr>
+                      <th className="p-4">Ticket Code</th>
+                      <th className="p-4">Customer Details</th>
+                      <th className="p-4">Version</th>
+                      <th className="p-4">Deposit Paid</th>
+                      <th className="p-4">Remaining</th>
+                      <th className="p-4">Booking Status</th>
+                      <th className="p-4">Production</th>
+                      <th className="p-4">Shipping</th>
+                      <th className="p-4 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-medium">
+                    {gemBookings
+                      .filter((b) => {
+                        if (gemFilter === 'Paid') return b.payment_status === 'paid';
+                        if (gemFilter === 'Pending') return b.payment_status === 'pending';
+                        if (gemFilter === 'v1') return b.product_version === 'v1';
+                        if (gemFilter === 'v2') return b.product_version === 'v2';
+                        if (gemFilter === 'In Production') return b.booking_status === 'IN_PRODUCTION';
+                        if (gemFilter === 'Final Payment Pending') return b.booking_status === 'FINAL_PAYMENT_PENDING' || b.booking_status === 'READY_FOR_DELIVERY';
+                        if (gemFilter === 'Completed') return b.booking_status === 'COMPLETED' || b.booking_status === 'DELIVERED';
+                        return true;
+                      })
+                      .filter((b) => {
+                        if (!gemSearch) return true;
+                        const q = gemSearch.toLowerCase();
+                        return (
+                          (b.ticket_code && b.ticket_code.toLowerCase().includes(q)) ||
+                          (b.customer_name && b.customer_name.toLowerCase().includes(q)) ||
+                          (b.email && b.email.toLowerCase().includes(q)) ||
+                          (b.phone && b.phone.includes(q))
+                        );
+                      })
+                      .map((b) => (
+                        <tr key={b.id} className="hover:bg-slate-800/40 transition-colors">
+                          <td className="p-4 font-mono font-black text-blue-400">
+                            {b.ticket_code || b.booking_id}
+                          </td>
+                          <td className="p-4">
+                            <div className="font-bold text-white">{b.customer_name}</div>
+                            <span className="text-[11px] text-slate-400 block font-mono">{b.phone}</span>
+                            <span className="text-[10px] text-slate-500 block truncate max-w-[160px]">{b.email}</span>
+                          </td>
+                          <td className="p-4">
+                            <span className="px-2 py-0.5 rounded-md bg-blue-500/20 text-blue-300 font-bold text-[11px]">
+                              {b.product_version === 'v1' ? 'GEM v1' : 'GEM v2'}
+                            </span>
+                          </td>
+                          <td className="p-4 font-mono font-black text-emerald-400">
+                            ₹{b.booking_amount}
+                          </td>
+                          <td className="p-4 font-mono font-bold text-amber-400">
+                            ₹{b.remaining_amount}
+                          </td>
+                          <td className="p-4">
+                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase border ${
+                              b.booking_status === 'BOOKING_CONFIRMED'
+                                ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
+                                : b.booking_status === 'FINAL_PAYMENT_RECEIVED'
+                                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                                : b.booking_status === 'IN_PRODUCTION'
+                                ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
+                                : 'bg-slate-800 text-slate-400 border-slate-700'
+                            }`}>
+                              {b.booking_status}
+                            </span>
+                          </td>
+                          <td className="p-4 text-[11px] text-slate-300">
+                            {b.production_status || 'queued'}
+                          </td>
+                          <td className="p-4 text-[11px] text-slate-300">
+                            {b.shipping_status || 'unshipped'}
+                          </td>
+                          <td className="p-4 text-right">
+                            <button
+                              onClick={() => setSelectedGemBooking(b)}
+                              className="px-3 py-1.5 rounded-lg bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-xs transition-colors inline-flex items-center gap-1"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                              <span>Manage</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          )}
           {sidebarTab === 'products' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -1404,6 +1696,188 @@ export default function AdminDashboardPage() {
                 Confirm Refund
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* GEM BOOKING DETAIL & LIFECYCLE MANAGEMENT MODAL */}
+      {selectedGemBooking && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#0F172A] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl my-auto">
+            
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <span className="text-[10px] font-extrabold text-blue-400 uppercase tracking-widest block">
+                  GEM PRE-BOOKING LIFECYCLE CONTROLLER
+                </span>
+                <h3 className="text-xl font-black text-white tracking-tight flex items-center gap-2">
+                  <span>Ticket: {selectedGemBooking.ticket_code || selectedGemBooking.booking_id}</span>
+                </h3>
+              </div>
+              <button
+                onClick={() => setSelectedGemBooking(null)}
+                className="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Customer Details & Pricing Summary */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <span className="text-slate-400 block text-[10px] font-extrabold">CUSTOMER</span>
+                <span className="font-bold text-white block mt-0.5">{selectedGemBooking.customer_name}</span>
+                <span className="text-slate-500 text-[11px] block">{selectedGemBooking.phone}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <span className="text-slate-400 block text-[10px] font-extrabold">MODEL</span>
+                <span className="font-bold text-white block mt-0.5">{selectedGemBooking.product_name}</span>
+                <span className="text-blue-400 text-[11px] font-bold">Launch: ₹{selectedGemBooking.launch_price}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <span className="text-slate-400 block text-[10px] font-extrabold">BOOKING DEPOSIT</span>
+                <span className="font-bold text-emerald-400 text-sm block mt-0.5">₹{selectedGemBooking.booking_amount}</span>
+                <span className="text-slate-500 text-[10px]">Status: {selectedGemBooking.payment_status}</span>
+              </div>
+              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                <span className="text-slate-400 block text-[10px] font-extrabold">REMAINING BALANCE</span>
+                <span className="font-bold text-amber-400 text-sm block mt-0.5">₹{selectedGemBooking.remaining_amount}</span>
+                <span className="text-slate-500 text-[10px]">Final: {selectedGemBooking.final_payment_status || 'unpaid'}</span>
+              </div>
+            </div>
+
+            {/* Delivery Address & Gateway Reference */}
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-xs">
+              <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">
+                Delivery Address &amp; Payment IDs
+              </span>
+              <p className="text-slate-300">
+                {selectedGemBooking.delivery_address?.addressLine}, {selectedGemBooking.delivery_address?.city}, {selectedGemBooking.delivery_address?.state} - {selectedGemBooking.delivery_address?.pincode}
+              </p>
+              <div className="flex flex-wrap gap-4 text-[11px] text-slate-400 pt-1 font-mono">
+                <span>Razorpay Order: <strong>{selectedGemBooking.razorpay_order_id || 'N/A'}</strong></span>
+                <span>Payment ID: <strong>{selectedGemBooking.razorpay_payment_id || 'N/A'}</strong></span>
+              </div>
+            </div>
+
+            {/* Status Controller Form */}
+            <div className="space-y-4">
+              <span className="text-xs font-black text-slate-300 uppercase tracking-wider block">
+                Update Order Lifecycle Status:
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] font-bold text-slate-400 block mb-1">Booking Overall Status</label>
+                  <select
+                    defaultValue={selectedGemBooking.booking_status}
+                    id="gem-booking-status"
+                    className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-bold"
+                  >
+                    <option value="PENDING_PAYMENT">PENDING_PAYMENT</option>
+                    <option value="BOOKING_CONFIRMED">BOOKING_CONFIRMED</option>
+                    <option value="IN_PRODUCTION">IN_PRODUCTION</option>
+                    <option value="READY_FOR_DELIVERY">READY_FOR_DELIVERY</option>
+                    <option value="FINAL_PAYMENT_PENDING">FINAL_PAYMENT_PENDING</option>
+                    <option value="FINAL_PAYMENT_RECEIVED">FINAL_PAYMENT_RECEIVED</option>
+                    <option value="SHIPPED">SHIPPED</option>
+                    <option value="DELIVERED">DELIVERED</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-bold text-slate-400 block mb-1">Production Status</label>
+                  <select
+                    defaultValue={selectedGemBooking.production_status || 'queued'}
+                    id="gem-production-status"
+                    className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-bold"
+                  >
+                    <option value="queued">Queued for Assembly</option>
+                    <option value="in_production">In Production / SMT</option>
+                    <option value="assembled">Assembled &amp; Flashed</option>
+                    <option value="tested">QA Tested &amp; Approved</option>
+                    <option value="packaged">Packaged with Accessories</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-bold text-slate-400 block mb-1">Final Payment Status</label>
+                  <select
+                    defaultValue={selectedGemBooking.final_payment_status || 'unpaid'}
+                    id="gem-final-status"
+                    className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-bold"
+                  >
+                    <option value="unpaid">Unpaid (Balance Pending)</option>
+                    <option value="paid">Paid in Full</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-bold text-slate-400 block mb-1">Shipping &amp; Delivery</label>
+                  <select
+                    defaultValue={selectedGemBooking.shipping_status || 'unshipped'}
+                    id="gem-shipping-status"
+                    className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-bold"
+                  >
+                    <option value="unshipped">Unshipped</option>
+                    <option value="dispatched">Dispatched / Courier Picked</option>
+                    <option value="in_transit">In Transit</option>
+                    <option value="delivered">Delivered to Customer</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-slate-400 block mb-1">Courier Tracking ID</label>
+                <input
+                  type="text"
+                  defaultValue={selectedGemBooking.tracking_id || ''}
+                  id="gem-tracking-id"
+                  placeholder="e.g. AWB-98237498234 (Shiprocket/BlueDart)"
+                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-mono"
+                />
+              </div>
+
+              {gemUpdateNotice && (
+                <div className="p-3 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-300 text-xs font-bold">
+                  {gemUpdateNotice}
+                </div>
+              )}
+
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedGemBooking(null)}
+                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  disabled={isUpdatingGem}
+                  onClick={() => {
+                    const bStatus = (document.getElementById('gem-booking-status') as HTMLSelectElement)?.value;
+                    const pStatus = (document.getElementById('gem-production-status') as HTMLSelectElement)?.value;
+                    const fStatus = (document.getElementById('gem-final-status') as HTMLSelectElement)?.value;
+                    const sStatus = (document.getElementById('gem-shipping-status') as HTMLSelectElement)?.value;
+                    const tId = (document.getElementById('gem-tracking-id') as HTMLInputElement)?.value;
+
+                    handleSaveGemBookingUpdates(selectedGemBooking.id, {
+                      booking_status: bStatus,
+                      production_status: pStatus,
+                      final_payment_status: fStatus,
+                      shipping_status: sStatus,
+                      tracking_id: tId,
+                    });
+                  }}
+                  className="px-5 py-2 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-60 text-white text-xs font-extrabold shadow-md shadow-blue-600/30"
+                >
+                  {isUpdatingGem ? 'Saving...' : 'Save & Update Status'}
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       )}

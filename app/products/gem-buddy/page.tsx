@@ -4,6 +4,9 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useAuthSession } from '@/lib/useAuthSession';
+import GemBookingModal from '@/components/gem/GemBookingModal';
+import { GEM_PRODUCTS, GemVersion } from '@/lib/gemPricing';
 import {
   Sparkles,
   Cpu,
@@ -30,12 +33,15 @@ import {
 } from 'lucide-react';
 
 function GemBuddyContent() {
+  const { user } = useAuthSession();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   // Read initial version from URL query if present (?version=v2 or ?version=v1)
   const initialVersion = searchParams.get('version') === 'v2' ? 'v2' : 'v1';
   const [selectedVersion, setSelectedVersion] = useState<'v1' | 'v2'>(initialVersion);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [bookingModalVersion, setBookingModalVersion] = useState<GemVersion>('v1');
   const [simMode, setSimMode] = useState<'happy' | 'sleep' | 'guard' | 'pulse'>('happy');
   const [ledBrightness, setLedBrightness] = useState<100 | 50 | 0>(100);
   const [isPetting, setIsPetting] = useState(false);
@@ -243,21 +249,95 @@ function GemBuddyContent() {
               </p>
             </div>
 
-            {/* Launch Notice Box */}
-            <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 flex items-center gap-4 shadow-sm">
-              <div className="p-2.5 rounded-xl bg-[#2563EB] text-white shrink-0 shadow-md shadow-[#2563EB]/20">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div className="text-xs">
-                <span className="font-extrabold text-slate-900 block text-sm">PRE-BOOKING OPENING SOON</span>
-                <span className="text-slate-600 font-medium">
-                  Register your priority spot for GEM {selectedVersion === 'v1' ? 'v1 Standard' : 'v2 Biometric'}. Limited initial production run batch.
+            {/* Launch Notice & Pre-Booking Guarantee Box */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-blue-50/90 border border-blue-200 shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-[#2563EB] text-white shrink-0 shadow-md shadow-[#2563EB]/20">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-tight">
+                    LIMITED PRE-BOOKING SLOTS
+                  </span>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black tracking-wider uppercase border border-emerald-300/60">
+                  Pre-Booking Open
                 </span>
               </div>
+              <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                • <strong>Pre-booking amount will be adjusted against the final product price.</strong><br />
+                • The pre-booking amount is a reservation deposit and not the full product price.<br />
+                • <em>Delivery charges are additional.</em>
+              </p>
+            </div>
+
+            {/* Version Pricing Cards - Both GEM v1 and GEM v2 Displayed */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              
+              {/* GEM v1 Card */}
+              <div 
+                onClick={() => setSelectedVersion('v1')}
+                className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
+                  selectedVersion === 'v1'
+                    ? 'border-[#2563EB] bg-blue-50/50 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20'
+                    : 'border-slate-200 hover:border-slate-300 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-black text-slate-900 text-sm">GEM v1 Standard</span>
+                  <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white font-black text-[11px]">
+                    ₹199 Pre-Booking
+                  </span>
+                </div>
+                <div className="space-y-0.5">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-base font-black text-slate-900">₹1,200</span>
+                    <span className="text-xs text-slate-500 font-bold line-through">₹1,300</span>
+                    <span className="text-[10px] font-bold text-emerald-600">Launch Price</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    Normal price: <span className="font-semibold text-slate-700">₹1,300</span> after launch offer
+                  </div>
+                  <div className="text-[10px] text-blue-700 font-bold pt-1">
+                    ₹1,001 payable before delivery
+                  </div>
+                </div>
+              </div>
+
+              {/* GEM v2 Card */}
+              <div 
+                onClick={() => setSelectedVersion('v2')}
+                className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${
+                  selectedVersion === 'v2'
+                    ? 'border-[#2563EB] bg-blue-50/50 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20'
+                    : 'border-slate-200 hover:border-slate-300 bg-white'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-black text-slate-900 text-sm">GEM v2 Biometric</span>
+                  <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white font-black text-[11px]">
+                    ₹299 Pre-Booking
+                  </span>
+                </div>
+                <div className="space-y-0.5">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-base font-black text-slate-900">₹1,650</span>
+                    <span className="text-xs text-slate-500 font-bold line-through">₹1,750</span>
+                    <span className="text-[10px] font-bold text-emerald-600">Launch Price</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    Normal price: <span className="font-semibold text-slate-700">₹1,750</span> after launch offer
+                  </div>
+                  <div className="text-[10px] text-blue-700 font-bold pt-1">
+                    ₹1,351 payable before delivery
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             {/* Key Feature Highlight Badges with Dark Blue Gradient Hover */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 gap-3 pt-1">
               <div className="p-3.5 rounded-2xl bg-white hover:bg-[#0B1528] border border-slate-200/90 hover:border-[#2563EB] shadow-sm hover:shadow-xl hover:shadow-[#2563EB]/20 transition-all duration-500 ease-out group relative overflow-hidden flex items-start gap-3">
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none rounded-2xl" />
                 <Tv className="w-4 h-4 text-[#2563EB] group-hover:text-blue-400 shrink-0 mt-0.5 relative z-10 transition-colors duration-300" />
@@ -308,22 +388,49 @@ function GemBuddyContent() {
             </div>
 
             {/* Action CTA Buttons */}
-            <div className="pt-3 flex flex-col sm:flex-row gap-4">
-              <Link
-                href={`/contact?interest=GEM+${selectedVersion === 'v1' ? 'v1+Standard' : 'v2+Biometric'}+PreBooking`}
-                className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <span>Pre-Book GEM {selectedVersion === 'v1' ? 'v1' : 'v2'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+            <div className="pt-2 space-y-3">
+              <div className="flex flex-col sm:flex-row gap-3">
+                {user ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setBookingModalVersion(selectedVersion);
+                      setIsBookingModalOpen(true);
+                    }}
+                    className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <span>Pre-Book GEM {selectedVersion === 'v1' ? 'v1 (₹199)' : 'v2 (₹299)'}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <span>Please Log In to Pre-Book</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
 
-              <a
-                href="#simulator"
-                className="inline-flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 font-bold text-sm transition-all"
-              >
-                <Sliders className="w-4 h-4 text-[#2563EB]" />
-                <span>Live Simulator</span>
-              </a>
+                <a
+                  href="#simulator"
+                  className="inline-flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 font-bold text-sm transition-all"
+                >
+                  <Sliders className="w-4 h-4 text-[#2563EB]" />
+                  <span>Live Simulator</span>
+                </a>
+              </div>
+
+              {/* Already Pre-Booked Customer Link */}
+              <div className="text-center">
+                <Link
+                  href="/gem-booking/lookup"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  <span>Already Pre-Booked? Track Order &amp; Pay Remaining Balance</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
           </div>
@@ -959,24 +1066,45 @@ function GemBuddyContent() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-            <Link
-              href={`/contact?interest=GEM+${selectedVersion === 'v1' ? 'v1+Standard' : 'v2+Biometric'}+PreBooking`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-105 active:scale-95"
-            >
-              <span>Register Pre-Booking for GEM {selectedVersion === 'v1' ? 'v1' : 'v2'}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {user ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setBookingModalVersion(selectedVersion);
+                  setIsBookingModalOpen(true);
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-105 active:scale-95"
+              >
+                <span>Register Pre-Booking for GEM {selectedVersion === 'v1' ? 'v1 (₹199)' : 'v2 (₹299)'}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-105 active:scale-95"
+              >
+                <span>Please Log In to Pre-Book</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
 
             <Link
-              href="/products"
+              href="/gem-booking/lookup"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white group-hover:bg-[#0F1B33] border border-slate-200 group-hover:border-blue-900/60 text-slate-700 group-hover:text-slate-200 hover:text-slate-900 font-bold text-sm transition-all duration-500 shadow-sm"
             >
-              <span>View All AWIE Products</span>
+              <span>Track Existing Booking</span>
             </Link>
           </div>
         </div>
 
       </div>
+
+      {/* Interactive Pre-Booking Modal */}
+      <GemBookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        defaultVersion={bookingModalVersion}
+      />
     </div>
   </div>
   );
