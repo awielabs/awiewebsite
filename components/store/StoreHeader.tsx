@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, ShoppingBag, ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { useCart } from '@/components/store/CartContext';
-import { STORE_CATEGORIES } from '@/lib/storeData';
+import { STORE_CATEGORIES, STORE_SALE_LIVE } from '@/lib/storeData';
 import { useAuthSession } from '@/lib/useAuthSession';
 
 import StoreSearchBar from './StoreSearchBar';
@@ -174,13 +174,15 @@ export default function StoreHeader() {
                     >
                       <span>Store Catalog</span>
                     </Link>
-                    <Link
-                      href="/store/orders"
-                      onClick={() => setIsProfileOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#2563EB] transition-colors"
-                    >
-                      <span>My Orders</span>
-                    </Link>
+                    {STORE_SALE_LIVE && (
+                      <Link
+                        href="/store/orders"
+                        onClick={() => setIsProfileOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#2563EB] transition-colors"
+                      >
+                        <span>My Orders</span>
+                      </Link>
+                    )}
                     <Link
                       href="/products"
                       onClick={() => setIsProfileOpen(false)}
@@ -292,7 +294,9 @@ export default function StoreHeader() {
           <div className="space-y-2 pt-2 border-t border-slate-100">
             <Link href={homeHref} onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">Main Website Home</Link>
             <Link href="/store" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-[#2563EB]">AWIE Store Shop</Link>
-            <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
+            {STORE_SALE_LIVE && (
+              <Link href="/store/orders" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">My Store Orders</Link>
+            )}
             <Link href="/products" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700 hover:text-[#2563EB]">AWIE Products</Link>
             <Link href="/store/category/sensors" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Sensors</Link>
             <Link href="/store/category/modules" onClick={() => setIsMobileMenuOpen(false)} className="block py-1.5 text-slate-700">Modules</Link>

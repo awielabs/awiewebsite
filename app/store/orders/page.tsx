@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Truck, CheckCircle2, Clock, MapPin, ExternalLink, ArrowLeft, PackageCheck } from 'lucide-react';
+import { ShoppingBag, Truck, CheckCircle2, Clock, MapPin, ExternalLink, ArrowLeft, PackageCheck, Lock } from 'lucide-react';
+import { STORE_SALE_LIVE } from '@/lib/storeData';
 
 interface CustomerOrder {
   id: string;
@@ -46,6 +47,31 @@ const SAMPLE_CUSTOMER_ORDERS: CustomerOrder[] = [
 
 export default function CustomerOrdersPage() {
   const [orders] = useState<CustomerOrder[]>(SAMPLE_CUSTOMER_ORDERS);
+
+  // Store gate — My Orders is only available once the sale goes live
+  if (!STORE_SALE_LIVE) {
+    return (
+      <div className="min-h-screen bg-slate-50 pt-28 pb-20 text-slate-900">
+        <div className="max-w-md mx-auto px-6">
+          <div className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl text-center space-y-4">
+            <div className="mx-auto w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#2563EB]">
+              <Lock className="w-7 h-7" />
+            </div>
+            <h1 className="text-xl font-black text-slate-900">Orders Open Soon</h1>
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              My Orders will be available once the AWIE Store sale officially begins. Stay tuned!
+            </p>
+            <Link
+              href="/store"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25"
+            >
+              <span>← Back to Store</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 pt-28 pb-20 text-slate-900">
