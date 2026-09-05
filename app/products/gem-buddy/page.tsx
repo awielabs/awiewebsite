@@ -1072,20 +1072,6 @@ function GemBuddyContent() {
           </div>
         </div>
 
-        {/* Launch Poster Graphic Section */}
-        <div className="pt-4 max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-2xl font-black text-slate-900">Official GEM Launch Poster</h2>
-          <div className="max-w-md mx-auto rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-2xl">
-            <Image
-              src="/gem-banner.png"
-              alt="AWIE GEM Official Launch Banner"
-              width={600}
-              height={1000}
-              className="w-full h-auto object-cover"
-            />
-          </div>
-        </div>
-
         {/* Selected Version Technical Specifications Grid */}
         <div className="space-y-6 pt-8 border-t border-slate-200">
           <div className="space-y-1">
