@@ -29,6 +29,7 @@ export default function LoginPage() {
   const [notFoundEmail, setNotFoundEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
+  const [isOtpPreparing, setIsOtpPreparing] = useState(false);
 
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -49,14 +50,35 @@ export default function LoginPage() {
       setErrorMessage(null);
       setAccountNotFound(false);
 
+      // Pop the OTP dialog open immediately in "waiting" mode while the
+      // code exchange, account check, and OTP send happen
+      setIsOtpOpen(true);
+      setIsOtpPreparing(true);
+
       // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
       // session — detectSessionInUrl is disabled globally so nothing is
       // auto-consumed on other pages and OTP is always enforced here.
-      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
-        try {
-          await supabase.auth.exchangeCodeForSession(window.location.href);
-        } catch {
-          // Legacy implicit flow — try getSession as fallback
+      const searchParams = new URLSearchParams(window.location.search);
+      const authCode = searchParams.get('code');
+      if (authCode || window.location.hash.includes('access_token=')) {
+        if (authCode) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(authCode);
+          if (exchangeError) {
+            // Surface the failure instead of failing silently
+            setIsOtpOpen(false);
+            setIsOtpPreparing(false);
+            setIsSubmitting(false);
+            setErrorMessage(`Google session could not be established (${exchangeError.message}). Please click Continue with Google again.`);
+            return;
+          }
+        } else {
+          // Legacy implicit flow — parse tokens from the hash
+          const hashParams = new URLSearchParams(window.location.hash.substring(1));
+          const accessToken = hashParams.get('access_token');
+          const refreshToken = hashParams.get('refresh_token');
+          if (accessToken && refreshToken) {
+            await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+          }
         }
         // Clean the address bar: remove code/token but keep google_auth flag
         window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=login`);
@@ -76,7 +98,10 @@ export default function LoginPage() {
       }
 
       if (!session?.user?.email) {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         setIsSubmitting(false);
+        setErrorMessage('Google sign-in session was not established. Please click Continue with Google again.');
         return;
       }
 
@@ -105,14 +130,16 @@ export default function LoginPage() {
           setAccountNotFound(true);
           setNotFoundEmail(googleEmail);
           setErrorMessage(null);
+          setIsOtpOpen(false);
+          setIsOtpPreparing(false);
           setIsSubmitting(false);
           return;
         }
 
-        // Account exists! Open the OTP dialog immediately in "waiting" mode,
-        // then send the code (dialog shows the waiting state while it travels)
+        // Account exists and code is being sent — dialog stays in "waiting" mode
+        // until send-otp completes, then it switches to the input state
         setPendingGoogleUser(data.user);
-        setIsOtpOpen(true);
+        setIsOtpPreparing(true);
 
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
@@ -132,15 +159,21 @@ export default function LoginPage() {
             await supabase.auth.signOut();
             localStorage.removeItem('awie_user_session');
             setIsOtpOpen(false);
+            setIsOtpPreparing(false);
             setPendingGoogleUser(null);
             setErrorMessage(otpData.error || 'Failed to send verification code to your Gmail. Please try again.');
           }
+          setIsOtpPreparing(false);
           setIsSubmitting(false);
           return;
         }
 
+        // OTP dispatched successfully — switch the dialog from waiting to the input state
+        setIsOtpPreparing(false);
         setIsSubmitting(false);
       } catch {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         setErrorMessage('Failed to verify Google account. Please try again.');
         setIsSubmitting(false);
       }
@@ -199,6 +232,10 @@ export default function LoginPage() {
       return;
     }
 
+    // Pop the OTP dialog open right away with the "waiting for OTP" state
+    setIsOtpOpen(true);
+    setIsOtpPreparing(true);
+
     try {
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
@@ -212,10 +249,15 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
+        setIsOtpOpen(false);
+        setIsOtpPreparing(false);
         if (data.notFound) {
           setAccountNotFound(true);
           setNotFoundEmail(targetEmail);
           setErrorMessage(null);
+        } else if (data.dailyLimit) {
+          setIsOtpOpen(true);
+          setDailyLimitNotice(data.error || 'You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
         } else {
           setErrorMessage(data.error || 'Failed to dispatch verification code. Please try again.');
         }
@@ -227,11 +269,13 @@ export default function LoginPage() {
         setEmail(data.email);
       }
 
-      // Open the 6-digit OTP verification forum modal
-      setIsOtpOpen(true);
+      // Code sent — switch the dialog from waiting to the input state
+      setIsOtpPreparing(false);
+      setIsSubmitting(false);
     } catch {
+      setIsOtpOpen(false);
+      setIsOtpPreparing(false);
       setErrorMessage('Network connection error. Please try again.');
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -481,25 +525,12 @@ export default function LoginPage() {
 
       </div>
 
-      {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && !errorMessage && !accountNotFound && (
-        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
-          </div>
-          <div className="text-center space-y-1.5">
-            <p className="text-sm font-black text-slate-900">Preparing your verification code…</p>
-            <p className="text-xs text-slate-500 font-medium">Sending the 6-digit OTP to your email. This takes a few seconds.</p>
-          </div>
-        </div>
-      )}
-
       {/* 6-Digit Animated OTP Forum Modal */}
       <OtpVerificationModal
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
         purpose="login"
-        isPreparing={isSubmitting && isOtpOpen}
+        isPreparing={isOtpPreparing}
         dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);

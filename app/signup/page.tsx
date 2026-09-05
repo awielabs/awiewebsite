@@ -29,6 +29,7 @@ export default function SignupPage() {
   } | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dailyLimitNotice, setDailyLimitNotice] = useState<string | null>(null);
+  const [isOtpPreparing, setIsOtpPreparing] = useState(false);
   
   const typingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const { signInWithGoogle } = useAuthSession();
@@ -102,10 +103,12 @@ export default function SignupPage() {
           return;
         }
 
-        // Registration valid! Open the OTP dialog immediately in "waiting" mode,
-        // then send the code (dialog shows the waiting state while it travels)
+        // Registration valid! Open the OTP dialog directly with the inputs ready —
+        // no intermediate waiting screen
         setPendingGoogleUser(data.user);
         setIsOtpOpen(true);
+        setIsOtpPreparing(false);
+        setIsSubmitting(false);
 
         const otpRes = await fetch('/api/auth/send-otp', {
           method: 'POST',
@@ -186,6 +189,10 @@ export default function SignupPage() {
       return;
     }
 
+    // Pop the OTP dialog open right away with the "waiting for OTP" state
+    setIsOtpOpen(true);
+    setIsOtpPreparing(true);
+
     try {
       const res = await fetch('/api/auth/send-otp', {
         method: 'POST',
@@ -200,7 +207,14 @@ export default function SignupPage() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        setErrorMessage(data.error || 'Failed to send verification code. Please try again.');
+        if (data.dailyLimit) {
+          setIsOtpOpen(true);
+          setDailyLimitNotice(data.error || 'You have requested the maximum of 5 verification codes today. For security, please try again tomorrow.');
+        } else {
+          setIsOtpOpen(false);
+          setErrorMessage(data.error || 'Failed to send verification code. Please try again.');
+        }
+        setIsOtpPreparing(false);
         setIsSubmitting(false);
         return;
       }
@@ -209,11 +223,13 @@ export default function SignupPage() {
         setEmail(data.email);
       }
 
-      // Open the OTP verification forum
-      setIsOtpOpen(true);
+      // Code sent — switch the dialog from waiting to the input state
+      setIsOtpPreparing(false);
+      setIsSubmitting(false);
     } catch {
+      setIsOtpOpen(false);
+      setIsOtpPreparing(false);
       setErrorMessage('Network connection error. Please try again.');
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -455,25 +471,12 @@ export default function SignupPage() {
       </div>
 
       {/* 6-Digit Animated OTP Forum Modal */}
-      {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && !errorMessage && (
-        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
-          </div>
-          <div className="text-center space-y-1.5">
-            <p className="text-sm font-black text-slate-900">Preparing your verification code…</p>
-            <p className="text-xs text-slate-500 font-medium">Sending the 6-digit OTP to your email. This takes a few seconds.</p>
-          </div>
-        </div>
-      )}
-
       <OtpVerificationModal
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
         name={pendingGoogleUser?.name || name}
         purpose="signup"
-        isPreparing={isSubmitting && isOtpOpen}
+        isPreparing={isOtpPreparing}
         dailyLimitNotice={dailyLimitNotice}
         onClose={() => {
           setIsOtpOpen(false);
