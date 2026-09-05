@@ -23,7 +23,6 @@ import {
   Eye,
   Sliders,
   Download,
-  Play,
   Hand,
   Radio,
   Layers,
@@ -1049,31 +1048,6 @@ function GemBuddyContent() {
               <Download className="w-4 h-4" />
               <span>Download App (v1.2.0 APK)</span>
             </a>
-          </div>
-        </div>
-
-        {/* Tutorial Hub Section — adapted from GEM showcase site */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h2 className="text-2xl sm:text-4xl font-black text-slate-900">
-              How to Use <span className="text-[#2563EB]">GEM Buddy</span>
-            </h2>
-            <p className="text-xs text-slate-600 font-medium">
-              Set up your device, link the mobile app, and customize settings. Watch the setup walkthrough below.
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl aspect-video flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#2563EB]/20 via-transparent to-transparent pointer-events-none" />
-            <div className="relative z-10 text-center space-y-4 p-8">
-              <div className="w-16 h-16 mx-auto rounded-full bg-[#2563EB] text-white flex items-center justify-center shadow-lg shadow-[#2563EB]/40 hover:scale-105 transition-transform cursor-pointer">
-                <Play className="w-7 h-7 fill-current" />
-              </div>
-              <h3 className="text-base font-black text-white">Watch Tutorial &amp; Setup Guide</h3>
-              <p className="text-xs text-slate-400 font-medium">
-                Learn how to connect Wi-Fi, arm Guard Mode, and configure triggers.
-              </p>
-            </div>
           </div>
         </div>
 
