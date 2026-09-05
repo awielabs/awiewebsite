@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { User, Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { User, Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
 import SignupFramePlayer from '@/components/auth/SignupFramePlayer';
 import { useAuthSession } from '@/lib/useAuthSession';
 import OtpVerificationModal from '@/components/auth/OtpVerificationModal';
@@ -437,6 +437,19 @@ export default function SignupPage() {
       </div>
 
       {/* 6-Digit Animated OTP Forum Modal */}
+      {/* Full-screen loading overlay while the OTP is being prepared/sent */}
+      {isSubmitting && !isOtpOpen && (
+        <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
+          <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
+            <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
+          </div>
+          <div className="text-center space-y-1.5">
+            <p className="text-sm font-black text-slate-900">Preparing your verification code…</p>
+            <p className="text-xs text-slate-500 font-medium">Sending the 6-digit OTP to your email. This takes a few seconds.</p>
+          </div>
+        </div>
+      )}
+
       <OtpVerificationModal
         isOpen={isOtpOpen}
         email={pendingGoogleUser?.email || email}
