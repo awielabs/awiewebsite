@@ -197,7 +197,10 @@ export function useAuthSession() {
   // Google Sign In / Sign Up helper
   const signInWithGoogle = async (mode: 'login' | 'signup' = 'login') => {
     try {
-      const redirectUrl = `${window.location.origin}/${mode === 'signup' ? 'signup' : 'login'}?google_auth=1&mode=${mode}`;
+      // Use the production site URL when provided (Vercel env), so the OAuth
+      // callback always returns to the live site — never to localhost:3000
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+      const redirectUrl = `${siteUrl}/${mode === 'signup' ? 'signup' : 'login'}?google_auth=1&mode=${mode}`;
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
