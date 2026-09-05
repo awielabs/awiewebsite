@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -965,42 +965,37 @@ function GemBuddyContent() {
 
         {/* Technical Specifications Grid with Signature Dark Blue Gradient Hover */}
         <div className="space-y-6 pt-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-                {selectedVersion === 'v1' ? 'GEM v1 Standard Specifications' : 'GEM v2 Biometric Technical Specifications'}
-              </h2>
-            </div>
+          <div className="flex flex-col items-center border-b border-slate-200 pb-4">
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+          <div className="overflow-x-auto w-full flex justify-center">
+            <table className="w-full max-w-3xl text-center text-xs border-collapse mx-auto">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
-                  <th className="p-4 text-slate-500 font-bold uppercase">Feature / Specification</th>
-                  <th className="p-4 text-[#2563EB] font-black text-sm">🔹 GEM v1 (Standard)</th>
-                  <th className="p-4 text-slate-900 font-black text-sm">🚀 GEM v2 (Biometric)</th>
+                  <th className="p-4 text-slate-500 font-bold uppercase text-center">Feature / Specification</th>
+                  <th className="p-4 text-[#2563EB] font-black text-sm text-center">🔹 GEM v1 (Standard)</th>
+                  <th className="p-4 text-slate-900 font-black text-sm text-center">🚀 GEM v2 (Biometric)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">ESP32 32-bit Dual Core Processor (240MHz)</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">1.3" OLED Expression Screen (128x64)</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Included</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Included</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">Piezo Audio Buzzer (Beeps & Sound Alerts)</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> Audio Buzzer</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">4 White LED Bulbs (Pure White Lighting)</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs (Pulse Synced)</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> 4 White LEDs (Pulse Synced)</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">Rechargeable Li-ion Battery Power</td>
@@ -1009,8 +1004,8 @@ function GemBuddyContent() {
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-slate-800">GEM Mobile App Support (Wi-Fi + BLE)</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
-                  <td className="p-4 text-emerald-600 font-bold"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
+                  <td className="p-4 text-emerald-600 font-bold text-center"><Check className="w-4 h-4 inline mr-1" /> GEM App Supported</td>
                 </tr>
                 <tr className="bg-slate-50">
                   <td className="p-4 font-semibold text-slate-900">IR Distance & Motion Proximity Sensor</td>
@@ -1053,9 +1048,6 @@ function GemBuddyContent() {
         {/* Selected Version Technical Specifications Grid */}
         <div className="space-y-6 pt-8 border-t border-slate-200">
           <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-slate-900">
-              {selectedVersion === 'v1' ? 'GEM v1 Technical Specifications' : 'GEM v2 Technical Specifications'}
-            </h2>
             <p className="text-xs text-slate-500 font-medium">Hardware and micro-architecture details</p>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-bold text-slate-700">
               <span>MODEL: {selectedVersion === 'v1' ? 'AWIE-GEM-V1-2500' : 'AWIE-GEM-V2-2500'}</span>
