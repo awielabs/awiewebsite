@@ -57,15 +57,21 @@ export default function SignupPage() {
       setIsSubmitting(true);
       setErrorMessage(null);
 
+      // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
+      // session — nothing is auto-consumed on other pages (OTP enforcement).
+      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+        try {
+          await supabase.auth.exchangeCodeForSession(window.location.href);
+        } catch {
+          // Legacy implicit flow — try getSession as fallback
+        }
+        window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=signup`);
+      }
+
       let session = (await supabase.auth.getSession()).data.session;
       if (!session?.user?.email) {
         await new Promise((r) => setTimeout(r, 450));
         session = (await supabase.auth.getSession()).data.session;
-      }
-
-      // Strip the token hash from the address bar after it has been consumed
-      if (window.location.hash.includes('access_token=')) {
-        window.history.replaceState(null, '', window.location.pathname);
       }
 
       if (!session?.user?.email) {

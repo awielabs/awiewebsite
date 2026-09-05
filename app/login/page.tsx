@@ -49,6 +49,19 @@ export default function LoginPage() {
       setErrorMessage(null);
       setAccountNotFound(false);
 
+      // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
+      // session — detectSessionInUrl is disabled globally so nothing is
+      // auto-consumed on other pages and OTP is always enforced here.
+      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
+        try {
+          await supabase.auth.exchangeCodeForSession(window.location.href);
+        } catch {
+          // Legacy implicit flow — try getSession as fallback
+        }
+        // Clean the address bar: remove code/token but keep google_auth flag
+        window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=login`);
+      }
+
       // Wait briefly for Supabase client to parse the session from redirect URL
       let session = (await supabase.auth.getSession()).data.session;
       if (!session?.user?.email) {

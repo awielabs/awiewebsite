@@ -6,9 +6,10 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOi
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     // PKCE flow: OAuth callback returns ?code= on the full redirect URL
-    // (path + query preserved) instead of a bare #access_token hash
     flowType: 'pkce',
-    detectSessionInUrl: true,
+    // We exchange the code explicitly on the login/signup pages only —
+    // never let the client silently consume it on other pages (OTP enforcement)
+    detectSessionInUrl: false,
     persistSession: true,
     autoRefreshToken: true,
   },
