@@ -49,7 +49,7 @@ export const GEM_COLOR_OPTIONS: GemColorOption[] = [
     name: 'Cyber Blue',
     dotClass: 'bg-[#2563EB]',
     v1Src: '/gem/gem_device_mockup_v1_blue.jpeg',
-    v2Src: '/gem/gem_device_mockup_v2_blue.png',
+    v2Src: '/gem/gem_device_mockup_v2_blue.jpg',
   },
   {
     id: 'purple',
