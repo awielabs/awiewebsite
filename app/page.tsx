@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 const TOTAL_FRAMES = 85;
-const TARGET_DATE = new Date('2026-09-05T18:30:00').getTime();
+const TARGET_DATE = new Date('2026-09-05T18:31:00').getTime();
 
 export default function ComingSoon() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
