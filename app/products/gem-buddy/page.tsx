@@ -206,8 +206,8 @@ function GemBuddyContent() {
               {/* Main Photo Viewport */}
               <div className="relative w-full h-80 sm:h-96 rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center p-6 shadow-inner relative z-10">
                 <Image
-                  src="/gem/gem_device_mockup.jpg"
-                  alt="GEM Buddy Hardware Mockup"
+                  src={selectedVersion === 'v1' ? '/gem/gem_device_mockup_v1.png' : '/gem/Gemv2.png'}
+                  alt={selectedVersion === 'v1' ? 'GEM v1 Standard Hardware Mockup' : 'GEM v2 Biometric Hardware Mockup'}
                   fill
                   className="object-contain p-6 transition-all duration-700 group-hover:scale-105"
                   priority
