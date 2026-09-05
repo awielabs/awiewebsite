@@ -104,7 +104,14 @@ export function useAuthSession() {
       const hasCode = window.location.search.includes('code=');
       const hasTokenHash = window.location.hash.includes('access_token=');
       if ((hasCode || hasTokenHash) && !isAuthPage) {
-        const target = `/login?google_auth=1&mode=login${window.location.search}${window.location.hash}`;
+        // Build a clean, valid query string — never double up on "?"
+        const params = new URLSearchParams();
+        params.set('google_auth', '1');
+        params.set('mode', 'login');
+        const incoming = new URLSearchParams(window.location.search);
+        const oauthCode = incoming.get('code');
+        if (oauthCode) params.set('code', oauthCode);
+        const target = `/login?${params.toString()}${window.location.hash}`;
         window.location.replace(target);
         return;
       }
