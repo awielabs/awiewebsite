@@ -401,45 +401,45 @@ function GemLookupContent() {
               {booking.totalPayableNow > 0 && (
                 <div className="pt-2 space-y-3">
                   {!booking.isLaunchUnlocked ? (
-                    /* LOCKED STATE: Displayed before 13 Sept Launch Day */
-                    <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 via-slate-900 to-blue-950 border border-amber-500/30 text-white shadow-xl space-y-3.5">
+                    /* LOCKED STATE: Displayed before 13 Sept Launch Day - Pure Gradient Blue */
+                    <div className="p-6 rounded-2xl bg-gradient-to-br from-[#1E40AF] via-[#1D4ED8] to-[#1E3A8A] border border-blue-400/30 text-white shadow-xl shadow-blue-600/20 space-y-4">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
-                            <Lock className="w-4 h-4" />
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-white shrink-0 shadow-inner">
+                            <Lock className="w-4 h-4 text-blue-100" />
                           </div>
                           <div>
-                            <span className="text-xs font-black uppercase tracking-wider text-amber-300 block">
+                            <span className="text-xs font-black uppercase tracking-wider text-white block">
                               Final Balance Payment Locked
                             </span>
-                            <span className="text-[11px] text-slate-300 font-medium">
+                            <span className="text-[11px] text-blue-100 font-medium">
                               Unlocks on Launch Day — {booking.launchDate || '13 September 2026'}
                             </span>
                           </div>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-wide">
+                        <span className="px-3 py-1 rounded-full bg-white/15 border border-white/20 text-white text-[10px] font-extrabold uppercase tracking-wide">
                           Pre-Launch Phase
                         </span>
                       </div>
 
-                      <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                        Your pre-booking reservation and deposit of <strong>₹{booking.bookingAmount}</strong> are locked in and credited towards the <strong>₹{booking.launchPrice}</strong> special launch price.
-                        The remaining balance of <strong>₹{booking.totalPayableNow.toLocaleString()}</strong> will unlock for payment on Launch Day (<strong>{booking.launchDate || '13 September 2026'}</strong>) when your device is ready for dispatch.
+                      <p className="text-xs text-blue-100 font-medium leading-relaxed">
+                        Your pre-booking reservation and deposit of <strong className="text-white">₹{booking.bookingAmount}</strong> are locked in and credited towards the <strong className="text-white">₹{booking.launchPrice}</strong> special launch price.
+                        The remaining balance of <strong className="text-white">₹{booking.totalPayableNow.toLocaleString()}</strong> will unlock for payment on Launch Day (<strong className="text-white">{booking.launchDate || '13 September 2026'}</strong>) when your device is ready for dispatch.
                       </p>
 
                       <button
                         type="button"
                         disabled
-                        className="w-full py-3.5 px-6 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 cursor-not-allowed select-none"
+                        className="w-full py-3.5 px-6 rounded-xl bg-blue-950/40 border border-blue-300/30 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-not-allowed select-none backdrop-blur-sm shadow-inner"
                       >
-                        <Lock className="w-3.5 h-3.5 text-amber-400" />
+                        <Lock className="w-3.5 h-3.5 text-blue-200" />
                         <span>Payment Locked Until Product Launch Day (13 Sept)</span>
                       </button>
 
-                      <div className="flex items-start gap-2 pt-1 text-[11px] text-blue-300 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
-                        <Bell className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
+                      <div className="flex items-start gap-2 pt-1 text-[11px] text-blue-100 bg-white/10 p-3 rounded-xl border border-white/15">
+                        <Bell className="w-3.5 h-3.5 text-blue-200 shrink-0 mt-0.5" />
                         <span>
-                          <strong>Automatic Email Alert:</strong> You will automatically receive an email notification on 13 September with a direct payment link to complete this order.
+                          <strong className="text-white">Automatic Email Alert:</strong> You will automatically receive an email notification on 13 September with a direct payment link to complete this order.
                         </span>
                       </div>
                     </div>
