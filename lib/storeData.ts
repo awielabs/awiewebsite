@@ -32,6 +32,10 @@ export interface StoreCategory {
   subCategories: string[];
 }
 
+// Store sales gate — flip to true when the AWIE Store officially goes live.
+// Controls whether the "My Orders" section is visible to users.
+export const STORE_SALE_LIVE = false;
+
 export const STORE_CATEGORIES: StoreCategory[] = [
   {
     id: 'microcontrollers',
