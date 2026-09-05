@@ -970,7 +970,6 @@ function GemBuddyContent() {
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
                 {selectedVersion === 'v1' ? 'GEM v1 Standard Specifications' : 'GEM v2 Biometric Technical Specifications'}
               </h2>
-              <p className="text-xs text-slate-600 font-medium">Full hardware component and micro-architecture breakdown</p>
             </div>
 
           <div className="overflow-x-auto">
