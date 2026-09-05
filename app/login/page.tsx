@@ -58,11 +58,27 @@ export default function LoginPage() {
       // Explicitly exchange the PKCE ?code= (or implicit #access_token) for a
       // session — detectSessionInUrl is disabled globally so nothing is
       // auto-consumed on other pages and OTP is always enforced here.
-      if (window.location.search.includes('code=') || window.location.hash.includes('access_token=')) {
-        try {
-          await supabase.auth.exchangeCodeForSession(window.location.href);
-        } catch {
-          // Legacy implicit flow — try getSession as fallback
+      const searchParams = new URLSearchParams(window.location.search);
+      const authCode = searchParams.get('code');
+      if (authCode || window.location.hash.includes('access_token=')) {
+        if (authCode) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(authCode);
+          if (exchangeError) {
+            // Surface the failure instead of failing silently
+            setIsOtpOpen(false);
+            setIsOtpPreparing(false);
+            setIsSubmitting(false);
+            setErrorMessage(`Google session could not be established (${exchangeError.message}). Please click Continue with Google again.`);
+            return;
+          }
+        } else {
+          // Legacy implicit flow — parse tokens from the hash
+          const hashParams = new URLSearchParams(window.location.hash.substring(1));
+          const accessToken = hashParams.get('access_token');
+          const refreshToken = hashParams.get('refresh_token');
+          if (accessToken && refreshToken) {
+            await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+          }
         }
         // Clean the address bar: remove code/token but keep google_auth flag
         window.history.replaceState(null, '', `${window.location.pathname}?google_auth=1&mode=login`);
@@ -85,6 +101,7 @@ export default function LoginPage() {
         setIsOtpOpen(false);
         setIsOtpPreparing(false);
         setIsSubmitting(false);
+        setErrorMessage('Google sign-in session was not established. Please click Continue with Google again.');
         return;
       }
 
