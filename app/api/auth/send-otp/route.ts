@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -27,7 +27,7 @@ globalThis.__AWIE_OTP_CACHE__ = otpCache;
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    let email = (body.email || '').trim().toLowerCase();
+    const email = (body.email || '').trim().toLowerCase();
     const name = (body.name || '').trim();
     const purpose = body.purpose === 'login' ? 'login' : 'signup';
 
@@ -146,7 +146,6 @@ export async function POST(request: Request) {
         });
 
         const subject = `${otp} is your AWIE verification code`;
-        const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://awie.vercel.app'}/logobg.png`;
         const html = `
           <!DOCTYPE html>
           <html>
@@ -161,10 +160,10 @@ export async function POST(request: Request) {
                 <td align="center" style="padding: 40px 16px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 520px; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #E2E8F0;">
 
-                    <!-- Header with AWIE Logo -->
+                    <!-- Header with AWIE Logo (embedded attachment) -->
                     <tr>
                       <td style="padding: 28px 36px; background-color: #2563EB; text-align: center;">
-                        <img src="${logoUrl}" alt="AWIE Logo" width="150" style="display: inline-block; height: auto; max-width: 150px;" />
+                        <img src="cid:awie-logo" alt="AWIE Logo" width="150" style="display: inline-block; height: auto; max-width: 150px;" />
                         <p style="margin: 8px 0 0 0; font-size: 12px; color: #BFDBFE; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Unified Account Verification</p>
                       </td>
                     </tr>
@@ -216,11 +215,29 @@ export async function POST(request: Request) {
           </html>
         `;
 
+        // Attach the logo from the repo so it renders in every email client
+        let logoAttachment: { filename: string; content: Buffer; cid: string } | undefined;
+        try {
+          const path = await import('path');
+          const fs = await import('fs');
+          const logoPath = path.join(process.cwd(), 'public', 'logobg.png');
+          if (fs.existsSync(logoPath)) {
+            logoAttachment = {
+              filename: 'awie-logo.png',
+              content: fs.readFileSync(logoPath),
+              cid: 'awie-logo',
+            };
+          }
+        } catch {
+          // Logo attach failure is non-fatal
+        }
+
         const sendPromise = transporter.sendMail({
           from: `"AWIE Security" <${gmailUser}>`,
           to: email,
           subject,
           html,
+          attachments: logoAttachment ? [logoAttachment] : [],
         });
 
         // Await with timeout so the modal opens fast without blocking UI
