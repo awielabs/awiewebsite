@@ -153,7 +153,7 @@ export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { sub
           <tr>
             <td style="padding: 32px 32px 24px 32px; text-align: center; background: radial-gradient(circle at center, #1E3A8A 0%, #0F172A 100%); border-bottom: 1px solid #1E293B;">
               <div style="display: inline-block; padding: 4px 14px; background-color: rgba(37, 99, 235, 0.2); border: 1px solid #2563EB; border-radius: 999px; font-size: 11px; font-weight: 800; color: #60A5FA; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
-                AWIE LABS OFFICIAL HARDWARE
+                AWIE OFFICIAL HARDWARE
               </div>
               <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px;">
                 Your GEM Pre-Booking is Confirmed!
@@ -265,7 +265,7 @@ export function getGemBookingConfirmationEmail(booking: GemBookingRecord): { sub
           <tr>
             <td style="padding: 20px 32px; background-color: #070D19; border-top: 1px solid #1E293B; text-align: center;">
               <p style="margin: 0 0 4px 0; font-size: 12px; font-weight: 700; color: #94A3B8;">
-                AWIE Labs &bull; Engineering &amp; Technology Services
+                AWIE &bull; Engineering &amp; Technology Services
               </p>
               <p style="margin: 0; font-size: 11px; color: #475569;">
                 Nerul, Navi Mumbai, Maharashtra &bull; support@awie.in
@@ -343,7 +343,7 @@ export function getGemFinalPaymentConfirmationEmail(booking: GemBookingRecord): 
           </tr>
           <tr>
             <td style="padding: 16px 32px; background-color: #070D19; text-align: center; border-top: 1px solid #1E293B;">
-              <p style="margin: 0; font-size: 11px; color: #64748B;">© ${new Date().getFullYear()} AWIE Labs. All rights reserved.</p>
+              <p style="margin: 0; font-size: 11px; color: #64748B;">© ${new Date().getFullYear()} AWIE. All rights reserved.</p>
             </td>
           </tr>
         </table>
@@ -458,7 +458,7 @@ export function getGemLaunchDayNotificationEmail(
           <tr>
             <td style="padding: 18px 32px; background-color: #070D19; text-align: center; border-top: 1px solid #1E293B;">
               <p style="margin: 0 0 4px 0; font-size: 12px; font-weight: 700; color: #94A3B8;">
-                AWIE Labs &bull; Engineering &amp; Technology Services
+                AWIE &bull; Engineering &amp; Technology Services
               </p>
               <p style="margin: 0; font-size: 11px; color: #475569;">
                 support@awie.in &bull; awie.in

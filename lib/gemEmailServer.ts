@@ -23,7 +23,7 @@ export async function sendGemEmail(to: string, subject: string, html: string): P
     });
 
     await transporter.sendMail({
-      from: `"AWIE Labs" <${gmailUser}>`,
+      from: `"AWIE" <${gmailUser}>`,
       to,
       subject,
       html,
