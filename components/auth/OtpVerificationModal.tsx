@@ -33,20 +33,24 @@ export default function OtpVerificationModal({
   const [isResending, setIsResending] = useState(false);
   const [resendSuccess, setResendSuccess] = useState(false);
   const [cooldown, setCooldown] = useState(60);
-
+  const [isDailyLimited, setIsDailyLimited] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Reset digits when modal opens
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) return;
+    // Defer state sync to avoid cascading-render lint error
+    const id = requestAnimationFrame(() => {
       setDigits(['', '', '', '', '', '']);
       setError(null);
       setResendSuccess(false);
       setCooldown(60);
+      setIsDailyLimited(false);
       setTimeout(() => {
         inputRefs.current[0]?.focus();
       }, 150);
-    }
+    });
+    return () => cancelAnimationFrame(id);
   }, [isOpen]);
 
   // Resend cooldown timer
@@ -137,16 +141,18 @@ export default function OtpVerificationModal({
     }
   }, [digits, email, name, purpose, onSuccess]);
 
-  // Auto-submit when all 6 digits are typed
+  // Auto-submit when all 6 digits are typed (deferred to avoid cascading render)
   useEffect(() => {
-    if (digits.every((d) => d.length === 1)) {
+    if (!digits.every((d) => d.length === 1)) return;
+    const id = requestAnimationFrame(() => {
       handleVerify();
-    }
+    });
+    return () => cancelAnimationFrame(id);
   }, [digits, handleVerify]);
 
   // Resend OTP action
   const handleResend = async () => {
-    if (cooldown > 0 || isResending) return;
+    if (cooldown > 0 || isResending || isDailyLimited) return;
     setIsResending(true);
     setError(null);
     setResendSuccess(false);
@@ -162,6 +168,9 @@ export default function OtpVerificationModal({
       if (data.success) {
         setResendSuccess(true);
         setCooldown(60);
+      } else if (data.dailyLimit) {
+        setIsDailyLimited(true);
+        setError(data.error || 'Daily limit reached. Please try again tomorrow.');
       } else {
         setError(data.error || 'Failed to resend code.');
       }
@@ -211,27 +220,40 @@ export default function OtpVerificationModal({
           </p>
         </div>
 
-        {/* 6-Digit Split Inputs */}
-        <div className="py-6">
-          <div className="flex justify-center items-center gap-2 sm:gap-2.5">
-            {digits.map((digit, idx) => (
-              <input
-                key={idx}
-                ref={(el) => {
-                  inputRefs.current[idx] = el;
-                }}
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={1}
-                value={digit}
-                onChange={(e) => handleChange(idx, e.target.value)}
-                onKeyDown={(e) => handleKeyDown(idx, e)}
-                onPaste={handlePaste}
-                className="w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-black rounded-xl bg-slate-50 border-2 border-slate-200 text-slate-900 focus:bg-white focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/15 outline-none transition-all shadow-sm"
-              />
-            ))}
-          </div>
+        {/* 6-Digit Split Inputs — hidden when the daily limit is reached */}
+        <div className={isDailyLimited ? 'py-4' : 'py-6'}>
+          {!isDailyLimited && (
+            <div className="flex justify-center items-center gap-2 sm:gap-2.5">
+              {digits.map((digit, idx) => (
+                <input
+                  key={idx}
+                  ref={(el) => {
+                    inputRefs.current[idx] = el;
+                  }}
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => handleChange(idx, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(idx, e)}
+                  onPaste={handlePaste}
+                  className="w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-black rounded-xl bg-slate-50 border-2 border-slate-200 text-slate-900 focus:bg-white focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/15 outline-none transition-all shadow-sm"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Daily Limit Lockout Notice */}
+          {isDailyLimited && (
+            <div className="p-5 rounded-2xl bg-red-50 border-2 border-red-200 text-center space-y-2">
+              <AlertCircle className="w-8 h-8 text-red-500 mx-auto" />
+              <p className="text-sm font-black text-red-800">OTP Request Limit Reached</p>
+              <p className="text-xs text-red-700 font-medium leading-relaxed">
+                You have requested the maximum of 5 verification codes today. For security, please try again tomorrow. Need urgent help? Reach us at <span className="font-bold">awieclient@gmail.com</span>.
+              </p>
+            </div>
+          )}
 
           {/* Error Message */}
           {error && (
@@ -260,57 +282,72 @@ export default function OtpVerificationModal({
           </p>
         </div>
 
-        {/* Action Button: Verify */}
-        <div className="mt-6 space-y-3">
-          <button
-            type="button"
-            onClick={handleVerify}
-            disabled={isVerifying || digits.join('').length < 6}
-            className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
-          >
-            {isVerifying ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Verifying Code...</span>
-              </>
-            ) : (
-              <>
-                <span>Verify & Continue</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </button>
+        {/* Action Button: Verify — hidden once the daily limit is hit */}
+        {!isDailyLimited && (
+          <div className="mt-6 space-y-3">
+            <button
+              type="button"
+              onClick={handleVerify}
+              disabled={isVerifying || digits.join('').length < 6}
+              className="w-full py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-50 text-white font-extrabold text-xs transition-all shadow-lg shadow-[#2563EB]/25 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+            >
+              {isVerifying ? (
+                <>
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <span>Verifying Code...</span>
+                </>
+              ) : (
+                <>
+                  <span>Verify & Continue</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
 
-          {/* Resend Row & Cooldown */}
-          <div className="flex items-center justify-between text-xs pt-1">
+            {/* Resend Row & Cooldown */}
+            <div className="flex items-center justify-between text-xs pt-1">
+              <button
+                type="button"
+                onClick={onClose}
+                className="text-slate-500 hover:text-slate-800 font-semibold transition-colors"
+              >
+                ← Change Email
+              </button>
+
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={cooldown > 0 || isResending}
+                className={`font-bold transition-colors ${
+                  cooldown > 0 || isResending
+                    ? 'text-slate-400 cursor-not-allowed'
+                    : 'text-[#2563EB] hover:text-blue-700 hover:underline cursor-pointer'
+                }`}
+              >
+                {isResending ? (
+                  'Resending...'
+                ) : cooldown > 0 ? (
+                  `Resend OTP in ${cooldown}s`
+                ) : (
+                  'Resend OTP'
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Back row when daily-limited */}
+        {isDailyLimited && (
+          <div className="mt-5">
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-500 hover:text-slate-800 font-semibold transition-colors"
+              className="w-full py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-700 transition-colors"
             >
-              ← Change Email
-            </button>
-
-            <button
-              type="button"
-              onClick={handleResend}
-              disabled={cooldown > 0 || isResending}
-              className={`font-bold transition-colors ${
-                cooldown > 0 || isResending
-                  ? 'text-slate-400 cursor-not-allowed'
-                  : 'text-[#2563EB] hover:text-blue-700 hover:underline cursor-pointer'
-              }`}
-            >
-              {isResending ? (
-                'Resending...'
-              ) : cooldown > 0 ? (
-                `Resend OTP in ${cooldown}s`
-              ) : (
-                'Resend OTP'
-              )}
+              ← Back and try again tomorrow
             </button>
           </div>
-        </div>
+        )}
 
       </div>
     </div>

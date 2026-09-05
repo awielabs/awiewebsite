@@ -459,7 +459,7 @@ export default function LoginPage() {
       </div>
 
       {/* Full-screen loading overlay while the OTP is being prepared/sent */}
-      {isSubmitting && !isOtpOpen && (
+      {isSubmitting && !isOtpOpen && !errorMessage && !accountNotFound && (
         <div className="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
           <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center">
             <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
