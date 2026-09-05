@@ -49,6 +49,9 @@ export const GEM_PRODUCTS: Record<GemVersion, GemProductConfig> = {
   },
 };
 
+export const GEM_LAUNCH_DATE_STRING = '13 September 2026';
+export const GEM_LAUNCH_DATE_ISO = '2026-09-13T00:00:00+05:30';
+
 /**
  * Generate a collision-proof unique ticket code formatted as:
  * AWIE-G1-XXXXXX or AWIE-G2-XXXXXX
@@ -343,6 +346,126 @@ export function getGemFinalPaymentConfirmationEmail(booking: GemBookingRecord): 
               <p style="margin: 0; font-size: 11px; color: #64748B;">© ${new Date().getFullYear()} AWIE Labs. All rights reserved.</p>
             </td>
           </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+
+  return { subject, html };
+}
+
+/**
+ * Generate HTML email notifying pre-booking customers on Launch Day (13 Sept) to complete remaining balance payment
+ */
+export function getGemLaunchDayNotificationEmail(
+  booking: GemBookingRecord,
+  portalBaseUrl?: string
+) {
+  const code = booking.ticket_code || booking.booking_id || '';
+  const subject = `🚀 GEM Launch Day is Here! Complete Your Final Balance Payment [Ticket: ${code}]`;
+  const config = GEM_PRODUCTS[booking.product_version];
+  const baseUrl = portalBaseUrl || process.env.NEXT_PUBLIC_SITE_URL || 'https://awie.in';
+  const payUrl = `${baseUrl}/gem-booking/lookup?code=${encodeURIComponent(code)}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>${subject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0B1120; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #F8FAFC;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #0B1120; padding: 32px 16px;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 580px; background: linear-gradient(180deg, #111C38 0%, #0D162C 100%); border-radius: 20px; border: 1px solid #1E293B; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+          
+          <!-- Banner -->
+          <tr>
+            <td style="padding: 32px 32px 24px 32px; text-align: center; background: radial-gradient(circle at center, #1E3A8A 0%, #0F172A 100%); border-bottom: 1px solid #1E293B;">
+              <div style="display: inline-block; padding: 4px 14px; background-color: rgba(37, 99, 235, 0.25); border: 1px solid #2563EB; border-radius: 999px; font-size: 11px; font-weight: 800; color: #60A5FA; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;">
+                OFFICIAL PRODUCT LAUNCH DAY &bull; 13 SEPTEMBER
+              </div>
+              <h1 style="margin: 0 0 8px 0; font-size: 26px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px;">
+                GEM Has Officially Launched! 🚀
+              </h1>
+              <p style="margin: 0; font-size: 14px; color: #94A3B8; font-medium;">
+                Your pre-booked companion device is ready for final assembly &amp; dispatch.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Core Pass & Payment Details -->
+          <tr>
+            <td style="padding: 28px 32px;">
+              <p style="font-size: 14px; line-height: 1.6; color: #CBD5E1; margin: 0 0 20px 0;">
+                Hello <strong>${booking.customer_name}</strong>,<br><br>
+                Great news! Today marks the official product launch of <strong>${config.name}</strong>.
+                Your pre-booking reservation deposit of <strong>₹${booking.booking_amount}</strong> has been credited against the special launch price.
+                Please complete your remaining balance payment to confirm final dispatch to your doorstep.
+              </p>
+
+              <!-- Breakdown Card -->
+              <div style="background-color: #0F172A; border-radius: 14px; padding: 20px; border: 1px solid #1E293B; margin-bottom: 24px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: 13px;">
+                  <tr>
+                    <td style="color: #94A3B8; padding-bottom: 8px;">Ticket Code:</td>
+                    <td style="color: #60A5FA; font-weight: 800; font-family: monospace; font-size: 15px; padding-bottom: 8px;">${booking.ticket_code}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94A3B8; padding-bottom: 8px;">Product Model:</td>
+                    <td style="color: #FFFFFF; font-weight: 700; padding-bottom: 8px;">${config.name}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94A3B8; padding-bottom: 8px;">Special Launch Price:</td>
+                    <td style="color: #FFFFFF; font-weight: 600; padding-bottom: 8px;">₹${booking.launch_price.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94A3B8; padding-bottom: 8px;">Pre-Booking Deposit Credited:</td>
+                    <td style="color: #34D399; font-weight: 700; padding-bottom: 8px;">-₹${booking.booking_amount.toLocaleString()}</td>
+                  </tr>
+                  <tr style="border-top: 1px solid #334155;">
+                    <td style="color: #F8FAFC; font-weight: 800; padding-top: 10px; font-size: 14px;">Total Balance Due Now:</td>
+                    <td style="color: #60A5FA; font-weight: 900; padding-top: 10px; font-size: 18px;">₹${booking.remaining_amount.toLocaleString()}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- Action Button -->
+              <div style="text-align: center; margin-bottom: 24px;">
+                <a href="${payUrl}" style="display: inline-block; background-color: #2563EB; color: #FFFFFF; font-size: 15px; font-weight: 800; text-decoration: none; padding: 16px 36px; border-radius: 12px; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.45);">
+                  Pay Remaining ₹${booking.remaining_amount.toLocaleString()} &amp; Confirm Shipping →
+                </a>
+                <p style="margin: 10px 0 0 0; font-size: 11px; color: #64748B;">
+                  Direct link for ticket <strong>${booking.ticket_code}</strong>. Secure online checkout via Razorpay.
+                </p>
+              </div>
+
+              <!-- Shipping Address Reminder -->
+              <div style="background-color: rgba(30, 41, 59, 0.5); border-radius: 10px; padding: 14px 16px; font-size: 12px; color: #94A3B8; line-height: 1.5;">
+                <strong style="color: #E2E8F0;">Shipping Address on File:</strong><br>
+                ${booking.delivery_address.addressLine}, ${booking.delivery_address.city}, ${booking.delivery_address.state} - ${booking.delivery_address.pincode}<br>
+                <em>Need to update your address? Reply directly to this email before completing payment.</em>
+              </div>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 18px 32px; background-color: #070D19; text-align: center; border-top: 1px solid #1E293B;">
+              <p style="margin: 0 0 4px 0; font-size: 12px; font-weight: 700; color: #94A3B8;">
+                AWIE Labs &bull; Engineering &amp; Technology Services
+              </p>
+              <p style="margin: 0; font-size: 11px; color: #475569;">
+                support@awie.in &bull; awie.in
+              </p>
+            </td>
+          </tr>
+
         </table>
       </td>
     </tr>

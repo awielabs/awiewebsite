@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { findGemBooking } from '@/lib/gemBookingStore';
+import { findGemBooking, isGemLaunchUnlocked } from '@/lib/gemBookingStore';
+import { GEM_LAUNCH_DATE_STRING } from '@/lib/gemPricing';
 
 export async function GET(request: Request) {
   try {
@@ -69,6 +70,8 @@ export async function GET(request: Request) {
         trackingId: booking.tracking_id || null,
         createdAt: booking.created_at,
         updatedAt: booking.updated_at,
+        isLaunchUnlocked: isGemLaunchUnlocked(),
+        launchDate: GEM_LAUNCH_DATE_STRING,
         isEligibleForFinalPayment: !isFinalPaid && (booking.booking_status === 'READY_FOR_DELIVERY' || booking.booking_status === 'FINAL_PAYMENT_PENDING' || booking.booking_status === 'BOOKING_CONFIRMED'),
       },
     });

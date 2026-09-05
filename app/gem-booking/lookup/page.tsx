@@ -19,6 +19,9 @@ import {
   Copy,
   Check,
   Layers,
+  Lock,
+  Unlock,
+  Bell,
 } from 'lucide-react';
 import GemTicketCard from '@/components/gem/GemTicketCard';
 
@@ -394,37 +397,90 @@ function GemLookupContent() {
                 </div>
               </div>
 
-              {/* Pay Remaining Action Button if balance is due */}
+              {/* Balance Payment Section: Locked until Launch Day (13 Sept), Unlocked on/after Launch Day */}
               {booking.totalPayableNow > 0 && (
                 <div className="pt-2 space-y-3">
-                  {finalPayError && (
-                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
-                      {finalPayError}
-                    </div>
-                  )}
+                  {!booking.isLaunchUnlocked ? (
+                    /* LOCKED STATE: Displayed before 13 Sept Launch Day */
+                    <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 via-slate-900 to-blue-950 border border-amber-500/30 text-white shadow-xl space-y-3.5">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                            <Lock className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <span className="text-xs font-black uppercase tracking-wider text-amber-300 block">
+                              Final Balance Payment Locked
+                            </span>
+                            <span className="text-[11px] text-slate-300 font-medium">
+                              Unlocks on Launch Day — {booking.launchDate || '13 September 2026'}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-wide">
+                          Pre-Launch Phase
+                        </span>
+                      </div>
 
-                  <button
-                    type="button"
-                    onClick={handlePayRemaining}
-                    disabled={payingFinal}
-                    className="w-full py-4 px-6 rounded-2xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-60 text-white font-extrabold text-sm transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
-                  >
-                    {payingFinal ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Connecting to Razorpay...</span>
-                      </>
-                    ) : (
-                      <>
-                        <CreditCard className="w-4 h-4" />
-                        <span>Pay Remaining ₹{booking.totalPayableNow.toLocaleString()} via Razorpay</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                  <p className="text-[11px] text-slate-500 text-center font-medium">
-                    Pre-booking credit of ₹{booking.bookingAmount} is locked and automatically applied.
-                  </p>
+                      <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                        Your pre-booking reservation and deposit of <strong>₹{booking.bookingAmount}</strong> are locked in and credited towards the <strong>₹{booking.launchPrice}</strong> special launch price.
+                        The remaining balance of <strong>₹{booking.totalPayableNow.toLocaleString()}</strong> will unlock for payment on Launch Day (<strong>{booking.launchDate || '13 September 2026'}</strong>) when your device is ready for dispatch.
+                      </p>
+
+                      <button
+                        type="button"
+                        disabled
+                        className="w-full py-3.5 px-6 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 cursor-not-allowed select-none"
+                      >
+                        <Lock className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Payment Locked Until Product Launch Day (13 Sept)</span>
+                      </button>
+
+                      <div className="flex items-start gap-2 pt-1 text-[11px] text-blue-300 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
+                        <Bell className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
+                        <span>
+                          <strong>Automatic Email Alert:</strong> You will automatically receive an email notification on 13 September with a direct payment link to complete this order.
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    /* UNLOCKED STATE: Available on or after Launch Day or when triggered by Admin */
+                    <>
+                      <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                        <Unlock className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>GEM is officially launched! Balance payment is now unlocked.</span>
+                      </div>
+
+                      {finalPayError && (
+                        <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
+                          {finalPayError}
+                        </div>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={handlePayRemaining}
+                        disabled={payingFinal}
+                        className="w-full py-4 px-6 rounded-2xl bg-[#2563EB] hover:bg-blue-600 disabled:opacity-60 text-white font-extrabold text-sm transition-all shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
+                      >
+                        {payingFinal ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Connecting to Razorpay...</span>
+                          </>
+                        ) : (
+                          <>
+                            <CreditCard className="w-4 h-4" />
+                            <span>Pay Remaining ₹{booking.totalPayableNow.toLocaleString()} via Razorpay</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                      <p className="text-[11px] text-slate-500 text-center font-medium">
+                        Pre-booking credit of ₹{booking.bookingAmount} is locked and automatically applied.
+                      </p>
+                    </>
+                  )}
                 </div>
               )}
 

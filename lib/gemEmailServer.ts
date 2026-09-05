@@ -35,3 +35,15 @@ export async function sendGemEmail(to: string, subject: string, html: string): P
     return false;
   }
 }
+
+/**
+ * Dispatch Launch Day balance payment notification email to a pre-booking customer
+ */
+export async function sendGemLaunchNotificationEmail(
+  booking: GemBookingRecord,
+  portalBaseUrl?: string
+): Promise<boolean> {
+  const { getGemLaunchDayNotificationEmail } = await import('./gemPricing');
+  const { subject, html } = getGemLaunchDayNotificationEmail(booking, portalBaseUrl);
+  return sendGemEmail(booking.email, subject, html);
+}

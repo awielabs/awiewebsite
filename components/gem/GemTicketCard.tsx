@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Copy,
   Check,
-  Printer,
   ShieldCheck,
   Layers,
   ArrowRight,
@@ -44,10 +43,6 @@ export default function GemTicketCard({
     navigator.clipboard.writeText(ticket.ticketCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   const dateStr = ticket.createdAt
@@ -184,16 +179,7 @@ export default function GemTicketCard({
       </div>
 
       {/* Footer Controls */}
-      <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 print:hidden">
-        <button
-          type="button"
-          onClick={handlePrint}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold transition-all"
-        >
-          <Printer className="w-3.5 h-3.5" />
-          <span>Print / Save Ticket</span>
-        </button>
-
+      <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
         {showLookupLink && (
           <Link
             href="/gem-booking/lookup"

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
-import { findGemBooking, saveGemBooking } from '@/lib/gemBookingStore';
+import { findGemBooking, saveGemBooking, isGemLaunchUnlocked } from '@/lib/gemBookingStore';
+import { GEM_LAUNCH_DATE_STRING } from '@/lib/gemPricing';
 
 export async function POST(request: Request) {
   try {
@@ -45,6 +46,17 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { success: false, error: 'The final remaining balance for this booking has already been paid in full.' },
         { status: 400 }
+      );
+    }
+
+    // Check if Product Launch Day has arrived or been unlocked
+    if (!isGemLaunchUnlocked()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Final balance payment is locked until Product Launch Day (${GEM_LAUNCH_DATE_STRING}). You will receive an email notification once unlocked.`,
+        },
+        { status: 403 }
       );
     }
 

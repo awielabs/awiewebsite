@@ -1,14 +1,36 @@
-import { GemBookingRecord } from './gemPricing';
+import { GemBookingRecord, GEM_LAUNCH_DATE_ISO } from './gemPricing';
 import { supabaseAdmin } from './supabaseAdmin';
 
 declare global {
   // eslint-disable-next-line no-var
   var __AWIE_GEM_BOOKINGS_CACHE__: Map<string, GemBookingRecord> | undefined;
+  // eslint-disable-next-line no-var
+  var __AWIE_GEM_LAUNCH_OVERRIDE__: boolean | undefined;
 }
 
 const bookingsCache: Map<string, GemBookingRecord> =
   globalThis.__AWIE_GEM_BOOKINGS_CACHE__ || new Map();
 globalThis.__AWIE_GEM_BOOKINGS_CACHE__ = bookingsCache;
+
+/**
+ * Check whether GEM Launch Day (13 Sept 2026) has arrived or been manually unlocked
+ */
+export function isGemLaunchUnlocked(): boolean {
+  // Check in-memory / env manual override
+  if (globalThis.__AWIE_GEM_LAUNCH_OVERRIDE__ === true || process.env.GEM_LAUNCH_UNLOCKED === 'true') {
+    return true;
+  }
+  const launchTime = new Date(GEM_LAUNCH_DATE_ISO).getTime();
+  return Date.now() >= launchTime;
+}
+
+/**
+ * Manually toggle / trigger launch day unlock state
+ */
+export function setGemLaunchUnlocked(unlocked: boolean): boolean {
+  globalThis.__AWIE_GEM_LAUNCH_OVERRIDE__ = unlocked;
+  return unlocked;
+}
 
 /**
  * Save or update a booking in both Supabase and in-memory cache
