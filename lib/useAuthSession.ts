@@ -94,6 +94,18 @@ export function useAuthSession() {
   // Sync Supabase Auth & Local Session
   useEffect(() => {
     const initSession = async () => {
+      // Repair: if Google OAuth returned with an #access_token hash (implicit flow),
+      // let the Supabase client parse it, then strip the token hash from the URL
+      if (typeof window !== 'undefined' && window.location.hash.includes('access_token=')) {
+        try {
+          await supabase.auth.getSession();
+        } catch {
+          // ignore parse errors
+        }
+        const cleaned = window.location.pathname + window.location.search;
+        window.history.replaceState(null, '', cleaned || '/');
+      }
+
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = decryptSession(stored);

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
@@ -53,6 +53,12 @@ export default function LoginPage() {
       if (!session?.user?.email) {
         await new Promise((r) => setTimeout(r, 450));
         session = (await supabase.auth.getSession()).data.session;
+      }
+
+      // Strip the token hash / query from the address bar so the token
+      // never lingers in the browser history or view-source
+      if (window.location.hash.includes('access_token=')) {
+        window.history.replaceState(null, '', window.location.pathname);
       }
 
       if (!session?.user?.email) {
@@ -157,7 +163,7 @@ export default function LoginPage() {
     setErrorMessage(null);
     setAccountNotFound(false);
 
-    let targetEmail = email.trim().toLowerCase();
+    const targetEmail = email.trim().toLowerCase();
     if (!targetEmail) {
       setErrorMessage('Please enter your email address.');
       setIsSubmitting(false);

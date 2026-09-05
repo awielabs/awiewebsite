@@ -60,6 +60,11 @@ export default function SignupPage() {
         session = (await supabase.auth.getSession()).data.session;
       }
 
+      // Strip the token hash from the address bar after it has been consumed
+      if (window.location.hash.includes('access_token=')) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+
       if (!session?.user?.email) {
         setIsSubmitting(false);
         return;
