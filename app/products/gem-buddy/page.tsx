@@ -345,39 +345,7 @@ function GemBuddyContent() {
               </p>
             </div>
 
-            {/* Color Option Selector */}
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-between flex-wrap gap-3">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-lg bg-blue-50 text-[#2563EB]">
-                  <Palette className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Available Color</span>
-                  <span className="text-xs sm:text-sm font-black text-slate-900">{activeColorObj.name}</span>
-                </div>
-              </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                {GEM_COLOR_OPTIONS.map((c) => {
-                  const isSelected = selectedColor === c.id;
-                  return (
-                    <button
-                      key={c.id}
-                      type="button"
-                      onClick={() => setSelectedColor(c.id)}
-                      className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                        isSelected
-                          ? 'border-[#2563EB] bg-blue-50 text-[#2563EB] ring-2 ring-[#2563EB]/25 font-black shadow-sm scale-105'
-                          : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-slate-100'
-                      }`}
-                    >
-                      <span className={`w-2.5 h-2.5 rounded-full ${c.dotClass} ${isSelected ? 'ring-1 ring-[#2563EB]' : ''}`} />
-                      <span>{c.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
 
             {/* Respective GEM Version Pricing & Pre-Booking Card (Highlighted on active tab) */}
             {selectedVersion === 'v1' ? (
