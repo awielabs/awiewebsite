@@ -1,4 +1,4 @@
-﻿export type GemVersion = 'v1' | 'v2';
+export type GemVersion = 'v1' | 'v2';
 
 export interface GemProductConfig {
   version: GemVersion;
@@ -20,8 +20,8 @@ export const GEM_PRODUCTS: Record<GemVersion, GemProductConfig> = {
     tagline: 'Autonomous OLED Desktop Companion with Li-ion Power Core',
     launchPrice: 1200,
     regularPrice: 1300,
-    bookingAmount: 199,
-    remainingAmount: 1001, // 1200 - 199
+    bookingAmount: 1200,
+    remainingAmount: 0, // 1200 - 1200
     specs: [
       '1.3" 128x64 Contrast OLED Eyes',
       'Dual-Core 240MHz ESP32 Architecture',
@@ -37,8 +37,8 @@ export const GEM_PRODUCTS: Record<GemVersion, GemProductConfig> = {
     tagline: 'Next-Gen Companion with MAX30102 PPG Heart Rate & Radar Sentinel',
     launchPrice: 1650,
     regularPrice: 1750,
-    bookingAmount: 299,
-    remainingAmount: 1351, // 1650 - 299
+    bookingAmount: 1650,
+    remainingAmount: 0, // 1650 - 1650
     specs: [
       'Optical MAX30102 PPG Pulse & SpO2 Sensor',
       'Desk Security Motion Radar Sentinel',

@@ -1046,8 +1046,8 @@ function GemBuddyContent() {
           </div>
         </div>
 
-        {/* Final Pre-Booking Registration CTA Banner with Signature Dark Blue Gradient Hover */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50/90 via-white to-blue-50/70 hover:bg-[#0B1528] border border-blue-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden text-center space-y-6">
+        {/* Final Registration CTA Banner with Signature Dark Blue Gradient Hover */}
+        <div className="mt-16 sm:mt-24 pb-12 sm:pb-24 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-blue-50/90 via-white to-blue-50/70 hover:bg-[#0B1528] border border-blue-200 hover:border-[#2563EB] shadow-xl hover:shadow-2xl hover:shadow-[#2563EB]/25 transition-all duration-700 ease-out group relative overflow-hidden text-center space-y-6">
           {/* Smooth Dark Blue Gradient Overlay */}
           <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B1528] via-[#0D1B36] to-[#081022] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none rounded-3xl" />
           <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out" />
@@ -1076,7 +1076,7 @@ function GemBuddyContent() {
                 }}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:scale-105 active:scale-95"
               >
-                <span>Register Pre-Booking for GEM {selectedVersion === 'v1' ? 'v1 (₹199)' : 'v2 (₹299)'}</span>
+                <span>Buy GEM {selectedVersion === 'v1' ? 'v1 (₹1,200)' : 'v2 (₹1,650)'}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
@@ -1093,7 +1093,7 @@ function GemBuddyContent() {
               href="/gem-booking/lookup"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white group-hover:bg-[#0F1B33] border border-slate-200 group-hover:border-blue-900/60 text-slate-700 group-hover:text-slate-200 hover:text-slate-900 font-bold text-sm transition-all duration-500 shadow-sm"
             >
-              <span>Track Existing Booking</span>
+              <span>Track Existing Order</span>
             </Link>
           </div>
         </div>
