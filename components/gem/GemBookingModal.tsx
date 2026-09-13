@@ -275,14 +275,11 @@ export default function GemBookingModal({
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-extrabold text-slate-900 text-sm">GEM v1 Standard</span>
                       <span className="px-2 py-0.5 rounded-full bg-blue-600 text-white font-black text-[10px]">
-                        ₹199
+                        ₹1,200
                       </span>
                     </div>
                     <div className="text-[11px] text-slate-500 font-medium">
                       Launch price: ₹1,200
-                    </div>
-                    <div className="text-[10px] text-emerald-600 font-bold mt-1">
-                      ₹1,001 remaining balance
                     </div>
                   </button>
 
@@ -299,14 +296,11 @@ export default function GemBookingModal({
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-extrabold text-slate-900 text-sm">GEM v2 Biometric</span>
                       <span className="px-2 py-0.5 rounded-full bg-blue-600 text-white font-black text-[10px]">
-                        ₹299
+                        ₹1,650
                       </span>
                     </div>
                     <div className="text-[11px] text-slate-500 font-medium">
                       Launch price: ₹1,650
-                    </div>
-                    <div className="text-[10px] text-emerald-600 font-bold mt-1">
-                      ₹1,351 remaining balance
                     </div>
                   </button>
 
@@ -317,12 +311,10 @@ export default function GemBookingModal({
               <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-1">
                 <div className="font-bold flex items-center gap-1.5 text-amber-800">
                   <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
-                  <span>Pre-Booking Policy & Price Guarantee</span>
+                  <span>Purchase Policy & Price Guarantee</span>
                 </div>
                 <p className="text-[11px] text-amber-700 leading-relaxed font-medium">
-                  • <strong>Pre-booking amount is adjusted against the final product price.</strong><br />
-                  • You pay only <strong>₹{config.bookingAmount}</strong> now to reserve your slot.<br />
-                  • Remaining balance of <strong>₹{config.remainingAmount}</strong> is payable when your device is ready for dispatch.<br />
+                  • You pay <strong>₹{config.bookingAmount}</strong> now to order your device at the special launch price.<br />
                   • Delivery charges are additional.
                 </p>
               </div>
@@ -469,7 +461,7 @@ export default function GemBookingModal({
                   ) : (
                     <>
                       <CreditCard className="w-4 h-4" />
-                      <span>Pay ₹{config.bookingAmount} Pre-Booking via Razorpay</span>
+                      <span>Pay ₹{config.bookingAmount} via Razorpay</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
