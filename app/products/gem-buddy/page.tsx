@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -323,7 +323,7 @@ function GemBuddyContent() {
               </p>
             </div>
 
-            {/* Launch Notice & Pre-Booking Guarantee Box */}
+            {/* Launch Notice & Sale Guarantee Box */}
             <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-indigo-50/60 to-blue-50/90 border border-blue-200 shadow-sm space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -331,23 +331,23 @@ function GemBuddyContent() {
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <span className="font-extrabold text-slate-900 text-xs sm:text-sm tracking-tight">
-                    LIMITED PRE-BOOKING SLOTS
+                    LIMITED TIME SALE
                   </span>
                 </div>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black tracking-wider uppercase border border-emerald-300/60">
-                  Pre-Booking Open
+                  Sale Active
                 </span>
               </div>
               <p className="text-xs text-slate-600 font-medium leading-relaxed">
-                • <strong>Pre-booking amount will be adjusted against the final product price.</strong><br />
-                • The pre-booking amount is a reservation deposit and not the full product price.<br />
+                • <strong>Special launch pricing available for a limited time.</strong><br />
+                • Secure your GEM companion now before the price increases.<br />
                 • <em>Delivery charges are additional.</em>
               </p>
             </div>
 
 
 
-            {/* Respective GEM Version Pricing & Pre-Booking Card (Highlighted on active tab) */}
+            {/* Respective GEM Version Pricing Card (Highlighted on active tab) */}
             {selectedVersion === 'v1' ? (
               <div className="p-4 sm:p-5 rounded-2xl border-2 border-[#2563EB] bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-blue-50/90 shadow-md shadow-blue-500/10 ring-2 ring-blue-500/20 relative transition-all">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -357,24 +357,17 @@ function GemBuddyContent() {
                       Active Selection
                     </span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-md bg-[#2563EB] text-white font-black text-xs sm:text-sm shadow-sm shadow-[#2563EB]/25">
-                    ₹199 Pre-Booking
-                  </span>
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <span className="text-2xl sm:text-3xl font-black text-slate-900">₹1,200</span>
                     <span className="text-sm text-slate-400 font-bold line-through">₹1,300</span>
                     <span className="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      Launch Price Offer
+                      Limited Time Sale
                     </span>
                   </div>
                   <div className="text-xs text-slate-600 font-medium">
-                    Normal price: <span className="font-bold text-slate-700">₹1,300</span> after launch offer period
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-blue-700 font-extrabold pt-1">
-                    <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                    <span>₹1,001 payable before delivery (adjusted against ₹1,200 launch price)</span>
+                    Normal price: <span className="font-bold text-slate-700">₹1,300</span> after sale period
                   </div>
                 </div>
               </div>
@@ -387,24 +380,17 @@ function GemBuddyContent() {
                       Active Selection
                     </span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-md bg-[#2563EB] text-white font-black text-xs sm:text-sm shadow-sm shadow-[#2563EB]/25">
-                    ₹299 Pre-Booking
-                  </span>
                 </div>
                 <div className="space-y-1">
                   <div className="flex items-baseline gap-2 flex-wrap">
                     <span className="text-2xl sm:text-3xl font-black text-slate-900">₹1,650</span>
                     <span className="text-sm text-slate-400 font-bold line-through">₹1,750</span>
                     <span className="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                      Launch Price Offer
+                      Limited Time Sale
                     </span>
                   </div>
                   <div className="text-xs text-slate-600 font-medium">
-                    Normal price: <span className="font-bold text-slate-700">₹1,750</span> after launch offer period
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-blue-700 font-extrabold pt-1">
-                    <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                    <span>₹1,351 payable before delivery (adjusted against ₹1,650 launch price)</span>
+                    Normal price: <span className="font-bold text-slate-700">₹1,750</span> after sale period
                   </div>
                 </div>
               </div>
@@ -473,7 +459,7 @@ function GemBuddyContent() {
                     }}
                     className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <span>Pre-Book GEM {selectedVersion === 'v1' ? 'v1 (₹199)' : 'v2 (₹299)'}</span>
+                    <span>Buy GEM {selectedVersion === 'v1' ? 'v1 (₹1,200)' : 'v2 (₹1,650)'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 ) : (
@@ -481,7 +467,7 @@ function GemBuddyContent() {
                     href="/login"
                     className="flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 rounded-xl bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-sm transition-all shadow-lg shadow-[#2563EB]/25 hover:shadow-xl hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98]"
                   >
-                    <span>Please Log In to Pre-Book</span>
+                    <span>Please Log In to Buy</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 )}
@@ -494,21 +480,6 @@ function GemBuddyContent() {
                   <span>Live Simulator</span>
                 </a>
               </div>
-
-                {/* Already Pre-Booked Customer Link */}
-                <div className="text-center space-y-1.5">
-                  <Link
-                    href="/gem-booking/lookup"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
-                  >
-                    <Search className="w-3.5 h-3.5" />
-                    <span>Check Your Booking Status</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <p className="text-[10px] text-slate-500 font-medium">
-                    Enter your Booking ID (from your confirmation email) to track production, shipping &amp; balance payment.
-                  </p>
-                </div>
             </div>
 
           </div>
