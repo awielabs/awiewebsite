@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lock, 
-  Unlock, 
   Sparkles, 
   Heart, 
   Gift, 
@@ -14,29 +12,31 @@ import {
   Volume2, 
   VolumeX, 
   Flame, 
-  ShieldCheck, 
   ArrowRight, 
-  CheckCircle, 
   AlertCircle,
-  Play,
-  Pause,
-  ChevronLeft,
-  ChevronRight,
-  RotateCcw,
   Star,
-  Award,
-  Crown
+  GraduationCap,
+  Stethoscope,
+  Download,
+  ExternalLink,
+  MapPin,
+  Phone,
+  User,
+  CheckCircle2,
+  Send,
+  Play,
+  RotateCcw
 } from 'lucide-react';
 
 const SECRET_CODE = 'LAR1019';
 
-// Interactive wishes hidden in balloons
+// Interactive wishes hidden in balloons tailored for nursing student Larissa
 const BALLOONS = [
-  { id: 1, color: 'from-pink-500 to-rose-600', text: 'Endless Joy & Happiness 🌸' },
-  { id: 2, color: 'from-blue-500 to-indigo-600', text: 'Unstoppable Success & Vision 🚀' },
-  { id: 3, color: 'from-amber-400 to-yellow-600', text: 'Golden Health & Good Vibes ✨' },
-  { id: 4, color: 'from-purple-500 to-violet-700', text: 'Extraordinary Milestones Ahead 🏆' },
-  { id: 5, color: 'from-emerald-400 to-teal-600', text: 'Infinite Creative Inspiration 💡' },
+  { id: 1, color: 'from-pink-500 to-rose-600', text: 'Future Top Nurse & Lifesaver 🩺' },
+  { id: 2, color: 'from-blue-500 to-indigo-600', text: 'Acing Your Final Year With Honors 🎓' },
+  { id: 3, color: 'from-amber-400 to-yellow-600', text: 'Endless Joy, Peace & Radiant Smiles 🌸' },
+  { id: 4, color: 'from-purple-500 to-violet-700', text: 'Golden Health & Endless Blessings ✨' },
+  { id: 5, color: 'from-emerald-400 to-teal-600', text: 'Cherished Friendship Forever 🌟' },
 ];
 
 export default function LarissaBirthdayPage() {
@@ -48,25 +48,41 @@ export default function LarissaBirthdayPage() {
   const [isMuted, setIsMuted] = useState(false);
   const [candlesBlown, setCandlesBlown] = useState(false);
   const [poppedBalloons, setPoppedBalloons] = useState<number[]>([]);
-  const [activeFrame, setActiveFrame] = useState(1);
-  const [isPlayingFrames, setIsPlayingFrames] = useState(false);
+  const [videoEnded, setVideoEnded] = useState(false);
+  
+  // Gift delivery form state
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
+    note: ''
+  });
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState('');
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const frameIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const videoMobileRef = useRef<HTMLVideoElement | null>(null);
+  const videoDesktopRef = useRef<HTMLVideoElement | null>(null);
+  const giftSectionRef = useRef<HTMLDivElement | null>(null);
 
   // Check sessionStorage on initial load
   useEffect(() => {
     try {
-      const auth = sessionStorage.getItem('awie_larissa_verified');
+      const auth = sessionStorage.getItem('larissa_bday_verified');
       if (auth === 'true') {
         setIsUnlocked(true);
       }
     } catch {
-      // ignore in SSR / restricted storage
+      // ignore in restricted environments
     }
     setHasCheckedSession(true);
   }, []);
 
-  // Web Audio celebration synthesizer chime
+  // Web Audio celebration chime
   const playChime = (type: 'success' | 'error' | 'pop' | 'blow') => {
     if (isMuted || typeof window === 'undefined') return;
     try {
@@ -103,17 +119,16 @@ export default function LarissaBirthdayPage() {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.12);
-        gain.gain.setValueAtTime(0.25, ctx.currentTime);
+        osc.frequency.setValueAtTime(750, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(280, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.22, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + 0.13);
       } else if (type === 'blow') {
-        // Wind / swoosh effect
-        const bufferSize = ctx.sampleRate * 0.5;
+        const bufferSize = ctx.sampleRate * 0.45;
         const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
@@ -123,17 +138,17 @@ export default function LarissaBirthdayPage() {
         noise.buffer = buffer;
         const filter = ctx.createBiquadFilter();
         filter.type = 'bandpass';
-        filter.frequency.value = 800;
+        filter.frequency.value = 750;
         const gain = ctx.createGain();
         gain.gain.setValueAtTime(0.18, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
         noise.connect(filter);
         filter.connect(gain);
         gain.connect(ctx.destination);
         noise.start();
       }
     } catch {
-      // AudioContext not supported or user didn't interact
+      // AudioContext not supported
     }
   };
 
@@ -169,16 +184,16 @@ export default function LarissaBirthdayPage() {
       rotSpeed: number;
     }> = [];
 
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 85; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height - canvas.height,
         size: Math.random() * 10 + 5,
         color: colors[Math.floor(Math.random() * colors.length)],
         speedX: (Math.random() - 0.5) * 3,
-        speedY: Math.random() * 3 + 2,
+        speedY: Math.random() * 2.8 + 1.8,
         rotation: Math.random() * 360,
-        rotSpeed: (Math.random() - 0.5) * 6
+        rotSpeed: (Math.random() - 0.5) * 5
       });
     }
 
@@ -214,20 +229,6 @@ export default function LarissaBirthdayPage() {
     };
   }, [isUnlocked]);
 
-  // Handle frame-by-frame player autoplay
-  useEffect(() => {
-    if (isPlayingFrames) {
-      frameIntervalRef.current = setInterval(() => {
-        setActiveFrame((prev) => (prev >= 6 ? 1 : prev + 1));
-      }, 1400);
-    } else {
-      if (frameIntervalRef.current) clearInterval(frameIntervalRef.current);
-    }
-    return () => {
-      if (frameIntervalRef.current) clearInterval(frameIntervalRef.current);
-    };
-  }, [isPlayingFrames]);
-
   // Handle verification form submit
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
@@ -238,7 +239,7 @@ export default function LarissaBirthdayPage() {
     if (trimmed === SECRET_CODE) {
       playChime('success');
       try {
-        sessionStorage.setItem('awie_larissa_verified', 'true');
+        sessionStorage.setItem('larissa_bday_verified', 'true');
       } catch {
         // ignore
       }
@@ -246,14 +247,14 @@ export default function LarissaBirthdayPage() {
     } else {
       playChime('error');
       setIsShaking(true);
-      setErrorMessage('Access Denied: Invalid Security Code. Only authorized guests can enter.');
+      setErrorMessage('Access Denied: Incorrect passcode. Please try again.');
       setTimeout(() => setIsShaking(false), 600);
     }
   };
 
   const handleLock = () => {
     try {
-      sessionStorage.removeItem('awie_larissa_verified');
+      sessionStorage.removeItem('larissa_bday_verified');
     } catch {
       // ignore
     }
@@ -277,68 +278,56 @@ export default function LarissaBirthdayPage() {
     }
   };
 
+  const handleVideoEnded = () => {
+    setVideoEnded(true);
+    playChime('success');
+    if (giftSectionRef.current) {
+      giftSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleAddressSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError('');
+
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.address.trim()) {
+      setFormError('Please enter your name, contact number, and delivery address.');
+      return;
+    }
+
+    setFormSubmitting(true);
+    try {
+      const res = await fetch('/api/larissa-gift', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFormSubmitted(true);
+        playChime('success');
+      } else {
+        setFormError(data.error || 'Failed to submit details. Please try again.');
+      }
+    } catch {
+      // If offline or network issue, still gracefully accept
+      setFormSubmitted(true);
+      playChime('success');
+    } finally {
+      setFormSubmitting(false);
+    }
+  };
+
   if (!hasCheckedSession) {
     return <div className="min-h-screen bg-[#070B14]" />;
   }
-
-  // Storyboard Frame Mockups ready for the upcoming frame assets
-  const frameMoments = [
-    {
-      num: 1,
-      title: 'Chapter 01: The Founder’s Spark',
-      subtitle: 'Where bold ideas transformed into engineering brilliance.',
-      caption: 'Every great enterprise starts with visionary clarity and unshakable conviction.',
-      gradient: 'from-blue-600 to-indigo-900',
-      badge: 'Vision & Genesis'
-    },
-    {
-      num: 2,
-      title: 'Chapter 02: Building With Heart & Grit',
-      subtitle: 'Leading teams, breaking boundaries, and scaling AWIE.',
-      caption: 'True leadership is inspiring everyone around you to reach their highest potential.',
-      gradient: 'from-purple-600 to-pink-900',
-      badge: 'Leadership & Soul'
-    },
-    {
-      num: 3,
-      title: 'Chapter 03: Precision & Innovation',
-      subtitle: 'Merging cutting-edge tech with purposeful impact.',
-      caption: 'Crafting hardware, software, and systems that leave a permanent legacy.',
-      gradient: 'from-amber-600 to-rose-950',
-      badge: 'Engineering Excellence'
-    },
-    {
-      num: 4,
-      title: 'Chapter 04: The Guiding Light',
-      subtitle: 'Standing tall as the pillar and soul of AWIE Labs.',
-      caption: 'Through every complex challenge, your optimism lights the way forward.',
-      gradient: 'from-teal-600 to-blue-950',
-      badge: 'Strength & Guidance'
-    },
-    {
-      num: 5,
-      title: 'Chapter 05: Celebrating You Today',
-      subtitle: 'A day dedicated entirely to honouring your journey.',
-      caption: 'May this year shower you with unforgettable victories and endless smiles.',
-      gradient: 'from-rose-500 to-purple-900',
-      badge: 'Birthday Celebration'
-    },
-    {
-      num: 6,
-      title: 'Chapter 06: To Infinite Horizons',
-      subtitle: 'The greatest chapters are still to be written.',
-      caption: 'Happy Birthday, Founder Larissa! The best is truly yet to come.',
-      gradient: 'from-yellow-500 to-amber-900',
-      badge: 'Endless Possibilities'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-[#070B14] text-slate-100 relative overflow-hidden font-sans selection:bg-[#F59E0B] selection:text-black">
       {/* Dynamic Background Stars and Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-amber-500/15 via-rose-500/10 to-transparent rounded-full blur-[120px]" />
-        <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-blue-600/15 via-purple-600/10 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-gradient-to-tl from-pink-600/15 via-purple-600/10 to-transparent rounded-full blur-[140px]" />
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
@@ -353,17 +342,17 @@ export default function LarissaBirthdayPage() {
       {/* Ambient Top Controls */}
       <div className="relative z-40 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-500 to-blue-600 p-[1.5px] shadow-lg shadow-amber-500/20">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-400 to-amber-400 p-[1.5px] shadow-lg shadow-pink-500/20">
             <div className="w-full h-full bg-[#0B0F19] rounded-[14px] flex items-center justify-center">
-              <Crown className="w-5 h-5 text-amber-400 animate-pulse" />
+              <Sparkles className="w-5 h-5 text-pink-400 animate-pulse" />
             </div>
           </div>
           <div>
             <span className="text-xs font-mono tracking-widest text-amber-400 uppercase font-black block">
-              AWIE • SPECIAL EDITION
+              SPECIAL CELEBRATION
             </span>
             <span className="text-sm font-black tracking-tight text-white flex items-center gap-1.5">
-              Founder Larissa Tribute
+              For Larissa ✨
             </span>
           </div>
         </div>
@@ -372,7 +361,7 @@ export default function LarissaBirthdayPage() {
           <button
             onClick={() => setIsMuted(!isMuted)}
             className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 transition-all shadow-md"
-            title={isMuted ? 'Unmute celebration audio' : 'Mute celebration audio'}
+            title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
             aria-label="Toggle sound"
           >
             {isMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
@@ -384,7 +373,7 @@ export default function LarissaBirthdayPage() {
               className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-xs font-bold text-slate-300 hover:text-rose-400 hover:border-rose-500/50 transition-all shadow-md"
             >
               <Lock className="w-3.5 h-3.5" />
-              <span>Lock Portal</span>
+              <span>Lock</span>
             </button>
           )}
         </div>
@@ -395,7 +384,7 @@ export default function LarissaBirthdayPage() {
         <AnimatePresence mode="wait">
           {!isUnlocked ? (
             /* ======================================================== */
-            /* 1. VIP PASSCODE GATEKEEPER                               */
+            /* 1. PASSCODE GATEKEEPER (No hints, clean mystery box)     */
             /* ======================================================== */
             <motion.div
               key="locked-screen"
@@ -407,56 +396,56 @@ export default function LarissaBirthdayPage() {
             >
               <div 
                 className={`w-full max-w-md p-8 sm:p-10 rounded-3xl bg-slate-900/90 backdrop-blur-2xl border ${
-                  errorMessage ? 'border-rose-500 shadow-2xl shadow-rose-500/20' : 'border-slate-800/90 shadow-2xl shadow-blue-500/10'
+                  errorMessage ? 'border-rose-500 shadow-2xl shadow-rose-500/20' : 'border-slate-800/90 shadow-2xl shadow-pink-500/10'
                 } relative overflow-hidden transition-all duration-300 ${isShaking ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}
               >
                 {/* Subtle Card Glow */}
-                <div className="absolute top-0 right-0 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-44 h-44 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-44 h-44 bg-rose-500/10 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
 
                 <div className="text-center space-y-6 relative z-10">
                   {/* Gatekeeper Icon Badge */}
-                  <div className="mx-auto w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500/20 via-rose-500/20 to-blue-500/20 border border-amber-500/30 flex items-center justify-center p-3 shadow-inner">
+                  <div className="mx-auto w-20 h-20 rounded-3xl bg-gradient-to-tr from-pink-500/20 via-rose-500/20 to-amber-500/20 border border-pink-500/30 flex items-center justify-center p-3 shadow-inner">
                     <div className="w-full h-full rounded-2xl bg-gradient-to-br from-[#0E1526] to-[#0A0D18] flex items-center justify-center shadow-lg">
-                      <Lock className="w-8 h-8 text-amber-400 animate-pulse" />
+                      <Lock className="w-8 h-8 text-pink-400 animate-pulse" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[11px] font-black text-amber-300 uppercase tracking-widest">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Founder Access Portal</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-[11px] font-black text-pink-300 uppercase tracking-widest">
+                      <Sparkles className="w-3.5 h-3.5 text-pink-400" />
+                      <span>Special Surprise</span>
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                      Exclusive Birthday Surprise
+                      A Special Surprise For Larissa ✨
                     </h1>
                     <p className="text-xs sm:text-sm text-slate-400 max-w-xs mx-auto leading-relaxed">
-                      This page contains a private celebration for Founder Larissa. Please enter your verification passcode to unlock.
+                      Enter your private access passcode to reveal the birthday surprise prepared just for you.
                     </p>
                   </div>
 
-                  {/* Form */}
+                  {/* Form - with NO hints */}
                   <form onSubmit={handleVerify} className="space-y-4 pt-2">
                     <div className="space-y-1.5 text-left">
                       <label className="text-xs font-bold text-slate-300 tracking-wider uppercase block">
-                        Security Verification Code
+                        Secret Passcode
                       </label>
                       <div className="relative">
                         <input
-                          type="text"
+                          type="password"
                           value={passcode}
                           onChange={(e) => {
-                            setPasscode(e.target.value.toUpperCase());
+                            setPasscode(e.target.value);
                             if (errorMessage) setErrorMessage('');
                           }}
-                          placeholder="e.g. LAR••••"
-                          maxLength={12}
+                          placeholder="••••••••"
+                          maxLength={16}
                           autoFocus
                           className={`w-full px-5 py-4 rounded-2xl bg-[#090D1A] border ${
                             errorMessage 
                               ? 'border-rose-500 focus:ring-2 focus:ring-rose-500/50' 
-                              : 'border-slate-700/80 focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20'
-                          } text-center font-mono text-xl sm:text-2xl tracking-[0.25em] font-black text-amber-300 placeholder:text-slate-600 focus:outline-none transition-all shadow-inner`}
+                              : 'border-slate-700/80 focus:border-pink-400 focus:ring-2 focus:ring-pink-400/20'
+                          } text-center font-mono text-xl sm:text-2xl tracking-[0.25em] font-black text-pink-300 placeholder:text-slate-600 focus:outline-none transition-all shadow-inner`}
                         />
                       </div>
                     </div>
@@ -475,17 +464,17 @@ export default function LarissaBirthdayPage() {
 
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-blue-600 hover:from-amber-400 hover:via-rose-400 hover:to-blue-500 text-slate-950 font-black text-sm tracking-wide uppercase transition-all shadow-xl shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group cursor-pointer"
+                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:via-rose-400 hover:to-amber-400 text-slate-950 font-black text-sm tracking-wide uppercase transition-all shadow-xl shadow-pink-500/20 hover:shadow-pink-500/30 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group cursor-pointer"
                     >
-                      <ShieldCheck className="w-5 h-5 text-slate-950" />
-                      <span>Unlock Birthday Wish</span>
+                      <Sparkles className="w-5 h-5 text-slate-950" />
+                      <span>Unlock My Surprise</span>
                       <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
 
                   <div className="pt-2 border-t border-slate-800/80 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                    <ShieldCheck className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Protected Founder Route • AWIE Labs</span>
+                    <Heart className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Dedicated with love &amp; joy to Larissa</span>
                   </div>
                 </div>
               </div>
@@ -503,17 +492,16 @@ export default function LarissaBirthdayPage() {
             >
               {/* Hero Banner */}
               <div className="text-center space-y-6 pt-4 relative">
-                {/* Crown & Floating Glow */}
                 <motion.div 
                   initial={{ y: -20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                   className="flex justify-center"
                 >
-                  <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-purple-500/20 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-black tracking-widest uppercase shadow-xl shadow-amber-500/10 backdrop-blur-md">
-                    <Crown className="w-4 h-4 text-amber-400 animate-bounce" />
-                    <span>AWIE FOUNDER CELEBRATION</span>
-                    <Sparkles className="w-4 h-4 text-rose-400" />
+                  <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-500/20 via-rose-500/20 to-amber-500/20 border border-pink-400/40 text-pink-300 text-xs sm:text-sm font-black tracking-widest uppercase shadow-xl shadow-pink-500/10 backdrop-blur-md">
+                    <PartyPopper className="w-4 h-4 text-pink-400 animate-bounce" />
+                    <span>A SPECIAL BIRTHDAY SURPRISE • FROM SHOVIN</span>
+                    <Sparkles className="w-4 h-4 text-amber-400" />
                   </div>
                 </motion.div>
 
@@ -522,21 +510,21 @@ export default function LarissaBirthdayPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="space-y-2"
+                  className="space-y-3"
                 >
                   <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight">
                     Happy Birthday,{' '}
-                    <span className="bg-gradient-to-r from-amber-300 via-rose-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(245,158,11,0.4)]">
+                    <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(244,63,94,0.4)]">
                       Larissa!
                     </span>{' '}
                     🎂
                   </h1>
-                  <p className="text-slate-300 text-base sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-                    Honouring our extraordinary Co-Founder, brilliant innovator, and the soul driving AWIE forward every single day.
+                  <p className="text-slate-300 text-base sm:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
+                    Celebrating your special day, your contagious bright energy, and cheering you on as you conquer your final year of nursing school! 🩺✨
                   </p>
                 </motion.div>
 
-                {/* Leader Badges */}
+                {/* Personalized Friend & Nursing Badges */}
                 <motion.div 
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -544,30 +532,309 @@ export default function LarissaBirthdayPage() {
                   className="flex flex-wrap items-center justify-center gap-2.5 pt-2"
                 >
                   {[
-                    { label: 'Visionary Co-Founder', icon: Crown, color: 'text-amber-400 border-amber-400/30 bg-amber-400/10' },
-                    { label: 'Innovator & Leader', icon: Star, color: 'text-blue-400 border-blue-400/30 bg-blue-400/10' },
-                    { label: 'Heart & Soul of AWIE', icon: Heart, color: 'text-rose-400 border-rose-400/30 bg-rose-400/10' },
-                    { label: 'Dream Builder', icon: Award, color: 'text-purple-400 border-purple-400/30 bg-purple-400/10' }
-                  ].map((badge) => {
-                    const Icon = badge.icon;
-                    return (
-                      <span
-                        key={badge.label}
-                        className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md ${badge.color}`}
+                    { label: 'Future Registered Nurse 🩺', color: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/10' },
+                    { label: 'Final Year Champion 🎓', color: 'text-blue-400 border-blue-400/30 bg-blue-400/10' },
+                    { label: 'Healing Hands & Big Heart ❤️', color: 'text-rose-400 border-rose-400/30 bg-rose-400/10' },
+                    { label: 'Wonderful Friend 🌟', color: 'text-amber-400 border-amber-400/30 bg-amber-400/10' }
+                  ].map((badge) => (
+                    <span
+                      key={badge.label}
+                      className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md ${badge.color}`}
+                    >
+                      <span>{badge.label}</span>
+                    </span>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* ======================================================== */}
+              {/* VIDEO PLAYER SECTION (9:16 Mobile, 16:9 Desktop)         */}
+              {/* ======================================================== */}
+              <motion.div
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+                className="max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-pink-500/30 shadow-2xl relative overflow-hidden"
+              >
+                <div className="text-center space-y-2 mb-6">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-mono font-bold text-pink-400 uppercase tracking-widest">
+                    <Play className="w-3.5 h-3.5 fill-pink-400" />
+                    <span>Watch Your Special Birthday Video</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                    Memories in Motion 🎬
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-400">
+                    Turn your volume on and press play!
+                  </p>
+                </div>
+
+                {/* Mobile Video Container (9:16 Aspect Ratio) */}
+                <div className="block md:hidden w-full max-w-xs mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-pink-500/30 bg-black relative">
+                  <video
+                    ref={videoMobileRef}
+                    src="/scr/916.mp4"
+                    controls
+                    playsInline
+                    className="w-full h-full object-cover"
+                    onEnded={handleVideoEnded}
+                  />
+                </div>
+
+                {/* Desktop Video Container (16:9 Aspect Ratio) */}
+                <div className="hidden md:block w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-pink-500/30 bg-black relative">
+                  <video
+                    ref={videoDesktopRef}
+                    src="/scr/169.mp4"
+                    controls
+                    playsInline
+                    className="w-full h-full object-cover"
+                    onEnded={handleVideoEnded}
+                  />
+                </div>
+
+                <div className="mt-4 text-center">
+                  <button
+                    onClick={() => {
+                      if (giftSectionRef.current) {
+                        giftSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    className="text-xs text-pink-300 hover:text-pink-200 underline underline-offset-4 font-semibold"
+                  >
+                    Skip to the recreation photo &amp; surprise gift ↓
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* ======================================================== */}
+              {/* RECREATION PHOTO FRAME & PHYSICAL GIFT SECTION           */}
+              {/* ======================================================== */}
+              <div ref={giftSectionRef} className="space-y-12">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="relative z-10 space-y-6 text-center">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-mono font-bold text-amber-300 uppercase tracking-widest">
+                      <Gift className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Special Photo Recreation</span>
+                    </div>
+
+                    <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                      Your Framed Recreation Portrait 🖼️
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto">
+                      A treasured recreation captured and styled for your birthday. You can download the high-resolution photo or request the physical framed edition delivered right to your doorstep!
+                    </p>
+
+                    {/* Luxurious Photo Frame Mockup */}
+                    <div className="relative mx-auto max-w-md p-4 sm:p-5 rounded-3xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 shadow-2xl shadow-amber-500/20">
+                      <div className="p-2 sm:p-2.5 rounded-2xl bg-[#090D1A] shadow-inner">
+                        <div className="relative rounded-xl overflow-hidden border border-white/10 group">
+                          <a href="https://postimg.cc/bSwrFrnC" target="_blank" rel="noopener noreferrer">
+                            <img
+                              src="/Larissa-Rcreate.png"
+                              alt="Larissa-Rcreate"
+                              className="w-full h-auto object-contain rounded-lg transition-transform duration-500 group-hover:scale-102"
+                            />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Frame Plate Label */}
+                      <div className="mt-3 py-1.5 px-4 rounded-xl bg-slate-900/90 border border-amber-400/50 text-center">
+                        <span className="text-[11px] font-mono font-bold text-amber-300 tracking-widest uppercase">
+                          LARISSA • SPECIAL EDITION
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons for the Photo */}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                      <a
+                        href="/Larissa-Rcreate.png"
+                        download="Larissa-Recreate-Portrait.png"
+                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2"
                       >
-                        <Icon className="w-3.5 h-3.5" />
-                        <span>{badge.label}</span>
-                      </span>
-                    );
-                  })}
+                        <Download className="w-4 h-4 text-slate-950" />
+                        <span>Download Photo Frame</span>
+                      </a>
+
+                      <a
+                        href="https://postimg.cc/bSwrFrnC"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider transition-all border border-slate-700 inline-flex items-center justify-center gap-2"
+                      >
+                        <ExternalLink className="w-4 h-4 text-slate-300" />
+                        <span>View High-Res on PostImg</span>
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Delivery Address Form Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="max-w-2xl mx-auto p-8 rounded-3xl bg-slate-900/90 border border-rose-500/30 shadow-2xl relative overflow-hidden"
+                >
+                  <div className="space-y-3 text-center mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-xs font-mono font-bold text-rose-400 uppercase tracking-widest">
+                      <Gift className="w-3.5 h-3.5" />
+                      <span>Physical Framed Gift Delivery</span>
+                    </div>
+                    <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                      Receive This Physical Framed Photo in Your Hands 🎁
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
+                      Fill in your delivery address and contact details so this custom framed recreation portrait can be safely delivered straight into your hands very soon!
+                    </p>
+                  </div>
+
+                  {!formSubmitted ? (
+                    <form onSubmit={handleAddressSubmit} className="space-y-4 text-left">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <User className="w-3.5 h-3.5 text-pink-400" />
+                            <span>Full Name</span>
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            placeholder="Larissa"
+                            className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                            <Phone className="w-3.5 h-3.5 text-pink-400" />
+                            <span>Contact / WhatsApp Number</span>
+                          </label>
+                          <input
+                            type="tel"
+                            required
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            placeholder="Your phone number"
+                            className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-pink-400" />
+                          <span>Delivery Address (Flat / House No, Street, Area)</span>
+                        </label>
+                        <textarea
+                          rows={2}
+                          required
+                          value={formData.address}
+                          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                          placeholder="Your complete address..."
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors resize-none"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-bold text-slate-300">City</label>
+                          <input
+                            type="text"
+                            value={formData.city}
+                            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                            placeholder="City"
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-pink-400"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-bold text-slate-300">State</label>
+                          <input
+                            type="text"
+                            value={formData.state}
+                            onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                            placeholder="State"
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-pink-400"
+                          />
+                        </div>
+
+                        <div className="space-y-1">
+                          <label className="text-[11px] font-bold text-slate-300">PIN Code</label>
+                          <input
+                            type="text"
+                            value={formData.pincode}
+                            onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
+                            placeholder="PIN"
+                            className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-pink-400"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-slate-300">Special Note / Timing Preference (Optional)</label>
+                        <input
+                          type="text"
+                          value={formData.note}
+                          onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                          placeholder="e.g. Deliver on weekend, or message on WhatsApp before delivery"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-pink-400"
+                        />
+                      </div>
+
+                      {formError && (
+                        <p className="text-xs text-rose-400 font-semibold">{formError}</p>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={formSubmitting}
+                        className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:via-rose-400 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-pink-500/20 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        <Send className="w-4 h-4 text-slate-950" />
+                        <span>{formSubmitting ? 'Saving Details...' : 'Send Details for Delivery 🎁'}</span>
+                      </button>
+                    </form>
+                  ) : (
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center">
+                        <CheckCircle2 className="w-6 h-6" />
+                      </div>
+                      <h4 className="text-lg font-black text-emerald-300">
+                        Details Successfully Received! 🎉
+                      </h4>
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+                        Your framed recreation portrait is being prepared with immense love and care. It will be brought straight into your hands very soon! Wishing you the happiest and most wonderful day ahead! 💖
+                      </p>
+                    </motion.div>
+                  )}
                 </motion.div>
               </div>
 
               {/* Interactive Birthday Cake Card */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.45 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
                 className="max-w-xl mx-auto p-8 rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-amber-500/30 shadow-2xl relative overflow-hidden text-center group"
               >
                 <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -576,7 +843,7 @@ export default function LarissaBirthdayPage() {
                 <div className="relative z-10 space-y-6">
                   <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
                     <Cake className="w-4 h-4" />
-                    <span>Interactive Celebration Cake</span>
+                    <span>Birthday Cake &amp; Wish</span>
                   </div>
 
                   {/* Cake Graphic & Candles */}
@@ -603,23 +870,23 @@ export default function LarissaBirthdayPage() {
                               ☁️ wish made!
                             </motion.div>
                           )}
-                          <div className="w-2.5 h-8 bg-gradient-to-b from-amber-200 via-rose-300 to-blue-300 rounded-t-sm shadow-sm" />
+                          <div className="w-2.5 h-8 bg-gradient-to-b from-amber-200 via-rose-300 to-pink-300 rounded-t-sm shadow-sm" />
                         </div>
                       ))}
                     </div>
 
                     {/* Cake Tiers */}
-                    <div className="w-40 h-10 rounded-t-2xl bg-gradient-to-r from-rose-500 via-pink-400 to-rose-500 shadow-md flex items-center justify-center border-t border-rose-300">
-                      <span className="text-[10px] font-extrabold text-white tracking-widest uppercase">AWIE</span>
+                    <div className="w-40 h-10 rounded-t-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 shadow-md flex items-center justify-center border-t border-emerald-300">
+                      <span className="text-[10px] font-extrabold text-white tracking-widest uppercase">NURSING '26</span>
                     </div>
-                    <div className="w-52 h-14 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 shadow-lg flex items-center justify-center border-t border-amber-200">
-                      <span className="text-xs font-black text-slate-900 tracking-wider">FOUNDER LARISSA</span>
+                    <div className="w-52 h-14 bg-gradient-to-r from-pink-500 via-rose-400 to-pink-500 shadow-lg flex items-center justify-center border-t border-pink-200">
+                      <span className="text-xs font-black text-white tracking-wider">LARISSA</span>
                     </div>
-                    <div className="w-64 h-8 rounded-b-xl bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 shadow-xl flex items-center justify-center border-t border-blue-400">
+                    <div className="w-64 h-8 rounded-b-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 shadow-xl flex items-center justify-center border-t border-amber-300">
                       <div className="flex items-center gap-2">
-                        <Star className="w-3 h-3 text-yellow-300 fill-yellow-300" />
-                        <span className="text-[10px] font-mono font-bold text-white tracking-widest">★ 2026 ★</span>
-                        <Star className="w-3 h-3 text-yellow-300 fill-yellow-300" />
+                        <Star className="w-3 h-3 text-yellow-200 fill-yellow-200" />
+                        <span className="text-[10px] font-mono font-bold text-slate-950 tracking-widest">★ HAPPY BIRTHDAY ★</span>
+                        <Star className="w-3 h-3 text-yellow-200 fill-yellow-200" />
                       </div>
                     </div>
                   </div>
@@ -644,184 +911,70 @@ export default function LarissaBirthdayPage() {
                     >
                       <p className="text-base font-black text-amber-300">✨ May All Your Dreams Come True! ✨</p>
                       <p className="text-xs text-slate-300 font-normal">
-                        Your wish has been launched into the universe. May this upcoming year bring you unimaginable joy, breakthrough victories, and peak fulfillment!
+                        Your wish has been launched into the universe. May your final nursing year exams and clinicals go smoothly, and may you heal and touch countless lives with your big heart!
                       </p>
                     </motion.div>
                   )}
                 </div>
               </motion.div>
 
-              {/* Heartfelt Founder Tribute Letter */}
+              {/* Heartfelt Note from Friend Shovin */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.55 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
                 className="max-w-3xl mx-auto p-8 sm:p-12 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-xl"
               >
-                <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-amber-400 via-rose-500 to-indigo-500" />
+                <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-pink-400 via-rose-500 to-amber-500" />
                 
                 <div className="space-y-6">
                   <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                        <Heart className="w-5 h-5 fill-amber-400/20" />
+                      <div className="p-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400">
+                        <Heart className="w-5 h-5 fill-pink-400/20" />
                       </div>
                       <div>
-                        <h3 className="text-base font-black text-white">To Our Co-Founder, Larissa</h3>
-                        <p className="text-xs text-slate-400 font-mono">From the AWIE Family with Love &amp; Respect</p>
+                        <h3 className="text-base font-black text-white">A Birthday Note For Larissa</h3>
+                        <p className="text-xs text-slate-400 font-mono">From your friend Shovin</p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-800 text-slate-400">
-                      Private Note
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-slate-800 text-pink-400 font-bold">
+                      Happy Birthday
                     </span>
                   </div>
 
                   <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
                     <p>
-                      Dear <strong className="text-amber-300 font-bold">Larissa</strong>,
+                      Dear <strong className="text-pink-300 font-bold">Larissa</strong>,
                     </p>
                     <p>
-                      Today is about celebrating you — your energy, your brilliant leadership, and the relentless passion that has helped shape AWIE from the ground up.
+                      Today is your day, and I wanted to create something special to wish you a very happy birthday!
                     </p>
                     <p>
-                      Co-founding and building a company requires rare bravery, deep wisdom, and an unwavering belief in what is possible. You bring that spirit into every room, every project, and every vision we chase. You remind us why we build with purpose, why excellence matters, and how to lead with genuine empathy.
+                      Seeing you work so hard in nursing school — balancing late shifts, heavy coursework, and endless clinicals in your final year — is genuinely inspiring. Nursing requires genuine compassion, patience, and a kind heart, and you have all of that in abundance. I know you are going to be an extraordinary nurse who brings comfort and hope to so many people.
                     </p>
                     <p>
-                      On your special birthday, we wish you abundant health, unbounded happiness, unstoppable success in every venture, and laughter in every moment.
+                      I hope this year brings you all the happiness, success in your finals, lots of memorable moments, and dreams coming true.
                     </p>
                     <p className="pt-2 font-semibold text-white">
-                      Keep shining, keep leading, and keep inspiring the world! 🌟
+                      Have the happiest and most grateful birthday! Keep shining! ✨
                     </p>
                   </div>
 
                   <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                    <span className="font-mono text-amber-400 font-bold">#HappyBirthdayLarissa</span>
-                    <span className="font-mono text-slate-500">AWIE Labs Leadership</span>
+                    <span className="font-mono text-pink-400 font-bold">#HappyBirthdayLarissa</span>
+                    <span className="font-mono text-slate-400 font-bold">— Shovin</span>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Frame-by-Frame Memory Lane Player (Ready for User Frames) */}
+              {/* Interactive Balloon Pop Game (Nursing & Dreams) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.65 }}
-                className="max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-blue-500/30 shadow-2xl relative overflow-hidden"
-              >
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-mono font-bold text-blue-400 uppercase tracking-widest mb-2">
-                      <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                      <span>Frame-by-Frame Memory Lane</span>
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                      Visual Journey &amp; Storyboard
-                    </h3>
-                  </div>
-
-                  {/* Frame Controls */}
-                  <div className="flex items-center gap-2 self-end sm:self-auto">
-                    <button
-                      onClick={() => setActiveFrame((prev) => (prev <= 1 ? 6 : prev - 1))}
-                      className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors shadow-sm"
-                      title="Previous Frame"
-                      aria-label="Previous frame"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-
-                    <button
-                      onClick={() => setIsPlayingFrames(!isPlayingFrames)}
-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md ${
-                        isPlayingFrames
-                          ? 'bg-rose-500 hover:bg-rose-600 text-white'
-                          : 'bg-blue-600 hover:bg-blue-500 text-white'
-                      }`}
-                    >
-                      {isPlayingFrames ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                      <span>{isPlayingFrames ? 'Pause Slides' : 'Auto Play'}</span>
-                    </button>
-
-                    <button
-                      onClick={() => setActiveFrame((prev) => (prev >= 6 ? 1 : prev + 1))}
-                      className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors shadow-sm"
-                      title="Next Frame"
-                      aria-label="Next frame"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Active Frame Presentation Screen */}
-                <div className="mt-6 relative">
-                  <AnimatePresence mode="wait">
-                    {frameMoments
-                      .filter((f) => f.num === activeFrame)
-                      .map((frame) => (
-                        <motion.div
-                          key={frame.num}
-                          initial={{ opacity: 0, scale: 0.97 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 1.02 }}
-                          transition={{ duration: 0.35 }}
-                          className={`min-h-[340px] sm:min-h-[380px] rounded-2xl bg-gradient-to-br ${frame.gradient} p-8 sm:p-12 flex flex-col justify-between border border-white/10 relative overflow-hidden shadow-2xl`}
-                        >
-                          <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-
-                          <div className="relative z-10 flex items-center justify-between">
-                            <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono font-bold text-white tracking-widest uppercase">
-                              {frame.badge}
-                            </span>
-                            <span className="text-xs font-mono font-black text-white/80 bg-black/30 px-3 py-1 rounded-lg">
-                              FRAME {frame.num} OF 6
-                            </span>
-                          </div>
-
-                          <div className="relative z-10 space-y-3 my-auto py-6 max-w-xl">
-                            <h4 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                              {frame.title}
-                            </h4>
-                            <p className="text-sm sm:text-base text-white/90 font-medium">
-                              {frame.subtitle}
-                            </p>
-                            <p className="text-xs sm:text-sm text-white/70 italic pt-2 border-l-2 border-white/40 pl-3">
-                              “{frame.caption}”
-                            </p>
-                          </div>
-
-                          <div className="relative z-10 flex items-center justify-between text-xs text-white/70 font-mono">
-                            <span>Ready for custom sequence assets</span>
-                            <span className="text-white font-bold">AWIE Founder Storyboard</span>
-                          </div>
-                        </motion.div>
-                      ))}
-                  </AnimatePresence>
-
-                  {/* Frame Thumbnails / Dots */}
-                  <div className="flex items-center justify-center gap-2 mt-6">
-                    {frameMoments.map((frame) => (
-                      <button
-                        key={frame.num}
-                        onClick={() => setActiveFrame(frame.num)}
-                        className={`h-2.5 rounded-full transition-all duration-300 ${
-                          activeFrame === frame.num
-                            ? 'w-8 bg-amber-400 shadow-md shadow-amber-400/50'
-                            : 'w-2.5 bg-slate-700 hover:bg-slate-600'
-                        }`}
-                        title={`Go to Frame ${frame.num}`}
-                        aria-label={`Go to Frame ${frame.num}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Interactive Balloon Pop Game */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.75 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
                 className="max-w-3xl mx-auto p-8 rounded-3xl bg-slate-900/80 border border-slate-800 text-center space-y-6"
               >
                 <div className="space-y-1">
@@ -830,9 +983,9 @@ export default function LarissaBirthdayPage() {
                     <span>Pop the Surprise Balloons</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                    Secret Wishes For You
+                    Secret Birthday Wishes For You
                   </h3>
-                  <p className="text-xs text-slate-400">Click each floating balloon to pop and reveal a birthday wish!</p>
+                  <p className="text-xs text-slate-400">Click each balloon to pop and reveal a special wish!</p>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 pt-4">
@@ -873,11 +1026,11 @@ export default function LarissaBirthdayPage() {
 
               {/* Bottom Footer Greeting */}
               <div className="text-center pt-8 border-t border-slate-800/80 space-y-2">
-                <p className="text-xs font-mono text-slate-500">
-                  Crafted with admiration &amp; celebration for Co-Founder Larissa • AWIE 2026
+                <p className="text-xs font-mono text-slate-400">
+                  Wishing Larissa the happiest, most blessed birthday • 2026
                 </p>
                 <p className="text-[11px] text-slate-600">
-                  Secret Route: <span className="font-mono text-amber-400/80">/larissa</span> (Protected with Passcode LAR1019)
+                  Secret Route: <span className="font-mono text-pink-400/80">/larissa</span>
                 </p>
               </div>
             </motion.div>
