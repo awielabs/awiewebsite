@@ -119,6 +119,10 @@ export async function saveGiftOrder(data: {
   state: string;
   pincode: string;
   note?: string;
+  status?: GiftStatus;
+  courierPartner?: string;
+  courierAwb?: string;
+  estimatedDelivery?: string;
 }): Promise<LarissaGiftOrder> {
   const orders = await readStore();
   const existingIndex = orders.findIndex(
@@ -126,13 +130,20 @@ export async function saveGiftOrder(data: {
   );
 
   const now = new Date().toISOString();
-  const meta = STATUS_METADATA.order_placed;
+  const initialStatus = data.status || 'order_placed';
+  const meta = STATUS_METADATA[initialStatus] || STATUS_METADATA.order_placed;
 
   if (existingIndex >= 0) {
     const existing = orders[existingIndex];
     const updated: LarissaGiftOrder = {
       ...existing,
       ...data,
+      status: data.status || existing.status,
+      statusTitle: meta.title,
+      statusMessage: data.note || existing.statusMessage || meta.defaultMessage,
+      courierPartner: data.courierPartner !== undefined ? data.courierPartner : existing.courierPartner,
+      courierAwb: data.courierAwb !== undefined ? data.courierAwb : existing.courierAwb,
+      estimatedDelivery: data.estimatedDelivery !== undefined ? data.estimatedDelivery : existing.estimatedDelivery,
       updatedAt: now
     };
     orders[existingIndex] = updated;
@@ -151,15 +162,17 @@ export async function saveGiftOrder(data: {
     state: data.state,
     pincode: data.pincode,
     note: data.note || '',
-    status: 'order_placed',
+    status: initialStatus,
     statusTitle: meta.title,
     statusMessage: meta.defaultMessage,
-    estimatedDelivery: 'Preparing for courier dispatch',
+    courierPartner: data.courierPartner || 'Dedicated Express Dispatch',
+    courierAwb: data.courierAwb || '',
+    estimatedDelivery: data.estimatedDelivery || 'Preparing for courier dispatch',
     createdAt: now,
     updatedAt: now,
     history: [
       {
-        status: 'order_placed',
+        status: initialStatus,
         title: meta.title,
         description: meta.defaultMessage,
         timestamp: now
@@ -170,6 +183,19 @@ export async function saveGiftOrder(data: {
   orders.unshift(initialOrder);
   await writeStore(orders);
   return initialOrder;
+}
+
+export async function deleteGiftOrder(trackingCode: string): Promise<boolean> {
+  const orders = await readStore();
+  const normalized = trackingCode.trim().toUpperCase();
+  const filtered = orders.filter(
+    (o) => o.trackingCode.toUpperCase() !== normalized && o.id.toUpperCase() !== normalized
+  );
+  if (filtered.length !== orders.length) {
+    await writeStore(filtered);
+    return true;
+  }
+  return false;
 }
 
 export async function updateGiftOrderStatus(

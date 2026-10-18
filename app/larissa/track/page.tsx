@@ -139,6 +139,23 @@ function TrackingContent() {
     }
   }, [searchParams]);
 
+  // Real-time auto-synchronization: update status every 8 seconds in background
+  useEffect(() => {
+    if (!order?.trackingCode) return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/larissa-gift/track?code=${encodeURIComponent(order.trackingCode)}`);
+        const data = await res.json();
+        if (data.success && data.order) {
+          setOrder(data.order);
+        }
+      } catch {
+        // Silent sync catch
+      }
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [order?.trackingCode]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     fetchTracking(codeInput);

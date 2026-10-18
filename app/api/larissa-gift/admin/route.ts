@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import {
   getAllGiftOrders,
   updateGiftOrderStatus,
+  saveGiftOrder,
+  deleteGiftOrder,
   GiftStatus
 } from '@/lib/larissa-gift-store';
 
@@ -26,6 +28,71 @@ export async function POST(request: Request) {
     if (action === 'list') {
       const orders = await getAllGiftOrders();
       return NextResponse.json({ success: true, orders });
+    }
+
+    if (action === 'create_order') {
+      const {
+        name,
+        email,
+        phone,
+        address,
+        city,
+        state,
+        pincode,
+        note,
+        status,
+        courierPartner,
+        courierAwb,
+        estimatedDelivery
+      } = body;
+
+      if (!name || !phone || !address) {
+        return NextResponse.json(
+          { success: false, error: 'Name, phone, and address are required to create order.' },
+          { status: 400 }
+        );
+      }
+
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const trackingCode = body.trackingCode?.trim() || `AWIE-LARISSA-${randomSuffix}`;
+
+      const newOrder = await saveGiftOrder({
+        trackingCode,
+        name: String(name).trim(),
+        email: email ? String(email).trim().toLowerCase() : '',
+        phone: String(phone).trim(),
+        address: String(address).trim(),
+        city: city ? String(city).trim() : '',
+        state: state ? String(state).trim() : '',
+        pincode: pincode ? String(pincode).trim() : '',
+        note: note ? String(note).trim() : '',
+        status: status as GiftStatus,
+        courierPartner,
+        courierAwb,
+        estimatedDelivery
+      });
+
+      return NextResponse.json({
+        success: true,
+        order: newOrder,
+        message: `Order "${trackingCode}" created and synced successfully!`
+      });
+    }
+
+    if (action === 'delete_order') {
+      const { trackingCode } = body;
+      if (!trackingCode) {
+        return NextResponse.json(
+          { success: false, error: 'Tracking code is required to delete order.' },
+          { status: 400 }
+        );
+      }
+      const deleted = await deleteGiftOrder(trackingCode);
+      return NextResponse.json({
+        success: true,
+        deleted,
+        message: deleted ? `Order ${trackingCode} deleted.` : 'Order not found.'
+      });
     }
 
     if (action === 'update_status') {

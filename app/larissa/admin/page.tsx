@@ -25,7 +25,10 @@ import {
   Eye,
   EyeOff,
   Send,
-  FileText
+  FileText,
+  Plus,
+  Trash2,
+  X
 } from 'lucide-react';
 
 interface OrderData {
@@ -128,6 +131,25 @@ export default function LarissaAdminPortal() {
 
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
+  // New Order Creation Modal State
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [newOrderForm, setNewOrderForm] = useState({
+    name: 'Larissa',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    pincode: '',
+    note: '',
+    trackingCode: '',
+    status: 'order_placed' as OrderData['status'],
+    courierPartner: 'Dedicated Express Dispatch',
+    courierAwb: '',
+    estimatedDelivery: 'Preparing for courier dispatch'
+  });
+  const [isSubmittingNewOrder, setIsSubmittingNewOrder] = useState(false);
+
   // Check existing session
   useEffect(() => {
     const saved = sessionStorage.getItem('larissa_admin_auth');
@@ -137,6 +159,108 @@ export default function LarissaAdminPortal() {
       fetchOrders('shovin1219');
     }
   }, []);
+
+  // Background Live Sync: auto-refresh orders list every 10 seconds
+  useEffect(() => {
+    if (!isAuthenticated || !passcode) return;
+    const interval = setInterval(() => {
+      fetchOrders(passcode);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated, passcode]);
+
+  const handleGenerateCode = () => {
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    setNewOrderForm((prev) => ({ ...prev, trackingCode: `AWIE-LARISSA-${randomSuffix}` }));
+  };
+
+  const handleCreateOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newOrderForm.name.trim() || !newOrderForm.phone.trim() || !newOrderForm.address.trim()) {
+      alert('Please fill recipient name, phone, and delivery address.');
+      return;
+    }
+    setIsSubmittingNewOrder(true);
+    try {
+      const code =
+        newOrderForm.trackingCode.trim() ||
+        `AWIE-LARISSA-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      const res = await fetch('/api/larissa-gift/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          passcode,
+          action: 'create_order',
+          ...newOrderForm,
+          trackingCode: code
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.order) {
+        setOrders((prev) => [
+          data.order,
+          ...prev.filter((o) => o.trackingCode !== data.order.trackingCode)
+        ]);
+        setUpdateFeedback({
+          code: data.order.trackingCode,
+          msg: `New order created & live synced! Code: ${data.order.trackingCode}`,
+          type: 'success'
+        });
+        setIsCreatingOrder(false);
+        // Reset form
+        setNewOrderForm({
+          name: 'Larissa',
+          phone: '',
+          email: '',
+          address: '',
+          city: '',
+          state: '',
+          pincode: '',
+          note: '',
+          trackingCode: '',
+          status: 'order_placed',
+          courierPartner: 'Dedicated Express Dispatch',
+          courierAwb: '',
+          estimatedDelivery: 'Preparing for courier dispatch'
+        });
+      } else {
+        alert(data.error || 'Failed to create order.');
+      }
+    } catch {
+      alert('Network error while creating order.');
+    } finally {
+      setIsSubmittingNewOrder(false);
+    }
+  };
+
+  const handleDeleteOrder = async (trackingCodeToDelete: string) => {
+    if (!window.confirm(`Are you sure you want to delete order "${trackingCodeToDelete}"?`)) {
+      return;
+    }
+    try {
+      const res = await fetch('/api/larissa-gift/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          passcode,
+          action: 'delete_order',
+          trackingCode: trackingCodeToDelete
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setOrders((prev) => prev.filter((o) => o.trackingCode !== trackingCodeToDelete));
+        setUpdateFeedback({
+          code: trackingCodeToDelete,
+          msg: `Order deleted successfully.`,
+          type: 'success'
+        });
+      }
+    } catch {
+      alert('Failed to delete order.');
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -374,7 +498,17 @@ export default function LarissaAdminPortal() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={() => {
+                handleGenerateCode();
+                setIsCreatingOrder(true);
+              }}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-pink-500/20 flex items-center gap-1.5 cursor-pointer"
+            >
+              <Plus className="w-4 h-4 text-slate-950" />
+              <span>Create / Sync Order</span>
+            </button>
             <button
               onClick={() => fetchOrders(passcode)}
               disabled={isLoadingOrders}
@@ -392,6 +526,222 @@ export default function LarissaAdminPortal() {
             </button>
           </div>
         </header>
+
+        {/* Create / Sync Order Modal */}
+        <AnimatePresence>
+          {isCreatingOrder && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="p-6 sm:p-8 rounded-3xl bg-slate-900 border border-pink-500/30 shadow-2xl space-y-6 relative"
+            >
+              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div className="space-y-0.5">
+                  <h3 className="text-lg font-black text-white flex items-center gap-2">
+                    <Gift className="w-5 h-5 text-pink-400" />
+                    <span>Create &amp; Sync Gift Order</span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Directly create an order in the database and make it immediately trackable on /larissa/track.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsCreatingOrder(false)}
+                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all text-xs"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateOrder} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Tracking Code *
+                    </label>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={newOrderForm.trackingCode}
+                        onChange={(e) =>
+                          setNewOrderForm({ ...newOrderForm, trackingCode: e.target.value.toUpperCase() })
+                        }
+                        placeholder="AWIE-LARISSA-XXXX"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs uppercase outline-none focus:border-pink-500"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleGenerateCode}
+                        className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono"
+                        title="Auto Generate"
+                      >
+                        🎲
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Recipient Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newOrderForm.name}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, name: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={newOrderForm.phone}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, phone: e.target.value })}
+                      placeholder="+91..."
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      value={newOrderForm.email}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, email: e.target.value })}
+                      placeholder="larissa@example.com"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1 sm:col-span-2">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Street Address *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newOrderForm.address}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, address: e.target.value })}
+                      placeholder="House / Flat / Area"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      City
+                    </label>
+                    <input
+                      type="text"
+                      value={newOrderForm.city}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, city: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      State
+                    </label>
+                    <input
+                      type="text"
+                      value={newOrderForm.state}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, state: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Pincode
+                    </label>
+                    <input
+                      type="text"
+                      value={newOrderForm.pincode}
+                      onChange={(e) => setNewOrderForm({ ...newOrderForm, pincode: e.target.value })}
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Initial Status
+                    </label>
+                    <select
+                      value={newOrderForm.status}
+                      onChange={(e) =>
+                        setNewOrderForm({ ...newOrderForm, status: e.target.value as OrderData['status'] })
+                      }
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    >
+                      <option value="order_placed">Order Confirmed ✨</option>
+                      <option value="packed">Gift is Packed 🎁</option>
+                      <option value="in_transit">In Transit 🚚</option>
+                      <option value="out_for_delivery">Out for Delivery (Reaching Today) 🛵</option>
+                      <option value="delivered">Received by Larissa 💖</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Courier Service
+                    </label>
+                    <input
+                      type="text"
+                      value={newOrderForm.courierPartner}
+                      onChange={(e) =>
+                        setNewOrderForm({ ...newOrderForm, courierPartner: e.target.value })
+                      }
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] text-slate-400 uppercase font-mono">
+                      Waybill / AWB #
+                    </label>
+                    <input
+                      type="text"
+                      value={newOrderForm.courierAwb}
+                      onChange={(e) =>
+                        setNewOrderForm({ ...newOrderForm, courierAwb: e.target.value })
+                      }
+                      placeholder="e.g. BD-781920"
+                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-xs outline-none focus:border-pink-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => setIsCreatingOrder(false)}
+                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white text-xs font-semibold"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingNewOrder}
+                    className="px-6 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{isSubmittingNewOrder ? 'Creating...' : 'Save & Publish Live Order'}</span>
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Global Feedback Banner */}
         {updateFeedback && (
@@ -544,6 +894,14 @@ export default function LarissaAdminPortal() {
                           <ExternalLink className="w-3.5 h-3.5" />
                           <span>View Live Tracking</span>
                         </Link>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteOrder(order.trackingCode)}
+                          className="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-300 transition-all border border-rose-500/20 text-xs cursor-pointer"
+                          title="Delete Order"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </div>
 
