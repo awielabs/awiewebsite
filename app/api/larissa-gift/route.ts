@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { saveGiftOrder } from '@/lib/larissa-gift-store';
 
 export async function POST(request: Request) {
   try {
@@ -25,7 +26,20 @@ export async function POST(request: Request) {
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const trackingCode = `AWIE-LARISSA-${randomSuffix}`;
 
-    console.log('[LARISSA_GIFT_DELIVERY] New address submitted:', {
+    // Persist order in store
+    await saveGiftOrder({
+      trackingCode,
+      name: cleanName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      address: cleanAddress,
+      city: cleanCity,
+      state: cleanState,
+      pincode: cleanPincode,
+      note: cleanNote
+    });
+
+    console.log('[LARISSA_GIFT_DELIVERY] New address submitted & stored:', {
       trackingCode,
       name: cleanName,
       email: cleanEmail,
@@ -135,10 +149,16 @@ export async function POST(request: Request) {
                     <span style="font-size: 22px; font-weight: 900; color: #fde047; font-family: monospace; letter-spacing: 2px;">${trackingCode}</span>
                   </div>
 
-                  <p style="color: #94a3b8; font-size: 13px; margin: 0; line-height: 1.5;">
+                  <p style="color: #94a3b8; font-size: 13px; margin: 0 0 16px 0; line-height: 1.5;">
                     📍 <strong>Delivery Address:</strong> ${cleanAddress}, ${cleanCity}, ${cleanState} - ${cleanPincode}<br />
-                    📦 <strong>Status:</strong> Address confirmed! Frame in preparation — live tracking details will be shared with you soon as it is dispatched!
+                    📦 <strong>Status:</strong> Order recorded! Frame in preparation — live updates available below!
                   </p>
+
+                  <div style="text-align: center; margin-top: 16px;">
+                    <a href="https://awielabs.com/larissa/track?code=${trackingCode}" style="display: inline-block; background: linear-gradient(135deg, #ec4899, #f59e0b); color: #000000; font-weight: 800; font-size: 13px; padding: 12px 24px; border-radius: 12px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px;">
+                      Track Delivery Status Live 🎁 →
+                    </a>
+                  </div>
                 </div>
 
                 <div style="background-color: #1e293b; padding: 20px; border-radius: 14px; margin-bottom: 24px; border-left: 4px solid #f43f5e;">

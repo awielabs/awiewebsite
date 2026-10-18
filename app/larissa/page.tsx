@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lock, 
@@ -1291,26 +1292,35 @@ export default function LarissaBirthdayPage() {
                             </div>
 
                             {trackingCode && (
-                              <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-md mx-auto shadow-inner">
-                                <div className="text-left">
-                                  <span className="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">
-                                    Gift Order Tracking Code
-                                  </span>
-                                  <span className="text-base sm:text-lg font-mono font-black text-amber-300 tracking-wide">
-                                    {trackingCode}
-                                  </span>
+                              <div className="space-y-3 max-w-md mx-auto">
+                                <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-inner">
+                                  <div className="text-left">
+                                    <span className="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">
+                                      Gift Order Tracking Code
+                                    </span>
+                                    <span className="text-base sm:text-lg font-mono font-black text-amber-300 tracking-wide">
+                                      {trackingCode}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(trackingCode);
+                                      setCopiedCode(true);
+                                      setTimeout(() => setCopiedCode(false), 2000);
+                                    }}
+                                    className="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold transition-all border border-emerald-500/30 cursor-pointer"
+                                  >
+                                    {copiedCode ? 'Copied! ✓' : 'Copy Code 📋'}
+                                  </button>
                                 </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(trackingCode);
-                                    setCopiedCode(true);
-                                    setTimeout(() => setCopiedCode(false), 2000);
-                                  }}
-                                  className="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold transition-all border border-emerald-500/30 cursor-pointer"
+
+                                <Link
+                                  href={`/larissa/track?code=${encodeURIComponent(trackingCode)}`}
+                                  className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-pink-500/20 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                                 >
-                                  {copiedCode ? 'Copied! ✓' : 'Copy Code 📋'}
-                                </button>
+                                  <span>Track Delivery Status Live 🎁 →</span>
+                                </Link>
                               </div>
                             )}
                           </motion.div>
