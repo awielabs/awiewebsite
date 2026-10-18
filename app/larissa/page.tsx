@@ -607,63 +607,70 @@ export default function LarissaBirthdayPage() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="space-y-12 pt-2"
             >
-              {/* Hero Banner */}
-              <div className="text-center space-y-4 pt-2 relative">
-                <motion.div 
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex justify-center"
-                >
-                  <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-pink-500/20 via-rose-500/20 to-amber-500/20 border border-pink-400/40 text-pink-300 text-xs sm:text-sm font-black tracking-widest uppercase shadow-xl shadow-pink-500/10 backdrop-blur-md">
-                    <PartyPopper className="w-4 h-4 text-pink-400 animate-bounce" />
-                    <span>A SPECIAL BIRTHDAY SURPRISE • FROM SHOVIN</span>
-                    <Sparkles className="w-4 h-4 text-amber-400" />
-                  </div>
-                </motion.div>
-
-                {/* Big Birthday Headline */}
+              {/* Hero Banner - Revealed only after cake candles are blown */}
+              {(cakeBlowStage === 'blown' || maxUnlockedStep > 1) && (
                 <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="space-y-3"
+                  initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="text-center space-y-4 pt-2 relative"
                 >
-                  <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight">
-                    Happy 21st Birthday,{' '}
-                    <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(244,63,94,0.4)]">
-                      Larissa!
-                    </span>{' '}
-                    🎂✨
-                  </h1>
-                  
-                  {/* Updated 21st Birthday Warm Friend Message */}
-                  <p className="text-slate-200 text-sm sm:text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
-                    Happy 21st Birthday, Larissa! Wishing you boundless joy, vibrant energy, and endless smiles as you celebrate stepping into your 21st year. May this milestone chapter bring you immense happiness, unforgettable memories, and all your dreams turning into reality! ✨💖
-                  </p>
-                </motion.div>
+                  <motion.div 
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex justify-center"
+                  >
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-pink-500/20 via-rose-500/20 to-amber-500/20 border border-pink-400/40 text-pink-300 text-xs sm:text-sm font-black tracking-widest uppercase shadow-xl shadow-pink-500/10 backdrop-blur-md">
+                      <PartyPopper className="w-4 h-4 text-pink-400 animate-bounce" />
+                      <span>A SPECIAL BIRTHDAY SURPRISE • FROM SHOVIN</span>
+                      <Sparkles className="w-4 h-4 text-amber-400" />
+                    </div>
+                  </motion.div>
 
-                {/* Friendly Badges (Removed Nurse & Champion) */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="flex flex-wrap items-center justify-center gap-2.5 pt-1"
-                >
-                  {[
-                    { label: 'Turning 21 ✨', color: 'text-amber-400 border-amber-400/30 bg-amber-400/10' },
-                    { label: 'Healing Hands & Big Heart ❤️', color: 'text-rose-400 border-rose-400/30 bg-rose-400/10' },
-                    { label: 'Wonderful Friend 🌟', color: 'text-pink-400 border-pink-400/30 bg-pink-400/10' }
-                  ].map((badge) => (
-                    <span
-                      key={badge.label}
-                      className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md ${badge.color}`}
-                    >
-                      <span>{badge.label}</span>
-                    </span>
-                  ))}
+                  {/* Big Birthday Headline */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="space-y-3"
+                  >
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-tight">
+                      Happy 21st Birthday,{' '}
+                      <span className="bg-gradient-to-r from-pink-300 via-rose-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(244,63,94,0.4)]">
+                        Larissa!
+                      </span>{' '}
+                      🎂✨
+                    </h1>
+                    
+                    {/* 21st Birthday Warm Friend Message */}
+                    <p className="text-slate-200 text-sm sm:text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed">
+                      Happy 21st Birthday, Larissa! Wishing you boundless joy, vibrant energy, and endless smiles as you celebrate stepping into your 21st year. May this milestone chapter bring you immense happiness, unforgettable memories, and all your dreams turning into reality! ✨💖
+                    </p>
+                  </motion.div>
+
+                  {/* Friendly Badges */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex flex-wrap items-center justify-center gap-2.5 pt-1"
+                  >
+                    {[
+                      { label: 'Turning 21 ✨', color: 'text-amber-400 border-amber-400/30 bg-amber-400/10' },
+                      { label: 'Healing Hands & Big Heart ❤️', color: 'text-rose-400 border-rose-400/30 bg-rose-400/10' },
+                      { label: 'Wonderful Friend 🌟', color: 'text-pink-400 border-pink-400/30 bg-pink-400/10' }
+                    ].map((badge) => (
+                      <span
+                        key={badge.label}
+                        className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md ${badge.color}`}
+                      >
+                        <span>{badge.label}</span>
+                      </span>
+                    ))}
+                  </motion.div>
                 </motion.div>
-              </div>
+              )}
 
               {/* Step Content Wrapper */}
               <div ref={sectionContentRef}>
@@ -1171,20 +1178,14 @@ export default function LarissaBirthdayPage() {
                           </div>
 
                           <div className="space-y-4 text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-                            <p>
-                              Dear <strong className="text-pink-300 font-bold">Larissa</strong>,
+                            <p className="text-base sm:text-lg font-bold text-pink-300">
+                              Dear Larissa, ❤️
                             </p>
                             <p>
-                              Happy 21st Birthday! Today is all about celebrating you, your incredible presence, and the genuine energy you bring to the lives of everyone lucky enough to know you.
+                              Happy 21st Birthday! 🥳✨ So grateful to have a friend like you. May this new chapter bring you endless happiness, peace, beautiful memories, and all the blessings your heart wishes for. Keep smiling, keep shining, and always be the wonderful person you are. 💗
                             </p>
-                            <p>
-                              Stepping into 21 is a huge and wonderful milestone. I am so grateful for our friendship and so excited to see all the great adventures, laughs, and triumphs this upcoming year has in store for you.
-                            </p>
-                            <p>
-                              I hope your 21st year brings you boundless happiness, peace of mind, great memories, and dreams turning into reality.
-                            </p>
-                            <p className="pt-2 font-semibold text-white">
-                              Have the happiest, most memorable 21st birthday! Keep shining bright! ✨
+                            <p className="pt-2 font-bold text-white text-base">
+                              Have the most beautiful 21st birthday! 🎂💕
                             </p>
                           </div>
 
