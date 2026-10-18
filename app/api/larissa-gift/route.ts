@@ -20,7 +20,12 @@ export async function POST(request: Request) {
     const cleanPincode = pincode ? String(pincode).trim() : '';
     const cleanNote = note ? String(note).trim() : '';
 
+    // Generate unique gift order tracking code
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    const trackingCode = `AWIE-LARISSA-${randomSuffix}`;
+
     console.log('[LARISSA_GIFT_DELIVERY] New address submitted:', {
+      trackingCode,
       name: cleanName,
       phone: cleanPhone,
       address: cleanAddress,
@@ -31,10 +36,13 @@ export async function POST(request: Request) {
       submittedAt: new Date().toISOString()
     });
 
-    // Optionally notify via Nodemailer if SMTP configured
+    // Notify via Nodemailer to AWIE emails
     const gmailUser = process.env.GMAIL_USER;
     const gmailPass = process.env.GMAIL_APP_PASSWORD;
-    const contactTo = process.env.CONTACT_TO || 'awieclient@gmail.com';
+    const recipients = ['awielabs@gmail.com', 'awieclient@gmail.com'];
+    if (process.env.CONTACT_TO && !recipients.includes(process.env.CONTACT_TO)) {
+      recipients.push(process.env.CONTACT_TO);
+    }
 
     if (gmailUser && gmailPass) {
       try {
@@ -48,19 +56,46 @@ export async function POST(request: Request) {
         });
 
         await transporter.sendMail({
-          from: `"Birthday Gift Portal" <${gmailUser}>`,
-          to: contactTo,
-          subject: `🎁 Larissa Submitted Delivery Address for Framed Photo!`,
+          from: `"AWIE Gift Portal" <${gmailUser}>`,
+          to: recipients.join(', '),
+          subject: `🎁 [${trackingCode}] Larissa's Framed Photo Delivery Address Submitted!`,
           html: `
-            <div style="font-family: sans-serif; padding: 20px; color: #1e293b;">
-              <h2 style="color: #d97706;">🎁 Larissa's Framed Photo Delivery Details</h2>
-              <p><strong>Name:</strong> ${cleanName}</p>
-              <p><strong>Phone / WhatsApp:</strong> ${cleanPhone}</p>
-              <p><strong>Address:</strong> ${cleanAddress}</p>
-              <p><strong>City / State / PIN:</strong> ${cleanCity}, ${cleanState} - ${cleanPincode}</p>
-              ${cleanNote ? `<p><strong>Note:</strong> ${cleanNote}</p>` : ''}
-              <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
-              <p style="font-size: 12px; color: #64748b;">Submitted from secret birthday portal (/larissa) on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</p>
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 24px; background-color: #0b1528; color: #f8fafc; border-radius: 16px; max-width: 600px; margin: 0 auto; border: 1px solid #1e293b;">
+              <div style="background: linear-gradient(135deg, #ec4899, #f59e0b); padding: 16px 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
+                <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 900;">🎁 Birthday Framed Gift Delivery Request</h1>
+                <p style="color: #fef3c7; margin: 4px 0 0 0; font-size: 13px; font-family: monospace; font-weight: bold;">Tracking Code: ${trackingCode}</p>
+              </div>
+
+              <div style="background-color: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 16px;">
+                <h3 style="color: #38bdf8; font-size: 13px; text-transform: uppercase; margin-top: 0; letter-spacing: 1px;">Recipient Details</h3>
+                <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
+                  <tr>
+                    <td style="color: #94a3b8; padding: 6px 0; width: 35%;"><strong>Recipient Name:</strong></td>
+                    <td style="color: #ffffff; font-weight: bold;">${cleanName}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94a3b8; padding: 6px 0;"><strong>Phone / WhatsApp:</strong></td>
+                    <td style="color: #ffffff; font-family: monospace; font-weight: bold;">${cleanPhone}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94a3b8; padding: 6px 0; vertical-align: top;"><strong>Full Address:</strong></td>
+                    <td style="color: #ffffff; line-height: 1.5;">${cleanAddress}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #94a3b8; padding: 6px 0;"><strong>City, State & PIN:</strong></td>
+                    <td style="color: #ffffff;">${cleanCity}, ${cleanState} - ${cleanPincode}</td>
+                  </tr>
+                  ${cleanNote ? `
+                  <tr>
+                    <td style="color: #94a3b8; padding: 6px 0; vertical-align: top;"><strong>Delivery Note:</strong></td>
+                    <td style="color: #fde047; font-style: italic;">${cleanNote}</td>
+                  </tr>` : ''}
+                </table>
+              </div>
+
+              <div style="text-align: center; font-size: 12px; color: #64748b; padding-top: 10px; border-top: 1px solid #1e293b;">
+                Submitted from secret birthday portal (/larissa) • AWIE Micro Enterprise
+              </div>
             </div>
           `,
         });
@@ -71,6 +106,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
+      trackingCode,
       message: 'Your address details have been received! The framed portrait will be prepared and delivered straight to you soon!'
     });
   } catch (error) {
