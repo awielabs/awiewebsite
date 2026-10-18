@@ -24,7 +24,9 @@ import {
   Play,
   RotateCcw,
   Mail,
-  ChevronRight
+  ChevronRight,
+  ScanFace,
+  Camera
 } from 'lucide-react';
 
 const SECRET_CODE = 'LAR1019';
@@ -49,6 +51,12 @@ export default function LarissaBirthdayPage() {
   // Step-by-step progression: 1 (Cake) -> 2 (Video) -> 3 (Surprise Gift, Delivery Details, Note & Balloons)
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [maxUnlockedStep, setMaxUnlockedStep] = useState<number>(1);
+
+  // Fake Biometric Face Scan state before revealing the framed portrait
+  const [hasScannedFace, setHasScannedFace] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanProgress, setScanProgress] = useState(0);
+  const [scanStatus, setScanStatus] = useState('Position your face in front of the camera');
 
   // Cake blow interactive states
   const [cakeBlowStage, setCakeBlowStage] = useState<'idle' | 'counting' | 'blowing' | 'blown'>('idle');
@@ -87,13 +95,25 @@ export default function LarissaBirthdayPage() {
   }, []);
 
   // Web Audio celebration chime
-  const playChime = (type: 'success' | 'error' | 'pop' | 'blow' | 'countdown' | 'fanfare') => {
+  const playChime = (type: 'success' | 'error' | 'pop' | 'blow' | 'countdown' | 'fanfare' | 'scan') => {
     if (isMuted || typeof window === 'undefined') return;
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new AudioCtx();
 
-      if (type === 'countdown') {
+      if (type === 'scan') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(650, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1150, ctx.currentTime + 0.09);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } else if (type === 'countdown') {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
@@ -366,6 +386,50 @@ export default function LarissaBirthdayPage() {
       sectionContentRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const startFaceScan = () => {
+    if (isScanning || hasScannedFace) return;
+    setIsScanning(true);
+    setScanProgress(15);
+    setScanStatus('Initializing biometric face recognition...');
+    playChime('scan');
+
+    setTimeout(() => {
+      setScanProgress(45);
+      setScanStatus('Scanning facial symmetry & birthday glow... ✨');
+      playChime('scan');
+    }, 900);
+
+    setTimeout(() => {
+      setScanProgress(75);
+      setScanStatus('Biometric match: 100% — Larissa confirmed! 💖');
+      playChime('scan');
+    }, 1900);
+
+    setTimeout(() => {
+      setScanProgress(95);
+      setScanStatus('Generating exclusive framed recreation portrait... 🎨');
+      playChime('scan');
+    }, 2800);
+
+    setTimeout(() => {
+      setScanProgress(100);
+      setScanStatus('Identity Verified! Unlocking Your Portrait... 🌟');
+      playChime('fanfare');
+      setIsScanning(false);
+      setHasScannedFace(true);
+    }, 3600);
+  };
+
+  // Auto-start biometric face scan once when entering Step 3
+  useEffect(() => {
+    if (currentStep === 3 && !hasScannedFace && !isScanning) {
+      const timer = setTimeout(() => {
+        startFaceScan();
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, hasScannedFace, isScanning]);
 
   const handleAddressSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -917,16 +981,117 @@ export default function LarissaBirthdayPage() {
                   {/* STEP 3: RECREATION PHOTO FRAME, DELIVERY FORM, NOTE & BALLOONS */}
                   {/* ======================================================== */}
                   {currentStep === 3 && (
-                    <motion.div
-                      key="step-photo-gift"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4 }}
-                      className="space-y-12"
-                    >
-                      {/* Photo Frame Container */}
-                      <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden text-center">
+                    <div className="space-y-12">
+                      {!hasScannedFace ? (
+                        /* Biometric Face Verification (Runs Once Before Revealing Frame) */
+                        <motion.div
+                          key="fake-face-scan"
+                          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 1.05 }}
+                          transition={{ duration: 0.4 }}
+                          className="max-w-md mx-auto p-8 rounded-3xl bg-slate-900/90 border border-pink-500/40 shadow-2xl relative overflow-hidden text-center space-y-6"
+                        >
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+                          <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                          <div className="space-y-2 relative z-10">
+                            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs font-mono font-bold uppercase tracking-widest">
+                              <ScanFace className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
+                              <span>Biometric Verification</span>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                              Face Recognition Required 📷
+                            </h3>
+                            <p className="text-xs sm:text-sm text-slate-300 max-w-xs mx-auto leading-relaxed">
+                              Position your face in front of the screen to verify Larissa&apos;s identity and unlock your exclusive birthday surprise.
+                            </p>
+                          </div>
+
+                          {/* Futuristic Viewfinder Reticle */}
+                          <div className="relative mx-auto w-60 h-60 sm:w-68 sm:h-68 rounded-3xl bg-[#090D1A] border-2 border-slate-800 flex items-center justify-center overflow-hidden shadow-inner">
+                            {/* Glowing Corner Brackets */}
+                            <div className="absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 border-pink-400" />
+                            <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-pink-400" />
+                            <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-pink-400" />
+                            <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-pink-400" />
+
+                            {/* Center Avatar / Silhouette */}
+                            <div className="relative flex flex-col items-center justify-center">
+                              <div className="w-32 h-32 rounded-full border border-dashed border-pink-400/40 flex items-center justify-center relative">
+                                <ScanFace className={`w-16 h-16 ${isScanning ? 'text-pink-400 animate-pulse' : 'text-slate-600'} transition-colors duration-300`} />
+                                
+                                {isScanning && (
+                                  <motion.div
+                                    animate={{ scale: [1, 1.35, 1], opacity: [0.7, 0.1, 0.7] }}
+                                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                                    className="absolute inset-0 rounded-full border-2 border-pink-400 pointer-events-none"
+                                  />
+                                )}
+                              </div>
+
+                              <div className="absolute w-44 h-[1px] bg-pink-500/20 pointer-events-none" />
+                              <div className="absolute h-44 w-[1px] bg-pink-500/20 pointer-events-none" />
+                            </div>
+
+                            {/* Sweeping Laser Beam */}
+                            {isScanning && (
+                              <motion.div
+                                animate={{ y: ['-120%', '120%', '-120%'] }}
+                                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                                className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent shadow-[0_0_15px_#F43F5E] pointer-events-none"
+                              />
+                            )}
+
+                            {/* Biometric Point Dots */}
+                            {isScanning && (
+                              <>
+                                <div className="absolute top-16 left-20 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                <div className="absolute top-16 right-20 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                <div className="absolute top-28 left-28 w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                                <div className="absolute bottom-20 left-24 w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping" />
+                              </>
+                            )}
+                          </div>
+
+                          {/* Status and Progress Bar */}
+                          <div className="space-y-3 max-w-sm mx-auto">
+                            <div className="flex items-center justify-between text-xs font-mono font-bold">
+                              <span className="text-pink-300 truncate max-w-[240px] text-left">{scanStatus}</span>
+                              <span className="text-amber-400">{scanProgress}%</span>
+                            </div>
+
+                            <div className="w-full h-2.5 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+                              <motion.div
+                                className="h-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 rounded-full"
+                                style={{ width: `${scanProgress}%` }}
+                                transition={{ ease: 'easeOut' }}
+                              />
+                            </div>
+
+                            {!isScanning && (
+                              <button
+                                type="button"
+                                onClick={startFaceScan}
+                                className="w-full mt-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:via-rose-400 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <Camera className="w-4 h-4 text-slate-950" />
+                                <span>Start Facial Scan 📷</span>
+                              </button>
+                            )}
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="step-photo-gift"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.4 }}
+                          className="space-y-12"
+                        >
+                          {/* Photo Frame Container */}
+                          <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden text-center">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -1270,6 +1435,8 @@ export default function LarissaBirthdayPage() {
                       </div>
                     </motion.div>
                   )}
+                </div>
+              )}
                 </AnimatePresence>
               </div>
             </motion.div>
