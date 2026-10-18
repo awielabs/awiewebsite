@@ -45,8 +45,9 @@ export default function LarissaBirthdayPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isShaking, setIsShaking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(false);
   
-  // Step-by-step progression: 1 (Cake) -> 2 (Video) -> 3 (Photo & Gift) -> 4 (Note & Balloons)
+  // Step-by-step progression: 1 (Cake) -> 2 (Video) -> 3 (Surprise Gift, Delivery Details, Note & Balloons)
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [maxUnlockedStep, setMaxUnlockedStep] = useState<number>(1);
 
@@ -81,17 +82,8 @@ export default function LarissaBirthdayPage() {
   const videoDesktopRef = useRef<HTMLVideoElement | null>(null);
   const sectionContentRef = useRef<HTMLDivElement | null>(null);
 
-  // Check sessionStorage on initial load
+  // Always require passcode on reload
   useEffect(() => {
-    try {
-      const auth = sessionStorage.getItem('larissa_bday_verified');
-      if (auth === 'true') {
-        setIsUnlocked(true);
-        setShowFloatingLetters(true);
-      }
-    } catch {
-      // ignore in restricted environments
-    }
     setHasCheckedSession(true);
   }, []);
 
@@ -267,6 +259,42 @@ export default function LarissaBirthdayPage() {
     };
   }, [isUnlocked]);
 
+  // Autoplay video smoothly when Step 2 activates without pausing or scrubber controls
+  useEffect(() => {
+    if (currentStep === 2) {
+      const playVideo = async () => {
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const video = isMobile ? videoMobileRef.current : videoDesktopRef.current;
+        if (video) {
+          video.currentTime = 0;
+          try {
+            await video.play();
+          } catch {
+            // Autoplay fallback if browser requires muted initial state
+            video.muted = true;
+            setVideoMuted(true);
+            try {
+              await video.play();
+            } catch {
+              // ignore
+            }
+          }
+        }
+      };
+      const timer = setTimeout(playVideo, 120);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep]);
+
+  const toggleVideoSound = () => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const video = isMobile ? videoMobileRef.current : videoDesktopRef.current;
+    if (video) {
+      video.muted = !video.muted;
+      setVideoMuted(video.muted);
+    }
+  };
+
   // Handle verification form submit
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
@@ -276,11 +304,6 @@ export default function LarissaBirthdayPage() {
 
     if (trimmed === SECRET_CODE) {
       playChime('success');
-      try {
-        sessionStorage.setItem('larissa_bday_verified', 'true');
-      } catch {
-        // ignore
-      }
       setIsUnlocked(true);
       setShowFloatingLetters(true);
     } else {
@@ -292,11 +315,6 @@ export default function LarissaBirthdayPage() {
   };
 
   const handleLock = () => {
-    try {
-      sessionStorage.removeItem('larissa_bday_verified');
-    } catch {
-      // ignore
-    }
     setIsUnlocked(false);
     setPasscode('');
     setErrorMessage('');
@@ -646,41 +664,6 @@ export default function LarissaBirthdayPage() {
                     </span>
                   ))}
                 </motion.div>
-
-                {/* Progress Navigation Pills */}
-                {maxUnlockedStep > 1 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-wrap items-center justify-center gap-2 pt-4"
-                  >
-                    {[
-                      { step: 1, label: '1. Virtual Cake 🎂' },
-                      { step: 2, label: '2. Birthday Video 🎬' },
-                      { step: 3, label: '3. Framed Gift 🖼️' },
-                      { step: 4, label: '4. Note & Balloons 💌' }
-                    ].map((item) => (
-                      <button
-                        key={item.step}
-                        onClick={() => {
-                          if (item.step <= maxUnlockedStep) {
-                            setCurrentStep(item.step);
-                          }
-                        }}
-                        disabled={item.step > maxUnlockedStep}
-                        className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-                          currentStep === item.step
-                            ? 'bg-pink-500 text-white shadow-md shadow-pink-500/25'
-                            : item.step <= maxUnlockedStep
-                            ? 'bg-slate-900 border border-slate-700 text-slate-300 hover:text-white cursor-pointer'
-                            : 'bg-slate-950/60 border border-slate-800 text-slate-600 cursor-not-allowed opacity-50'
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
               </div>
 
               {/* Step Content Wrapper */}
@@ -833,7 +816,7 @@ export default function LarissaBirthdayPage() {
                                 }}
                                 className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500 text-white font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-pink-500/25 hover:scale-105 active:scale-95 inline-flex items-center gap-2 cursor-pointer"
                               >
-                                <span>Watch Your Birthday Video 🎬</span>
+                                <span>Open Next Surprise ✨</span>
                                 <ChevronRight className="w-4 h-4" />
                               </button>
                             </div>
@@ -844,7 +827,7 @@ export default function LarissaBirthdayPage() {
                   )}
 
                   {/* ======================================================== */}
-                  {/* STEP 2: VIDEO PLAYER                                     */}
+                  {/* STEP 2: VIDEO PLAYER (Autoplay, No Controls/Pause)       */}
                   {/* ======================================================== */}
                   {currentStep === 2 && (
                     <motion.div
@@ -853,16 +836,37 @@ export default function LarissaBirthdayPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 1.02 }}
                       transition={{ duration: 0.4 }}
-                      className="max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-pink-500/30 shadow-2xl relative overflow-hidden"
+                      className="max-w-4xl mx-auto p-4 sm:p-8 rounded-3xl bg-slate-900/90 border border-pink-500/30 shadow-2xl relative overflow-hidden"
                     >
+                      <div className="flex items-center justify-between mb-4 px-2">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-pink-400 animate-pulse" />
+                          <span className="text-xs font-mono font-bold uppercase tracking-widest text-pink-300">
+                            A Birthday Video For You
+                          </span>
+                        </div>
+
+                        {/* Sound Toggle Button */}
+                        <button
+                          type="button"
+                          onClick={toggleVideoSound}
+                          className="px-3 py-1.5 rounded-full bg-slate-800/90 border border-slate-700 text-xs text-slate-200 font-bold flex items-center gap-1.5 hover:bg-slate-700 transition-all cursor-pointer shadow-md"
+                        >
+                          {videoMuted ? <VolumeX className="w-3.5 h-3.5 text-rose-400" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-400" />}
+                          <span>{videoMuted ? 'Unmute Sound' : 'Sound On'}</span>
+                        </button>
+                      </div>
+
                       {/* Mobile Video Container (9:16 Aspect Ratio) */}
                       <div className="block md:hidden w-full max-w-xs mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-pink-500/30 bg-black relative">
                         <video
                           ref={videoMobileRef}
                           src="/scr/916.mp4"
-                          controls
+                          autoPlay
                           playsInline
-                          className="w-full h-full object-cover"
+                          preload="auto"
+                          muted={videoMuted}
+                          className="w-full h-full object-cover pointer-events-none select-none"
                           onEnded={handleVideoEnded}
                         />
                       </div>
@@ -872,9 +876,11 @@ export default function LarissaBirthdayPage() {
                         <video
                           ref={videoDesktopRef}
                           src="/scr/169.mp4"
-                          controls
+                          autoPlay
                           playsInline
-                          className="w-full h-full object-cover"
+                          preload="auto"
+                          muted={videoMuted}
+                          className="w-full h-full object-cover pointer-events-none select-none"
                           onEnded={handleVideoEnded}
                         />
                       </div>
@@ -883,9 +889,9 @@ export default function LarissaBirthdayPage() {
                         <button
                           type="button"
                           onClick={() => setCurrentStep(1)}
-                          className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
+                          className="text-xs text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
                         >
-                          ← Back to Birthday Cake
+                          ← Back
                         </button>
 
                         <button
@@ -899,7 +905,7 @@ export default function LarissaBirthdayPage() {
                           }}
                           className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
                         >
-                          <span>Reveal Your Surprise Gift 🎁</span>
+                          <span>Continue to Next Surprise ✨</span>
                           <ChevronRight className="w-4 h-4 text-slate-950" />
                         </button>
                       </div>
@@ -907,7 +913,7 @@ export default function LarissaBirthdayPage() {
                   )}
 
                   {/* ======================================================== */}
-                  {/* STEP 3: RECREATION PHOTO FRAME & DELIVERY DETAILS FORM   */}
+                  {/* STEP 3: RECREATION PHOTO FRAME, DELIVERY FORM, NOTE & BALLOONS */}
                   {/* ======================================================== */}
                   {currentStep === 3 && (
                     <motion.div
@@ -916,7 +922,7 @@ export default function LarissaBirthdayPage() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.4 }}
-                      className="space-y-10"
+                      className="space-y-12"
                     >
                       {/* Photo Frame Container */}
                       <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden text-center">
@@ -924,6 +930,15 @@ export default function LarissaBirthdayPage() {
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
                         <div className="relative z-10 space-y-6">
+                          <div className="space-y-2">
+                            <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest block">
+                              SPECIAL EDITION RECREATION
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white">
+                              Your Framed Recreation Portrait 🖼️
+                            </h3>
+                          </div>
+
                           {/* Luxurious Golden Photo Frame Mockup */}
                           <div className="relative mx-auto max-w-md p-4 sm:p-5 rounded-3xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 shadow-2xl shadow-amber-500/20">
                             <div className="p-2 sm:p-2.5 rounded-2xl bg-[#090D1A] shadow-inner">
@@ -945,20 +960,24 @@ export default function LarissaBirthdayPage() {
                               className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 cursor-pointer"
                             >
                               <Download className="w-4 h-4 text-slate-950" />
-                              <span>Download Photo Frame</span>
+                              <span>Download Photo Frame 📥</span>
                             </a>
                           </div>
                         </div>
                       </div>
 
-                      {/* Delivery Address Form Card */}
-                      <div className="max-w-2xl mx-auto p-8 rounded-3xl bg-slate-900/90 border border-rose-500/30 shadow-2xl relative overflow-hidden">
+                      {/* Delivery Address Form Card (Important Action) */}
+                      <div className="max-w-2xl mx-auto p-8 rounded-3xl bg-slate-900/90 border border-rose-500/40 shadow-2xl relative overflow-hidden">
                         <div className="space-y-2 text-center mb-6">
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-bold uppercase tracking-wider">
+                            <Gift className="w-3.5 h-3.5 text-rose-400" />
+                            <span>Important Delivery Step</span>
+                          </div>
                           <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                             Receive This Physical Framed Photo in Your Hands 🎁
                           </h4>
                           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
-                            Fill in your delivery address and contact details below so this custom framed recreation portrait can be safely delivered straight into your hands very soon!
+                            Please fill in your delivery address and contact details below — this is important so your custom physical framed recreation portrait can be packaged and delivered straight into your hands very soon!
                           </p>
                         </div>
 
@@ -1128,50 +1147,10 @@ export default function LarissaBirthdayPage() {
                                 </button>
                               </div>
                             )}
-
-                            <div className="pt-3">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCurrentStep(4);
-                                  if (sectionContentRef.current) {
-                                    sectionContentRef.current.scrollIntoView({ behavior: 'smooth' });
-                                  }
-                                }}
-                                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
-                              >
-                                <span>Read Birthday Note &amp; Pop Balloons 💌</span>
-                                <ChevronRight className="w-4 h-4 text-white" />
-                              </button>
-                            </div>
                           </motion.div>
                         )}
                       </div>
 
-                      <div className="text-center pt-2">
-                        <button
-                          type="button"
-                          onClick={() => setCurrentStep(2)}
-                          className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
-                        >
-                          ← Replay Birthday Video
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* ======================================================== */}
-                  {/* STEP 4: NOTE FROM SHOVIN & POP BALLOONS GAME             */}
-                  {/* ======================================================== */}
-                  {currentStep === 4 && (
-                    <motion.div
-                      key="step-note-balloons"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4 }}
-                      className="space-y-12"
-                    >
                       {/* Heartfelt Note from Friend Shovin */}
                       <div className="max-w-3xl mx-auto p-8 sm:p-12 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-xl">
                         <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-pink-400 via-rose-500 to-amber-500" />
@@ -1266,29 +1245,32 @@ export default function LarissaBirthdayPage() {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-center gap-4 text-xs">
+                      {/* Navigation Controls */}
+                      <div className="flex items-center justify-center gap-4 text-xs pt-4">
                         <button
                           type="button"
-                          onClick={() => setCurrentStep(1)}
-                          className="text-slate-400 hover:text-slate-200 transition-colors"
+                          onClick={() => {
+                            setCurrentStep(1);
+                            if (sectionContentRef.current) {
+                              sectionContentRef.current.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          }}
+                          className="text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
                         >
                           🎂 Back to Birthday Cake
                         </button>
                         <span className="text-slate-700">•</span>
                         <button
                           type="button"
-                          onClick={() => setCurrentStep(2)}
-                          className="text-slate-400 hover:text-slate-200 transition-colors"
+                          onClick={() => {
+                            setCurrentStep(2);
+                            if (sectionContentRef.current) {
+                              sectionContentRef.current.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          }}
+                          className="text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
                         >
-                          🎬 Replay Video
-                        </button>
-                        <span className="text-slate-700">•</span>
-                        <button
-                          type="button"
-                          onClick={() => setCurrentStep(3)}
-                          className="text-slate-400 hover:text-slate-200 transition-colors"
-                        >
-                          🖼️ View Framed Photo
+                          🎬 Replay Birthday Video
                         </button>
                       </div>
                     </motion.div>
