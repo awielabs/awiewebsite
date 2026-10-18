@@ -35,7 +35,6 @@ const BALLOONS = [
   { id: 2, color: 'from-blue-500 to-indigo-600', text: 'Unstoppable Success & Peace of Mind 🚀' },
   { id: 3, color: 'from-amber-400 to-yellow-600', text: 'Golden Memories in Your 21st Year ✨' },
   { id: 4, color: 'from-purple-500 to-violet-700', text: 'Big Dreams Turning Into Reality 🏆' },
-  { id: 5, color: 'from-emerald-400 to-teal-600', text: 'Lifelong True Friendship 🌟' },
 ];
 
 export default function LarissaBirthdayPage() {
@@ -1209,7 +1208,7 @@ export default function LarissaBirthdayPage() {
                           <p className="text-xs text-slate-400">Click each balloon to pop and reveal a special wish!</p>
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 pt-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
                           {BALLOONS.map((b) => {
                             const isPopped = poppedBalloons.includes(b.id);
                             return (
