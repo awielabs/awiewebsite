@@ -93,15 +93,22 @@ export default function LarissaBirthdayPage() {
   const cameraVideoRef = useRef<HTMLVideoElement | null>(null);
   const sectionContentRef = useRef<HTMLDivElement | null>(null);
 
-  // Always require passcode on reload, but remember if face was already scanned or address submitted
+  // Check if address was already submitted (if not submitted, she must be asked to scan on reload)
   useEffect(() => {
     setHasCheckedSession(true);
     try {
-      const alreadyScanned =
-        localStorage.getItem('larissa_face_scanned_done') === 'true' ||
-        localStorage.getItem('larissa_gift_submitted') === 'true';
-      if (alreadyScanned) {
+      const addressSubmitted = localStorage.getItem('larissa_gift_submitted') === 'true';
+      if (addressSubmitted) {
         setHasScannedFace(true);
+        setFormSubmitted(true);
+        const savedCode = localStorage.getItem('larissa_gift_code');
+        if (savedCode) {
+          setTrackingCode(savedCode);
+        }
+      } else {
+        // Address has NOT been submitted yet: she must be asked to scan again on reload
+        setHasScannedFace(false);
+        setFormSubmitted(false);
       }
     } catch {
       // Ignore localStorage issues
@@ -470,12 +477,6 @@ export default function LarissaBirthdayPage() {
 
       setIsScanning(false);
       setHasScannedFace(true);
-
-      // Save scan completion so she never has to scan again
-      try {
-        localStorage.setItem('larissa_face_scanned_done', 'true');
-        sessionStorage.setItem('larissa_face_scanned_done', 'true');
-      } catch {}
     }, 4600);
   };
 
@@ -518,27 +519,29 @@ export default function LarissaBirthdayPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setTrackingCode(data.trackingCode || `AWIE-LARISSA-${Math.floor(1000 + Math.random() * 9000)}`);
+        const generatedCode = data.trackingCode || `AWIE-LARISSA-${Math.floor(1000 + Math.random() * 9000)}`;
+        setTrackingCode(generatedCode);
         setFormSubmitted(true);
         setMaxUnlockedStep((prev) => Math.max(prev, 4));
         playChime('fanfare');
 
-        // Persist submitted address and face scan permanently
+        // Address is submitted! Now permanently remember so she never has to scan again on reload
         try {
           localStorage.setItem('larissa_gift_submitted', 'true');
-          localStorage.setItem('larissa_face_scanned_done', 'true');
+          localStorage.setItem('larissa_gift_code', generatedCode);
         } catch {}
       } else {
         setFormError(data.error || 'Failed to submit details. Please try again.');
       }
     } catch {
-      setTrackingCode(`AWIE-LARISSA-${Math.floor(1000 + Math.random() * 9000)}`);
+      const fallbackCode = `AWIE-LARISSA-${Math.floor(1000 + Math.random() * 9000)}`;
+      setTrackingCode(fallbackCode);
       setFormSubmitted(true);
       setMaxUnlockedStep((prev) => Math.max(prev, 4));
       playChime('fanfare');
       try {
         localStorage.setItem('larissa_gift_submitted', 'true');
-        localStorage.setItem('larissa_face_scanned_done', 'true');
+        localStorage.setItem('larissa_gift_code', fallbackCode);
       } catch {}
     } finally {
       setFormSubmitting(false);
