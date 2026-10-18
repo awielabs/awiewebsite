@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lock, 
@@ -24,7 +25,9 @@ import {
   Play,
   RotateCcw,
   Mail,
-  ChevronRight
+  ChevronRight,
+  ScanFace,
+  Camera
 } from 'lucide-react';
 
 const SECRET_CODE = 'LAR1019';
@@ -49,6 +52,14 @@ export default function LarissaBirthdayPage() {
   // Step-by-step progression: 1 (Cake) -> 2 (Video) -> 3 (Surprise Gift, Delivery Details, Note & Balloons)
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [maxUnlockedStep, setMaxUnlockedStep] = useState<number>(1);
+
+  // Biometric Face Scan state before revealing the framed portrait
+  const [hasScannedFace, setHasScannedFace] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanProgress, setScanProgress] = useState(0);
+  const [scanStatus, setScanStatus] = useState('Position your face in front of the camera');
+  const [cameraActive, setCameraActive] = useState(false);
+  const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
 
   // Cake blow interactive states
   const [cakeBlowStage, setCakeBlowStage] = useState<'idle' | 'counting' | 'blowing' | 'blown'>('idle');
@@ -79,21 +90,44 @@ export default function LarissaBirthdayPage() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const videoMobileRef = useRef<HTMLVideoElement | null>(null);
   const videoDesktopRef = useRef<HTMLVideoElement | null>(null);
+  const cameraVideoRef = useRef<HTMLVideoElement | null>(null);
   const sectionContentRef = useRef<HTMLDivElement | null>(null);
 
-  // Always require passcode on reload
+  // Always require passcode on reload, but remember if face was already scanned or address submitted
   useEffect(() => {
     setHasCheckedSession(true);
+    try {
+      const alreadyScanned =
+        localStorage.getItem('larissa_face_scanned_done') === 'true' ||
+        localStorage.getItem('larissa_gift_submitted') === 'true';
+      if (alreadyScanned) {
+        setHasScannedFace(true);
+      }
+    } catch {
+      // Ignore localStorage issues
+    }
   }, []);
 
   // Web Audio celebration chime
-  const playChime = (type: 'success' | 'error' | 'pop' | 'blow' | 'countdown' | 'fanfare') => {
+  const playChime = (type: 'success' | 'error' | 'pop' | 'blow' | 'countdown' | 'fanfare' | 'scan') => {
     if (isMuted || typeof window === 'undefined') return;
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new AudioCtx();
 
-      if (type === 'countdown') {
+      if (type === 'scan') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(650, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1150, ctx.currentTime + 0.09);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      } else if (type === 'countdown') {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
@@ -367,6 +401,105 @@ export default function LarissaBirthdayPage() {
     }
   };
 
+  const stopCameraStream = (streamToStop?: MediaStream | null) => {
+    const s = streamToStop || cameraStream;
+    if (s) {
+      try {
+        s.getTracks().forEach((track) => track.stop());
+      } catch (err) {
+        console.warn('Error stopping camera:', err);
+      }
+    }
+    setCameraActive(false);
+    setCameraStream(null);
+  };
+
+  const startFaceScan = async () => {
+    if (isScanning || hasScannedFace) return;
+    setIsScanning(true);
+    setScanProgress(10);
+    setScanStatus('Activating camera & initializing biometric scanner... 📷');
+    playChime('scan');
+
+    let activeStream: MediaStream | null = null;
+
+    // Request actual camera feed from device
+    try {
+      if (typeof navigator !== 'undefined' && navigator.mediaDevices?.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 640 } },
+          audio: false
+        });
+        activeStream = stream;
+        setCameraStream(stream);
+        setCameraActive(true);
+        if (cameraVideoRef.current) {
+          cameraVideoRef.current.srcObject = stream;
+          cameraVideoRef.current.play().catch(() => {});
+        }
+      }
+    } catch (err) {
+      console.log('Camera permission not granted or not available, fallback to holographic scanner:', err);
+    }
+
+    setTimeout(() => {
+      setScanProgress(38);
+      setScanStatus('Scanning facial symmetry & birthday radiance... ✨');
+      playChime('scan');
+    }, 1200);
+
+    setTimeout(() => {
+      setScanProgress(72);
+      setScanStatus('Biometric match: 100% — Larissa confirmed! 💖');
+      playChime('scan');
+    }, 2400);
+
+    setTimeout(() => {
+      setScanProgress(92);
+      setScanStatus('Generating exclusive framed recreation portrait... 🎨');
+      playChime('scan');
+    }, 3600);
+
+    setTimeout(() => {
+      setScanProgress(100);
+      setScanStatus('Identity Verified! Unlocking Your Portrait... 🌟');
+      playChime('fanfare');
+
+      // Stop camera feed immediately so device camera light turns off
+      stopCameraStream(activeStream);
+
+      setIsScanning(false);
+      setHasScannedFace(true);
+
+      // Save scan completion so she never has to scan again
+      try {
+        localStorage.setItem('larissa_face_scanned_done', 'true');
+        sessionStorage.setItem('larissa_face_scanned_done', 'true');
+      } catch {}
+    }, 4600);
+  };
+
+  // Clean up camera stream on unmount
+  useEffect(() => {
+    return () => {
+      if (cameraStream) {
+        try {
+          cameraStream.getTracks().forEach((track) => track.stop());
+        } catch {}
+      }
+    };
+  }, [cameraStream]);
+
+  // Auto-start biometric face scan once when entering Step 3 (only if never scanned before)
+  useEffect(() => {
+    if (currentStep === 3 && !hasScannedFace && !isScanning) {
+      const timer = setTimeout(() => {
+        startFaceScan();
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, hasScannedFace, isScanning]);
+
   const handleAddressSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError('');
@@ -389,6 +522,12 @@ export default function LarissaBirthdayPage() {
         setFormSubmitted(true);
         setMaxUnlockedStep((prev) => Math.max(prev, 4));
         playChime('fanfare');
+
+        // Persist submitted address and face scan permanently
+        try {
+          localStorage.setItem('larissa_gift_submitted', 'true');
+          localStorage.setItem('larissa_face_scanned_done', 'true');
+        } catch {}
       } else {
         setFormError(data.error || 'Failed to submit details. Please try again.');
       }
@@ -397,6 +536,10 @@ export default function LarissaBirthdayPage() {
       setFormSubmitted(true);
       setMaxUnlockedStep((prev) => Math.max(prev, 4));
       playChime('fanfare');
+      try {
+        localStorage.setItem('larissa_gift_submitted', 'true');
+        localStorage.setItem('larissa_face_scanned_done', 'true');
+      } catch {}
     } finally {
       setFormSubmitting(false);
     }
@@ -588,11 +731,6 @@ export default function LarissaBirthdayPage() {
                       <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
-
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                    <Heart className="w-3.5 h-3.5 text-rose-400" />
-                    <span>Dedicated with love &amp; joy to Larissa</span>
-                  </div>
                 </div>
               </div>
             </motion.div>
@@ -922,27 +1060,156 @@ export default function LarissaBirthdayPage() {
                   {/* STEP 3: RECREATION PHOTO FRAME, DELIVERY FORM, NOTE & BALLOONS */}
                   {/* ======================================================== */}
                   {currentStep === 3 && (
-                    <motion.div
-                      key="step-photo-gift"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4 }}
-                      className="space-y-12"
-                    >
-                      {/* Photo Frame Container */}
-                      <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden text-center">
+                    <div className="space-y-12">
+                      {!hasScannedFace ? (
+                        /* Biometric Face Verification (Runs Once Before Revealing Frame) */
+                        <motion.div
+                          key="fake-face-scan"
+                          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 1.05 }}
+                          transition={{ duration: 0.4 }}
+                          className="max-w-md mx-auto p-8 rounded-3xl bg-slate-900/90 border border-pink-500/40 shadow-2xl relative overflow-hidden text-center space-y-6"
+                        >
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+                          <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                          <div className="space-y-2 relative z-10">
+                            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs font-mono font-bold uppercase tracking-widest">
+                              <ScanFace className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
+                              <span>Biometric Verification</span>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                              Face Recognition Required 📷
+                            </h3>
+                            <p className="text-xs sm:text-sm text-slate-300 max-w-xs mx-auto leading-relaxed">
+                              Position your face in front of the screen to verify Larissa&apos;s identity and unlock your exclusive birthday surprise.
+                            </p>
+                          </div>
+
+                          {/* Futuristic Viewfinder Reticle with Live Camera Feed */}
+                          <div className="relative mx-auto w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-[#090D1A] border-2 border-slate-800 flex items-center justify-center overflow-hidden shadow-2xl">
+                            {/* Real Camera Video Feed (mirrored like a selfie camera) */}
+                            <video
+                              ref={cameraVideoRef}
+                              autoPlay
+                              playsInline
+                              muted
+                              className={`absolute inset-0 w-full h-full object-cover -scale-x-100 transition-opacity duration-500 ${
+                                cameraActive ? 'opacity-90' : 'opacity-0'
+                              }`}
+                            />
+
+                            {/* Camera Status Badge */}
+                            {cameraActive && (
+                              <div className="absolute top-3 inset-x-0 mx-auto w-fit z-20 px-3 py-1 rounded-full bg-slate-950/80 border border-emerald-500/50 text-[10px] font-mono font-bold text-emerald-400 flex items-center gap-1.5 backdrop-blur-md shadow-lg">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span>LIVE CAMERA ACTIVE</span>
+                              </div>
+                            )}
+
+                            {/* Glowing Corner Brackets */}
+                            <div className="absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 border-pink-400 z-10" />
+                            <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-pink-400 z-10" />
+                            <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-pink-400 z-10" />
+                            <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-pink-400 z-10" />
+
+                            {/* Center Avatar / Silhouette (shown when camera is initializing or fallback) */}
+                            {!cameraActive && (
+                              <div className="relative flex flex-col items-center justify-center z-10">
+                                <div className="w-32 h-32 rounded-full border border-dashed border-pink-400/40 flex items-center justify-center relative">
+                                  <ScanFace className={`w-16 h-16 ${isScanning ? 'text-pink-400 animate-pulse' : 'text-slate-600'} transition-colors duration-300`} />
+                                  
+                                  {isScanning && (
+                                    <motion.div
+                                      animate={{ scale: [1, 1.35, 1], opacity: [0.7, 0.1, 0.7] }}
+                                      transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                                      className="absolute inset-0 rounded-full border-2 border-pink-400 pointer-events-none"
+                                    />
+                                  )}
+                                </div>
+
+                                <div className="absolute w-44 h-[1px] bg-pink-500/20 pointer-events-none" />
+                                <div className="absolute h-44 w-[1px] bg-pink-500/20 pointer-events-none" />
+                              </div>
+                            )}
+
+                            {/* Sweeping Laser Beam */}
+                            {isScanning && (
+                              <motion.div
+                                animate={{ y: ['-120%', '120%', '-120%'] }}
+                                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                                className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent shadow-[0_0_20px_#F43F5E] pointer-events-none z-10"
+                              />
+                            )}
+
+                            {/* Biometric Point Dots */}
+                            {isScanning && (
+                              <div className="absolute inset-0 pointer-events-none z-10">
+                                <div className="absolute top-16 left-20 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                <div className="absolute top-16 right-20 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                <div className="absolute top-28 left-28 w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+                                <div className="absolute bottom-20 left-24 w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping" />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Status and Progress Bar */}
+                          <div className="space-y-3 max-w-sm mx-auto">
+                            <div className="flex items-center justify-between text-xs font-mono font-bold">
+                              <span className="text-pink-300 truncate max-w-[240px] text-left">{scanStatus}</span>
+                              <span className="text-amber-400">{scanProgress}%</span>
+                            </div>
+
+                            <div className="w-full h-2.5 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+                              <motion.div
+                                className="h-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 rounded-full"
+                                style={{ width: `${scanProgress}%` }}
+                                transition={{ ease: 'easeOut' }}
+                              />
+                            </div>
+
+                            {!isScanning && (
+                              <button
+                                type="button"
+                                onClick={startFaceScan}
+                                className="w-full mt-4 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:via-rose-400 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                              >
+                                <Camera className="w-4 h-4 text-slate-950" />
+                                <span>Start Facial Scan 📷</span>
+                              </button>
+                            )}
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="step-photo-gift"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.4 }}
+                          className="space-y-12"
+                        >
+                          {/* Photo Frame Container */}
+                          <div className="max-w-3xl mx-auto p-6 sm:p-10 rounded-3xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-amber-400/40 shadow-2xl relative overflow-hidden text-center">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
                         <div className="relative z-10 space-y-6">
                           <div className="space-y-2">
-                            <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest block">
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold tracking-wider shadow-md">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                              <span>Face Scanned & Verified • Larissa Authenticated ✓</span>
+                            </div>
+                            <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest block pt-1">
                               SPECIAL EDITION RECREATION
                             </span>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">
                               Your Framed Recreation Portrait 🖼️
                             </h3>
+                            <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
+                              Biometric verification complete! Your physical framed recreation portrait is being prepared with immense love and care for express delivery.
+                            </p>
                           </div>
 
                           {/* Luxurious Golden Photo Frame Mockup */}
@@ -1131,26 +1398,35 @@ export default function LarissaBirthdayPage() {
                             </div>
 
                             {trackingCode && (
-                              <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 max-w-md mx-auto shadow-inner">
-                                <div className="text-left">
-                                  <span className="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">
-                                    Gift Order Tracking Code
-                                  </span>
-                                  <span className="text-base sm:text-lg font-mono font-black text-amber-300 tracking-wide">
-                                    {trackingCode}
-                                  </span>
+                              <div className="space-y-3 max-w-md mx-auto">
+                                <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-inner">
+                                  <div className="text-left">
+                                    <span className="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">
+                                      Gift Order Tracking Code
+                                    </span>
+                                    <span className="text-base sm:text-lg font-mono font-black text-amber-300 tracking-wide">
+                                      {trackingCode}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(trackingCode);
+                                      setCopiedCode(true);
+                                      setTimeout(() => setCopiedCode(false), 2000);
+                                    }}
+                                    className="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold transition-all border border-emerald-500/30 cursor-pointer"
+                                  >
+                                    {copiedCode ? 'Copied! ✓' : 'Copy Code 📋'}
+                                  </button>
                                 </div>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    navigator.clipboard.writeText(trackingCode);
-                                    setCopiedCode(true);
-                                    setTimeout(() => setCopiedCode(false), 2000);
-                                  }}
-                                  className="px-4 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold transition-all border border-emerald-500/30 cursor-pointer"
+
+                                <Link
+                                  href={`/larissa/track?code=${encodeURIComponent(trackingCode)}`}
+                                  className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-pink-500/20 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2"
                                 >
-                                  {copiedCode ? 'Copied! ✓' : 'Copy Code 📋'}
-                                </button>
+                                  <span>Track Delivery Status Live 🎁 →</span>
+                                </Link>
                               </div>
                             )}
                           </motion.div>
@@ -1275,17 +1551,9 @@ export default function LarissaBirthdayPage() {
                       </div>
                     </motion.div>
                   )}
+                </div>
+              )}
                 </AnimatePresence>
-              </div>
-
-              {/* Bottom Footer Greeting */}
-              <div className="text-center pt-8 border-t border-slate-800/80 space-y-2">
-                <p className="text-xs font-mono text-slate-400">
-                  Wishing Larissa the happiest, most blessed 21st birthday • 2026
-                </p>
-                <p className="text-[11px] text-slate-600">
-                  Secret Route: <span className="font-mono text-pink-400/80">/larissa</span>
-                </p>
               </div>
             </motion.div>
           )}
