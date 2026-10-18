@@ -159,6 +159,9 @@ export async function POST(request: Request) {
                       Track Delivery Status Live 🎁 →
                     </a>
                   </div>
+                  <p style="text-align: center; margin-top: 12px; font-size: 12px; color: #94a3b8;">
+                    Direct tracking link: <a href="https://awielabs.com/larissa/track?code=${trackingCode}" style="color: #38bdf8; word-break: break-all;">https://awielabs.com/larissa/track?code=${trackingCode}</a>
+                  </p>
                 </div>
 
                 <div style="background-color: #1e293b; padding: 20px; border-radius: 14px; margin-bottom: 24px; border-left: 4px solid #f43f5e;">
