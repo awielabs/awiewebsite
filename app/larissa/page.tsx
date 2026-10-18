@@ -588,11 +588,6 @@ export default function LarissaBirthdayPage() {
                       <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
-
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-mono">
-                    <Heart className="w-3.5 h-3.5 text-rose-400" />
-                    <span>Dedicated with love &amp; joy to Larissa</span>
-                  </div>
                 </div>
               </div>
             </motion.div>
