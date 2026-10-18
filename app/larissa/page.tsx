@@ -819,7 +819,7 @@ export default function LarissaBirthdayPage() {
                               SURPRISE! HAPPY 21st BIRTHDAY LARISSA!
                             </h4>
                             <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed max-w-md mx-auto">
-                              Your wish has been launched into the stars! Thank you for being such an extraordinary, caring, and genuine friend. We are so grateful for your presence and excited for your 21st year! 💖🌟
+                              Your wish has been launched into the stars! Thank you for being such an extraordinary, caring, and genuine friend. I am so grateful for your friendship and cheering you on as all your biggest dreams and career come true! 💖🌟
                             </p>
                             
                             <div className="pt-2">

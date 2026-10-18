@@ -127,7 +127,7 @@ export async function POST(request: Request) {
                     Your Surprise Gift Tracking Details
                   </h2>
                   <p style="color: #cbd5e1; font-size: 14px; margin: 0 0 16px 0;">
-                    Hi Larissa! Thank you for filling in your address. We have received your delivery information and your physical framed recreation portrait is being prepared with immense love and care.
+                    Hi Larissa! Thank you for filling in your address. I have received your delivery information and your physical framed recreation portrait is being prepared with immense love and care.
                   </p>
 
                   <div style="background-color: #0f172a; padding: 14px 18px; border-radius: 10px; border: 1px solid #f59e0b; text-align: center; margin-bottom: 16px;">
