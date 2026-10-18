@@ -53,7 +53,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, isMobileMenuOpen]);
 
-  if (pathname?.startsWith('/store')) {
+  if (pathname?.startsWith('/store') || pathname?.startsWith('/larissa')) {
     return null;
   }
 

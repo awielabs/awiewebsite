@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Monitor, X, Smartphone } from 'lucide-react';
 
 export default function MobileDesktopBanner() {
+  const pathname = usePathname();
   const [dismissed, setDismissed] = useState<boolean>(true);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function MobileDesktopBanner() {
     setDismissed(true);
   };
 
-  if (dismissed) return null;
+  if (dismissed || pathname?.startsWith('/larissa')) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
