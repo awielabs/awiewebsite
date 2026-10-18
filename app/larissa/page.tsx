@@ -1272,16 +1272,6 @@ export default function LarissaBirthdayPage() {
                   )}
                 </AnimatePresence>
               </div>
-
-              {/* Bottom Footer Greeting */}
-              <div className="text-center pt-8 border-t border-slate-800/80 space-y-2">
-                <p className="text-xs font-mono text-slate-400">
-                  Wishing Larissa the happiest, most blessed 21st birthday • 2026
-                </p>
-                <p className="text-[11px] text-slate-600">
-                  Secret Route: <span className="font-mono text-pink-400/80">/larissa</span>
-                </p>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
