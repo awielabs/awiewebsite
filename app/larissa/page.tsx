@@ -62,6 +62,7 @@ export default function LarissaBirthdayPage() {
   // Gift delivery form state
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     phone: '',
     address: '',
     city: '',
@@ -353,8 +354,8 @@ export default function LarissaBirthdayPage() {
     e.preventDefault();
     setFormError('');
 
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.address.trim()) {
-      setFormError('Please enter your name, contact number, and delivery address.');
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.address.trim()) {
+      setFormError('Please enter your name, email address, contact number, and delivery address.');
       return;
     }
 
@@ -963,20 +964,37 @@ export default function LarissaBirthdayPage() {
 
                         {!formSubmitted ? (
                           <form onSubmit={handleAddressSubmit} className="space-y-4 text-left">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                                  <User className="w-3.5 h-3.5 text-pink-400" />
-                                  <span>Full Name</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  required
-                                  value={formData.name}
-                                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                  placeholder="Larissa"
-                                  className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors"
-                                />
+                            <div className="space-y-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="space-y-1">
+                                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                    <User className="w-3.5 h-3.5 text-pink-400" />
+                                    <span>Full Name</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    placeholder="Larissa"
+                                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors"
+                                  />
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                    <Mail className="w-3.5 h-3.5 text-pink-400" />
+                                    <span>Email (For confirmation &amp; gift code)</span>
+                                  </label>
+                                  <input
+                                    type="email"
+                                    required
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    placeholder="your.email@example.com"
+                                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-pink-400 transition-colors"
+                                  />
+                                </div>
                               </div>
 
                               <div className="space-y-1">
@@ -1083,7 +1101,7 @@ export default function LarissaBirthdayPage() {
                                 Delivery Details Successfully Received! 🎉
                               </h4>
                               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-                                An email with your details has been sent to the AWIE team. Your custom framed recreation portrait is being prepared with immense love and care and will reach straight into your hands very soon!
+                                A confirmation email with your surprise gift code has been sent to your inbox! Your custom framed recreation portrait is on the way and will reach straight into your hands very soon. Live tracking details will be shared with you shortly! 💖
                               </p>
                             </div>
 
